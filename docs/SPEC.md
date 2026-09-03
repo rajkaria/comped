@@ -60,7 +60,7 @@ Three published Plays, one shared core. Prizes are per Play; each is independent
 
 ## 6. Contracts
 
-All three Plays share: `requirements.localTools = ["python3"]`, no adapters, no browser, no credentials, no network, `license: MIT`, read-only on logs, writes only under `out_dir`. Minimum python 3.9. Every step is a shell command invoking `python3 resources/comped_core/cli.py <subcommand> --json`, so rote records literals it can reify into parameters and each step's stdout is a JSON object the next step references.
+All three Plays share: `requirements.localTools = ["python3"]`, no adapters, no browser, no credentials, no network, `license: MIT`, read-only on logs, writes only under `out_dir`. Minimum python 3.9. Every step is a shell command invoking `python3 resources/comped_core/cli.py <subcommand>`, so rote records literals it can reify into parameters and each step's stdout is a JSON object the next step references. Plays are rote Flows (`main.ts` with an `@rote-frontmatter` YAML header, `deps.toml` with per-step `timeout_ms`, bundled `resources/`); the verified format facts and remaining unknowns are in [research/ROTE-FORMAT.md](research/ROTE-FORMAT.md).
 
 ### 6.1 `session-ledger`
 
@@ -81,7 +81,7 @@ Parameters:
 | `include_subagents` | string (`true`/`false`) | `true` | Claude subagent transcripts |
 | `redact` | string (`true`/`false`) | `true` | human message text stored as 120-char truncation + sha256; `false` stores full text locally |
 
-Steps: `discover_sources` → `build_ledger` → `summarize`. Outputs: `out_dir/ledger.jsonl`, `out_dir/ledger-summary.json`, JSON on stdout.
+Steps (rote's play-shape standard requires one reading per step; the four reads are parallel roots): `read_claude`, `read_codex`, `read_pi`, `read_opencode` → `merge_ledger` → `summarize`. Outputs: `out_dir/ledger-<harness>.jsonl` per read, `out_dir/ledger.jsonl`, `out_dir/ledger-summary.json`, JSON on stdout. A missing harness directory is an expected absence: the step prints `{"ok":true,"warning":...}`, exits 0, and renders as one labelled unknown.
 
 ### 6.2 `comped`
 
@@ -99,7 +99,7 @@ Parameters (superset of session-ledger's, plus):
 | `handle` | string | `""` | your rote handle, used only to print the `/play settle <handle>` command |
 | `card_theme` | string | `dark` | `dark` / `light` |
 
-Steps: `build_ledger` → `price_ledger` → `find_repeats` → `render_card`. Outputs: `out_dir/comped-report.md`, `out_dir/comped-card.svg`, `out_dir/comped-card.png` (opportunistic), `out_dir/comped-baseline.json`, `out_dir/comped-explain.txt`, terminal card on stdout of the last step plus JSON.
+Steps: `read_claude`, `read_codex`, `read_pi`, `read_opencode` (parallel roots) → `merge_ledger` → `price_ledger` → `find_repeats` → `render_card`. Outputs: `out_dir/comped-report.md`, `out_dir/comped-card.svg`, `out_dir/comped-card.png` (opportunistic), `out_dir/comped-baseline.json`, `out_dir/comped-explain.txt`, terminal card on stdout of the last step plus JSON.
 
 ### 6.3 `wrong-turns`
 
@@ -109,7 +109,7 @@ Description (registry copy, final):
 
 Parameters: `days_back` 14, `out_dir`, `claude_dir`, `codex_dir`, `include_subagents`, `min_recurrence` 3, `show_snippets` `true`, `rules_target` (`claude` / `agents` / `both`, default `both`).
 
-Steps: `build_ledger` → `classify_turns` → `draft_rules`. Outputs: `out_dir/wrong-turns-report.md`, `out_dir/wrong-turns-rules.md`, JSON on stdout.
+Steps: `read_claude`, `read_codex` (parallel roots) → `merge_ledger` → `classify_turns` → `draft_rules`. Outputs: `out_dir/wrong-turns-report.md`, `out_dir/wrong-turns-rules.md`, JSON on stdout.
 
 ## 7. The core math
 

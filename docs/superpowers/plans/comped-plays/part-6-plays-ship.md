@@ -96,20 +96,47 @@ and keep the relative imports. The bundled `prices.json`/`plans.json` are found 
 ```
 `session-ledger` uses the first nine minus `plan`; `wrong-turns` uses `days_back` (default 14), `out_dir`, `claude_dir`, `codex_dir`, `include_subagents`, plus `min_recurrence` (3), `show_snippets` (`true`/`false`), `rules_target` (`both`/`claude`/`agents`).
 
-`plays/comped/STEPS.md` (the commands the capture session will run, in order, with literals that rote reifies into the parameters above):
+`plays/comped/STEPS.md` (the commands the capture session runs through rote, one reading per step per the play-shape standard in `docs/research/ROTE-FORMAT.md`; the four reads are independent roots, everything after depends on `merge_ledger`; literals are reified into the parameters above):
 ```
-build_ledger : python3 resources/comped_core/cli.py ledger --claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage --days-back 30 --out-dir ~/comped --include-subagents true --redact true
-price_ledger : python3 resources/comped_core/cli.py price --out-dir ~/comped --plan claude-max-200 --rates-path "" --days-back 30
-find_repeats : python3 resources/comped_core/cli.py repeats --out-dir ~/comped --repeat-threshold 3 --handle <handle>
-render_card  : python3 resources/comped_core/cli.py card --out-dir ~/comped --card-theme dark
+read_claude   : python3 resources/comped_core/cli.py ledger --only claude-code --claude-dir ~/.claude/projects --days-back 30 --out-dir ~/comped --include-subagents true --redact true
+read_codex    : python3 resources/comped_core/cli.py ledger --only codex --codex-dir ~/.codex/sessions --days-back 30 --out-dir ~/comped --redact true
+read_pi       : python3 resources/comped_core/cli.py ledger --only pi --pi-dir ~/.pi/agent/sessions --days-back 30 --out-dir ~/comped --redact true
+read_opencode : python3 resources/comped_core/cli.py ledger --only opencode --opencode-dir ~/.local/share/opencode/storage --days-back 30 --out-dir ~/comped --redact true
+merge_ledger  : python3 resources/comped_core/cli.py merge --out-dir ~/comped                          (depends_on: the four reads)
+price_ledger  : python3 resources/comped_core/cli.py price --out-dir ~/comped --plan claude-max-200 --rates-path "" --days-back 30   (depends_on: merge_ledger)
+find_repeats  : python3 resources/comped_core/cli.py repeats --out-dir ~/comped --repeat-threshold 3 --handle <handle>            (depends_on: price_ledger)
+render_card   : python3 resources/comped_core/cli.py card --out-dir ~/comped --card-theme dark                                      (depends_on: find_repeats)
 ```
-`session-ledger`:
+Expected-absence behaviour is built in: a missing `~/.pi` prints `{"ok":true,"warning":"no log directory found for pi..."}` and exits 0, which rote renders as one labelled unknown, and the merge proceeds with the harnesses that were found. Update SPEC §6.2 step names to match: `read_claude, read_codex, read_pi, read_opencode, merge_ledger, price_ledger, find_repeats, render_card` (8 steps). `session-ledger` uses the four reads + `merge_ledger` + `summarize` (6 steps); `wrong-turns` uses the two reads it needs (`read_claude`, `read_codex`) + `merge_ledger` + `classify_turns` + `draft_rules` (5 steps).
+
+`main.ts` header for `comped` (format verified from Play's own tests; the step API below the header comes from `rote-flow-authoring` after install):
+```ts
+#!/usr/bin/env -S rote play run
+/**
+ * @rote-frontmatter
+ * ---
+ * name: comped
+ * description: <plays/comped/DESCRIPTION.md, single line or YAML block scalar>
+ * license: MIT
+ * metadata:
+ *   version: 0.1.0
+ *   discoverability:
+ *     tags:
+ *     - job-agent-cost-review
+ *     - job-repeat-ask-detection
+ *     - tool-claude-code
+ *     - tool-codex
+ *     - tool-pi
+ *     - tool-opencode
+ *     - comped
+ *     - tokens
+ *     - sessions
+ * parameters: <from plays/comped/PARAMETERS.json in the spelling rote-flow-authoring documents>
+ * ---
+ */
 ```
-discover_sources : python3 resources/comped_core/cli.py sources --claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage
-build_ledger     : python3 resources/comped_core/cli.py ledger --claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage --days-back 30 --out-dir ~/comped --include-subagents true --redact true
-summarize        : python3 resources/comped_core/cli.py summary --out-dir ~/comped
-```
-(`sources` and `summary` are the two small subcommands added at the end of Task 12.) `wrong-turns`: `build_ledger` → `classify_turns` (`wrongturns`) → `draft_rules` (`rules`).
+Run `scripts/bin/play-tag-hints --request "price my agent session logs, find repeat asks, print the comped card" --play main.ts --json` (from the Play package checkout) and add every suggested tag before `rote play release`.
+`session-ledger`: the four `read_*` steps above (roots) → `merge_ledger` → `summarize` (`python3 resources/comped_core/cli.py summary --out-dir ~/comped`). `wrong-turns`: `read_claude`, `read_codex` (roots) → `merge_ledger` → `classify_turns` (`wrongturns --out-dir ~/comped --min-recurrence 3 --show-snippets true`) → `draft_rules` (`rules --out-dir ~/comped --rules-target both`). (`sources` and `summary` are the two small subcommands added at the end of Task 12; `sources` is no longer a step, it stays as a diagnostic.)
 
 - [ ] **Step 3: Capture each Play inside rote (one Claude Code session per Play, in `plays/<slug>/`).**
 

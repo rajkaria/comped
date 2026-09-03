@@ -232,7 +232,9 @@ def render_png(svg_path: Path, out_dir: Path, renderers=None) -> Tuple[Optional[
 - Create: `comped_core/cli.py`, `comped_core/__main__.py` (`from .cli import main; main()`)
 - Test: `tests/test_cli.py`
 
-**Interfaces:** subcommands and flags exactly as in the plan index. Every subcommand prints one JSON object with at least `{"ok": bool, "written": [...], "note": str}` and exits 0; bad arguments exit 2 with `{"ok": false, "error": ...}`; unexpected exceptions are caught and reported as `{"ok": false, "error": "<type>: <msg>"}` with exit 1, never a traceback. Booleans arrive as strings `true`/`false` from rote parameters.
+**Interfaces:** subcommands and flags exactly as in the plan index, plus two required by rote's play-shape standard (one reading = one step; see `docs/research/ROTE-FORMAT.md`): `ledger --only <harness>` writes `ledger-<harness>.jsonl` for exactly one harness, and `merge --out-dir` joins every `ledger-*.jsonl` present into `ledger.jsonl` + `ledger-summary.json` (running turn attribution on the merged set). Without `--only`, `ledger` behaves as before (all harnesses, one file), which the tests and the determinism suite keep using.
+
+Failure contract (rote renders it as a labelled unknown): expected absence, such as a missing log directory or zero records in the window, prints `{"ok": true, "warning": "<reason>", ...}` and exits 0. Bad arguments exit 2 with `{"ok": false, "error": ...}`. Unexpected exceptions are caught, printed as `{"ok": false, "error": "<type>: <msg>"}` to stdout, echoed to stderr, and exit 1, never a traceback. Booleans arrive as strings `true`/`false` from rote parameters. Steps have no TTY, so nothing may prompt.
 
 - [ ] **Step 1: Write the failing tests.**
 
@@ -247,6 +249,17 @@ class CliTests(unittest.TestCase):
     def setUp(self): self.out = tempfile.mkdtemp()
     def _ledger(self):
         return run("ledger", *sum(([k, v] for k, v in FIX.items()), []), "--days-back", "3650", "--out-dir", self.out, "--include-subagents", "true", "--redact", "true", "--now", NOW)
+    def test_only_and_merge_equal_full_ledger(self):
+        full = tempfile.mkdtemp(); parts = tempfile.mkdtemp()
+        run("ledger", *sum(([k, v] for k, v in FIX.items()), []), "--days-back", "3650", "--out-dir", full, "--now", NOW)
+        for h in ("claude-code", "codex", "pi", "opencode"):
+            rc, j, *_ = run("ledger", *sum(([k, v] for k, v in FIX.items()), []), "--days-back", "3650", "--out-dir", parts, "--now", NOW, "--only", h)
+            self.assertEqual(rc, 0); self.assertTrue(pathlib.Path(parts, f"ledger-{h}.jsonl").exists())
+        rc, j, *_ = run("merge", "--out-dir", parts); self.assertEqual(rc, 0)
+        self.assertEqual(pathlib.Path(full, "ledger.jsonl").read_bytes(), pathlib.Path(parts, "ledger.jsonl").read_bytes())
+    def test_expected_absence_is_warning_not_error(self):
+        rc, j, *_ = run("ledger", "--claude-dir", "/nope", "--codex-dir", "/nope", "--pi-dir", "/nope", "--opencode-dir", "/nope", "--out-dir", self.out, "--now", NOW)
+        self.assertEqual(rc, 0); self.assertTrue(j["ok"]); self.assertIn("warning", j)
     def test_full_pipeline(self):
         rc, j, *_ = self._ledger(); self.assertEqual(rc, 0); self.assertTrue(j["ok"]); self.assertTrue(pathlib.Path(self.out, "ledger.jsonl").exists())
         rc, j, *_ = run("price", "--out-dir", self.out, "--plan", "claude-max-200,chatgpt-plus-20", "--days-back", "3650", "--now", NOW)
@@ -306,9 +319,47 @@ def _state(out_dir: Path, name: str, doc=None):
 def cmd_ledger(a):
     now = _now(a.now); cfg = {"claude_dir": a.claude_dir, "codex_dir": a.codex_dir, "pi_dir": a.pi_dir, "opencode_dir": a.opencode_dir,
                              "include_subagents": _bool(a.include_subagents), "redact": _bool(a.redact), "since": window_start(now, a.days_back), "now": now}
-    led = parse_all(cfg); written = write_ledger(led, a.out_dir)
+    if a.only:
+        from .adapters import ADAPTERS
+        if a.only not in ADAPTERS: raise ValueError(f"--only must be one of {sorted(ADAPTERS)}")
+        for h, (_, key) in ADAPTERS.items():
+            if h != a.only: cfg[key] = "/nonexistent"     # other adapters report found=false and are dropped below
+    led = parse_all(cfg)
+    if a.only:
+        led.sources = [s for s in led.sources if s.harness == a.only]
+        out = Path(a.out_dir).expanduser(); out.mkdir(parents=True, exist_ok=True)
+        p = out / f"ledger-{a.only}.jsonl"
+        with open(p, "w", encoding="utf-8") as fh:
+            for kind, items in (("record", led.records), ("human", led.humans), ("tool", led.tools), ("source", led.sources)):
+                for it in items: fh.write(json.dumps({"kind": kind, **dataclasses.asdict(it)}, sort_keys=True) + "\n")
+        written = [str(p)]
+    else:
+        written = write_ledger(led, a.out_dir)
     _state(a.out_dir, "ledger-args", {"days_back": a.days_back, "now": iso(now), "redact": _bool(a.redact)})
-    s = ledger_summary(led); s.update({"ok": True, "written": written, "note": "; ".join(f"{x['harness']}: {x['note']}" for x in s["sources"] if x["note"])}); return s
+    s = ledger_summary(led); s.update({"ok": True, "written": written, "note": "; ".join(f"{x['harness']}: {x['note']}" for x in s["sources"] if x["note"])})
+    absent = [x["harness"] for x in s["sources"] if not x["found"]]
+    if absent and len(absent) == len(s["sources"]): s["warning"] = f"no log directory found for {', '.join(absent)}; nothing to read"
+    elif s["records"] == 0: s["warning"] = "no usage records in the window"
+    return s
+
+def cmd_merge(a):
+    from .models import UsageRecord, HumanMessage, ToolEvent, Source, Ledger
+    from .ledger import attribute_turns
+    out = Path(a.out_dir).expanduser(); parts = sorted(out.glob("ledger-*.jsonl")); parts = [p for p in parts if p.name != "ledger-summary.json"]
+    if not parts: return {"ok": True, "warning": "no partial ledgers (ledger-<harness>.jsonl) found to merge", "written": [], "note": ""}
+    recs, hums, tools, srcs = [], [], [], []
+    for p in parts:
+        for line in open(p, encoding="utf-8"):
+            o = json.loads(line); kind = o.pop("kind")
+            {"record": lambda: recs.append(UsageRecord(**o)), "human": lambda: hums.append(HumanMessage(**o)),
+             "tool": lambda: tools.append(ToolEvent(**o)), "source": lambda: srcs.append(Source(**o))}[kind]()
+    st = _state(a.out_dir, "ledger-args")
+    led = Ledger(sorted(recs, key=lambda r: (r.harness, r.session_id, r.timestamp, r.record_id)), sorted(hums, key=lambda h: (h.harness, h.session_id, h.timestamp, h.message_id)),
+                 sorted(tools, key=lambda t: (t.harness, t.session_id, t.timestamp, t.event_id)), sorted(srcs, key=lambda s: s.harness), st["now"])
+    attribute_turns(led); written = write_ledger(led, out)
+    s = ledger_summary(led); s.update({"ok": True, "written": written, "note": f"merged {len(parts)} partial ledgers"})
+    if s["records"] == 0: s["warning"] = "no usage records in the window"
+    return s
 
 def cmd_price(a):
     st = _state(a.out_dir, "ledger-args"); now = _now(a.now or st["now"]); led = read_ledger(a.out_dir)
@@ -410,6 +461,8 @@ def build_parser():
     p = sub.add_parser("ledger"); common(p)
     for k, d in (("claude-dir", "~/.claude/projects"), ("codex-dir", "~/.codex/sessions"), ("pi-dir", "~/.pi/agent/sessions"), ("opencode-dir", "~/.local/share/opencode/storage")): p.add_argument(f"--{k}", default=d)
     p.add_argument("--days-back", type=int, default=30); p.add_argument("--include-subagents", default="true"); p.add_argument("--redact", default="true"); p.add_argument("--now", default="")
+    p.add_argument("--only", default="", help="read exactly one harness and write ledger-<harness>.jsonl (rote: one reading = one step)")
+    p = sub.add_parser("merge"); common(p)
     p = sub.add_parser("price"); common(p); p.add_argument("--plan", default=""); p.add_argument("--rates-path", default=""); p.add_argument("--days-back", type=int, default=0); p.add_argument("--now", default="")
     p = sub.add_parser("repeats"); common(p); p.add_argument("--repeat-threshold", type=int, default=3); p.add_argument("--handle", default="")
     p = sub.add_parser("card"); common(p); p.add_argument("--card-theme", default="dark")

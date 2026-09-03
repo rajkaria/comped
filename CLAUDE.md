@@ -19,10 +19,10 @@ Rote Playoffs hackathon entry (build window 1–7 Sep 2026, submissions close 7 
 - The earlier, wider Comped product draft lives at `~/Projects/unbilled/docs/SPEC.md` (leaderboard etc.). Out of scope for the Plays.
 
 ## Current state
-Spec and plan written. No code yet. rote is not installed on this machine. Handle not yet claimed.
+Spec and plan written. No code yet. Task 0 is half done: the installer chain was inspected and dry-run, the Play package source (modiqo/play v0.4.87) was read, and `docs/research/ROTE-FORMAT.md` holds every verified format fact (main.ts + @rote-frontmatter header, one-reading-per-step DAG standard, failure contract, settle/publish flow, /tmp smoke test). The unattended install was blocked by the permission classifier; the user must run `curl -fsSL https://getrote.dev/playoffs/install.sh | sh` in a terminal, sign in, and claim a handle. Latest rote is v0.79.0.
 
 ## Next steps
-1. Task 0 (part-0-gate.md): install rote, warm up, verify the Play format, write `docs/research/ROTE-FORMAT.md`.
+1. Task 0 remainder (part-0-gate.md Steps 1–7): user installs rote; then `/play what's new`, Hello, playoffs-standings, practice Play, `rote how`/`rote guidance`, read the rote-flow-authoring skill, pull token-tab's archive, fill every PENDING in ROTE-FORMAT.md, play-quality-doctor on the practice Play, post "warmed up".
 2. Tasks 1–13 in order (parts 1–5); Tasks 3/4/5 can run in parallel.
 3. Part 6: package, capture with one kept wrong turn per Play, quality-doctor gate, publish `session-ledger` + `comped` same day, `wrong-turns` next day, then daily distribution and the adoption log.
 
