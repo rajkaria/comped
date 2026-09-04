@@ -1,0 +1,56 @@
+import re
+from typing import List, Optional, Set, Tuple
+
+from .models import HumanMessage
+
+STOP = set("the a an and or to of in on at for with by from is are be it this that these those please pls can you could would i we my our me just now then".split())
+_URL = re.compile(r"https?://\S+|www\.\S+")
+_PATH = re.compile(r"(?:~|/)[\w.\-]+(?:/[\w.\-]+)+|[A-Za-z]:\\\S+")
+_REF = re.compile(r"@[\w./\-]+")
+_HEX = re.compile(r"\b(?:0x)?[0-9a-f]{8,}\b")
+_NUM = re.compile(r"\b\d+(?:[.:,]\d+)*\b")
+_WORD = re.compile(r"[a-z<>][a-z0-9<>'\-]*")
+OBSERVER_DIRS = ("observer", "claude-mem")
+
+
+def normalize(text: str, cap: int = 40) -> List[str]:
+    t = (text or "").lower()
+    t = _URL.sub(" <url> ", t)
+    t = _PATH.sub(" <path> ", t)
+    t = _REF.sub(" <ref> ", t)
+    t = _HEX.sub(" <hex> ", t)
+    t = _NUM.sub(" <num> ", t)
+    toks = [w for w in _WORD.findall(t) if w not in STOP]
+    return toks[:cap]
+
+
+def shingles(tokens: List[str], k: int = 2) -> Set[Tuple[str, ...]]:
+    if len(tokens) < k:
+        return {tuple(tokens)} if tokens else set()
+    return {tuple(tokens[i:i + k]) for i in range(len(tokens) - k + 1)}
+
+
+def jaccard(a: set, b: set) -> float:
+    if not a and not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def is_excluded(h: HumanMessage) -> Optional[str]:
+    t = (h.text or "").strip()
+    if h.origin == "automated":
+        return "automated"
+    if any(d in (h.project or "").lower() for d in OBSERVER_DIRS):
+        return "observer-project"
+    if t.startswith("<"):
+        return "injected"
+    if t.lower().startswith("you are "):
+        return "system-prompt"
+    if "[request interrupted" in t.lower():
+        return "interrupted"
+    n = len(t.split())
+    if n < 3:
+        return "too-short"
+    if n > 400:
+        return "too-long"
+    return None
