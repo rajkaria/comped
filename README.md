@@ -6,6 +6,8 @@
 
 *Rendered from the synthetic fixtures in this repo, so the numbers are small. On real logs they are not.*
 
+**Site and docs:** [comped landing page](https://rajkaria.github.io/comped/) · [full docs](https://rajkaria.github.io/comped/docs.html)
+
 ## What it does
 
 Three rote Plays on one stdlib-only Python core:
