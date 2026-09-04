@@ -8,14 +8,25 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [
         {
           "type": "host",
           "value": "www.gotcomped.com"
         }
       ],
-      "destination": "https://gotcomped.com/:path*",
+      "destination": "https://gotcomped.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.gotcomped.com"
+        }
+      ],
+      "destination": "https://gotcomped.com/:path+",
       "permanent": true
     }
   ],
