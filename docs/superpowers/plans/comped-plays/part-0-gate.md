@@ -21,7 +21,7 @@ curl -fsSL https://getrote.dev/playoffs/install.sh | sh
 
 Expected: the wizard shows the same plan as the dry run (Play 0.4.87 → Claude Code Rote skills; Rote v0.79.0 to `~/.local/bin/rote`), verifies, and reports where it saved the install report. Restart Claude Code afterwards so the `/play` skill and hooks load.
 
-- [x] **Step 2 (done 2026-09-04): Confirm the binary and version.** `rote 0.79.0`, `/Users/rajkaria/.local/bin/rote`. Signed in as `rajkaria67@gmail.com`; handle `rajkaria` reserved via `rote profile set-handle` (not part of the OAuth flow, contrary to Step 3's expectation).
+- [x] **Step 2 (done 2026-09-04): Confirm the binary and version.** `rote 0.79.0`, `/Users/rajkaria/.local/bin/rote`. Signed in as `the handle owner's Google account`; handle `rajkaria` reserved via `rote profile set-handle` (not part of the OAuth flow, contrary to Step 3's expectation).
 
 ```bash
 rote --version && which rote

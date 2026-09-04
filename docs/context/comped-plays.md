@@ -18,7 +18,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Current state — what's working, deployed, broken
 - **Tasks 0(partial), 1-13 done, 14-15 partly done. 84 tests green.** `comped_core/` is complete and stdlib-only: adapters (claude-code, codex, pi, opencode) -> ledger -> pricing -> repeats/wrong-turns/baseline -> renderers -> CLI. Determinism, no-network, no-credential, robustness, perf (8.8s over 227k real log lines) and ccusage conformance (token totals match per model, actually runs) all pass.
-- **rote 0.79.0 installed**, signed in as `rajkaria67@gmail.com`, handle **`rajkaria`** reserved (`rote profile set-handle`, one-time/immutable; NOT part of the OAuth flow, contrary to plan Step 3). Plan tier for demos: **Claude Max 20x -> `claude-max-200`**.
+- **rote 0.79.0 installed**, signed in as `the handle owner's Google account`, handle **`rajkaria`** reserved (`rote profile set-handle`, one-time/immutable; NOT part of the OAuth flow, contrary to plan Step 3). Plan tier for demos: **Claude Max 20x -> `claude-max-200`**.
 - Fixtures: 0.93 MB synthetic, privacy-tested, 64 claude + 31 codex records, 7 tool errors, one subagent session.
 - Plays packaged: `tools/sync_plays.py` (+ `--check`), `plays/<slug>/{DESCRIPTION,PARAMETERS,STEPS}`, docs tests. CI, README (with fixture card screenshot), VISION done.
 - **Nothing published.** `docs/adoption-log.md` is still just a header row. Repo is still private.

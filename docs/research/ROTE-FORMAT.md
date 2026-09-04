@@ -3,7 +3,7 @@
 Status legend: **VERIFIED** = read from modiqo's shipped source or a live registry artefact. **PENDING** = needs the rote binary (`rote how`, `rote guidance`, `rote-flow-authoring` skill) and is filled in after install.
 
 ## Handle (VERIFIED 2026-09-04)
-`rajkaria` — reserved with `rote profile set-handle rajkaria` (one-time, immutable). Account `rajkaria67@gmail.com`, rote **0.79.0** at `/Users/rajkaria/.local/bin/rote`. Public namespace: `play.modiqo.ai/rajkaria/{session-ledger,comped,wrong-turns}`.
+`rajkaria` — reserved with `rote profile set-handle rajkaria` (one-time, immutable). Account `the handle owner's Google account`, rote **0.79.0** at `/Users/rajkaria/.local/bin/rote`. Public namespace: `play.modiqo.ai/rajkaria/{session-ledger,comped,wrong-turns}`.
 Note: `rote whoami` reports the signed-in identity; the handle is separate and is set by `rote profile set-handle`, not by the OAuth flow. `rote profile show` confirms it.
 
 ## Plan tier for demos and the card (VERIFIED with the user 2026-09-04)
