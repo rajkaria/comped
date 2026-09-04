@@ -13,7 +13,7 @@ Nothing in Part 6 starts until every unknown below has a written answer in `docs
 
 - [x] **Step 0 (done 2026-09-03): Inspect the installer chain and dry-run the plan.** Findings are in `docs/research/ROTE-FORMAT.md` §Install facts. The unattended install (`PLAY_INSTALL_YES=1 PLAY_APPROVE_REMOTE_INSTALLER=1`) was blocked by the Claude Code permission classifier, so Step 1 is run by the user in their own terminal.
 
-- [ ] **Step 1: Install the rote CLI. User runs this in a terminal (interactive wizard; press Enter for guided setup, choose Claude Code, approve the Rote remote installer when asked, then sign in with Google or GitHub in the browser and claim the handle).**
+- [x] **Step 1 (done 2026-09-04, by the user): Install the rote CLI. User runs this in a terminal (interactive wizard; press Enter for guided setup, choose Claude Code, approve the Rote remote installer when asked, then sign in with Google or GitHub in the browser and claim the handle).**
 
 ```bash
 curl -fsSL https://getrote.dev/playoffs/install.sh | sh
@@ -21,7 +21,7 @@ curl -fsSL https://getrote.dev/playoffs/install.sh | sh
 
 Expected: the wizard shows the same plan as the dry run (Play 0.4.87 → Claude Code Rote skills; Rote v0.79.0 to `~/.local/bin/rote`), verifies, and reports where it saved the install report. Restart Claude Code afterwards so the `/play` skill and hooks load.
 
-- [ ] **Step 2: Confirm the binary and version.**
+- [x] **Step 2 (done 2026-09-04): Confirm the binary and version.** `rote 0.79.0`, `/Users/rajkaria/.local/bin/rote`. Signed in as `rajkaria67@gmail.com`; handle `rajkaria` reserved via `rote profile set-handle` (not part of the OAuth flow, contrary to Step 3's expectation).
 
 ```bash
 rote --version && which rote

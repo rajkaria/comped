@@ -9,7 +9,7 @@ globs:
   - tools/**
   - README.md
   - VISION.md
-updated: 2026-09-03
+updated: 2026-09-04
 ---
 
 # Comped Plays — session context
@@ -19,7 +19,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 ## Current state — what's working, deployed, broken
 - **Spec and plan complete, no code yet.** `docs/SPEC.md` (approved), plan index `docs/superpowers/plans/2026-09-03-comped-plays.md` + `comped-plays/part-0..6.md` (17 tasks, TDD, full code in each step), research in `docs/research/LANDSCAPE.md` and `docs/research/ROTE-FORMAT.md`.
 - **Task 0 half done.** Installer chain inspected and dry-run; Play package source (modiqo/play v0.4.87) read; Play format facts verified (main.ts + `@rote-frontmatter` YAML header, one-reading-per-step DAG standard, `{"ok":true,"warning":...}` failure contract, settle/publish flow with `/tmp` smoke test). Latest rote is v0.79.0.
-- **Blocked:** rote is NOT installed and no handle is claimed. The unattended install was blocked by the Claude Code permission classifier; the user must run `curl -fsSL https://getrote.dev/playoffs/install.sh | sh` in a terminal, sign in (Google/GitHub OAuth), claim a handle, restart Claude Code.
+- **Unblocked 2026-09-04:** rote **0.79.0** installed at `/Users/rajkaria/.local/bin/rote`, signed in as `rajkaria67@gmail.com`, handle **`rajkaria`** reserved (`rote profile set-handle`, one-time/immutable). Public namespace `play.modiqo.ai/rajkaria/...`. Plan tier for pricing demos: **Claude Max 20x → `claude-max-200`**. Part-0 Steps 1–2 done; Steps 3–9 (warm-up runs, practice Play, format PENDINGs, quality doctor) still open.
 - Nothing published. `docs/adoption-log.md` has its header row only.
 - Two git commits on `main` in `/Users/rajkaria/Projects/comped` (docs only).
 
@@ -42,7 +42,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 - Earlier wider product draft (leaderboard) stays at `~/Projects/unbilled/docs/SPEC.md`, out of scope for the Plays.
 
 ## Next steps — specific, actionable
-1. **User:** run the installer in a terminal, sign in, claim handle, restart Claude Code.
+1. ~~Install + handle~~ done 2026-09-04 (`rajkaria`).
 2. Finish Task 0 (part-0-gate.md Steps 2–7): `/play what's new`; run Hello and `dotisacat/playoffs-standings author=<handle>`; practice Play (Skip, don't publish); `rote how`, `rote guidance`, read the `rote-flow-authoring` skill and a pulled token-tab archive; fill every PENDING in `docs/research/ROTE-FORMAT.md`; run play-quality-doctor on the practice Play; post "warmed up" in Discord; commit.
 3. Tasks 1–2 (part-1-core.md): scaffold, models, jsonl, timeutil, `tools/build_prices.py`, `prices.py`, `plans.py`. Can start before the install.
 4. Tasks 3–5 in parallel (adapters + fixtures), then 6–13, then Part 6 packaging/capture/publish, then daily distribution + adoption log.

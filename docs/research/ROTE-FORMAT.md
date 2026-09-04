@@ -2,8 +2,12 @@
 
 Status legend: **VERIFIED** = read from modiqo's shipped source or a live registry artefact. **PENDING** = needs the rote binary (`rote how`, `rote guidance`, `rote-flow-authoring` skill) and is filled in after install.
 
-## Handle
-PENDING. Claimed during first `/play` sign-in (Google or GitHub OAuth in the browser). Becomes the public namespace `play.modiqo.ai/<handle>/...`.
+## Handle (VERIFIED 2026-09-04)
+`rajkaria` — reserved with `rote profile set-handle rajkaria` (one-time, immutable). Account `rajkaria67@gmail.com`, rote **0.79.0** at `/Users/rajkaria/.local/bin/rote`. Public namespace: `play.modiqo.ai/rajkaria/{session-ledger,comped,wrong-turns}`.
+Note: `rote whoami` reports the signed-in identity; the handle is separate and is set by `rote profile set-handle`, not by the OAuth flow. `rote profile show` confirms it.
+
+## Plan tier for demos and the card (VERIFIED with the user 2026-09-04)
+Claude Max 20x → plan id `claude-max-200` in `resources/plans.json`. No ChatGPT/Codex subscription stated, so demo runs use `plan=claude-max-200` alone unless the user adds one.
 
 ## Install facts (VERIFIED)
 - `https://getrote.dev/playoffs/install.sh` is a 385-byte selector pinned to Play release `v0.4.87`; it fetches `https://raw.githubusercontent.com/modiqo/play/v0.4.87/install.sh`, which downloads the `modiqo/play` archive and runs `scripts/bin/play-bootstrap install`.
