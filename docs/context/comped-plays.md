@@ -17,11 +17,13 @@ updated: 2026-09-04
 Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7 Sep 20:00 London (00:30 IST 8 Sep)**. Publishing a Play to Community is the submission; prizes are per Play; judged on runs / stranger-trust / adoption downloads.
 
 ## Current state — what's working, deployed, broken
-- **Spec and plan complete, no code yet.** `docs/SPEC.md` (approved), plan index `docs/superpowers/plans/2026-09-03-comped-plays.md` + `comped-plays/part-0..6.md` (17 tasks, TDD, full code in each step), research in `docs/research/LANDSCAPE.md` and `docs/research/ROTE-FORMAT.md`.
-- **Task 0 half done.** Installer chain inspected and dry-run; Play package source (modiqo/play v0.4.87) read; Play format facts verified (main.ts + `@rote-frontmatter` YAML header, one-reading-per-step DAG standard, `{"ok":true,"warning":...}` failure contract, settle/publish flow with `/tmp` smoke test). Latest rote is v0.79.0.
-- **Unblocked 2026-09-04:** rote **0.79.0** installed at `/Users/rajkaria/.local/bin/rote`, signed in as `rajkaria67@gmail.com`, handle **`rajkaria`** reserved (`rote profile set-handle`, one-time/immutable). Public namespace `play.modiqo.ai/rajkaria/...`. Plan tier for pricing demos: **Claude Max 20x → `claude-max-200`**. Part-0 Steps 1–2 done; Steps 3–9 (warm-up runs, practice Play, format PENDINGs, quality doctor) still open.
-- Nothing published. `docs/adoption-log.md` has its header row only.
-- Two git commits on `main` in `/Users/rajkaria/Projects/comped` (docs only).
+- **Tasks 0(partial), 1-13 done, 14-15 partly done. 84 tests green.** `comped_core/` is complete and stdlib-only: adapters (claude-code, codex, pi, opencode) -> ledger -> pricing -> repeats/wrong-turns/baseline -> renderers -> CLI. Determinism, no-network, no-credential, robustness, perf (8.8s over 227k real log lines) and ccusage conformance (token totals match per model, actually runs) all pass.
+- **rote 0.79.0 installed**, signed in as `rajkaria67@gmail.com`, handle **`rajkaria`** reserved (`rote profile set-handle`, one-time/immutable; NOT part of the OAuth flow, contrary to plan Step 3). Plan tier for demos: **Claude Max 20x -> `claude-max-200`**.
+- Fixtures: 0.93 MB synthetic, privacy-tested, 64 claude + 31 codex records, 7 tool errors, one subagent session.
+- Plays packaged: `tools/sync_plays.py` (+ `--check`), `plays/<slug>/{DESCRIPTION,PARAMETERS,STEPS}`, docs tests. CI, README (with fixture card screenshot), VISION done.
+- **Nothing published.** `docs/adoption-log.md` is still just a header row. Repo is still private.
+- **Blocked on the user / on rote:** Task 0 Steps 3-9 (warm-up runs, practice Play through `/play settle`, filling the ROTE-FORMAT PENDINGs, play-quality-doctor), Task 14 Steps 3-7 (capture, quality gate, clean-machine run, publish), Task 15 Step 5 (make repo public), Task 16 (distribution, judge loop).
+- The Claude Code permission classifier blocks reading `~/.claude/projects` from ad-hoc scripts; fixture regeneration must go through `tools/make_fixtures.py`, and even that was blocked intermittently.
 
 ## Recent changes — files touched and why
 - `docs/SPEC.md` — full build spec: three Plays (`session-ledger`, `comped`, `wrong-turns`), contracts, math (dedup on `(message.id, requestId)`, Codex cumulative-counter differencing, plan proration /30.4375), repeat detection (Jaccard ≥0.5 on 2-shingles; ≥3 asks, ≥2 sessions, ≥2 days), wrong-turn signals with confidence, outputs (terminal card, SVG/PNG, report, explain, share text, delta), privacy paragraph, quality checklist, tests, distribution plan, panel scorecard (projected 9.6).
@@ -42,7 +44,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 - Earlier wider product draft (leaderboard) stays at `~/Projects/unbilled/docs/SPEC.md`, out of scope for the Plays.
 
 ## Next steps — specific, actionable
-1. ~~Install + handle~~ done 2026-09-04 (`rajkaria`).
-2. Finish Task 0 (part-0-gate.md Steps 2–7): `/play what's new`; run Hello and `dotisacat/playoffs-standings author=<handle>`; practice Play (Skip, don't publish); `rote how`, `rote guidance`, read the `rote-flow-authoring` skill and a pulled token-tab archive; fill every PENDING in `docs/research/ROTE-FORMAT.md`; run play-quality-doctor on the practice Play; post "warmed up" in Discord; commit.
-3. Tasks 1–2 (part-1-core.md): scaffold, models, jsonl, timeutil, `tools/build_prices.py`, `prices.py`, `plans.py`. Can start before the install.
-4. Tasks 3–5 in parallel (adapters + fixtures), then 6–13, then Part 6 packaging/capture/publish, then daily distribution + adoption log.
+1. **User decisions still open:** Discord membership + posting, X/LinkedIn posting, `gh` auth and making the repo public, authorisation to publish the three Plays, who drives `/play explore` and `/play settle`, whether a clean second machine exists, and whether real-log output may appear in public screenshots.
+2. Task 0 Steps 3-9: `/play what's new`; run `modiqo/hello` and `dotisacat/playoffs-standings author=rajkaria`; practice Play through settle (Skip, do not publish); `rote how` / `rote guidance`; read a pulled token-tab archive; fill every PENDING in `docs/research/ROTE-FORMAT.md`; run play-quality-doctor.
+3. Task 14 Steps 3-7: write each Play's `main.ts` with the verified frontmatter, capture one session per Play, quality-doctor gate, clean-machine run, publish `session-ledger` + `comped`, then `wrong-turns` the next day.
+4. Task 15 Step 5 (public repo) and Task 16 (daily adoption log, social posts, two judge-panel rounds) through to close on 7 Sep 20:00 London.
