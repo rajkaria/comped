@@ -4,88 +4,141 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>comped — how much did your agents actually cost?</title>
-<meta name="description" content="Your coding agents already wrote down what they used. comped reads it and tells you what the last 30 days would have cost at API list price, and how many times over you got comped by your subscription.">
+<meta name="description" content="Your coding agents already wrote down what they used, and which model wrote it. comped reads both: what the last 30 days would have cost at API list price, and how many times over your subscription ate it. You type nothing.">
 <link rel="canonical" href="https://gotcomped.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="comped">
 <meta property="og:url" content="https://gotcomped.com/">
 <meta property="og:title" content="comped — how much did your agents actually cost?">
-<meta property="og:description" content="Read the agent logs already on your disk. Get one card: list-price total, the multiplier against the plan you pay for, and the jobs you keep re-asking.">
+<meta property="og:description" content="Read the agent logs already on your disk. One card: list-price total, the multiplier against every plan you could be on, and the jobs you keep re-asking. It works out which AI you run by itself.">
 <meta property="og:image" content="https://gotcomped.com/card-wide.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
-<meta property="og:image:alt" content="The comped card: list-price total for the last 30 days, the multiplier against your plan, and cache-read share.">
+<meta property="og:image:alt" content="The comped card: list-price total for the last 30 days, the multiplier against your plan, the providers it detected, and cache-read share.">
 <meta property="og:image" content="https://gotcomped.com/card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="1200">
 <meta property="og:image:alt" content="The comped card on a square canvas, for surfaces that crop to a thumbnail.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="comped — how much did your agents actually cost?">
-<meta name="twitter:description" content="Read the agent logs already on your disk. Get one card: list-price total, the multiplier against the plan you pay for, and the jobs you keep re-asking.">
+<meta name="twitter:description" content="Read the agent logs already on your disk. One card: list-price total, the multiplier against every plan you could be on, and the jobs you keep re-asking. It works out which AI you run by itself.">
 <meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div class="aurora" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
 <nav>
   <div class="wrap">
     <a class="brand" href="./">comped<span>.</span></a>
     <div class="links">
-      <a href="#how">How it works</a>
+      <a href="#detect">Auto-detect</a>
+      <a href="#how" class="hide-sm">How it works</a>
       <a href="#plays" class="hide-sm">The Plays</a>
       <a href="#privacy" class="hide-sm">Privacy</a>
       <a href="docs.html">Docs</a>
-      <a href="https://github.com/rajkaria/comped">GitHub</a>
+      <a class="cta" href="#start">Run it</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <p class="kicker">The receipt nobody printed</p>
+    <p class="kicker"><span class="dot"></span>The receipt nobody printed</p>
     <h1>You got <em>comped</em>.<br>The question is how badly.</h1>
-    <p class="sub">Every coding session on your machine already wrote down exactly what it burned. Nobody reads it, because it's four gigabytes of JSONL in four different shapes. <strong>comped reads it</strong> and tells you what your last 30 days would have cost at API list price — and how many times over your subscription ate it.</p>
+    <p class="sub">Every coding session on your machine already wrote down what it burned — and which model burned it. Nobody reads it, because it's four gigabytes of JSONL in four different shapes. <strong>comped reads all of it</strong>, works out what you're running on its own, and tells you what your last 30 days would have cost at API list price.</p>
 
     <div class="cmd">
       <span class="dollar">$</span>
-      <code id="cmd-main">rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code>
+      <code id="cmd-main">rote play run https://play.modiqo.ai/rajkaria/comped</code>
       <button class="copy" data-copy="#cmd-main">Copy</button>
     </div>
-    <p class="hero-note">Needs <code>python3</code>. Nothing else. No API key, no sign-in, no upload — <a href="#privacy">and no network calls at all</a>.</p>
+    <p class="hero-note">No flags. No plan to type. Needs <code>python3</code> and nothing else — no API key, no sign-in, no upload, <a href="#privacy">and no network calls at all</a>.</p>
 
-    <figure class="card">
-      <img src="card.svg" alt="The comped card: total spent at list price, the multiplier against your plan, spend per model, cache-read share, and the top repeated asks with what each repeat cost.">
+    <ul class="stats" id="stats">
+      <li><b data-count="2584.71" data-prefix="$" data-dp="2">$2,584.71</b><span>list price, one real month, one laptop</span></li>
+      <li><b data-count="13.1" data-suffix="×" data-dp="1">13.1×</b><span>what the $200 plan actually bought</span></li>
+      <li><b data-count="98" data-suffix="%" data-dp="0">98%</b><span>of those input tokens came from cache</span></li>
+    </ul>
+
+    <figure class="card tilt">
+      <img src="card.svg" alt="The comped card: total spent at list price, the multiplier against your plan, spend per model, the providers detected, cache-read share, and the top repeated asks with what each repeat cost.">
       <figcaption>One card. Rendered from the synthetic logs bundled with the Play, so the numbers are small — on a real month they are not.</figcaption>
     </figure>
   </div>
 </header>
 
-<section id="meter">
+<section id="detect">
   <div class="wrap">
-    <h2>Do the maths in your head, badly</h2>
-    <p class="lede">Or don't. Put in what you pay and a guess at what you'd have spent on the API, and find out what you're calling it at parties.</p>
+    <p class="eyebrow">New</p>
+    <h2>You don't tell it what you use. <em>It already knows.</em></h2>
+    <p class="lede">Asking which AI you run makes no sense — your logs say so on every line. Each usage record carries the model id the harness sent, and that id names the provider behind it. So it reads, then it decides.</p>
 
-    <div class="toy">
-      <div class="row">
-        <div class="field">
-          <label for="plan">What you pay</label>
-          <select id="plan">
-            <option value="20">Claude Pro — $20/mo</option>
-            <option value="100">Claude Max 5× — $100/mo</option>
-            <option value="200" selected>Claude Max 20× — $200/mo</option>
-            <option value="20-gpt">ChatGPT Plus — $20/mo</option>
-            <option value="200-gpt">ChatGPT Pro — $200/mo</option>
-          </select>
+    <div class="split">
+      <div class="term" id="term" data-anim="off">
+        <div class="term-bar"><i></i><i></i><i></i><span>comped · price_ledger</span></div>
+        <pre><code><span class="ln">$ rote play run .../comped</span>
+<span class="ln">→ ~/.claude/projects        <b class="ok">98 sessions</b></span>
+<span class="ln">→ ~/.codex/sessions         <b class="ok">12 sessions</b></span>
+<span class="ln">→ ~/.pi/agent/sessions      <b class="dim">not installed</b></span>
+<span class="ln">→ opencode storage          <b class="dim">not installed</b></span>
+<span class="ln">&nbsp;</span>
+<span class="ln">detected  <b class="ac">Claude</b> 90%  ·  <b class="ac2">Kimi</b> 10%</span>
+<span class="ln">models    claude-opus-5, claude-fable-5, kimi-k2.6</span>
+<span class="ln">plan      <b class="ac">Claude Max 20×</b> <span class="dim">— assumed, not typed</span></span>
+<span class="ln">&nbsp;</span>
+<span class="ln"><b class="big">$2,584.71 comped · 13.1×</b></span></code></pre>
+      </div>
+
+      <div class="detect-notes">
+        <div class="note">
+          <h3><span class="num">1</span>The harnesses</h3>
+          <p>Claude Code — subagent transcripts included — Codex, Pi and OpenCode. A directory that isn't there is a shrug, not an error, and the card names what it didn't find so you know what wasn't counted.</p>
         </div>
-        <div class="field">
-          <label for="spend">What a month would've cost on the API</label>
-          <input id="spend" type="number" inputmode="numeric" min="0" step="50" value="2584">
+        <div class="note">
+          <h3><span class="num">2</span>The provider</h3>
+          <p>Read off the model id once gateway and region prefixes are stripped, so <code>us.anthropic.claude-opus-5</code> and <code>claude-opus-5</code> are one provider, not two. Point Claude Code at Moonshot or Z.ai and the ids give that away too — which is exactly the point.</p>
+        </div>
+        <div class="note">
+          <h3><span class="num">3</span>The tier</h3>
+          <p>The one thing no log records: a Pro session and a Max session are the same bytes. So instead of asking, it prices <em>every</em> plan at once and marks the one it assumed — always the least flattering one, the smallest multiplier you could honestly claim.</p>
         </div>
       </div>
-      <div class="verdict" id="verdict"></div>
     </div>
-    <p class="hero-note">Nothing here leaves your browser. It's arithmetic, not a service. The Play does the real version, with your actual token counts.</p>
+
+    <div class="marquee" aria-label="Providers it recognises">
+      <div class="track">
+        <span>Claude</span><span>GPT</span><span>Codex</span><span>Kimi</span><span>GLM</span><span>DeepSeek</span><span>Gemini</span><span>Grok</span><span>Qwen</span><span>MiniMax</span><span>Mistral</span><span>Llama</span>
+        <span>Claude</span><span>GPT</span><span>Codex</span><span>Kimi</span><span>GLM</span><span>DeepSeek</span><span>Gemini</span><span>Grok</span><span>Qwen</span><span>MiniMax</span><span>Mistral</span><span>Llama</span>
+      </div>
+    </div>
+    <p class="hero-note">Kimi, GLM, DeepSeek, Qwen and MiniMax are priced from the same bundled table as Claude and GPT. A provider that doesn't sell a subscription is named on the card, its spend stays in the total, and nothing pretends to cover it. Paying for one anyway? <code>plan=usd:29</code>.</p>
+  </div>
+</section>
+
+<section id="meter">
+  <div class="wrap">
+    <h2>Every plan, priced at once</h2>
+    <p class="lede">This is the shape of what the card does — drag the month, read your own row. The real one uses your actual token counts instead of a slider, and highlights the row it assumed.</p>
+
+    <div class="toy">
+      <div class="slider">
+        <label for="spend">A month of tokens, at API list price</label>
+        <output id="spend-out">$2,584</output>
+        <input id="spend" type="range" min="50" max="15000" step="50" value="2584">
+      </div>
+      <ol class="ladder" id="ladder">
+        <li data-cost="20"><span class="pl">Claude Pro</span><span class="pc">$20/mo</span><span class="pbar"><i></i></span><span class="pm">129×</span></li>
+        <li data-cost="100"><span class="pl">Claude Max 5×</span><span class="pc">$100/mo</span><span class="pbar"><i></i></span><span class="pm">26×</span></li>
+        <li data-cost="200" class="on"><span class="pl">Claude Max 20×</span><span class="pc">$200/mo</span><span class="pbar"><i></i></span><span class="pm">13×</span></li>
+        <li data-cost="20"><span class="pl">ChatGPT Plus</span><span class="pc">$20/mo</span><span class="pbar"><i></i></span><span class="pm">129×</span></li>
+        <li data-cost="200"><span class="pl">ChatGPT Pro</span><span class="pc">$200/mo</span><span class="pbar"><i></i></span><span class="pm">13×</span></li>
+      </ol>
+      <p class="verdict" id="verdict"></p>
+    </div>
+    <p class="hero-note">Nothing here leaves your browser. It's arithmetic, not a service.</p>
   </div>
 </section>
 
@@ -111,8 +164,8 @@
       <div class="tile">
         <div class="slug">rajkaria/comped</div>
         <h3>What did it cost me?</h3>
-        <p>The card. List-price total, the multiplier against your plan, cache-read share, spend per model, what moved since your last run, and the asks you keep repeating with a price on each.</p>
-        <code class="run">rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code>
+        <p>The card. List-price total, the multiplier against every plan you could be on, which providers you actually used, cache-read share, spend per model, what moved since your last run, and the asks you keep repeating with a price on each.</p>
+        <code class="run">rote play run https://play.modiqo.ai/rajkaria/comped</code>
       </div>
 
       <div class="tile">
@@ -130,7 +183,7 @@
       </div>
 
     </div>
-    <p class="hero-note" style="margin-top:24px">New to rote? <a href="docs.html#install">Two minutes to install</a>, then any of the above.</p>
+    <p class="hero-note">New to rote? <a href="docs.html#install">Two minutes to install</a>, then any of the above.</p>
   </div>
 </section>
 
@@ -138,7 +191,7 @@
   <div class="wrap">
     <h2>What it looks at, exactly</h2>
     <p class="lede">Short version below. The <a href="docs.html#tracking">long version is in the docs</a>, field by field, including every number the card can show you.</p>
-    <div class="grid">
+    <div class="grid two">
       <div class="tile">
         <h3>Tokens</h3>
         <p>Per API call: uncached input, cache writes, cache reads, output and reasoning tokens, with the model and the session they belong to. Reasoning bills as output, because that's how you're charged.</p>
@@ -153,7 +206,7 @@
       </div>
       <div class="tile">
         <h3>Never</h3>
-        <p>Prompt text beyond a 120-character truncation plus a hash. File contents. Your credentials — it refuses to open the files that hold them, even to work out which plan you're on. You type that.</p>
+        <p>Prompt text beyond a 120-character truncation plus a hash. File contents. Your credentials — it refuses to open the files that hold them. Which AI you're on comes from the model ids in the logs, never from your account.</p>
       </div>
     </div>
   </div>
@@ -165,7 +218,7 @@
     <p class="lede">A tool that reads your logs is asking for a lot of trust. Here's the exact shape of what it does, and how you can check rather than believe.</p>
     <ul class="promises">
       <li><span class="mark">→</span><span class="t"><b>Reads</b> session logs under the directories you configure. Nothing else.</span></li>
-      <li><span class="mark">→</span><span class="t"><b>Never reads</b> <code>~/.claude.json</code>, <code>~/.codex/auth.json</code>, or any credential, keychain or token file. Your plan is typed by you, precisely so it never has a reason to look.</span></li>
+      <li><span class="mark">→</span><span class="t"><b>Never reads</b> <code>~/.claude.json</code>, <code>~/.codex/auth.json</code>, or any credential, keychain or token file. Your plan is inferred from the model ids already in your logs, precisely so it never has a reason to look at your account.</span></li>
       <li><span class="mark">→</span><span class="t"><b>Never sends.</b> No network calls of any kind. Not telemetry, not "anonymous usage", not a version check.</span></li>
       <li><span class="mark">→</span><span class="t"><b>Writes</b> only under the folder you choose, and lists every path it wrote in the report.</span></li>
       <li><span class="mark">→</span><span class="t"><b>Message text</b> is truncated to 120 characters and hashed by default. Set <code>redact=false</code> and the full text stays local — it never appears on a card either way.</span></li>
@@ -180,14 +233,14 @@
   <div class="wrap">
     <h2>Is the number real?</h2>
     <p class="lede">It's a list-price equivalent, and the card says so on its face. That distinction matters, so here it is plainly.</p>
-    <div class="grid">
+    <div class="grid two">
       <div class="tile">
         <h3>It is not a bill</h3>
         <p>You're on a subscription. You paid what you paid. This is what the same tokens would have cost at the API's published rates — the number that tells you whether your plan is a bargain or a rounding error.</p>
       </div>
       <div class="tile">
         <h3>Every figure shows its working</h3>
-        <p>Each run writes <code>comped-explain.txt</code>: one line per model with the token counts, the rate each was multiplied by, and the total. If a number looks wrong, you can find out why in about ten seconds.</p>
+        <p>Each run writes <code>comped-explain.txt</code>: one line per model with the token counts, the rate each was multiplied by, the plan it inferred and every rung of the ladder. If a number looks wrong, you can find out why in about ten seconds.</p>
       </div>
       <div class="tile">
         <h3>Checked against someone else's maths</h3>
@@ -205,14 +258,14 @@
   <div class="wrap">
     <h2>Go and find out</h2>
     <p class="lede">Try it on the synthetic logs bundled with the Play first, if you'd rather not point a stranger's code at your own on the first date.</p>
-    <div class="cmd" style="margin-bottom:14px">
+    <div class="cmd" data-label="demo run">
       <span class="dollar">$</span>
-      <code id="cmd-demo">rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex plan=claude-max-200</code>
+      <code id="cmd-demo">rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex</code>
       <button class="copy" data-copy="#cmd-demo">Copy</button>
     </div>
-    <div class="cmd">
+    <div class="cmd" data-label="the real thing">
       <span class="dollar">$</span>
-      <code id="cmd-real">rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code>
+      <code id="cmd-real">rote play run https://play.modiqo.ai/rajkaria/comped</code>
       <button class="copy" data-copy="#cmd-real">Copy</button>
     </div>
     <p class="hero-note">Then post your multiplier. Everyone thinks theirs is the bad one.</p>
