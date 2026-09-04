@@ -12,6 +12,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from comped_core import models                      # noqa: E402
+from comped_core.detect import PROVIDERS, HARNESSES  # noqa: E402
 from comped_core.cli import build_parser            # noqa: E402
 
 SLUGS = ("comped", "session-ledger", "wrong-turns")
@@ -165,6 +166,22 @@ def cli_reference():
     return "\n".join(out)
 
 
+def providers_table():
+    """Generated from comped_core.detect, so the list on the page is the list in the code."""
+    out = ["<table><thead><tr><th>Provider</th><th>What you call it</th><th>Model ids that name it</th>"
+           "<th>Subscriptions priced</th></tr></thead><tbody>"]
+    for key, label, talk, pattern, plans in PROVIDERS:
+        ids = pattern.replace("^", "").replace("(", "").replace(")", "").replace("|", ", ")
+        out.append("<tr><td>{0}</td><td>{1}</td><td><code>{2}…</code></td><td>{3}</td></tr>".format(
+            esc(label), esc(talk), esc(ids), ", ".join("<code>{0}</code>".format(esc(p)) for p in plans) or "—"))
+    out.append("</tbody></table>")
+    return "\n".join(out)
+
+
+def harness_list():
+    return ", ".join("<strong>{0}</strong>".format(esc(label)) for label, _ in HARNESSES.values())
+
+
 def play_section(slug):
     return """
 <h3 id="play-{slug}">{slug}</h3>
@@ -228,6 +245,7 @@ def main():
   <a href="#install">Install</a>
   <a href="#quickstart">Quick start</a>
   <a href="#reading">Reading the card</a>
+  <a href="#detection">What you're running</a>
   <strong>The Plays</strong>
   <a href="#play-comped">comped</a>
   <a href="#play-session-ledger">session-ledger</a>
@@ -255,24 +273,37 @@ def main():
 <pre><code>rote play run https://play.modiqo.ai/{handle}/comped \\
   claude_dir=resources/fixtures/claude \\
   codex_dir=resources/fixtures/codex \\
-  plan=claude-max-200 \\
   out_dir=comped-demo</code></pre>
 <p>Eight steps, about two seconds, and a card. Then the real thing:</p>
-<pre><code>rote play run https://play.modiqo.ai/{handle}/comped plan=claude-max-200</code></pre>
+<pre><code>rote play run https://play.modiqo.ai/{handle}/comped</code></pre>
 <p>Ten seconds or so on a month of heavy use. Everything lands in <code>~/comped/</code>. Run it again tomorrow and the card grows a line telling you what moved.</p>
 
 <h2 id="reading">Reading the card</h2>
 <p>Top to bottom, the card says:</p>
 <ul>
 <li><strong>The total.</strong> What the window's tokens would have cost at API list prices. Not a bill — you're on a subscription and you paid what you paid.</li>
-<li><strong>The multiplier.</strong> That total divided by your plan, prorated across the window by days ÷ 30.4375. Leave <code>plan</code> empty and this line disappears rather than guessing.</li>
+<li><strong>The multiplier.</strong> That total divided by your plan, prorated across the window by days ÷ 30.4375. You do not type the plan: see <a href="#detection">what you're running</a>.</li>
 <li><strong>Spend per model,</strong> largest first, with a bar. If one model is quietly eating your month, this is where you see it.</li>
 <li><strong>Cache-read share.</strong> The fraction of your input tokens served from cache. High is good and normal — most agent traffic is re-reading the same context. A number near zero means something at the front of your prompt keeps changing and the whole prefix is being re-billed.</li>
 <li><strong>Active days and sessions,</strong> so a big total can be read as either heavy use or a heavy week.</li>
 <li><strong>The delta,</strong> once there's a previous run to compare against.</li>
 <li><strong>Repeat offenders.</strong> Jobs you've asked for repeatedly, with what the repeats cost, and the command to turn the top one into a Play so you stop paying for it.</li>
 <li><strong>The Rote dividend.</strong> What those repeats would have cost as a Play instead, at Modiqo's stated 98% reduction and at a more conservative 80%.</li>
+<li><strong>Detected.</strong> Which providers your window actually used — Claude, GPT/Codex, Kimi, GLM and the rest — with their share and the harnesses they came through. None of it typed.</li>
+<li><strong>If you're on…</strong> every subscription those providers sell, priced against this window at once, with the assumed row marked. Your tier is the one thing your logs do not record, so the card shows all of them rather than asking.</li>
 </ul>
+
+<h2 id="detection">What you're running, worked out for you</h2>
+<p>Asking you which AI you use makes no sense: your logs already say. Every usage record carries the model id the harness sent, and that id names the provider behind it. So <code>plan</code> defaults to <code>auto</code> and the run works the rest out itself.</p>
+<ol class="steps">
+<li><b>The harnesses.</b> {harnesses}. A directory that isn't there is a shrug, and the card names the ones it didn't find so you know what wasn't counted.</li>
+<li><b>The provider.</b> Read off the model id, after gateway and region prefixes are stripped — <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Point Claude Code at Moonshot or Z.ai and the ids give that away too, which is the whole point.</li>
+<li><b>The tier — the one thing no log records.</b> A Pro session and a Max session are the same bytes. So instead of asking, every subscription the detected providers sell is priced against your window at once and you read your own row. The one the card assumes is deliberately the least flattering: the most expensive plan that fits, which is the smallest multiplier you could honestly claim.</li>
+<li><b>Anything else.</b> A provider with no subscription in the table (Kimi, GLM, DeepSeek and friends) is named, its spend stays in the total, and the card says plainly that nothing in the plan cost covers it. If you pay for one, <code>plan=usd:29</code> prices it without the table having to know.</li>
+</ol>
+<p>Overriding is still one word — <code>plan=claude-pro-20</code>, or several separated by commas — and it wins over the inference.</p>
+{providers}
+<div class="callout"><p>Detection reads nothing new. It looks at records the ledger already parsed, and at which of the four log directories existed. A model id nobody recognises is reported by name as unknown rather than assigned to a provider by guess.</p></div>
 
 <h2 id="plays">The three Plays</h2>
 {play_comped}
@@ -327,9 +358,9 @@ def main():
 <p>{models}</p>
 <p>A model that is not in this list is reported under "unpriced" with its token counts, and no dollar figure is invented for it.</p>
 <h3>Plans</h3>
-<p>Public list prices as of {plans_as_of}. Pass one id, or several separated by commas, as <code>plan=</code>.</p>
+<p>Public list prices as of {plans_as_of}. You normally pass none of these: <code>plan=auto</code> prices every row a detected provider sells and marks the one it assumed. Pass one id, or several separated by commas, to override — or <code>usd:&lt;amount&gt;</code> for a subscription this table does not carry.</p>
 {plans}
-<div class="callout warn"><p>Your plan is an input you type. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
+<div class="callout warn"><p>Your tier is inferred from the model ids in your own logs, never from your account. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
 
 <h2 id="privacy">Privacy, and how to check it</h2>
 <p>The claims are on the <a href="./#privacy">front page</a>. Here is how you verify them rather than believing them:</p>
@@ -344,7 +375,7 @@ def main():
 <p>The Plays are a thin wrapper around a Python package with no dependencies. If you would rather run it directly, clone the repo and use the module. Every subcommand prints one JSON object as its last line; a missing log directory is a warning and exit 0, bad arguments exit 2, and nothing ever prints a traceback.</p>
 <pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
 python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
-python3 -m comped_core price   --out-dir ~/comped --plan claude-max-200
+python3 -m comped_core price   --out-dir ~/comped            # --plan auto by default
 python3 -m comped_core repeats --out-dir ~/comped --repeat-threshold 3
 python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>The full set:</p>
@@ -390,7 +421,9 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
            models=model_links,
            plans=plans,
            plans_as_of=esc(plans_as_of),
-           cli=cli_reference())
+           cli=cli_reference(),
+           providers=providers_table(),
+           harnesses=harness_list())
     out = ROOT / "site" / "docs.html"
     out.write_text(body, encoding="utf-8")
     print("wrote {0} ({1} bytes)".format(out, len(body)))

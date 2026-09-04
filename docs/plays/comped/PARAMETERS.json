@@ -66,11 +66,12 @@
  {
   "name": "plan",
   "type": "string",
-  "default": "",
-  "example": "claude-max-200",
-  "label": "Plan you pay for",
-  "description": "Comma-separated ids: claude-pro-20, claude-max-100, claude-max-200, chatgpt-plus-20, chatgpt-pro-200, api, unknown. Typed by you: this Play never reads your OAuth files to find it. Empty or unknown shows the list-price total with no multiplier.",
+  "default": "auto",
+  "example": "auto",
+  "label": "Plan (auto-detected)",
+  "description": "Leave it. auto reads the model ids already in your logs, names the providers behind them (Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen and the rest) and prices every tier those providers sell, marking the least flattering one as assumed -- you read your own row instead of typing it. Override with a comma-separated list of ids, or usd:<amount> for a subscription this table does not carry. This Play never opens your OAuth files to find out.",
   "choices": [
+   "auto",
    "claude-pro-20",
    "claude-max-100",
    "claude-max-200",

@@ -2,17 +2,30 @@
 │ COMPED                                        last 3650 days │
 │                                                              │
 │ $14.05 comped                                                │
-│ 0.0×  vs Claude Max 20x ($23,983.57 prorated)                │
+│ 0.0×  vs Claude Max 20x + ChatGPT Pro ($47,967.15 prorated)  │
+│ assumed from your own logs — nothing typed, nothing asked    │
 │                                                              │
 │ claude-opus-5             $6.09   43%   ▇▇▇▇▇                │
 │ claude-fable-5-1          $3.61   26%   ▇▇▇                  │
 │ gpt-5.5                   $3.04   22%   ▇▇▇                  │
 │ cache read share 89%   active days 3/3650   sessions 8       │
 │ baseline saved; next run shows the delta                     │
-│                                                              │
-│ REPEAT OFFENDERS                                             │
+├─ DETECTED ───────────────────────────────────────────────────┤
+│ Claude        67%   claude-opus-5, claude-opus-4-8 +2        │
+│ GPT / Codex   32%   gpt-5.5                                  │
+│ DeepSeek       1%   deepseek-chat                            │
+│ read from Claude Code, Codex CLI, OpenCode, Pi               │
+├─ IF YOU'RE ON… ──────────────────────────────────────────────┤
+│ ChatGPT Plus                 $2,398.36     0.0×              │
+│ Claude Pro                   $2,398.36     0.0×              │
+│ Claude Max 5x               $11,991.79     0.0×              │
+│ ChatGPT Pro                 $23,983.57     0.0×              │
+│ Claude Max 20x + ChatGPT Pro$47,967.15     0.0×  ← assumed   │
+│ not your row? plan=claude-pro-20 · plan=usd:29 for anything  │
+├─ REPEAT OFFENDERS ───────────────────────────────────────────┤
 │ 7× "push it to prod"                                  $10.24 │
 │ 4× "merge and push to main and then sa"                $0.77 │
+│ 2× "create a post for the launch with "                $0.54 │
 │ Rote dividend: $11 at 98% · $9 at 80%                        │
 │ capture: /play settle rajkaria "push it to prod"             │
 │                                                              │
@@ -21,6 +34,6 @@
 │ comped-out/comped-explain.txt                                │
 └──────────────────────────────────────────────────────────────┘
 
-I got comped $14 on a $23,983.57 plan in the last 3650 days. 0×. Measured from my own agent logs with the comped Play on @Modiqo's rote. Run it on yours: rote play run https://play.modiqo.ai/rajkaria/comped
+I got comped $14 on a $47,967.15 plan in the last 3650 days. 0×. Measured from my own agent logs with the comped Play on @Modiqo's rote. Run it on yours: rote play run https://play.modiqo.ai/rajkaria/comped
 
-{"multiplier": "0.0005859683860017123287671232876", "note": "PNG rendered with qlmanage", "ok": true, "png": "comped-out/comped-card.png", "repeats": 2, "total_usd": "14.053615500", "written": ["comped-out/comped-card.svg", "comped-out/comped-card-square.svg", "comped-out/comped-card.png", "comped-out/comped-baseline.json", "comped-out/comped-report.md", "comped-out/comped-share.txt"]}
+{"detected": "Claude 67% \u00b7 GPT / Codex 32% \u00b7 DeepSeek 1% via Claude Code, Codex CLI, OpenCode, Pi", "multiplier": "0.0002929841930008561643835616438", "note": "PNG rendered with qlmanage", "ok": true, "plan": "Claude Max 20x + ChatGPT Pro", "plan_source": "auto", "png": "comped-out/comped-card.png", "repeats": 3, "total_usd": "14.053615500", "written": ["comped-out/comped-card.svg", "comped-out/comped-card-square.svg", "comped-out/comped-card.png", "comped-out/comped-baseline.json", "comped-out/comped-report.md", "comped-out/comped-share.txt"]}

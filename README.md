@@ -30,13 +30,13 @@ Three rote Plays on one stdlib-only Python core:
 Try it on the bundled synthetic logs first — no configuration, nothing of yours read:
 
 ```bash
-rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex plan=claude-max-200
+rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex
 ```
 
 Then on your own:
 
 ```bash
-rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200
+rote play run https://play.modiqo.ai/rajkaria/comped
 ```
 
 The core also runs on its own, with nothing but `python3`:
@@ -56,13 +56,13 @@ python3 -m comped_core ledger --days-back 30 --out-dir ~/comped
 The full derivation — record model, per-record pricing, deduplication, windows and plan proration, the price table, repeat clustering and wrong-turn signals — is [SPEC §7](docs/SPEC.md#7-the-core-math). Two claims worth stating here:
 
 - **List price is not a bill.** It is what the same tokens would have cost on the API at the table's published rates. Your plan is a subscription; the multiplier is the ratio, nothing more.
-- **The plan is typed by you.** The tool refuses to read your OAuth files to discover it.
+- **Nothing is typed.** Which AI you run comes out of the model ids in the logs; every tier those providers sell is priced at once and the assumed row is the least flattering one. The tool refuses to read your OAuth files to discover your account.
 
 Token totals for Claude Code are checked against [ccusage](https://github.com/ryoppippi/ccusage) in CI, per model, under identical deduplication.
 
 ## Privacy
 
-Reads: session logs under the configured directories. Nothing else. Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file; plan is typed by you. Never sends: no network calls of any kind. Writes: only under `out_dir`, every path listed in the report. Message text: truncated to 120 characters and hashed by default.
+Reads: session logs under the configured directories. Nothing else. Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file; which AI you run is inferred from the model ids in those logs, never from your account. Never sends: no network calls of any kind. Writes: only under `out_dir`, every path listed in the report. Message text: truncated to 120 characters and hashed by default.
 
 Enforced by tests, not just promised: the suite fails if `comped_core` imports `urllib`, `http`, `socket`, `requests` or `ssl`, if any module other than the PNG renderer mentions `subprocess`, or if any source line references a credential path.
 

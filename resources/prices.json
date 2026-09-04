@@ -8,6 +8,34 @@
   "note": "List prices. Not a bill. Unknown models are never estimated."
  },
  "models": {
+  "MiniMax-M2": {
+   "in": "3e-07",
+   "out": "1.2e-06",
+   "cache_write": "3.75e-07",
+   "cache_read": "3e-08",
+   "from_key": "minimax/MiniMax-M2"
+  },
+  "MiniMax-M2.1": {
+   "in": "3e-07",
+   "out": "1.2e-06",
+   "cache_write": "3.75e-07",
+   "cache_read": "3e-08",
+   "from_key": "minimax/MiniMax-M2.1"
+  },
+  "MiniMax-M2.5": {
+   "in": "3e-07",
+   "out": "1.2e-06",
+   "cache_write": "3.75e-07",
+   "cache_read": "3e-08",
+   "from_key": "minimax/MiniMax-M2.5"
+  },
+  "MiniMax-M3": {
+   "in": "3e-07",
+   "out": "1.2e-06",
+   "cache_write": "0",
+   "cache_read": "6e-08",
+   "from_key": "minimax/MiniMax-M3"
+  },
   "claude-fable-5": {
    "in": "1e-05",
    "out": "5e-05",
@@ -34,7 +62,7 @@
    "out": "7.5e-05",
    "cache_write": "1.875e-05",
    "cache_read": "1.5e-06",
-   "from_key": "claude-opus-4-1-20250805"
+   "from_key": "claude-opus-4-1"
   },
   "claude-opus-4-5": {
    "in": "5e-06",
@@ -48,14 +76,14 @@
    "out": "2.5e-05",
    "cache_write": "6.25e-06",
    "cache_read": "5e-07",
-   "from_key": "claude-opus-4-6-20260205"
+   "from_key": "claude-opus-4-6"
   },
   "claude-opus-4-7": {
    "in": "5e-06",
    "out": "2.5e-05",
    "cache_write": "6.25e-06",
    "cache_read": "5e-07",
-   "from_key": "claude-opus-4-7-20260416"
+   "from_key": "claude-opus-4-7"
   },
   "claude-opus-4-8": {
    "in": "5e-06",
@@ -76,7 +104,7 @@
    "out": "1.5e-05",
    "cache_write": "3.75e-06",
    "cache_read": "3e-07",
-   "from_key": "claude-sonnet-4-5-20250929-v1:0"
+   "from_key": "claude-sonnet-4-5"
   },
   "claude-sonnet-4-6": {
    "in": "3e-06",
@@ -91,6 +119,13 @@
    "cache_write": "2.5e-06",
    "cache_read": "2e-07",
    "from_key": "claude-sonnet-5"
+  },
+  "codestral-latest": {
+   "in": "3e-07",
+   "out": "9e-07",
+   "cache_write": "0",
+   "cache_read": "3e-08",
+   "from_key": "mistral/codestral-latest"
   },
   "codex-mini-latest": {
    "in": "1.5e-06",
@@ -113,6 +148,34 @@
    "cache_read": "2.8e-08",
    "from_key": "deepseek-reasoner"
   },
+  "deepseek-v3.2": {
+   "in": "2.8e-07",
+   "out": "4e-07",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "deepseek/deepseek-v3.2"
+  },
+  "deepseek-v4-flash": {
+   "in": "4.4e-07",
+   "out": "1.32e-06",
+   "cache_write": "0",
+   "cache_read": "1.4e-08",
+   "from_key": "deepseek-v4-flash"
+  },
+  "deepseek-v4-pro": {
+   "in": "1.32e-06",
+   "out": "3.96e-06",
+   "cache_write": "0",
+   "cache_read": "4.4e-08",
+   "from_key": "deepseek-v4-pro"
+  },
+  "devstral-medium-latest": {
+   "in": "4e-07",
+   "out": "2e-06",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "mistral/devstral-medium-latest"
+  },
   "gemini-2.5-flash": {
    "in": "3e-07",
    "out": "2.5e-06",
@@ -127,12 +190,103 @@
    "cache_read": "1.25e-07",
    "from_key": "gemini-2.5-pro"
   },
+  "gemini-3-flash-preview": {
+   "in": "5e-07",
+   "out": "3e-06",
+   "cache_write": "0",
+   "cache_read": "5e-08",
+   "from_key": "gemini-3-flash-preview"
+  },
+  "gemini-3-pro-preview": {
+   "in": "2e-06",
+   "out": "1.2e-05",
+   "cache_write": "0",
+   "cache_read": "2e-07",
+   "from_key": "gemini-3-pro-preview"
+  },
+  "glm-4.5": {
+   "in": "6e-07",
+   "out": "2.2e-06",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "zai/glm-4.5"
+  },
+  "glm-4.5-air": {
+   "in": "2e-07",
+   "out": "1.1e-06",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "zai/glm-4.5-air"
+  },
+  "glm-4.6": {
+   "in": "6e-07",
+   "out": "2.2e-06",
+   "cache_write": "0",
+   "cache_read": "1.1e-07",
+   "from_key": "zai/glm-4.6"
+  },
+  "glm-4.7": {
+   "in": "6e-07",
+   "out": "2.2e-06",
+   "cache_write": "0",
+   "cache_read": "1.1e-07",
+   "from_key": "zai/glm-4.7"
+  },
+  "glm-4.7-flash": {
+   "in": "0",
+   "out": "0",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "zai/glm-4.7-flash"
+  },
+  "glm-5": {
+   "in": "1e-06",
+   "out": "3.2e-06",
+   "cache_write": "0",
+   "cache_read": "2e-07",
+   "from_key": "zai/glm-5"
+  },
+  "glm-5-code": {
+   "in": "1.2e-06",
+   "out": "5e-06",
+   "cache_write": "0",
+   "cache_read": "3e-07",
+   "from_key": "zai/glm-5-code"
+  },
+  "glm-5.1": {
+   "in": "1.4e-06",
+   "out": "4.4e-06",
+   "cache_write": "0",
+   "cache_read": "2.6e-07",
+   "from_key": "zai/glm-5.1"
+  },
+  "glm-5.2": {
+   "in": "1.4e-06",
+   "out": "4.4e-06",
+   "cache_write": "0",
+   "cache_read": "2.6e-07",
+   "from_key": "zai/glm-5.2"
+  },
+  "glm-5.3": {
+   "in": "1.4e-06",
+   "out": "4.4e-06",
+   "cache_write": "0",
+   "cache_read": "2.6e-07",
+   "from_key": "zai/glm-5.3"
+  },
+  "glm-5.3-flash": {
+   "in": "1.5e-07",
+   "out": "5e-07",
+   "cache_write": "0",
+   "cache_read": "3e-08",
+   "from_key": "zai/glm-5.3-flash"
+  },
   "gpt-5": {
    "in": "1.25e-06",
    "out": "1e-05",
    "cache_write": "0",
    "cache_read": "1.25e-07",
-   "from_key": "gpt-5-2025-08-07"
+   "from_key": "gpt-5"
   },
   "gpt-5-codex": {
    "in": "1.25e-06",
@@ -146,21 +300,21 @@
    "out": "2e-06",
    "cache_write": "0",
    "cache_read": "2.5e-08",
-   "from_key": "gpt-5-mini-2025-08-07"
+   "from_key": "gpt-5-mini"
   },
   "gpt-5-nano": {
    "in": "5e-08",
    "out": "4e-07",
    "cache_write": "0",
    "cache_read": "5e-09",
-   "from_key": "gpt-5-nano-2025-08-07"
+   "from_key": "gpt-5-nano"
   },
   "gpt-5.1": {
    "in": "1.25e-06",
    "out": "1e-05",
    "cache_write": "0",
    "cache_read": "1.25e-07",
-   "from_key": "gpt-5.1-2025-11-13"
+   "from_key": "gpt-5.1"
   },
   "gpt-5.1-codex": {
    "in": "1.25e-06",
@@ -188,7 +342,7 @@
    "out": "1.4e-05",
    "cache_write": "0",
    "cache_read": "1.75e-07",
-   "from_key": "gpt-5.2-2025-12-11"
+   "from_key": "gpt-5.2"
   },
   "gpt-5.2-codex": {
    "in": "1.75e-06",
@@ -202,7 +356,7 @@
    "out": "0.000168",
    "cache_write": "0",
    "cache_read": "0",
-   "from_key": "gpt-5.2-pro-2025-12-11"
+   "from_key": "gpt-5.2-pro"
   },
   "gpt-5.3-codex": {
    "in": "1.75e-06",
@@ -216,42 +370,42 @@
    "out": "1.5e-05",
    "cache_write": "0",
    "cache_read": "2.5e-07",
-   "from_key": "gpt-5.4-2026-03-05"
+   "from_key": "gpt-5.4"
   },
   "gpt-5.4-mini": {
    "in": "7.5e-07",
    "out": "4.5e-06",
    "cache_write": "0",
    "cache_read": "7.5e-08",
-   "from_key": "gpt-5.4-mini-2026-03-17"
+   "from_key": "gpt-5.4-mini"
   },
   "gpt-5.4-nano": {
    "in": "2e-07",
    "out": "1.25e-06",
    "cache_write": "0",
    "cache_read": "2e-08",
-   "from_key": "gpt-5.4-nano-2026-03-17"
+   "from_key": "gpt-5.4-nano"
   },
   "gpt-5.4-pro": {
    "in": "3e-05",
    "out": "0.00018",
    "cache_write": "0",
    "cache_read": "3e-06",
-   "from_key": "gpt-5.4-pro-2026-03-05"
+   "from_key": "gpt-5.4-pro"
   },
   "gpt-5.5": {
    "in": "5e-06",
    "out": "3e-05",
    "cache_write": "0",
    "cache_read": "5e-07",
-   "from_key": "gpt-5.5-2026-04-23"
+   "from_key": "gpt-5.5"
   },
   "gpt-5.5-pro": {
    "in": "3e-05",
    "out": "0.00018",
    "cache_write": "0",
    "cache_read": "3e-06",
-   "from_key": "gpt-5.5-pro-2026-04-23"
+   "from_key": "gpt-5.5-pro"
   },
   "gpt-5.6": {
    "in": "4e-06",
@@ -261,32 +415,144 @@
    "from_key": "gpt-5.6"
   },
   "grok-4": {
+   "in": "1.25e-06",
+   "out": "2.5e-06",
+   "cache_write": "0",
+   "cache_read": "2e-07",
+   "from_key": "xai/grok-4"
+  },
+  "grok-4.3": {
+   "in": "1.25e-06",
+   "out": "2.5e-06",
+   "cache_write": "0",
+   "cache_read": "2e-07",
+   "from_key": "xai/grok-4.3"
+  },
+  "grok-4.6": {
+   "in": "2e-06",
+   "out": "6e-06",
+   "cache_write": "0",
+   "cache_read": "5e-07",
+   "from_key": "xai/grok-4.6"
+  },
+  "grok-code-fast-1": {
+   "in": "1e-06",
+   "out": "2e-06",
+   "cache_write": "0",
+   "cache_read": "2e-07",
+   "from_key": "xai/grok-code-fast-1"
+  },
+  "kimi-k2-0905-preview": {
+   "in": "6e-07",
+   "out": "2.5e-06",
+   "cache_write": "0",
+   "cache_read": "1.5e-07",
+   "from_key": "moonshot/kimi-k2-0905-preview"
+  },
+  "kimi-k2-thinking": {
+   "in": "6e-07",
+   "out": "2.5e-06",
+   "cache_write": "0",
+   "cache_read": "1.5e-07",
+   "from_key": "moonshot/kimi-k2-thinking"
+  },
+  "kimi-k2-thinking-turbo": {
+   "in": "1.15e-06",
+   "out": "8e-06",
+   "cache_write": "0",
+   "cache_read": "1.5e-07",
+   "from_key": "moonshot/kimi-k2-thinking-turbo"
+  },
+  "kimi-k2-turbo-preview": {
+   "in": "1.15e-06",
+   "out": "8e-06",
+   "cache_write": "0",
+   "cache_read": "1.5e-07",
+   "from_key": "moonshot/kimi-k2-turbo-preview"
+  },
+  "kimi-k2.5": {
+   "in": "6e-07",
+   "out": "3e-06",
+   "cache_write": "0",
+   "cache_read": "1e-07",
+   "from_key": "moonshot/kimi-k2.5"
+  },
+  "kimi-k2.6": {
+   "in": "9.5e-07",
+   "out": "4e-06",
+   "cache_write": "0",
+   "cache_read": "1.6e-07",
+   "from_key": "moonshot/kimi-k2.6"
+  },
+  "kimi-k2.7-code": {
+   "in": "9.5e-07",
+   "out": "4e-06",
+   "cache_write": "0",
+   "cache_read": "1.9e-07",
+   "from_key": "moonshot/kimi-k2.7-code"
+  },
+  "kimi-k3": {
    "in": "3e-06",
    "out": "1.5e-05",
    "cache_write": "0",
-   "cache_read": "0",
-   "from_key": "azure_ai/grok-4"
+   "cache_read": "3e-07",
+   "from_key": "moonshot/kimi-k3"
+  },
+  "kimi-latest": {
+   "in": "2e-06",
+   "out": "5e-06",
+   "cache_write": "0",
+   "cache_read": "1.5e-07",
+   "from_key": "moonshot/kimi-latest"
   },
   "mistral-large-latest": {
-   "in": "8e-06",
-   "out": "2.4e-05",
+   "in": "5e-07",
+   "out": "1.5e-06",
    "cache_write": "0",
-   "cache_read": "0",
-   "from_key": "azure/mistral-large-latest"
+   "cache_read": "5e-08",
+   "from_key": "mistral/mistral-large-latest"
   },
   "o3": {
    "in": "2e-06",
    "out": "8e-06",
    "cache_write": "0",
    "cache_read": "5e-07",
-   "from_key": "o3-2025-04-16"
+   "from_key": "o3"
   },
   "o4-mini": {
    "in": "1.1e-06",
    "out": "4.4e-06",
    "cache_write": "0",
    "cache_read": "2.75e-07",
-   "from_key": "o4-mini-2025-04-16"
+   "from_key": "o4-mini"
+  },
+  "qwen-max": {
+   "in": "1.6e-06",
+   "out": "6.4e-06",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "dashscope/qwen-max"
+  },
+  "qwen-plus": {
+   "in": "4e-07",
+   "out": "1.2e-06",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "dashscope/qwen-plus"
+  },
+  "qwen3-coder": {
+   "in": "2.2e-07",
+   "out": "9.5e-07",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "openrouter/qwen/qwen3-coder"
+  },
+  "qwen3-coder-plus": {
+   "in": "1e-06",
+   "out": "5e-06",
+   "cache_write": "0",
+   "cache_read": "0",
+   "from_key": "openrouter/qwen/qwen3-coder-plus"
   }
  }
 }

@@ -4,7 +4,7 @@ status:
   exit:
     kind: code
     code: 0
-  duration_ms: 345
+  duration_ms: 366
   timeout_ms: 120000
 stdout: resources/presentation-fixtures/read_claude/stdout.txt
 stderr: resources/presentation-fixtures/read_claude/stderr.txt

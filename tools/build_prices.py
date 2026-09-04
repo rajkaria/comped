@@ -14,13 +14,37 @@ ALLOW = [
     "gpt-5.6", "gpt-5.5", "gpt-5.5-pro", "gpt-5.4", "gpt-5.4-pro", "gpt-5.4-mini", "gpt-5.4-nano", "gpt-5.2", "gpt-5.2-pro",
     "gpt-5.1", "gpt-5.5-codex", "gpt-5.3-codex", "gpt-5.2-codex", "gpt-5.1-codex", "gpt-5.1-codex-max", "gpt-5.1-codex-mini",
     "gpt-5-codex", "codex-mini-latest", "gpt-5", "gpt-5-mini", "gpt-5-nano", "o3", "o4-mini",
-    "gemini-3-pro", "gemini-3-flash", "gemini-2.5-pro", "gemini-2.5-flash",
-    "deepseek-chat", "deepseek-reasoner", "kimi-k2", "grok-4", "mistral-large-latest", "qwen3-coder",
+    "gemini-3-pro", "gemini-3-pro-preview", "gemini-3-flash", "gemini-3-flash-preview", "gemini-2.5-pro", "gemini-2.5-flash",
+    # Everything below is reached by pointing a harness at a third-party endpoint -- Claude Code
+    # against Moonshot or Z.ai, Codex against an OpenAI-compatible gateway. The model id in the log
+    # is the only trace of it, so the table has to know these ids or the run reports them unpriced.
+    "kimi-k2", "kimi-k2-0905-preview", "kimi-k2-turbo-preview", "kimi-k2-thinking", "kimi-k2-thinking-turbo",
+    "kimi-k2.5", "kimi-k2.6", "kimi-k2.7-code", "kimi-k3", "kimi-latest",
+    "glm-4.5", "glm-4.5-air", "glm-4.6", "glm-4.7", "glm-4.7-flash", "glm-5", "glm-5-code", "glm-5.1", "glm-5.2",
+    "glm-5.3", "glm-5.3-flash",
+    "deepseek-chat", "deepseek-reasoner", "deepseek-v3.2", "deepseek-v4-pro", "deepseek-v4-flash",
+    "qwen3-coder", "qwen3-coder-plus", "qwen3-coder-next", "qwen3-max", "qwen-max", "qwen-plus", "qwen-flash",
+    "MiniMax-M2", "MiniMax-M2.1", "MiniMax-M2.5", "MiniMax-M3",
+    "grok-4", "grok-4.3", "grok-4.6", "grok-code-fast-1",
+    "mistral-large-latest", "devstral-medium-latest", "codestral-latest",
 ]
 PREFIXES = ["global.anthropic.", "us.anthropic.", "eu.anthropic.", "au.anthropic.", "jp.anthropic.", "apac.anthropic.",
-            "anthropic.", "openrouter/openai/", "openrouter/anthropic/", "azure_ai/", "azure/us/", "azure/eu/", "azure/",
-            "openai/", "anthropic/", "bedrock/", "vertex_ai/", "gemini/", "deepseek/", "moonshot/", "xai/", "mistral/"]
+            "anthropic.", "openrouter/openai/", "openrouter/anthropic/", "openrouter/moonshotai/", "openrouter/z-ai/",
+            "openrouter/deepseek/", "openrouter/qwen/", "azure_ai/", "azure/us/", "azure/eu/", "azure/",
+            "openai/", "anthropic/", "bedrock/", "vertex_ai/", "gemini/", "deepseek/", "moonshot/", "moonshotai/",
+            "zai/", "z-ai/", "zhipu/", "minimax/", "dashscope/", "qwen/", "xai/", "mistral/"]
 DATE = re.compile(r"-(\d{4}-\d{2}-\d{2}|\d{8})$")
+# Several upstream keys normalise to the same id -- moonshot/kimi-k2.6 and dashscope/kimi-k2.6 are
+# the same model resold. Rank them so the model's own vendor wins and a reseller's markup never
+# silently becomes "the" price.
+NATIVE = ("openai/", "anthropic/", "gemini/", "deepseek/", "moonshot/", "moonshotai/", "zai/", "z-ai/",
+          "zhipu/", "minimax/", "qwen/", "xai/", "mistral/")
+
+
+def rank(key, n):
+    if key == n:
+        return 0
+    return 1 if any(key.startswith(p) for p in NATIVE) else 2
 
 
 def normalise(k):
@@ -60,13 +84,16 @@ def main(out="resources/prices.json"):
         rec = {"in": repr(e.get("input_cost_per_token") or 0), "out": repr(e.get("output_cost_per_token") or 0),
                "cache_write": repr(e.get("cache_creation_input_token_cost") or 0),
                "cache_read": repr(e.get("cache_read_input_token_cost") or 0), "from_key": key}
-        # prefer the unprefixed key when several map to the same normalised id
-        if n not in models or key == n or ("/" not in key and "." not in key.split("-")[0]):
+        # prefer the model's own vendor when several upstream keys map to one normalised id
+        r = rank(key, n)
+        if n not in models or r < models[n]["rank"]:
+            rec["rank"] = r
             models[n] = rec
     doc = {"meta": {"source_url": SRC, "upstream_sha": sha, "as_of": datetime.date.today().isoformat(),
                     "generated_by": "tools/build_prices.py", "unit": "USD per token",
                     "note": "List prices. Not a bill. Unknown models are never estimated."},
-           "models": dict(sorted(models.items()))}
+           "models": {k: {f: v[f] for f in ("in", "out", "cache_write", "cache_read", "from_key")}
+                      for k, v in sorted(models.items())}}
     pathlib.Path(out).write_text(json.dumps(doc, indent=1) + "\n")
     print("wrote {0}: {1} models, sha {2}".format(out, len(models), sha[:12]))
 

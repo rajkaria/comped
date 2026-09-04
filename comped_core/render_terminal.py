@@ -16,8 +16,29 @@ def _row(text: str, color_len=0) -> str:
     return "│ " + text + " " * max(pad, 0) + " │"
 
 
+def _rule(label: str) -> str:
+    """A section head that reads as part of the box rather than a stray line of shouting."""
+    body = "─ {0} ".format(label)
+    return "├" + body + "─" * max(0, W - 2 - len(body)) + "┤"
+
+
 def _bar(share: Decimal, width=12) -> str:
     return "▇" * max(0, min(width, int(round(float(share) * width))))
+
+
+def pick_rows(rows: list, n: int) -> list:
+    """The first n rungs, but never at the cost of the one the card assumed.
+
+    The ladder is ordered by price, and a two-vendor stack puts the combined row (the assumed one)
+    at the bottom. Dropping it is the one thing the cut must not do."""
+    shown = rows[:n]
+    if any(r["assumed"] for r in shown) or not any(r["assumed"] for r in rows):
+        return shown
+    return shown[: n - 1] + [r for r in rows if r["assumed"]][:1]
+
+
+def _mult(m) -> str:
+    return "{0:.1f}×".format(m) if m is not None else "—"
 
 
 def render_terminal(v: dict, color: bool) -> str:
@@ -31,7 +52,9 @@ def render_terminal(v: dict, color: bool) -> str:
     if v.get("multiplier") is not None:
         L.append(_row("{0:.1f}×  vs {1} ({2} prorated)".format(v["multiplier"], " + ".join(v["plan_labels"]), money(v["plan_cost"]))[: W - 4]))
     else:
-        L.append(_row("no plan given: list-price total only (set plan= to see your multiplier)"[: W - 4]))
+        L.append(_row("list-price total only: no subscription matched what you run"[: W - 4]))
+    if v.get("plan_source") == "auto" and v.get("plan_labels"):
+        L.append(_row("assumed from your own logs — nothing typed, nothing asked"[: W - 4]))
     L.append(_row(""))
     for m in v["per_model"][:3]:
         name = m["model"][:18].ljust(18)
@@ -45,8 +68,11 @@ def render_terminal(v: dict, color: bool) -> str:
         md = ", {0}{1:.1f}×".format("+" if d["multiplier_delta"] >= 0 else "", d["multiplier_delta"]) if d.get("multiplier_delta") is not None else ""
         L.append(_row("since last run ({0}d ago): {1}{2}{3}".format(
             d["days_since"], "+" if d["total_usd_delta"] >= 0 else "-", money(abs(d["total_usd_delta"])), md)[: W - 4]))
-    L.append(_row(""))
-    L.append(_row("REPEAT OFFENDERS"))
+
+    L += _detected_block(v)
+    L += _ladder_block(v)
+
+    L.append(_rule("REPEAT OFFENDERS"))
     if not v["repeats"]:
         L.append(_row("none met the threshold (3 asks, 2 sessions, 2 days)"))
     for r in v["repeats"][:3]:
@@ -63,3 +89,38 @@ def render_terminal(v: dict, color: bool) -> str:
     L.append(_row(v["explain_path"][: W - 4]))
     L.append("└" + "─" * (W - 2) + "┘")
     return "\n".join(L)
+
+
+def _detected_block(v: dict) -> list:
+    """What you are running, worked out from the logs. Nobody typed any of this."""
+    det = v.get("detected") or {}
+    provs = [p for p in det.get("providers", []) if p.get("records")]
+    if not provs and not det.get("harnesses"):
+        return []
+    L = [_rule("DETECTED")]
+    recs = sum(p["records"] for p in provs) or 1
+    for p in provs[:3]:
+        share = int(round(100.0 * p["records"] / recs))
+        models = ", ".join(p["models"][:2])
+        more = " +{0}".format(len(p["models"]) - 2) if len(p["models"]) > 2 else ""
+        L.append(_row("{0} {1:>3}%   {2}{3}".format(p["talk_to"].ljust(12), share, models, more)[: W - 4]))
+    where = ", ".join(h["label"] for h in det.get("harnesses", []) if h.get("found"))
+    misses = [h["label"] for h in det.get("harnesses", []) if not h.get("found")]
+    L.append(_row("read from {0}".format(where or "no log directory found")[: W - 4]))
+    if misses:
+        L.append(_row("not installed here: {0}".format(", ".join(misses))[: W - 4]))
+    return L
+
+
+def _ladder_block(v: dict) -> list:
+    """Every tier the detected providers sell. You read your row; you never type it."""
+    rows = v.get("plan_ladder") or []
+    if len(rows) < 2:
+        return []
+    L = [_rule("IF YOU'RE ON…")]
+    for r in pick_rows(rows, 5):
+        mark = "  ← assumed" if r["assumed"] else ""
+        label = r["label"] if len(r["label"]) <= 28 else r["label"][:27] + "…"
+        L.append(_row("{0}{1:>10}{2:>9}{3}".format(label.ljust(28), money(r["cost"]), _mult(r["multiplier"]), mark)[: W - 4]))
+    L.append(_row("not your row? plan=claude-pro-20 · plan=usd:29 for anything"[: W - 4]))
+    return L

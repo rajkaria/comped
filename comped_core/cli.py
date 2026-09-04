@@ -11,13 +11,14 @@ from .timeutil import parse_ts, window_start, iso
 from .adapters import parse_all
 from .ledger import write_ledger, read_ledger, summary as ledger_summary
 from .prices import load_table
-from .plans import load_plans, parse_plan_ids
+from .plans import load_plans, parse_plan_ids, plan_label, AUTO
 from .pricing import price_ledger
 from .repeats import find_repeats
 from .wrongturns import classify, draft_rules
 from .baseline import load_baseline, save_baseline, delta
 from .render_terminal import render_terminal
 from .render_report import render_report, render_explain, share_text
+from .detect import summary_line
 from .render_svg import render_svg, render_svg_square
 from .render_png import render_png
 
@@ -128,17 +129,24 @@ def cmd_price(a):
     led = read_ledger(a.out_dir)
     table = load_table(Path(a.rates_path).expanduser() if a.rates_path else None)
     plans = load_plans()
-    s = price_ledger(led, table, plans, parse_plan_ids(a.plan), a.days_back or st["days_back"], now)
+    # An empty plan= means "work it out", not "give up": the ids in the logs name the providers,
+    # and every tier they sell is priced side by side. Typing a plan overrides the inference.
+    ids = parse_plan_ids(a.plan) or [AUTO]
+    s = price_ledger(led, table, plans, ids, a.days_back or st["days_back"], now)
     doc = {"total_usd": s.total_usd, "per_model": s.per_model, "unpriced": s.unpriced, "cache_share": s.cache_share,
            "active_days": s.active_days, "sessions": s.sessions, "per_turn_usd": s.per_turn_usd, "plan_cost": s.plan_cost,
            "multiplier": s.multiplier, "plan_ids": s.plan_ids, "explain": s.explain, "window_start": s.window_start,
-           "window_end": s.window_end, "price_meta": s.price_meta, "days_back": a.days_back or st["days_back"], "now": iso(now)}
+           "window_end": s.window_end, "price_meta": s.price_meta, "days_back": a.days_back or st["days_back"], "now": iso(now),
+           "detected": s.detected, "plan_ladder": s.plan_ladder, "plan_source": s.plan_source}
     _state(a.out_dir, "priced", doc)
     p = Path(a.out_dir).expanduser() / "comped-explain.txt"
     p.write_text(render_explain(s), encoding="utf-8")
     return {"ok": True, "written": [str(p)], "total_usd": s.total_usd, "multiplier": s.multiplier, "plan_cost": s.plan_cost,
             "per_model": s.per_model, "unpriced": s.unpriced, "cache_share": s.cache_share, "active_days": s.active_days,
-            "sessions": s.sessions, "note": ""}
+            "sessions": s.sessions, "detected": summary_line(s.detected), "plan_source": s.plan_source,
+            "plans": [{"label": r["label"], "multiplier": r["multiplier"], "assumed": r["assumed"]} for r in s.plan_ladder],
+            "note": ("plan inferred from the logs: {0}".format(" + ".join(plan_label(p, plans) for p in s.plan_ids))
+                     if s.plan_source == "auto" and s.plan_ids else "")}
 
 
 def cmd_repeats(a):
@@ -155,7 +163,7 @@ def cmd_repeats(a):
 
 def _view(a, pr, rp, led):
     plans = load_plans()
-    labels = [plans["plans"][p]["label"] for p in pr["plan_ids"]]
+    labels = [plan_label(p, plans) for p in pr["plan_ids"]]
     total = Decimal(pr["total_usd"])
     pm = [{"model": m["model"], "usd": Decimal(m["usd"]), "share": (Decimal(m["usd"]) / total if total else Decimal("0"))} for m in pr["per_model"]]
     cl = rp["clusters"]
@@ -170,6 +178,10 @@ def _view(a, pr, rp, led):
             "dividend_80": sum((Decimal(c["dividend_80"]) for c in cl), Decimal("0")),
             "unpriced": pr["unpriced"], "price_as_of": pr["price_meta"].get("as_of", "?"),
             "price_source": pr["price_meta"].get("source_url", "?"),
+            "detected": pr.get("detected") or {}, "plan_source": pr.get("plan_source", "typed"),
+            "plan_ladder": [{"label": r["label"], "cost": Decimal(str(r["cost"])),
+                             "multiplier": Decimal(str(r["multiplier"])) if r.get("multiplier") is not None else None,
+                             "assumed": r["assumed"]} for r in (pr.get("plan_ladder") or [])],
             "sources": [dataclasses.asdict(s) for s in led.sources], "written": [],
             "play_uri": "https://play.modiqo.ai/{0}/comped".format(handle),
             "explain_path": str(Path(a.out_dir).expanduser() / "comped-explain.txt"), "handle": handle}
@@ -226,7 +238,9 @@ def cmd_card(a):
     print(share_text(v))
     print()
     return {"ok": True, "written": written, "total_usd": v["total_usd"], "multiplier": v["multiplier"],
-            "repeats": len(v["repeats"]), "png": png, "note": note}
+            "repeats": len(v["repeats"]), "png": png, "note": note,
+            "detected": summary_line(v["detected"]) if v.get("detected") else "",
+            "plan": " + ".join(v["plan_labels"]), "plan_source": v.get("plan_source", "typed")}
 
 
 def cmd_wrongturns(a):
@@ -276,7 +290,11 @@ def cmd_sources(a):
         p = Path(key).expanduser()
         n = sum(1 for _ in p.glob(pat)) if p.is_dir() else 0
         out.append({"harness": harness, "root": str(p), "found": p.is_dir(), "files": n})
-    return {"ok": True, "written": [], "sources": out,
+    from .detect import HARNESSES
+    for s in out:
+        s["label"] = HARNESSES.get(s["harness"], (s["harness"], ""))[0]
+    found = [s["label"] for s in out if s["found"]]
+    return {"ok": True, "written": [], "sources": out, "detected": ", ".join(found) or "no log directory found",
             "note": "; ".join("{0}: not found".format(s["harness"]) for s in out if not s["found"])}
 
 
@@ -320,7 +338,9 @@ def build_parser():
     p.add_argument("--only", default="", help="read exactly one harness and write ledger-<harness>.jsonl (rote: one reading = one step)")
     p = sub.add_parser("merge"); common(p)
     p = sub.add_parser("price"); common(p)
-    p.add_argument("--plan", default="")
+    p.add_argument("--plan", default=AUTO,
+                   help="auto (default) infers the providers from the logs and prices every tier they sell; "
+                        "or a comma-separated list of plan ids, or usd:<amount>")
     p.add_argument("--rates-path", default="")
     p.add_argument("--days-back", type=int, default=0)
     p.add_argument("--now", default="")
