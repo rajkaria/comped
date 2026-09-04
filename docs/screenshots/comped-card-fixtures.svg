@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" font-family="-apple-system, Inter, Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="1200" height="675" fill="#0b0f14"/>
+<text x="80" y="90" font-size="28" letter-spacing="6" fill="#8a94a0">COMPED · LAST 30 DAYS</text>
+<text x="80" y="230" font-size="120" font-weight="700" fill="#f2f5f7">$3 <tspan fill="#5cf2a0">comped</tspan></text>
+<text x="80" y="300" font-size="48" fill="#f2f5f7">0× <tspan fill="#8a94a0" font-size="32">vs Claude Max 20x</tspan></text>
+<rect x="80" y="380" width="700" height="28" rx="6" fill="#2a3440"/><rect x="80" y="380" width="697" height="28" rx="6" fill="#5cf2a0"/><text x="80" y="370" font-size="22" fill="#8a94a0">gpt-5.5</text><text x="1120" y="401" font-size="22" text-anchor="end" fill="#f2f5f7">$3</text><rect x="80" y="440" width="700" height="28" rx="6" fill="#2a3440"/><rect x="80" y="440" width="4" height="28" rx="6" fill="#5cf2a0"/><text x="80" y="430" font-size="22" fill="#8a94a0">claude-sonnet-5</text><text x="1120" y="461" font-size="22" text-anchor="end" fill="#f2f5f7">$0</text><rect x="80" y="500" width="700" height="28" rx="6" fill="#2a3440"/><rect x="80" y="500" width="4" height="28" rx="6" fill="#5cf2a0"/><text x="80" y="490" font-size="22" fill="#8a94a0">deepseek-chat</text><text x="1120" y="521" font-size="22" text-anchor="end" fill="#f2f5f7">$0</text>
+<text x="80" y="580" font-size="22" fill="#8a94a0">cache read 74% · active days 1/30 · top repeat: push it to prod</text>
+<text x="80" y="630" font-size="20" fill="#8a94a0">list-price equivalent, not a bill · prices as of 2026-09-04 · play.modiqo.ai/rajkaria/comped</text>
+</svg>

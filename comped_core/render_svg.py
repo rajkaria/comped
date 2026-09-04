@@ -3,10 +3,11 @@ from xml.sax.saxutils import escape
 
 THEMES = {"dark": {"bg": "#0b0f14", "fg": "#f2f5f7", "muted": "#8a94a0", "accent": "#5cf2a0", "bar": "#2a3440"},
           "light": {"bg": "#ffffff", "fg": "#0b0f14", "muted": "#5b6570", "accent": "#0f9d58", "bar": "#e6eaee"}}
+W, H = 1200, 675
+FONT = "-apple-system, Inter, Segoe UI, Helvetica, Arial, sans-serif"
 
 
-def render_svg(v: dict, theme: str) -> str:
-    t = THEMES.get(theme, THEMES["dark"])
+def _body(v: dict, t: dict) -> str:
     e = escape
     total = "${0:,.0f}".format(v["total_usd"])
     mult = "{0:.0f}×".format(v["multiplier"]) if v.get("multiplier") is not None else "list price"
@@ -19,18 +20,33 @@ def render_svg(v: dict, theme: str) -> str:
                     '<rect x="80" y="{y}" width="{w}" height="28" rx="6" fill="{accent}"/>'
                     '<text x="80" y="{ly}" font-size="22" fill="{muted}">{name}</text>'
                     '<text x="1120" y="{ty}" font-size="22" text-anchor="end" fill="{fg}">${usd:,.0f}</text>'.format(
-                        y=y, ly=y - 10, ty=y + 21, w=max(w, 4), bar=t["bar"], accent=t["accent"], muted=t["muted"], fg=t["fg"],
-                        name=e(m["model"]), usd=m["usd"]))
+                        y=y, ly=y - 10, ty=y + 21, w=max(w, 4), bar=t["bar"], accent=t["accent"], muted=t["muted"],
+                        fg=t["fg"], name=e(m["model"]), usd=m["usd"]))
     rep = v["repeats"][0]["label"] if v["repeats"] else "no repeat offenders yet"
-    return '''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" font-family="-apple-system, Inter, Segoe UI, Helvetica, Arial, sans-serif">
-<rect width="1200" height="675" fill="{bg}"/>
-<text x="80" y="90" font-size="28" letter-spacing="6" fill="{muted}">COMPED · LAST {days} DAYS</text>
+    return '''<text x="80" y="90" font-size="28" letter-spacing="6" fill="{muted}">COMPED · LAST {days} DAYS</text>
 <text x="80" y="230" font-size="120" font-weight="700" fill="{fg}">{total} <tspan fill="{accent}">comped</tspan></text>
 <text x="80" y="300" font-size="48" fill="{fg}">{mult} <tspan fill="{muted}" font-size="32">vs {plan}</tspan></text>
 {bars}
 <text x="80" y="580" font-size="22" fill="{muted}">cache read {cache}% · active days {active}/{days} · top repeat: {rep}</text>
-<text x="80" y="630" font-size="20" fill="{muted}">list-price equivalent, not a bill · prices as of {as_of} · {uri}</text>
-</svg>
-'''.format(bg=t["bg"], muted=t["muted"], fg=t["fg"], accent=t["accent"], days=v["window_days"], total=e(total), mult=e(mult),
-           plan=e(plan), bars="".join(bars), cache=int(round(float(v["cache_share"]) * 100)), active=v["active_days"],
-           rep=e(rep[:48]), as_of=e(v["price_as_of"]), uri=e(v["play_uri"].replace("https://", "")))
+<text x="80" y="630" font-size="20" fill="{muted}">list-price equivalent, not a bill · prices as of {as_of} · {uri}</text>'''.format(
+        muted=t["muted"], fg=t["fg"], accent=t["accent"], days=v["window_days"], total=e(total), mult=e(mult),
+        plan=e(plan), bars="".join(bars), cache=int(round(float(v["cache_share"]) * 100)), active=v["active_days"],
+        rep=e(rep[:48]), as_of=e(v["price_as_of"]), uri=e(v["play_uri"].replace("https://", "")))
+
+
+def render_svg(v: dict, theme: str) -> str:
+    """The shareable card: 1200x675, the aspect X and LinkedIn preview without cropping."""
+    t = THEMES.get(theme, THEMES["dark"])
+    return ('<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" font-family="{font}">\n'
+            '<rect width="{w}" height="{h}" fill="{bg}"/>\n{body}\n</svg>\n').format(
+                w=W, h=H, font=FONT, bg=t["bg"], body=_body(v, t))
+
+
+def render_svg_square(v: dict, theme: str) -> str:
+    """The same card on a square canvas. PNG renderers (macOS qlmanage in particular) fit a
+    thumbnail into a square box: given the wide card they scale by height and crop the right
+    edge. Handing them a square keeps every figure on the image."""
+    t = THEMES.get(theme, THEMES["dark"])
+    return ('<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{w}" viewBox="0 0 {w} {w}" font-family="{font}">\n'
+            '<rect width="{w}" height="{w}" fill="{bg}"/>\n<g transform="translate(0,{dy})">\n{body}\n</g>\n</svg>\n').format(
+                w=W, font=FONT, bg=t["bg"], dy=(W - H) // 2, body=_body(v, t))
