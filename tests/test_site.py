@@ -39,6 +39,14 @@ class Site(unittest.TestCase):
             for bad in ("googletagmanager", "google-analytics", "plausible", "fonts.googleapis", "cdn."):
                 self.assertNotIn(bad, text, "{0} references {1}".format(page, bad))
 
+    def test_the_deploy_builds_the_docs_page_it_serves(self):
+        # Serving a committed docs.html without regenerating it is how a deployed page starts
+        # disagreeing with the code it documents. The build command is the guard.
+        import json
+        conf = json.loads(pathlib.Path("vercel.json").read_text(encoding="utf-8"))
+        self.assertEqual(conf["outputDirectory"], "site")
+        self.assertIn("tools/build_site.py", conf["buildCommand"])
+
     def test_the_published_play_uris_are_the_real_ones(self):
         text = (SITE / "index.html").read_text(encoding="utf-8")
         for slug in ("comped", "session-ledger", "wrong-turns"):
@@ -65,7 +73,7 @@ class Site(unittest.TestCase):
         # The page tells people the tool makes no network calls. The host config should make that
         # true of the page itself, not just of the tool it describes.
         import json
-        conf = json.loads((SITE / "vercel.json").read_text(encoding="utf-8"))
+        conf = json.loads(pathlib.Path("vercel.json").read_text(encoding="utf-8"))
         csp = [h["value"] for rule in conf["headers"] for h in rule["headers"]
                if h["key"] == "Content-Security-Policy"]
         self.assertEqual(len(csp), 1, "expected exactly one CSP")
