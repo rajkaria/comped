@@ -10,7 +10,7 @@ import json, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HANDLE = "rajkaria"
 ROTE_VERSION = "0.79.0"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 # One reading is one step: the read_* steps are parallel roots, everything else depends on the merge.
 # argv addresses the bundled core through @resource{...}, which resolves to <package>/resources/<path>.
