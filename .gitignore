@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+out/
+/plays/*/resources/comped_core/
+/plays/*/resources/prices.json
+/plays/*/resources/plans.json
+/plays/*/resources/fixtures/
