@@ -44,20 +44,34 @@ class Site(unittest.TestCase):
         for slug in ("comped", "session-ledger", "wrong-turns"):
             self.assertIn("https://play.modiqo.ai/rajkaria/{0}".format(slug), text, slug)
 
-    def test_the_canonical_host_is_the_one_the_dns_points_at(self):
-        # site/CNAME is what GitHub Pages serves the site as. A canonical or og:url on any other
-        # host tells crawlers and unfurlers to go somewhere this repo does not publish.
-        host = (SITE / "CNAME").read_text(encoding="utf-8").strip()
-        self.assertTrue(host and "/" not in host, "CNAME should hold a bare hostname")
+    def test_every_page_is_canonical_on_the_one_configured_origin(self):
+        # tools/build_site.py's SITE_URL is the single source of truth for where this site lives.
+        # A canonical or og:url on any other host points crawlers and unfurlers somewhere we do
+        # not publish, and two hosts serving the same page compete with each other.
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+        from tools.build_site import SITE_URL
+        self.assertTrue(SITE_URL.startswith("https://") and not SITE_URL.endswith("/"), SITE_URL)
         for page in ("index.html", "docs.html"):
             text = (SITE / page).read_text(encoding="utf-8")
             canon = re.findall(r'<link rel="canonical" href="([^"]+)"', text)
             self.assertEqual(len(canon), 1, "{0} needs exactly one canonical".format(page))
-            self.assertTrue(canon[0].startswith("https://{0}/".format(host)),
-                            "{0} canonical {1} is not on {2}".format(page, canon[0], host))
+            self.assertTrue(canon[0].startswith(SITE_URL + "/"),
+                            "{0} canonical {1} is not on {2}".format(page, canon[0], SITE_URL))
             for url in re.findall(r'<meta property="og:(?:url|image)" content="([^"]+)"', text):
-                self.assertTrue(url.startswith("https://{0}/".format(host)),
-                                "{0} og url {1} is not on {2}".format(page, url, host))
+                self.assertTrue(url.startswith(SITE_URL + "/"),
+                                "{0} og url {1} is not on {2}".format(page, url, SITE_URL))
+
+    def test_the_deployed_headers_forbid_the_network_the_site_promises_not_to_use(self):
+        # The page tells people the tool makes no network calls. The host config should make that
+        # true of the page itself, not just of the tool it describes.
+        import json
+        conf = json.loads((SITE / "vercel.json").read_text(encoding="utf-8"))
+        csp = [h["value"] for rule in conf["headers"] for h in rule["headers"]
+               if h["key"] == "Content-Security-Policy"]
+        self.assertEqual(len(csp), 1, "expected exactly one CSP")
+        for directive in ("default-src 'none'", "connect-src 'none'", "script-src 'self'",
+                          "form-action 'none'", "object-src 'none'"):
+            self.assertIn(directive, csp[0], directive)
 
     def test_social_card_images_exist_and_declare_their_real_size(self):
         # An og:image whose declared size is a lie gets letterboxed or cropped by every unfurler.
