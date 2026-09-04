@@ -21,7 +21,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 ## Current state — what's working, deployed, broken
 
 - **Tasks 0–15 complete. 97 tests green. Two of three Plays published.**
-- **Live on the registry:** `https://play.modiqo.ai/rajkaria/comped@0.1.0` and `.../session-ledger@0.1.0`, both public and released. `comped` smoke-ran from a fresh directory off the *published* archive: 8/8 steps.
+- **Live on the registry at 0.1.1:** `https://play.modiqo.ai/rajkaria/comped@0.1.1` and `.../session-ledger@0.1.1`, both public and released. Bumped from 0.1.0 so the registry copy carries the `https://gotcomped.com` link now at the end of each `DESCRIPTION.md`. `comped@0.1.1` smoke-ran from a fresh directory off the *published* archive: 8/8 steps. `wrong-turns` is still unpublished and will debut at 0.1.1 on 05 Sep.
 - **`wrong-turns` is packaged, quality-checked and unpublished** — held for 05 Sep so each publish gets its own NEW row in playoffs-standings. One command away: `rote registry play push plays/wrong-turns rajkaria`.
 - **Quality gates, all three Plays:** `rote play validate` OK · `rote play lint` passed, zero findings · `rote play score` **1.00** (rubric v1.1.0) · `himanshu-jha/play-quality-doctor`: *"Full marks. Nothing here needs changing."*
 - **Public repo:** https://github.com/rajkaria/comped — `main` has everything, CI green on ubuntu + macOS × Python 3.9/3.12.
