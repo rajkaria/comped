@@ -6,4 +6,4 @@ Every agent harness on this machine keeps a transcript, each in its own shape, a
 - Writes: only under `out_dir`. Every written path is listed in the report.
 - Message text: truncated to 120 chars and hashed by default. `redact=false` keeps full text locally, never in the card.
 
-See also: `comped` (prices this ledger and finds your repeat asks) and `wrong-turns` (recurring mistakes, with drafted rules).
+See also: `comped` (prices this ledger and finds your repeat asks) and `wrong-turns` (recurring mistakes, with drafted rules). Docs, the full methodology and a worked example: https://gotcomped.com
