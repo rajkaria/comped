@@ -16,6 +16,9 @@ from comped_core.cli import build_parser            # noqa: E402
 
 SLUGS = ("comped", "session-ledger", "wrong-turns")
 HANDLE = "rajkaria"
+# The canonical origin. site/CNAME points GitHub Pages here; the canonical link and the
+# og:url below must agree with it or the two hostnames compete for the same page.
+SITE_URL = "https://gotcomped.com"
 
 PLAY_BLURB = {
     "comped": "The card: what your window cost at list price, the multiplier against your plan, and the asks you keep repeating.",
@@ -186,6 +189,19 @@ def main():
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>comped — docs</title>
 <meta name="description" content="How to run the comped Plays, every parameter, exactly what they read from your logs, and the arithmetic behind every number on the card.">
+<link rel="canonical" href="{site}/docs.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="comped">
+<meta property="og:url" content="{site}/docs.html">
+<meta property="og:title" content="comped — docs">
+<meta property="og:description" content="How to run the comped Plays, every parameter, exactly what they read from your logs, and the arithmetic behind every number on the card.">
+<meta property="og:image" content="{site}/card-wide.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="comped — docs">
+<meta name="twitter:description" content="How to run the comped Plays, every parameter, exactly what they read from your logs, and the arithmetic behind every number on the card.">
+<meta name="twitter:image" content="{site}/card-wide.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -361,6 +377,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 </body>
 </html>
 """.format(handle=HANDLE,
+           site=SITE_URL,
            play_comped=play_section("comped"),
            play_ledger=play_section("session-ledger"),
            play_wrong=play_section("wrong-turns"),

@@ -6,4 +6,4 @@ Every coding session on this machine wrote down exactly what it consumed, and no
 - Writes: only under `out_dir`. Every written path is listed in the report.
 - Message text: truncated to 120 chars and hashed by default. `redact=false` keeps full text locally, never in the card.
 
-See also: `session-ledger` (the normalized ledger this reads) and `wrong-turns` (recurring mistakes, with drafted rules).
+See also: `session-ledger` (the normalized ledger this reads) and `wrong-turns` (recurring mistakes, with drafted rules). Docs, the full methodology and a worked example: https://gotcomped.com
