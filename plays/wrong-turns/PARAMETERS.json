@@ -1,0 +1,71 @@
+[
+ {
+  "name": "days_back",
+  "type": "integer",
+  "default": 14,
+  "example": 14,
+  "label": "Days back",
+  "description": "Filter on each record's own timestamp."
+ },
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/comped",
+  "example": "~/comped",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "claude_dir",
+  "type": "string",
+  "default": "~/.claude/projects",
+  "example": "resources/fixtures/claude",
+  "label": "Claude Code logs",
+  "description": "Set to resources/fixtures/claude for a demo run on synthetic logs."
+ },
+ {
+  "name": "codex_dir",
+  "type": "string",
+  "default": "~/.codex/sessions",
+  "example": "resources/fixtures/codex",
+  "label": "Codex logs",
+  "description": "Set to resources/fixtures/codex for a demo run on synthetic logs."
+ },
+ {
+  "name": "include_subagents",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Include subagents",
+  "description": "Claude Code subagent transcripts. true or false."
+ },
+ {
+  "name": "min_recurrence",
+  "type": "integer",
+  "default": 3,
+  "example": 3,
+  "label": "Minimum recurrence",
+  "description": "How many times a mistake class must recur before it is reported; it also needs 2 sessions."
+ },
+ {
+  "name": "show_snippets",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Show evidence",
+  "description": "true shows one redacted evidence line per class; false replaces it with (snippets hidden)."
+ },
+ {
+  "name": "rules_target",
+  "type": "string",
+  "default": "both",
+  "example": "both",
+  "label": "Rules target",
+  "description": "claude, agents or both. Drafts only; nothing is ever written to your rules files.",
+  "choices": [
+   "claude",
+   "agents",
+   "both"
+  ]
+ }
+]

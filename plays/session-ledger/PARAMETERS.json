@@ -1,0 +1,66 @@
+[
+ {
+  "name": "days_back",
+  "type": "integer",
+  "default": 30,
+  "example": 30,
+  "label": "Days back",
+  "description": "Filter on each record's own timestamp."
+ },
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/comped",
+  "example": "~/comped",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "claude_dir",
+  "type": "string",
+  "default": "~/.claude/projects",
+  "example": "resources/fixtures/claude",
+  "label": "Claude Code logs",
+  "description": "Set to resources/fixtures/claude for a demo run on synthetic logs."
+ },
+ {
+  "name": "codex_dir",
+  "type": "string",
+  "default": "~/.codex/sessions",
+  "example": "resources/fixtures/codex",
+  "label": "Codex logs",
+  "description": "Set to resources/fixtures/codex for a demo run on synthetic logs."
+ },
+ {
+  "name": "pi_dir",
+  "type": "string",
+  "default": "~/.pi/agent/sessions",
+  "example": "resources/fixtures/pi",
+  "label": "Pi logs",
+  "description": "Best-effort adapter; the source note says so."
+ },
+ {
+  "name": "opencode_dir",
+  "type": "string",
+  "default": "~/.local/share/opencode/storage",
+  "example": "resources/fixtures/opencode/storage",
+  "label": "OpenCode storage",
+  "description": "Best-effort adapter; the source note says so."
+ },
+ {
+  "name": "include_subagents",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Include subagents",
+  "description": "Claude Code subagent transcripts. true or false."
+ },
+ {
+  "name": "redact",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Redact message text",
+  "description": "true stores a 120-character truncation plus sha256; false keeps full text locally, never in a card."
+ }
+]
