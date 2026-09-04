@@ -27,6 +27,19 @@ def clean_path(p: str, table: dict) -> str:
     return table[p]
 
 
+def scrub_exec_output(v: str) -> str:
+    """Lorem a Codex exec output while keeping the structure adapters read: the exit-code line and the
+    `Output:` marker. Without them a scrubbed fixture can never look like a failed command."""
+    kept = []
+    for line in v.splitlines():
+        s = line.strip()
+        if s.startswith(("Chunk ID:", "Wall time:", "Process exited with code")) or s == "Output:":
+            kept.append(s)
+        elif s:
+            kept.append(lorem(s, n=min(max(3, len(s.split())), 12)))
+    return "\n".join(kept)
+
+
 def scrub(obj, table, is_human=False):
     if isinstance(obj, dict):
         out = {}
@@ -38,6 +51,8 @@ def scrub(obj, table, is_human=False):
                 continue
             if k in ("cwd",):
                 out[k] = clean_path(str(v), table)
+            elif k == "output" and isinstance(v, str) and "Process exited with code" in v:
+                out[k] = scrub_exec_output(v)
             elif k in TEXT_KEYS and isinstance(v, str):
                 out[k] = v if v.startswith("<system") else lorem(v)
             elif k == "gitBranch":
@@ -96,7 +111,26 @@ def claude(src: pathlib.Path, n: int, dst=pathlib.Path("resources/fixtures/claud
 def codex(src: pathlib.Path, n: int, dst=pathlib.Path("resources/fixtures/codex/2026/09/01")):
     table = {}
     dst.mkdir(parents=True, exist_ok=True)
-    files = sorted(src.glob("*/*/*/rollout-*.jsonl"), key=lambda p: p.stat().st_size, reverse=True)[:n]
+    # Fixtures ship inside every Play archive, so prefer small files -- but bytes are a poor proxy for
+    # content here: a single base_instructions line can carry 40 KB. Rank by turn density instead, then
+    # take the smallest sessions that still hold several token_count snapshots and a few tool calls.
+    cands = []
+    for f in src.glob("*/*/*/rollout-*.jsonl"):
+        counts = {"token_count": 0, "function_call": 0, "user_message": 0, "lines": 0}
+        with open(f, errors="replace") as fh:
+            for line in fh:
+                counts["lines"] += 1
+                for k in ("token_count", "function_call", "user_message"):
+                    if '"' + k + '"' in line:
+                        counts[k] += 1
+            fh.seek(0)
+            counts["failed"] = sum(1 for line in fh if "Process exited with code" in line and "code 0" not in line)
+        if counts["token_count"] >= 5 and counts["user_message"] >= 2:
+            cands.append((f.stat().st_size, f, counts))
+    cands.sort(key=lambda t: t[0])
+    # Keep one session that actually failed a command, so the wrong-turns Play has something to classify.
+    failing = [t for t in cands if t[2]["failed"]][:1]
+    files = [f for _, f, _ in (failing + [t for t in cands if t not in failing])[:n]]
     for i, f in enumerate(files):
         rows = []
         k = 0
