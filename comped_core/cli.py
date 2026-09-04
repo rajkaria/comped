@@ -3,6 +3,10 @@ from decimal import Decimal
 from pathlib import Path
 from datetime import datetime, timezone
 
+if __name__ == "__main__" and __package__ is None:  # invoked as a file path from a Play step
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    __package__ = "comped_core"
+
 from .timeutil import parse_ts, window_start, iso
 from .adapters import parse_all
 from .ledger import write_ledger, read_ledger, summary as ledger_summary
