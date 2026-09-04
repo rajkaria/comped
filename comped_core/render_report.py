@@ -3,7 +3,7 @@ from decimal import Decimal
 from .render_terminal import render_terminal
 
 PRIVACY = ("Reads: session logs under the configured directories. Nothing else. Never reads: ~/.claude.json, ~/.codex/auth.json, any credential, "
-           "keychain or token file; plan is typed by you. Never sends: no network calls of any kind. Writes: only under out_dir, listed below. "
+           "keychain or token file; plan is typed by you. Never sends: no network calls of any kind. Writes: only under out_dir, listed below. "  # PRIVACY text, not paths
            "Message text: truncated to 120 characters and hashed by default.")
 
 
