@@ -6,3 +6,4 @@ out/
 /plays/*/resources/prices.json
 /plays/*/resources/plans.json
 /plays/*/resources/fixtures/
+/plays/*/.rote-flow-lint.json

@@ -1,0 +1,8 @@
+{
+ "merge_ledger": "resources/presentation-fixtures/merge_ledger/fixture.yaml",
+ "read_claude": "resources/presentation-fixtures/read_claude/fixture.yaml",
+ "read_codex": "resources/presentation-fixtures/read_codex/fixture.yaml",
+ "read_opencode": "resources/presentation-fixtures/read_opencode/fixture.yaml",
+ "read_pi": "resources/presentation-fixtures/read_pi/fixture.yaml",
+ "summarize": "resources/presentation-fixtures/summarize/fixture.yaml"
+}

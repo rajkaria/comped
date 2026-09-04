@@ -13,22 +13,22 @@ class PlayDocs(unittest.TestCase):
     def test_every_play_has_its_registry_copy(self):
         for slug in SLUGS:
             for name in ("DESCRIPTION.md", "PARAMETERS.json", "STEPS.md"):
-                self.assertTrue(pathlib.Path("plays", slug, name).is_file(), "{0}/{1}".format(slug, name))
+                self.assertTrue(pathlib.Path("docs/plays", slug, name).is_file(), "{0}/{1}".format(slug, name))
 
     def test_description_carries_the_privacy_paragraph_verbatim(self):
         for slug in SLUGS:
-            text = pathlib.Path("plays", slug, "DESCRIPTION.md").read_text(encoding="utf-8")
+            text = pathlib.Path("docs/plays", slug, "DESCRIPTION.md").read_text(encoding="utf-8")
             self.assertIn(PRIVACY, text, slug)
 
     def test_description_never_mentions_the_hackathon(self):
         for slug in SLUGS:
-            text = pathlib.Path("plays", slug, "DESCRIPTION.md").read_text(encoding="utf-8")
+            text = pathlib.Path("docs/plays", slug, "DESCRIPTION.md").read_text(encoding="utf-8")
             m = HACKATHON.search(text)
             self.assertIsNone(m, "{0} mentions {1}".format(slug, m.group(0) if m else ""))
 
     def test_parameters_are_well_formed_and_defaults_are_real(self):
         for slug in SLUGS:
-            params = json.loads(pathlib.Path("plays", slug, "PARAMETERS.json").read_text(encoding="utf-8"))
+            params = json.loads(pathlib.Path("docs/plays", slug, "PARAMETERS.json").read_text(encoding="utf-8"))
             self.assertTrue(params)
             for p in params:
                 for k in ("name", "type", "default", "label", "description"):
@@ -39,7 +39,7 @@ class PlayDocs(unittest.TestCase):
 
     def test_plan_ids_offered_exist_in_the_bundled_table(self):
         plans = json.loads(pathlib.Path("resources/plans.json").read_text(encoding="utf-8"))["plans"]
-        params = json.loads(pathlib.Path("plays/comped/PARAMETERS.json").read_text(encoding="utf-8"))
+        params = json.loads(pathlib.Path("docs/plays/comped/PARAMETERS.json").read_text(encoding="utf-8"))
         choices = next(p for p in params if p["name"] == "plan")["choices"]
         for c in choices:
             self.assertIn(c, plans, c)
@@ -48,8 +48,8 @@ class PlayDocs(unittest.TestCase):
         from comped_core.cli import build_parser
         subs = set(build_parser()._subparsers._group_actions[0].choices)
         for slug in SLUGS:
-            names = {p["name"] for p in json.loads(pathlib.Path("plays", slug, "PARAMETERS.json").read_text(encoding="utf-8"))}
-            steps = pathlib.Path("plays", slug, "STEPS.md").read_text(encoding="utf-8")
+            names = {p["name"] for p in json.loads(pathlib.Path("docs/plays", slug, "PARAMETERS.json").read_text(encoding="utf-8"))}
+            steps = pathlib.Path("docs/plays", slug, "STEPS.md").read_text(encoding="utf-8")
             for cmd in re.findall(r"cli\.py (\w+)", steps):
                 self.assertIn(cmd, subs, "{0}: unknown subcommand {1}".format(slug, cmd))
             for ref in re.findall(r"<(\w+)>", steps):

@@ -12,9 +12,9 @@ Three rote Plays on one stdlib-only Python core:
 
 | Play | What it gives you |
 |---|---|
-| [`session-ledger`](plays/session-ledger/DESCRIPTION.md) | One deduplicated ledger of usage records, human messages and tool calls from Claude Code (including subagents), Codex, Pi and OpenCode. The primitive other session Plays should read instead of re-parsing logs. |
-| [`comped`](plays/comped/DESCRIPTION.md) | The card: list-price total, multiplier vs your plan, cache-read share, delta since your last run, repeat offenders with the `/play settle` command to capture each, and the Rote dividend at 98% and 80%. Markdown report, SVG and PNG card, share text. |
-| [`wrong-turns`](plays/wrong-turns/DESCRIPTION.md) | Your agent's recurring mistakes — tool errors, your corrections, reverts — with recovery cost, one redacted line of evidence per class, and drafted `CLAUDE.md` / `AGENTS.md` rules it never applies for you. |
+| [`session-ledger`](docs/plays/session-ledger/DESCRIPTION.md) | One deduplicated ledger of usage records, human messages and tool calls from Claude Code (including subagents), Codex, Pi and OpenCode. The primitive other session Plays should read instead of re-parsing logs. |
+| [`comped`](docs/plays/comped/DESCRIPTION.md) | The card: list-price total, multiplier vs your plan, cache-read share, delta since your last run, repeat offenders with the `/play settle` command to capture each, and the Rote dividend at 98% and 80%. Markdown report, SVG and PNG card, share text. |
+| [`wrong-turns`](docs/plays/wrong-turns/DESCRIPTION.md) | Your agent's recurring mistakes — tool errors, your corrections, reverts — with recovery cost, one redacted line of evidence per class, and drafted `CLAUDE.md` / `AGENTS.md` rules it never applies for you. |
 
 ## How it works
 
