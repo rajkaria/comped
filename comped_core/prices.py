@@ -15,8 +15,10 @@ def _bundled(name: str) -> Path:
 
 BUNDLED = _bundled("prices.json")
 PREFIXES = sorted(["global.anthropic.", "us.anthropic.", "eu.anthropic.", "au.anthropic.", "jp.anthropic.", "apac.anthropic.",
-                   "anthropic.", "openrouter/openai/", "openrouter/anthropic/", "azure_ai/", "azure/us/", "azure/eu/", "azure/",
-                   "openai/", "anthropic/", "bedrock/", "vertex_ai/", "gemini/", "deepseek/", "moonshot/", "xai/", "mistral/"],
+                   "anthropic.", "openrouter/openai/", "openrouter/anthropic/", "openrouter/moonshotai/", "openrouter/z-ai/",
+                   "openrouter/deepseek/", "openrouter/qwen/", "azure_ai/", "azure/us/", "azure/eu/", "azure/",
+                   "openai/", "anthropic/", "bedrock/", "vertex_ai/", "gemini/", "deepseek/", "moonshot/", "moonshotai/",
+                   "zai/", "z-ai/", "zhipu/", "minimax/", "dashscope/", "qwen/", "xai/", "mistral/"],
                   key=len, reverse=True)
 _DATE = re.compile(r"-(\d{4}-\d{2}-\d{2}|\d{8})$")
 _VER = re.compile(r"-v\d+:\d+$")
@@ -28,7 +30,10 @@ def load_table(path: Optional[Path] = None) -> dict:
     models = {}
     for k, v in doc.get("models", {}).items():
         models[k] = {f: Decimal(str(v.get(f, "0") or "0")) for f in ("in", "out", "cache_write", "cache_read")}
-    return {"meta": doc.get("meta", {}), "models": models, "path": str(p)}
+    # A second index in lower case: harnesses do not agree on capitalisation (MiniMax-M2 arrives
+    # as minimax-m2 through some gateways), and a case difference is not an unknown model.
+    return {"meta": doc.get("meta", {}), "models": models, "path": str(p),
+            "lower": {k.lower(): k for k in models}}
 
 
 def _candidates(model: str):
@@ -50,9 +55,14 @@ def _candidates(model: str):
 def resolve_model(model: str, table: dict) -> Optional[str]:
     if not model or not isinstance(model, str):
         return None
-    for c in _candidates(model.strip()):
+    cands = list(_candidates(model.strip()))
+    for c in cands:
         if c in table["models"]:
             return c
+    lower = table.get("lower") or {k.lower(): k for k in table["models"]}
+    for c in cands:
+        if c.lower() in lower:
+            return lower[c.lower()]
     return None
 
 

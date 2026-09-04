@@ -3,7 +3,8 @@ from decimal import Decimal
 from .render_terminal import render_terminal
 
 PRIVACY = ("Reads: session logs under the configured directories. Nothing else. Never reads: ~/.claude.json, ~/.codex/auth.json, any credential, "
-           "keychain or token file; plan is typed by you. Never sends: no network calls of any kind. Writes: only under out_dir, listed below. "  # PRIVACY text, not paths
+           "keychain or token file; the plan is inferred from the model ids already in those logs, never from your account. "  # PRIVACY text, not paths
+           "Never sends: no network calls of any kind. Writes: only under out_dir, listed below. "
            "Message text: truncated to 120 characters and hashed by default.")
 
 
@@ -25,6 +26,27 @@ def render_report(v: dict) -> str:
     card = v.get("terminal_card") or render_terminal(v, False)
     o = ["# Comped report · last {0} days".format(v["window_days"]), "", "## Card", "", "```", card, "```", "", share_text(v), "", "## Models", "",
          "| model | usd | share |", "|---|---|---|"] + ["| {0} | {1} | {2:.0f}% |".format(m["model"], money(m["usd"]), float(m["share"]) * 100) for m in v["per_model"]]
+    o += ["", "## Detected", "",
+          "Worked out from the model ids in your own logs -- nothing was typed and no account was read.", "",
+          "| provider | what you call it | models | records | usd |", "|---|---|---|---|---|"]
+    for pr in (v.get("detected") or {}).get("providers", []):
+        o.append("| {0} | {1} | {2} | {3} | {4} |".format(
+            pr["label"], pr["talk_to"], ", ".join(pr["models"]) or "-", pr["records"], money(Decimal(str(pr.get("usd", 0))))))
+    if not (v.get("detected") or {}).get("providers"):
+        o.append("| - | - | - | 0 | $0.00 |")
+    o += ["", "Harnesses: " + (", ".join("{0} ({1} files)".format(h["label"], h["files"])
+                                         for h in (v.get("detected") or {}).get("harnesses", []) if h["found"]) or "none found") + ".",
+          "Not installed here: " + (", ".join(h["label"] for h in (v.get("detected") or {}).get("harnesses", []) if not h["found"]) or "none") + "."]
+    ladder = v.get("plan_ladder") or []
+    if ladder:
+        o += ["", "## If you're on", "",
+              "The one thing a log cannot tell you is which tier you pay for -- a Pro session and a Max session are the same bytes. "
+              "So every tier the detected providers sell is priced here at once, and the assumed row is the least flattering of them. "
+              "Override with `plan=<id>`, or `plan=usd:<amount>` for a subscription this table does not carry.", "",
+              "| plan | cost for the window | multiplier | |", "|---|---|---|---|"]
+        o += ["| {0} | {1} | {2} | {3} |".format(
+            r["label"], money(r["cost"]), "{0:.1f}x".format(r["multiplier"]) if r["multiplier"] is not None else "-",
+            "assumed" if r["assumed"] else "") for r in ladder]
     o += ["", "## Sources", "", "| harness | found | files | duplicates removed | note |", "|---|---|---|---|---|"]
     o += ["| {0} | {1} | {2} | {3} | {4} |".format(s["harness"], s["found"], s["files"], s["duplicates"], s["note"]) for s in v["sources"]]
     o += ["", "## Repeat offenders", ""]

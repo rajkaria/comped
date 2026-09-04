@@ -5,7 +5,8 @@ from typing import List, Optional, Dict, Tuple
 
 from .models import UsageRecord, Ledger
 from .prices import resolve_model
-from .plans import plan_cost
+from .plans import plan_cost, plan_label, is_auto
+from .detect import detect_stack, infer_plans, attach_costs, summary_line
 from .timeutil import window_start, parse_ts, day_key, iso
 
 ZERO = Decimal("0")
@@ -28,6 +29,9 @@ class PricedSummary:
     window_end: str = ""
     price_meta: dict = field(default_factory=dict)
     records_in_window: int = 0
+    detected: dict = field(default_factory=dict)
+    plan_ladder: list = field(default_factory=list)
+    plan_source: str = "typed"
 
 
 def usd_for(r: UsageRecord, table: dict) -> Tuple[Decimal, Optional[str]]:
@@ -49,12 +53,14 @@ def price_ledger(led: Ledger, table: dict, plans: dict, plan_ids: list, days_bac
     inp_all = 0
     days = set()
     sessions = set()
+    in_window = []
     n = 0
     for r in led.records:
         ts = parse_ts(r.timestamp)
         if ts is None or ts < start or ts > now:
             continue
         n += 1
+        in_window.append(r)
         sessions.add((r.harness, r.session_id))
         days.add(day_key(ts))
         usd, key = usd_for(r, table)
@@ -77,8 +83,22 @@ def price_ledger(led: Ledger, table: dict, plans: dict, plan_ids: list, days_bac
         total += usd
         per_turn[r.turn_id] = per_turn.get(r.turn_id, ZERO) + usd
     per_model = sorted(groups.values(), key=lambda g: (-g["usd"], g["model"]))
-    cost, resolved, notes = plan_cost(plan_ids, days_back, plans)
+
+    # Who you are actually running, worked out from the ids in the records rather than asked for.
+    detected = attach_costs(detect_stack(in_window, led.sources, table),
+                            dict([(g["model"], g["usd"]) for g in groups.values()]
+                                 + [(u["model"], ZERO) for u in unpriced.values()]), ZERO)
+    auto = is_auto(plan_ids)
+    notes = []
+    if auto:
+        effective, candidates, notes = infer_plans(detected, plans)
+    else:
+        effective = [p for p in plan_ids if p != "auto"]
+        candidates = [pid for prov in detected["providers"] for pid in prov["plans"]]
+    cost, resolved, plan_notes = plan_cost(effective, days_back, plans)
+    notes = notes + plan_notes
     mult = (total / cost) if cost and cost > 0 else None
+    ladder = _ladder(candidates, resolved, total, days_back, plans)
     explain = ["window {0} .. {1} ({2} days), {3} priced+unpriced records, price table {4} from {5}".format(
         iso(start), iso(now), days_back, n, table["meta"].get("as_of"), table["meta"].get("source_url"))]
     for g in per_model:
@@ -89,6 +109,14 @@ def price_ledger(led: Ledger, table: dict, plans: dict, plan_ids: list, days_bac
     for u in sorted(unpriced.values(), key=lambda u: u["model"]):
         explain.append("UNPRICED {0}: {1} records, {2} tokens (no rate in table; never estimated)".format(
             u["model"], u["records"], u["tokens"]))
+    explain.append("detected: {0} (basis: {1}); plan {2}: {3}".format(
+        summary_line(detected), detected["basis"], "inferred" if auto else "as typed",
+        " + ".join(plan_label(p, plans) for p in resolved) or "none priced"))
+    for row in ladder:
+        explain.append("ladder {0}: ${1:.2f} for {2} days -> {3}{4}".format(
+            row["label"], row["cost"], days_back,
+            "{0:.2f}x".format(row["multiplier"]) if row["multiplier"] is not None else "n/a",
+            "  <- assumed" if row["assumed"] else ""))
     if cost is not None:
         explain.append("plan cost: {0} prorated {1}/{2} days = ${3:.4f}; multiplier = {4:.4f}/{5:.4f} = {6:.4f}".format(
             " + ".join(resolved), days_back, plans["meta"].get("mean_month_days"), cost, total, cost, mult))
@@ -100,4 +128,32 @@ def price_ledger(led: Ledger, table: dict, plans: dict, plan_ids: list, days_bac
             s.harness, s.root, s.found, s.files, s.lines, s.parsed, s.duplicates, s.unparsed, s.note).rstrip())
     return PricedSummary(total, per_model, sorted(unpriced.values(), key=lambda u: u["model"]),
                          (Decimal(cache_read) / Decimal(inp_all)) if inp_all else ZERO, len(days), len(sessions), per_turn,
-                         cost, mult, resolved, explain, iso(start), iso(now), dict(table["meta"]), n)
+                         cost, mult, resolved, explain, iso(start), iso(now), dict(table["meta"]), n,
+                         detected, ladder, "auto" if auto else "typed")
+
+
+def _ladder(candidates: list, resolved: list, total: Decimal, days_back: int, plans: dict) -> list:
+    """Every subscription the detected providers sell, priced against this window's spend.
+
+    The tier is the one fact the logs do not carry, so instead of asking for it the card shows all
+    of them and highlights the one it assumed. Reading your own row costs a glance; typing your
+    plan cost a re-run.
+    """
+    rows, seen = [], set()
+    ids = list(candidates) + [p for p in resolved if p not in candidates]
+    if len(resolved) > 1:
+        ids.append(tuple(resolved))
+    for pid in ids:
+        combo = list(pid) if isinstance(pid, tuple) else [pid]
+        key = "+".join(combo)
+        if key in seen:
+            continue
+        seen.add(key)
+        cost, ok, _ = plan_cost(combo, days_back, plans)
+        if cost is None:
+            continue
+        rows.append({"plan_id": key, "label": " + ".join(plan_label(p, plans) for p in ok),
+                     "cost": cost, "multiplier": (total / cost) if cost > 0 else None,
+                     "assumed": ok == resolved})
+    rows.sort(key=lambda r: (r["cost"], r["label"]))
+    return rows

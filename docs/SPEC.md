@@ -42,7 +42,7 @@ Where we must be at least as good as the incumbents, because judges will compare
 
 ## 4. Target user persona
 
-**Priya**, a participant in this hackathon. Runs Claude Code on Max 20x and Codex on ChatGPT Plus. Has built two Plays, needs a third idea, needs three social posts for the Apple Watch, and has no idea what her week of agent use would have cost on the API. She runs `rote play run .../comped plan=claude-max-200,chatgpt-plus-20`, gets the card, posts it, reads her three repeat offenders, and runs `/play settle` on the first one. Tomorrow she runs it again to see the delta.
+**Priya**, a participant in this hackathon. Runs Claude Code on Max 20x and Codex on ChatGPT Plus. Has built two Plays, needs a third idea, needs three social posts for the Apple Watch, and has no idea what her week of agent use would have cost on the API. She runs `rote play run .../comped` -- no parameters, because the model ids in her logs already say she is on Claude and on Codex -- gets the card with a multiplier against every tier either vendor sells, posts it, reads her three repeat offenders, and runs `/play settle` on the first one. Tomorrow she runs it again to see the delta.
 
 **Chetan**, judging. Opens the Play page. Reads a description that says exactly what is read and what is never read. Runs it against the bundled fixtures. Sees a multiplier, a repeat list, and a Rote dividend quoted at his own 98% figure and at a conservative 80%. Recognises his company's thesis measured on a participant's machine.
 
@@ -87,13 +87,13 @@ Steps (rote's play-shape standard requires one reading per step; the four reads 
 
 Description (registry copy, final):
 
-> Every coding session on this machine wrote down exactly what it consumed, and none of it is readable by hand. This reads all of it: Claude Code including the subagent transcripts in subdirectories, where four in ten usage lines are streaming duplicates that must be collapsed before pricing, Codex, whose counters are cumulative and need differencing, and Pi. You get one card: the API list-price equivalent of the last N days per model, the multiplier against the plan you actually pay for, your cache-read share, and how all of it moved since your last run. Under it, the jobs you have asked your agent for three or more times, each with its repeat cost and the exact play settle command to capture it. Then what those repeats would have cost as Plays, at Modiqo's stated 98% and at a conservative 80%. Prices come from a bundled table that names its source and as-of date; a model the table does not know is reported as tokens and never priced by guess. Plan is an input you type, because the tool refuses to read your OAuth files to find it, and the card says plainly that list price is not a bill. Read-only, no credentials, no network. Writes a Markdown report, an SVG card, a PNG when the machine can render one, and a small baseline for next run's delta, all under the folder you choose. Point claude_dir at resources/fixtures/claude to see a full run on synthetic logs before you run it on your own.
+> Every coding session on this machine wrote down exactly what it consumed, and none of it is readable by hand. This reads all of it: Claude Code including the subagent transcripts in subdirectories, where four in ten usage lines are streaming duplicates that must be collapsed before pricing, Codex, whose counters are cumulative and need differencing, and Pi. You get one card: the API list-price equivalent of the last N days per model, the multiplier against the plan you actually pay for, your cache-read share, and how all of it moved since your last run. Under it, the jobs you have asked your agent for three or more times, each with its repeat cost and the exact play settle command to capture it. Then what those repeats would have cost as Plays, at Modiqo's stated 98% and at a conservative 80%. Prices come from a bundled table that names its source and as-of date; a model the table does not know is reported as tokens and never priced by guess. You do not tell it what you run: the model ids in your own logs name the providers behind them -- Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen -- and every subscription those providers sell is priced on the card at once, the least flattering one marked as assumed, so you read your row instead of typing it. It refuses to open your OAuth files to find the tier, and the card says plainly that list price is not a bill. Read-only, no credentials, no network. Writes a Markdown report, an SVG card, a PNG when the machine can render one, and a small baseline for next run's delta, all under the folder you choose. Point claude_dir at resources/fixtures/claude to see a full run on synthetic logs before you run it on your own.
 
 Parameters (superset of session-ledger's, plus):
 
 | name | type | default | notes |
 |---|---|---|---|
-| `plan` | string | `""` (ask) | comma-separated plan ids from `plans.json`: `claude-pro-20`, `claude-max-100`, `claude-max-200`, `chatgpt-plus-20`, `chatgpt-pro-200`, `api`, `unknown`. `input.choices` lists them; custom allowed. With `unknown`/empty, card shows list-price total and no multiplier. |
+| `plan` | string | `auto` | `auto` (the default, and empty means the same) infers the providers from the model ids in the ledger and prices every tier they sell, assuming the most expensive one that fits -- the smallest multiplier that is honest -- and showing the rest as a ladder. Override with comma-separated ids from `plans.json`: `claude-pro-20`, `claude-max-100`, `claude-max-200`, `chatgpt-plus-20`, `chatgpt-pro-200`, `api`, `unknown`; or `usd:<amount>` for a subscription the table does not carry. With `unknown`/`api`, or when no detected provider sells one, the card shows the list-price total and no multiplier. |
 | `repeat_threshold` | integer | 3 | minimum cluster size |
 | `rates_path` | string | `""` | override bundled `prices.json` |
 | `handle` | string | `""` | your rote handle, used only to print the `/play settle <handle>` command |
@@ -155,11 +155,13 @@ Harness normalisation into the model above:
 
 ### 7.4 Windows, plan cost, multiplier
 
+The tier is the one fact no log carries -- a Pro session and a Max session are the same bytes -- so it is inferred rather than asked for. `comped_core/detect.py` maps each record's model id (after gateway and region prefixes are stripped) to a provider, and each provider to the plans it sells; the assumed plan is the most expensive one per detected vendor, and every candidate is priced beside it as a ladder. A provider that sells no subscription in the table is named, its spend stays in the total, and the card says nothing in the plan cost covers it.
+
 ```
 W            = [now − days_back, now], on each record's own timestamp
 comped_total = Σ usd(r), r ∈ W
 plan_cost    = Σ_plans monthly_price × days_back / 30.4375
-multiplier   = comped_total / plan_cost            (omitted when plan is api/unknown/empty)
+multiplier   = comped_total / plan_cost            (omitted when plan is api/unknown, or when nothing detected sells a subscription)
 comped_net   = comped_total − plan_cost
 cache_share  = Σ cache_read / Σ (input + cache_write + cache_read)
 ```
@@ -261,7 +263,7 @@ One line per priced record group: model, key resolved, tokens by class, rate, us
 ## 9. Privacy and trust statements (verbatim in every description and report)
 
 - Reads: session logs under the four configured directories. Nothing else.
-- Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file. Plan is typed by you.
+- Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file. Which AI you run is inferred from the model ids already in those logs; the plan tier is never read from your account.
 - Never sends: no network calls of any kind. Verifiable: the core imports no `urllib`, `http`, `socket`, `subprocess` (except the PNG renderer, which is invoked with a fixed argv and no shell).
 - Writes: only under `out_dir`. Every written path is listed in the report.
 - Message text: truncated to 120 chars and hashed by default. `redact=false` keeps full text locally, never in the card.
@@ -322,7 +324,7 @@ Weights follow the three published criteria plus sponsor fit. Scores assume the 
 |---|---|---|---|---|
 | CEO, token-cost thesis | on-thesis, work worth teaching | 10 | Measures repeats and prices the 98% claim on the participant's own machine; drafts the next Play | none identified |
 | Tracing engineer | runs deterministically, degrades gracefully | 9.5 | delta method for Codex, dedup on measured duplicates, byte-identical reruns, every source degrades to labelled unknown | Pi/OpenCode adapters are fixture-verified only |
-| Domain modeller | honest contract | 9.5 | plan typed by user, no credential file read, writes listed, effects and confidence labels | `declaredWrites` semantics unknown until install (gate task) |
+| Domain modeller | honest contract | 9.5 | plan inferred from log model ids and never from an account, no credential file read, writes listed, effects and confidence labels | `declaredWrites` semantics unknown until install (gate task) |
 | Community lead | will the crowd run it this week | 9.5 | card is the post; repeat list is the next Play; delta gives a reason to rerun; three Plays cross-linked | adoption is ultimately market-driven |
 | DX lead | 10-second comprehension | 9.5 | one number, one card, fixtures for a risk-free first run, `explain` for the sceptic | description length must stay under control |
 | Adoption market | downloads | 9 | published day 1 with distribution plan; three shots at the prize | incumbents have a two-day head start |
@@ -333,7 +335,7 @@ Residual risk that no spec can remove: adoption depends on other people. The dis
 ## 16. Acceptance criteria (definition of done)
 
 1. All three Plays published to Community, inspectable at `play.modiqo.ai/<handle>/{session-ledger,comped,wrong-turns}`, each with `stats.downloads ≥ 1` from a machine that is not ours.
-2. `rote play run .../comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex plan=claude-max-200 --yes` completes in under 10 s on a clean machine with only python3 and prints the card.
+2. `rote play run .../comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex --yes` completes in under 10 s on a clean machine with only python3 and prints the card.
 3. On this machine, Claude totals match `ccusage` to the cent under the same price table.
 4. `python3 -m unittest discover -s tests` passes; determinism, no-network, robustness and fixture-privacy tests included.
 5. `play-quality-doctor` reports no fixable signal on any of the three Plays.
