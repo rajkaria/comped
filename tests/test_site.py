@@ -54,9 +54,13 @@ class Site(unittest.TestCase):
         host = SITE_URL.split("://", 1)[1]
         rules = [r for r in conf.get("redirects", [])
                  if any(h.get("value") == "www." + host for h in r.get("has", []))]
-        self.assertEqual(len(rules), 1, "www.{0} should redirect to the canonical host".format(host))
-        self.assertTrue(rules[0]["destination"].startswith(SITE_URL), rules[0]["destination"])
-        self.assertTrue(rules[0]["permanent"], "the www redirect should be permanent")
+        self.assertTrue(rules, "www.{0} should redirect to the canonical host".format(host))
+        for rule in rules:
+            self.assertTrue(rule["destination"].startswith(SITE_URL), rule["destination"])
+            self.assertTrue(rule["permanent"], "the www redirect should be permanent")
+        # "/:path*" does not match the bare root, so the home page needs a rule of its own or
+        # www.<host>/ quietly serves a second copy of the site.
+        self.assertIn("/", [r["source"] for r in rules], "no www redirect covers the root")
 
     def test_the_published_play_uris_are_the_real_ones(self):
         text = (SITE / "index.html").read_text(encoding="utf-8")
