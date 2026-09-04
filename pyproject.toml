@@ -1,6 +1,6 @@
 [project]
 name = "comped-core"
-version = "0.1.0"
+version = "0.1.2"
 description = "Stdlib-only parsing, pricing and analysis of local AI coding agent logs"
 requires-python = ">=3.9"
 license = {text = "MIT"}
