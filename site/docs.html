@@ -44,6 +44,7 @@
   <a href="#install">Install</a>
   <a href="#quickstart">Quick start</a>
   <a href="#reading">Reading the card</a>
+  <a href="#detection">What you're running</a>
   <strong>The Plays</strong>
   <a href="#play-comped">comped</a>
   <a href="#play-session-ledger">session-ledger</a>
@@ -71,24 +72,51 @@
 <pre><code>rote play run https://play.modiqo.ai/rajkaria/comped \
   claude_dir=resources/fixtures/claude \
   codex_dir=resources/fixtures/codex \
-  plan=claude-max-200 \
   out_dir=comped-demo</code></pre>
 <p>Eight steps, about two seconds, and a card. Then the real thing:</p>
-<pre><code>rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code></pre>
+<pre><code>rote play run https://play.modiqo.ai/rajkaria/comped</code></pre>
 <p>Ten seconds or so on a month of heavy use. Everything lands in <code>~/comped/</code>. Run it again tomorrow and the card grows a line telling you what moved.</p>
 
 <h2 id="reading">Reading the card</h2>
 <p>Top to bottom, the card says:</p>
 <ul>
 <li><strong>The total.</strong> What the window's tokens would have cost at API list prices. Not a bill — you're on a subscription and you paid what you paid.</li>
-<li><strong>The multiplier.</strong> That total divided by your plan, prorated across the window by days ÷ 30.4375. Leave <code>plan</code> empty and this line disappears rather than guessing.</li>
+<li><strong>The multiplier.</strong> That total divided by your plan, prorated across the window by days ÷ 30.4375. You do not type the plan: see <a href="#detection">what you're running</a>.</li>
 <li><strong>Spend per model,</strong> largest first, with a bar. If one model is quietly eating your month, this is where you see it.</li>
 <li><strong>Cache-read share.</strong> The fraction of your input tokens served from cache. High is good and normal — most agent traffic is re-reading the same context. A number near zero means something at the front of your prompt keeps changing and the whole prefix is being re-billed.</li>
 <li><strong>Active days and sessions,</strong> so a big total can be read as either heavy use or a heavy week.</li>
 <li><strong>The delta,</strong> once there's a previous run to compare against.</li>
 <li><strong>Repeat offenders.</strong> Jobs you've asked for repeatedly, with what the repeats cost, and the command to turn the top one into a Play so you stop paying for it.</li>
 <li><strong>The Rote dividend.</strong> What those repeats would have cost as a Play instead, at Modiqo's stated 98% reduction and at a more conservative 80%.</li>
+<li><strong>Detected.</strong> Which providers your window actually used — Claude, GPT/Codex, Kimi, GLM and the rest — with their share and the harnesses they came through. None of it typed.</li>
+<li><strong>If you're on…</strong> every subscription those providers sell, priced against this window at once, with the assumed row marked. Your tier is the one thing your logs do not record, so the card shows all of them rather than asking.</li>
 </ul>
+
+<h2 id="detection">What you're running, worked out for you</h2>
+<p>Asking you which AI you use makes no sense: your logs already say. Every usage record carries the model id the harness sent, and that id names the provider behind it. So <code>plan</code> defaults to <code>auto</code> and the run works the rest out itself.</p>
+<ol class="steps">
+<li><b>The harnesses.</b> <strong>Claude Code</strong>, <strong>Codex CLI</strong>, <strong>Pi</strong>, <strong>OpenCode</strong>. A directory that isn't there is a shrug, and the card names the ones it didn't find so you know what wasn't counted.</li>
+<li><b>The provider.</b> Read off the model id, after gateway and region prefixes are stripped — <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Point Claude Code at Moonshot or Z.ai and the ids give that away too, which is the whole point.</li>
+<li><b>The tier — the one thing no log records.</b> A Pro session and a Max session are the same bytes. So instead of asking, every subscription the detected providers sell is priced against your window at once and you read your own row. The one the card assumes is deliberately the least flattering: the most expensive plan that fits, which is the smallest multiplier you could honestly claim.</li>
+<li><b>Anything else.</b> A provider with no subscription in the table (Kimi, GLM, DeepSeek and friends) is named, its spend stays in the total, and the card says plainly that nothing in the plan cost covers it. If you pay for one, <code>plan=usd:29</code> prices it without the table having to know.</li>
+</ol>
+<p>Overriding is still one word — <code>plan=claude-pro-20</code>, or several separated by commas — and it wins over the inference.</p>
+<table><thead><tr><th>Provider</th><th>What you call it</th><th>Model ids that name it</th><th>Subscriptions priced</th></tr></thead><tbody>
+<tr><td>Anthropic</td><td>Claude</td><td><code>claude, anthropic…</code></td><td><code>claude-pro-20</code>, <code>claude-max-100</code>, <code>claude-max-200</code></td></tr>
+<tr><td>OpenAI</td><td>GPT / Codex</td><td><code>gpt, o1, o3, o4, o5, codex, chatgpt, davinci…</code></td><td><code>chatgpt-plus-20</code>, <code>chatgpt-pro-200</code></td></tr>
+<tr><td>Moonshot</td><td>Kimi</td><td><code>kimi, moonshot…</code></td><td>—</td></tr>
+<tr><td>Z.ai</td><td>GLM</td><td><code>glm, zai, zhipu, chatglm…</code></td><td>—</td></tr>
+<tr><td>DeepSeek</td><td>DeepSeek</td><td><code>deepseek…</code></td><td>—</td></tr>
+<tr><td>Google</td><td>Gemini</td><td><code>gemini, gemma, palm, bison…</code></td><td>—</td></tr>
+<tr><td>xAI</td><td>Grok</td><td><code>grok…</code></td><td>—</td></tr>
+<tr><td>Alibaba</td><td>Qwen</td><td><code>qwen, qwq…</code></td><td>—</td></tr>
+<tr><td>MiniMax</td><td>MiniMax</td><td><code>minimax…</code></td><td>—</td></tr>
+<tr><td>Mistral</td><td>Mistral</td><td><code>mistral, codestral, devstral, magistral, ministral, pixtral…</code></td><td>—</td></tr>
+<tr><td>Meta</td><td>Llama</td><td><code>llama, meta-llama…</code></td><td>—</td></tr>
+<tr><td>Amazon</td><td>Nova</td><td><code>nova-, titan…</code></td><td>—</td></tr>
+<tr><td>Cohere</td><td>Command</td><td><code>command…</code></td><td>—</td></tr>
+</tbody></table>
+<div class="callout"><p>Detection reads nothing new. It looks at records the ledger already parsed, and at which of the four log directories existed. A model id nobody recognises is reported by name as unknown rather than assigned to a provider by guess.</p></div>
 
 <h2 id="plays">The three Plays</h2>
 
@@ -106,7 +134,7 @@
 <tr><td><code>opencode_dir</code></td><td>string</td><td><code>~/.local/share/opencode/storage</code></td><td>Best-effort adapter; the source note says so.</td></tr>
 <tr><td><code>include_subagents</code></td><td>string</td><td><code>true</code></td><td>Claude Code subagent transcripts. true or false.</td></tr>
 <tr><td><code>redact</code></td><td>string</td><td><code>true</code></td><td>true stores a 120-character truncation plus sha256; false keeps full text locally, never in a card.</td></tr>
-<tr><td><code>plan</code></td><td>string</td><td><code>(empty)</code></td><td>Comma-separated ids: claude-pro-20, claude-max-100, claude-max-200, chatgpt-plus-20, chatgpt-pro-200, api, unknown. Typed by you: this Play never reads your OAuth files to find it. Empty or unknown shows the list-price total with no multiplier.</td></tr>
+<tr><td><code>plan</code></td><td>string</td><td><code>auto</code></td><td>Leave it. auto reads the model ids already in your logs, names the providers behind them (Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen and the rest) and prices every tier those providers sell, marking the least flattering one as assumed -- you read your own row instead of typing it. Override with a comma-separated list of ids, or usd:&lt;amount&gt; for a subscription this table does not carry. This Play never opens your OAuth files to find out.</td></tr>
 <tr><td><code>repeat_threshold</code></td><td>integer</td><td><code>3</code></td><td>Minimum asks for a repeat offender; also needs 2 sessions and 2 days.</td></tr>
 <tr><td><code>rates_path</code></td><td>string</td><td><code>(empty)</code></td><td>Path to a prices.json that replaces the bundled table.</td></tr>
 <tr><td><code>handle</code></td><td>string</td><td><code>(empty)</code></td><td>Your rote handle, used only to print the /play settle command.</td></tr>
@@ -248,13 +276,14 @@
 <table><tbody>
 <tr><th>Source</th><td><code>https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json</code></td></tr>
 <tr><th>As of</th><td>2026-09-04</td></tr>
-<tr><th>Models</th><td>40</td></tr>
+<tr><th>Models</th><td>78</td></tr>
 </tbody></table>
-<p><code>claude-fable-5</code>, <code>claude-fable-5-1</code>, <code>claude-haiku-4-5</code>, <code>claude-opus-4-1</code>, <code>claude-opus-4-5</code>, <code>claude-opus-4-6</code>, <code>claude-opus-4-7</code>, <code>claude-opus-4-8</code>, <code>claude-opus-5</code>, <code>claude-sonnet-4-5</code>, <code>claude-sonnet-4-6</code>, <code>claude-sonnet-5</code>, <code>codex-mini-latest</code>, <code>deepseek-chat</code>, <code>deepseek-reasoner</code>, <code>gemini-2.5-flash</code>, <code>gemini-2.5-pro</code>, <code>gpt-5</code>, <code>gpt-5-codex</code>, <code>gpt-5-mini</code>, <code>gpt-5-nano</code>, <code>gpt-5.1</code>, <code>gpt-5.1-codex</code>, <code>gpt-5.1-codex-max</code>, <code>gpt-5.1-codex-mini</code>, <code>gpt-5.2</code>, <code>gpt-5.2-codex</code>, <code>gpt-5.2-pro</code>, <code>gpt-5.3-codex</code>, <code>gpt-5.4</code>, <code>gpt-5.4-mini</code>, <code>gpt-5.4-nano</code>, <code>gpt-5.4-pro</code>, <code>gpt-5.5</code>, <code>gpt-5.5-pro</code>, <code>gpt-5.6</code>, <code>grok-4</code>, <code>mistral-large-latest</code>, <code>o3</code>, <code>o4-mini</code></p>
+<p><code>MiniMax-M2</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M3</code>, <code>claude-fable-5</code>, <code>claude-fable-5-1</code>, <code>claude-haiku-4-5</code>, <code>claude-opus-4-1</code>, <code>claude-opus-4-5</code>, <code>claude-opus-4-6</code>, <code>claude-opus-4-7</code>, <code>claude-opus-4-8</code>, <code>claude-opus-5</code>, <code>claude-sonnet-4-5</code>, <code>claude-sonnet-4-6</code>, <code>claude-sonnet-5</code>, <code>codestral-latest</code>, <code>codex-mini-latest</code>, <code>deepseek-chat</code>, <code>deepseek-reasoner</code>, <code>deepseek-v3.2</code>, <code>deepseek-v4-flash</code>, <code>deepseek-v4-pro</code>, <code>devstral-medium-latest</code>, <code>gemini-2.5-flash</code>, <code>gemini-2.5-pro</code>, <code>gemini-3-flash-preview</code>, <code>gemini-3-pro-preview</code>, <code>glm-4.5</code>, <code>glm-4.5-air</code>, <code>glm-4.6</code>, <code>glm-4.7</code>, <code>glm-4.7-flash</code>, <code>glm-5</code>, <code>glm-5-code</code>, <code>glm-5.1</code>, <code>glm-5.2</code>, <code>glm-5.3</code>, <code>glm-5.3-flash</code>, <code>gpt-5</code>, <code>gpt-5-codex</code>, <code>gpt-5-mini</code>, <code>gpt-5-nano</code>, <code>gpt-5.1</code>, <code>gpt-5.1-codex</code>, <code>gpt-5.1-codex-max</code>, <code>gpt-5.1-codex-mini</code>, <code>gpt-5.2</code>, <code>gpt-5.2-codex</code>, <code>gpt-5.2-pro</code>, <code>gpt-5.3-codex</code>, <code>gpt-5.4</code>, <code>gpt-5.4-mini</code>, <code>gpt-5.4-nano</code>, <code>gpt-5.4-pro</code>, <code>gpt-5.5</code>, <code>gpt-5.5-pro</code>, <code>gpt-5.6</code>, <code>grok-4</code>, <code>grok-4.3</code>, <code>grok-4.6</code>, <code>grok-code-fast-1</code>, <code>kimi-k2-0905-preview</code>, <code>kimi-k2-thinking</code>, <code>kimi-k2-thinking-turbo</code>, <code>kimi-k2-turbo-preview</code>, <code>kimi-k2.5</code>, <code>kimi-k2.6</code>, <code>kimi-k2.7-code</code>, <code>kimi-k3</code>, <code>kimi-latest</code>, <code>mistral-large-latest</code>, <code>o3</code>, <code>o4-mini</code>, <code>qwen-max</code>, <code>qwen-plus</code>, <code>qwen3-coder</code>, <code>qwen3-coder-plus</code></p>
 <p>A model that is not in this list is reported under "unpriced" with its token counts, and no dollar figure is invented for it.</p>
 <h3>Plans</h3>
-<p>Public list prices as of 2026-09-03. Pass one id, or several separated by commas, as <code>plan=</code>.</p>
+<p>Public list prices as of 2026-09-03. You normally pass none of these: <code>plan=auto</code> prices every row a detected provider sells and marks the one it assumed. Pass one id, or several separated by commas, to override — or <code>usd:&lt;amount&gt;</code> for a subscription this table does not carry.</p>
 <table><thead><tr><th>Plan id</th><th>Label</th><th>Monthly</th></tr></thead><tbody>
+<tr><td><code>auto</code></td><td>Detected from your logs</td><td>—</td></tr>
 <tr><td><code>claude-pro-20</code></td><td>Claude Pro</td><td>$20</td></tr>
 <tr><td><code>claude-max-100</code></td><td>Claude Max 5x</td><td>$100</td></tr>
 <tr><td><code>claude-max-200</code></td><td>Claude Max 20x</td><td>$200</td></tr>
@@ -263,7 +292,7 @@
 <tr><td><code>api</code></td><td>API pay-as-you-go</td><td>—</td></tr>
 <tr><td><code>unknown</code></td><td>Unknown plan</td><td>—</td></tr>
 </tbody></table>
-<div class="callout warn"><p>Your plan is an input you type. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
+<div class="callout warn"><p>Your tier is inferred from the model ids in your own logs, never from your account. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
 
 <h2 id="privacy">Privacy, and how to check it</h2>
 <p>The claims are on the <a href="./#privacy">front page</a>. Here is how you verify them rather than believing them:</p>
@@ -278,14 +307,14 @@
 <p>The Plays are a thin wrapper around a Python package with no dependencies. If you would rather run it directly, clone the repo and use the module. Every subcommand prints one JSON object as its last line; a missing log directory is a warning and exit 0, bad arguments exit 2, and nothing ever prints a traceback.</p>
 <pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
 python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
-python3 -m comped_core price   --out-dir ~/comped --plan claude-max-200
+python3 -m comped_core price   --out-dir ~/comped            # --plan auto by default
 python3 -m comped_core repeats --out-dir ~/comped --repeat-threshold 3
 python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>The full set:</p>
 <table><thead><tr><th>Subcommand</th><th>Options</th></tr></thead><tbody>
 <tr><td><code>ledger</code></td><td><code>--out-dir ~/comped --claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage --days-back 30 --include-subagents true --redact true --now --only</code></td></tr>
 <tr><td><code>merge</code></td><td><code>--out-dir ~/comped</code></td></tr>
-<tr><td><code>price</code></td><td><code>--out-dir ~/comped --plan --rates-path --days-back 0 --now</code></td></tr>
+<tr><td><code>price</code></td><td><code>--out-dir ~/comped --plan auto --rates-path --days-back 0 --now</code></td></tr>
 <tr><td><code>repeats</code></td><td><code>--out-dir ~/comped --repeat-threshold 3 --handle</code></td></tr>
 <tr><td><code>card</code></td><td><code>--out-dir ~/comped --card-theme dark</code></td></tr>
 <tr><td><code>wrongturns</code></td><td><code>--out-dir ~/comped --min-recurrence 3 --show-snippets true</code></td></tr>
