@@ -1,0 +1,2 @@
+{"id":"msg_2","sessionID":"ses_1","role":"assistant","providerID":"deepseek","modelID":"deepseek-chat","time":{"created":1788252005000,"completed":1788252009000},
+ "tokens":{"input":900,"output":200,"reasoning":0,"cache":{"read":3000,"write":0}},"cost":0.0012,"path":{"cwd":"/home/demo/project-1"}}
