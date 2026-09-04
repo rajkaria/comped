@@ -1,0 +1,9 @@
+# Wrong turns report
+
+| kind | confidence | tool | signature | count | sessions | recovery | evidence |
+|---|---|---|---|---|---|---|---|
+
+Drafted rules: wt-out/wrong-turns-rules.md
+
+Read-only: nothing was applied to CLAUDE.md or AGENTS.md.
+{"classes": 0, "note": "", "ok": true, "written": ["wt-out/wrong-turns-rules.md", "wt-out/wrong-turns-report.md"]}

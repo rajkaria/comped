@@ -1,0 +1,7 @@
+{
+ "classify_turns": "resources/presentation-fixtures/classify_turns/fixture.yaml",
+ "draft_rules": "resources/presentation-fixtures/draft_rules/fixture.yaml",
+ "merge_ledger": "resources/presentation-fixtures/merge_ledger/fixture.yaml",
+ "read_claude": "resources/presentation-fixtures/read_claude/fixture.yaml",
+ "read_codex": "resources/presentation-fixtures/read_codex/fixture.yaml"
+}
