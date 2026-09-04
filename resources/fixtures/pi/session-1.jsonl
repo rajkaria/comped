@@ -1,0 +1,3 @@
+{"type":"message","role":"user","timestamp":"2026-09-01T09:00:00Z","content":"fix the failing test and rerun"}
+{"type":"message","role":"assistant","timestamp":"2026-09-01T09:00:05Z","model":"claude-sonnet-5","provider":"anthropic","usage":{"input":1200,"output":300,"cacheRead":8000,"cacheWrite":500,"reasoning":50}}
+{"type":"message","role":"assistant","timestamp":"2026-09-01T09:00:09Z","model":"claude-sonnet-5","provider":"anthropic","usage":{"input":100,"output":40,"cacheRead":9000,"cacheWrite":0}}
