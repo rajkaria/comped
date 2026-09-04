@@ -58,6 +58,11 @@ def find_repeats(humans: List[HumanMessage], per_turn_usd: Dict[str, Decimal], t
         costs = [per_turn_usd.get(m.message_id, ZERO) for m in ms]
         total = sum(costs, ZERO)
         repeat = total - min(costs)
+        # This card ranks repeats by what re-asking cost. Once a ledger is priced, a cluster with no
+        # attributed cost never anchored a turn -- harness boilerplate, not an ask -- so it is dropped
+        # rather than shown at $0.00. With no cost data at all, every qualifying cluster still shows.
+        if per_turn_usd and repeat <= ZERO:
+            continue
         best = max(idxs, key=lambda i: (sum(jaccard(sh[i], sh[j]) for j in idxs if j != i), -len(cand[i].text), cand[i].message_id))
         label = " ".join(cand[best].text.split())[:120].rstrip("…").strip()
         h = handle.strip() or "<handle>"
