@@ -12,9 +12,9 @@ def default_renderers() -> List[Tuple[str, list]]:
     return r
 
 
-def render_png(svg_path: Path, out_dir: Path, renderers=None) -> Tuple[Optional[str], str]:
+def render_png(svg_path: Path, out_dir: Path, renderers=None, png_name=None) -> Tuple[Optional[str], str]:
     renderers = default_renderers() if renderers is None else renderers
-    png = Path(out_dir) / (Path(svg_path).stem + ".png")
+    png = Path(out_dir) / (png_name or (Path(svg_path).stem + ".png"))
     for name, argv in renderers:
         cmd = [a.format(png=str(png), svg=str(svg_path), dir=str(out_dir)) for a in argv]
         try:

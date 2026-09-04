@@ -18,7 +18,7 @@ from .wrongturns import classify, draft_rules
 from .baseline import load_baseline, save_baseline, delta
 from .render_terminal import render_terminal
 from .render_report import render_report, render_explain, share_text
-from .render_svg import render_svg
+from .render_svg import render_svg, render_svg_square
 from .render_png import render_png
 
 
@@ -207,8 +207,10 @@ def cmd_card(a):
     card = render_terminal(v, color)
     svg = out / "comped-card.svg"
     svg.write_text(render_svg(v, a.card_theme), encoding="utf-8")
-    written = [str(svg)]
-    png, note = render_png(svg, out)
+    sq = out / "comped-card-square.svg"
+    sq.write_text(render_svg_square(v, a.card_theme), encoding="utf-8")
+    written = [str(svg), str(sq)]
+    png, note = render_png(sq, out, png_name="comped-card.png")
     if png:
         written.append(png)
     written.append(save_baseline(out, s, cls, now))
