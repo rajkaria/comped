@@ -6,6 +6,10 @@ ALLOWED_ROOT = {"main.ts", "deps.toml", "lib", "vendor", "resources"}
 
 
 class PlayPackage(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        subprocess.run(["python3", "tools/sync_plays.py"], check=True, capture_output=True)
+
     def test_generator_is_idempotent(self):
         before = {s: pathlib.Path("plays", s, "main.ts").read_text(encoding="utf-8") for s in SLUGS}
         subprocess.run(["python3", "tools/build_plays.py"], check=True, capture_output=True)
