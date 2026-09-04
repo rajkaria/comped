@@ -17,13 +17,11 @@ updated: 2026-09-04
 Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7 Sep 20:00 London (00:30 IST 8 Sep)**. Publishing a Play to Community is the submission; prizes are per Play; judged on runs / stranger-trust / adoption downloads.
 
 ## Current state — what's working, deployed, broken
-- **Tasks 0(partial), 1-13 done, 14-15 partly done. 84 tests green.** `comped_core/` is complete and stdlib-only: adapters (claude-code, codex, pi, opencode) -> ledger -> pricing -> repeats/wrong-turns/baseline -> renderers -> CLI. Determinism, no-network, no-credential, robustness, perf (8.8s over 227k real log lines) and ccusage conformance (token totals match per model, actually runs) all pass.
-- **rote 0.79.0 installed**, signed in as `the handle owner's Google account`, handle **`rajkaria`** reserved (`rote profile set-handle`, one-time/immutable; NOT part of the OAuth flow, contrary to plan Step 3). Plan tier for demos: **Claude Max 20x -> `claude-max-200`**.
-- Fixtures: 0.93 MB synthetic, privacy-tested, 64 claude + 31 codex records, 7 tool errors, one subagent session.
-- Plays packaged: `tools/sync_plays.py` (+ `--check`), `plays/<slug>/{DESCRIPTION,PARAMETERS,STEPS}`, docs tests. CI, README (with fixture card screenshot), VISION done.
-- **Nothing published.** `docs/adoption-log.md` is still just a header row. Repo is still private.
-- **Blocked on the user / on rote:** Task 0 Steps 3-9 (warm-up runs, practice Play through `/play settle`, filling the ROTE-FORMAT PENDINGs, play-quality-doctor), Task 14 Steps 3-7 (capture, quality gate, clean-machine run, publish), Task 15 Step 5 (make repo public), Task 16 (distribution, judge loop).
-- The Claude Code permission classifier blocks reading `~/.claude/projects` from ad-hoc scripts; fixture regeneration must go through `tools/make_fixtures.py`, and even that was blocked intermittently.
+- **Tasks 0-15 done except publishing. 91 tests green. Repo public at https://github.com/rajkaria/comped (main), CI running on GitHub Actions.**
+- `comped_core/` complete and stdlib-only. All three Plays are packaged, generated from single source by `tools/build_plays.py`, and **score 1.00 on the registry rubric**: `rote play validate` OK, `rote play lint` passed with zero findings, `rote play score` 1.00, and himanshu-jha/play-quality-doctor says "Full marks. Nothing here needs changing."
+- **All three ran end to end inside rote**: comped 8/8 steps in 1.8s on fixtures, session-ledger 6/6, wrong-turns 5/5. On real logs comped takes 9.5s and reports **$2,584.71 comped, 13.1x vs Claude Max 20x, 98% cache read, 98 sessions, 22 active days**, top repeat "push and make it live on prod" at $45.69 (at repeat_threshold=2; at the spec default of 3 no cluster qualifies on this machine's 30 days).
+- rote 0.79.0, handle **`rajkaria`** reserved. `docs/research/ROTE-FORMAT.md` is fully verified; only the registry push command and the verbatim `/play settle` prompts remain open, both needing an interactive harness session.
+- **Nothing published.** `docs/adoption-log.md` is still a header row. Publishing is the submission and needs the user's go-ahead.
 
 ## Recent changes — files touched and why
 - `docs/SPEC.md` — full build spec: three Plays (`session-ledger`, `comped`, `wrong-turns`), contracts, math (dedup on `(message.id, requestId)`, Codex cumulative-counter differencing, plan proration /30.4375), repeat detection (Jaccard ≥0.5 on 2-shingles; ≥3 asks, ≥2 sessions, ≥2 days), wrong-turn signals with confidence, outputs (terminal card, SVG/PNG, report, explain, share text, delta), privacy paragraph, quality checklist, tests, distribution plan, panel scorecard (projected 9.6).
@@ -44,7 +42,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 - Earlier wider product draft (leaderboard) stays at `~/Projects/unbilled/docs/SPEC.md`, out of scope for the Plays.
 
 ## Next steps — specific, actionable
-1. **User decisions still open:** Discord membership + posting, X/LinkedIn posting, `gh` auth and making the repo public, authorisation to publish the three Plays, who drives `/play explore` and `/play settle`, whether a clean second machine exists, and whether real-log output may appear in public screenshots.
-2. Task 0 Steps 3-9: `/play what's new`; run `modiqo/hello` and `dotisacat/playoffs-standings author=rajkaria`; practice Play through settle (Skip, do not publish); `rote how` / `rote guidance`; read a pulled token-tab archive; fill every PENDING in `docs/research/ROTE-FORMAT.md`; run play-quality-doctor.
-3. Task 14 Steps 3-7: write each Play's `main.ts` with the verified frontmatter, capture one session per Play, quality-doctor gate, clean-machine run, publish `session-ledger` + `comped`, then `wrong-turns` the next day.
-4. Task 15 Step 5 (public repo) and Task 16 (daily adoption log, social posts, two judge-panel rounds) through to close on 7 Sep 20:00 London.
+1. **User decisions still open:** authorisation to publish the three Plays to Community; Discord membership and posting; X/LinkedIn posting; whether real-log numbers may appear publicly; and whether a clean second machine exists for the portability check.
+2. Publish: `rote play release` then the registry push (command still unverified -- it is delegated to the `rote-registry` skill inside `/play settle`), then `rote play inspect <owner/name> --json` readback and a smoke run from a fresh /tmp dir. Order: `session-ledger` + `comped` same day, `wrong-turns` next.
+3. Task 16: daily adoption-log rows, social posts, two judge-panel rounds, final checks before 7 Sep 20:00 London.
+4. Optional: decide whether the spec's repeat_threshold default of 3 should drop to 2 -- on 30 days of this machine's real logs, 3 finds nothing and 2 finds two genuine asks.
