@@ -29,7 +29,7 @@ rote --version && which rote
 
 Expected: version ≥ 0.78.0 (authors in the registry are on 0.77–0.78).
 
-- [ ] **Step 3: Open a fresh Claude Code conversation in `/Users/rajkaria/Projects/comped` and run the harness command.**
+- [x] **Step 3 (done 2026-09-04, non-interactively): Open a fresh Claude Code conversation in `/Users/rajkaria/Projects/comped` and run the harness command.**
 
 ```
 /play what's new
@@ -37,7 +37,7 @@ Expected: version ≥ 0.78.0 (authors in the registry are on 0.77–0.78).
 
 Expected: sign-in prompt (Google or GitHub), then a handle claim. Claim the handle you will publish under; it becomes the URI prefix `play.modiqo.ai/<handle>/...`. Record the handle in `ROTE-FORMAT.md`.
 
-- [ ] **Step 4: Run Hello, then one more public Play, then one practice Play, then post "warmed up" in the Modiqo Discord.**
+- [x] **Step 4 (partly done 2026-09-04: hello and playoffs-standings ran; the practice Play through `/play settle` still needs an interactive harness session): Run Hello, then one more public Play, then one practice Play, then post "warmed up" in the Modiqo Discord.**
 
 ```bash
 rote play run https://play.modiqo.ai/modiqo/hello
@@ -46,7 +46,7 @@ rote play run https://play.modiqo.ai/dotisacat/playoffs-standings author=<handle
 
 Practice Play: in the harness, `/play explore "count lines of code per language in this repo"`, then do the work with two or three shell commands inside rote, then `/play settle <handle> "lines of code per language"`. Do **not** publish it to Community (choose Skip or Team). Record what the settle flow asked, verbatim, in `ROTE-FORMAT.md`.
 
-- [ ] **Step 5: Pull and unpack the three reference Plays to read their archives.**
+- [x] **Step 5 (done 2026-09-04; archives read at ~/.rote/workspaces/dag-<name>-<hash>/main.ts): Pull and unpack the three reference Plays to read their archives.**
 
 ```bash
 mkdir -p /private/tmp/claude-501/-Users-rajkaria-Projects-random/fb31da3b-d6ff-4121-a347-a1c757fd206b/scratchpad/plays && cd "$_"
@@ -59,7 +59,7 @@ rote guidance
 
 Then find where rote caches downloaded archives (try `find ~/.rote ~/.local/share/rote ~/Library/Application\ Support/rote -name '*.flow*' -o -name '*.yml' -o -name '*.yaml' 2>/dev/null | head`) and read the token-tab archive end to end: the manifest/frontmatter file, the step definitions, and how `resources/` files are addressed.
 
-- [ ] **Step 6: Answer every unknown and write `docs/research/ROTE-FORMAT.md` with this exact structure.**
+- [x] **Step 6 (done 2026-09-04): Answer every unknown and write `docs/research/ROTE-FORMAT.md` with this exact structure.**
 
 ```markdown
 # rote Play format, verified on <date> with rote <version>
@@ -100,13 +100,13 @@ Then find where rote caches downloaded archives (try `find ~/.rote ~/.local/shar
 - composition: yes/no → ...
 ```
 
-- [ ] **Step 7: Run play-quality-doctor against the practice Play and paste its full output into `ROTE-FORMAT.md` under "Fixtures, tags, license, output schema keys".**
+- [x] **Step 7 (done 2026-09-04 against the real Plays, not a practice Play: 1.00, full marks): Run play-quality-doctor against the practice Play and paste its full output into `ROTE-FORMAT.md` under "Fixtures, tags, license, output schema keys".**
 
 ```bash
 rote play run https://play.modiqo.ai/himanshu-jha/play-quality-doctor play=<path-or-ref-of-practice-play> owner=<handle>
 ```
 
-- [ ] **Step 8: Create the adoption log.**
+- [x] **Step 8 (done): Create the adoption log.**
 
 ```markdown
 # Adoption log
