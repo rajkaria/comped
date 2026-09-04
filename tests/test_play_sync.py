@@ -1,5 +1,11 @@
 import unittest, subprocess, sys
 class PlaySync(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # plays/*/resources is generated, not committed, so a clean checkout has none of it and no
+        # test may rely on another having run first.
+        subprocess.run([sys.executable, "tools/sync_plays.py"], check=True, capture_output=True)
+
     def test_sync_then_check_is_clean(self):
         subprocess.run([sys.executable, "tools/sync_plays.py"], check=True, capture_output=True)
         r = subprocess.run([sys.executable, "tools/sync_plays.py", "--check"], capture_output=True, text=True); self.assertEqual(r.returncode, 0, r.stdout)
