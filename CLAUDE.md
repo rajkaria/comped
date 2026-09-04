@@ -6,7 +6,7 @@ Rote Playoffs hackathon entry: three rote Plays (`session-ledger`, `comped`, `wr
 
 | Doc | Covers |
 |---|---|
-| [docs/context/comped-plays.md](docs/context/comped-plays.md) | Whole project: spec, plan, research, Play packaging, publishing, adoption. Current state, decisions, next steps. |
+| [docs/context/comped-plays.md](docs/context/comped-plays.md) | Whole project: core, Play packaging and publishing, the landing site, research, adoption. Current state, decisions, next steps. |
 
 ## Read first
 - `docs/SPEC.md` — approved build spec.
@@ -17,3 +17,5 @@ Rote Playoffs hackathon entry: three rote Plays (`session-ledger`, `comped`, `wr
 - Python ≥ 3.9 stdlib only in `comped_core/`; tests via `python3 -m unittest discover -s tests`.
 - Commit per task, conventional messages. Never read credential files; never add network calls.
 - Update `docs/adoption-log.md` daily once published.
+- Generated, never hand-edited: `plays/*/main.ts` + `deps.toml` (`tools/build_plays.py`), `plays/*/resources/` (`tools/sync_plays.py`), `site/docs.html` (`tools/build_site.py`), `resources/prices.json` (`tools/build_prices.py`).
+- Live: https://github.com/rajkaria/comped · https://rajkaria.github.io/comped/ · `play.modiqo.ai/rajkaria/{comped,session-ledger}`.

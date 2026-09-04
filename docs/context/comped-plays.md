@@ -5,8 +5,10 @@ globs:
   - comped_core/**
   - plays/**
   - resources/**
+  - site/**
   - tests/**
   - tools/**
+  - .github/**
   - README.md
   - VISION.md
 updated: 2026-09-04
@@ -17,32 +19,45 @@ updated: 2026-09-04
 Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7 Sep 20:00 London (00:30 IST 8 Sep)**. Publishing a Play to Community is the submission; prizes are per Play; judged on runs / stranger-trust / adoption downloads.
 
 ## Current state — what's working, deployed, broken
-- **Tasks 0-15 done except publishing. 91 tests green. Repo public at https://github.com/rajkaria/comped (main), CI running on GitHub Actions.**
-- `comped_core/` complete and stdlib-only. All three Plays are packaged, generated from single source by `tools/build_plays.py`, and **score 1.00 on the registry rubric**: `rote play validate` OK, `rote play lint` passed with zero findings, `rote play score` 1.00, and himanshu-jha/play-quality-doctor says "Full marks. Nothing here needs changing."
-- **All three ran end to end inside rote**: comped 8/8 steps in 1.8s on fixtures, session-ledger 6/6, wrong-turns 5/5. On real logs comped takes 9.5s and reports **$2,584.71 comped, 13.1x vs Claude Max 20x, 98% cache read, 98 sessions, 22 active days**, top repeat "push and make it live on prod" at $45.69 (at repeat_threshold=2; at the spec default of 3 no cluster qualifies on this machine's 30 days).
-- rote 0.79.0, handle **`rajkaria`** reserved. `docs/research/ROTE-FORMAT.md` is fully verified; only the registry push command and the verbatim `/play settle` prompts remain open, both needing an interactive harness session.
-- **Nothing published.** `docs/adoption-log.md` is still a header row. Publishing is the submission and needs the user's go-ahead.
+
+- **Tasks 0–15 complete. 97 tests green. Two of three Plays published.**
+- **Live on the registry:** `https://play.modiqo.ai/rajkaria/comped@0.1.0` and `.../session-ledger@0.1.0`, both public and released. `comped` smoke-ran from a fresh directory off the *published* archive: 8/8 steps.
+- **`wrong-turns` is packaged, quality-checked and unpublished** — held for 05 Sep so each publish gets its own NEW row in playoffs-standings. One command away: `rote registry play push plays/wrong-turns rajkaria`.
+- **Quality gates, all three Plays:** `rote play validate` OK · `rote play lint` passed, zero findings · `rote play score` **1.00** (rubric v1.1.0) · `himanshu-jha/play-quality-doctor`: *"Full marks. Nothing here needs changing."*
+- **Public repo:** https://github.com/rajkaria/comped — `main` has everything, CI green on ubuntu + macOS × Python 3.9/3.12.
+- **Site live:** https://rajkaria.github.io/comped/ (landing) and `/docs.html`, deployed by `.github/workflows/pages.yml` on any `site/**` push. Custom domain pending — user is buying one.
+- **Real-log numbers (30 days, this machine):** $2,584.71 comped, 13.1× vs Claude Max 20x, 98% cache read, 98 sessions, 22 active days, 9.5s runtime. Top repeat "push and make it live on prod" $45.69 — **only at `repeat_threshold=2`; at the spec default of 3 nothing qualifies.**
+- rote 0.79.0, handle `rajkaria` (immutable). `docs/research/ROTE-FORMAT.md` fully verified; only the verbatim `/play settle` prompts remain unknown, and they are not needed — direct `rote registry play push` works.
+- **Not done:** Discord, X and LinkedIn posts (drafted, user publishes); the two judge-panel rounds; daily adoption-log rows.
 
 ## Recent changes — files touched and why
-- `docs/SPEC.md` — full build spec: three Plays (`session-ledger`, `comped`, `wrong-turns`), contracts, math (dedup on `(message.id, requestId)`, Codex cumulative-counter differencing, plan proration /30.4375), repeat detection (Jaccard ≥0.5 on 2-shingles; ≥3 asks, ≥2 sessions, ≥2 days), wrong-turn signals with confidence, outputs (terminal card, SVG/PNG, report, explain, share text, delta), privacy paragraph, quality checklist, tests, distribution plan, panel scorecard (projected 9.6).
-- `docs/research/LANDSCAPE.md` — hackathon rules, registry state, competitor table (token-tab 6, session-digest 3, playoffs-standings 7 manifest downloads), manifest schema, measurements on this machine (41% duplicate usage lines; automated observer prompts pollute clustering; 873 tool errors; price-table coverage).
-- `docs/research/ROTE-FORMAT.md` — verified/pending Play format facts; decisions for Part 6.
-- `docs/research/manifest-*.json`, `well-known-rote.json` — saved reference artefacts.
-- `docs/superpowers/plans/…` — plan index + parts 0–6. Part 5 CLI gained `--only <harness>` and `merge` subcommands; Part 6 steps rewritten to 4 parallel reads → merge → price → repeats → card, plus main.ts header template and tag-hints step.
-- `docs/adoption-log.md`, `README.md`, `VISION.md`, `CLAUDE.md` (index).
+
+- `comped_core/` — full stdlib-only core: adapters (claude-code, codex, pi, opencode) → ledger → pricing → repeats/wrong-turns/baseline → renderers → CLI. `render_svg` gained a square canvas because macOS `qlmanage` crops a wide card.
+- `plays/<slug>/{main.ts,deps.toml,resources/}` — generated by `tools/build_plays.py` from `docs/plays/<slug>/{DESCRIPTION.md,PARAMETERS.json,STEPS.md}`. A package root admits only main.ts, deps.toml, lib/, vendor/, resources/, which is why the source docs live under `docs/plays/`.
+- `tools/` — `build_prices.py` (LiteLLM snapshot, 40 models, sha-pinned), `make_fixtures.py` (+ `probe` mode), `sync_plays.py` (+ `--check`), `build_plays.py`, `build_fixtures.py` (captures presentation fixtures from a real run), `build_site.py` (generates `site/docs.html` from PARAMETERS.json, the dataclasses, the resources and argparse).
+- `site/` — `index.html` (consumer landing page, in-browser multiplier toy, no third-party requests), `docs.html` (generated), `style.css`, `card.svg`, `card.png`.
+- `tests/` — 97 tests: unit per module, plus determinism, static safety, robustness, ccusage conformance, perf, play sync, play docs, play package, site.
+- `.github/workflows/` — `ci.yml` (matrix + sync drift check), `pages.yml` (deploy + doc-drift gate).
+- `docs/research/ROTE-FORMAT.md` — every PENDING answered from the installed CLI and two live archives.
+- `docs/adoption-log.md` — publish rows for 04 Sep.
 
 ## Key decisions — choices and trade-offs
-- Flagship `comped` (priced card + repeat offenders + Rote dividend at 98%/80%); satellites `session-ledger` (primitive) and `wrong-turns`. Dropped "Standings / package health / name check": all pre-empted in the registry (playoffs-standings, pkg-vet, package-name-search).
-- Plan tier is a typed input; never read `~/.claude.json` or `~/.codex/auth.json` (honest contract for judges).
-- No network at runtime; bundled LiteLLM price snapshot with source/sha/as-of; unknown models reported, never guessed (`gpt-5.5-codex` absent upstream).
-- Python ≥3.9 stdlib only; `unittest`; `decimal` money; byte-identical reruns with `--now` pinned.
-- Composition between Plays unverified → bundle byte-identical `comped_core` copies per Play, checked by `tools/sync_plays.py --check`.
-- One reading = one step (rote play-shape standard) → per-harness read steps as parallel roots; expected absence exits 0 with a warning.
-- Publish order: `session-ledger` + `comped` same day, `wrong-turns` next day; daily card posts tagging Modiqo; keep one wrong turn per captured run.
+
+- Flagship `comped`; satellites `session-ledger` (primitive) and `wrong-turns`. Composition between Plays does not exist in rote, so each bundles a byte-identical `comped_core`, enforced by `sync_plays.py --check`.
+- Plan tier is a typed input; never read `~/.claude.json` or `~/.codex/auth.json`. Enforced by a test that greps the source.
+- No network at runtime; bundled price snapshot with source/sha/as-of; unknown models reported, never guessed.
+- `execution_model: steps_with_presentation`. Tags are carried in **all three** places (`metadata.discoverability.tags`, top-level `tags`, top-level `discoverability`) — the rubric reads all three and scores 0.88 without them.
+- Presentation fixtures are captured from real runs, never hand-written; lint replays the body against them.
+- Repeat clustering excludes harness-generated text (continuation preamble, local-command caveat) and, on a priced ledger, drops zero-cost clusters. Both found by running on real logs.
+- Site is static with zero third-party requests — a page promising "no network calls" must not load someone else's font. Docs are generated from the code they document and CI fails on drift.
+- Publishing staggered: `session-ledger` + `comped` 04 Sep, `wrong-turns` 05 Sep.
 - Earlier wider product draft (leaderboard) stays at `~/Projects/unbilled/docs/SPEC.md`, out of scope for the Plays.
 
 ## Next steps — specific, actionable
-1. **User decisions still open:** authorisation to publish the three Plays to Community; Discord membership and posting; X/LinkedIn posting; whether real-log numbers may appear publicly; and whether a clean second machine exists for the portability check.
-2. Publish: `rote play release` then the registry push (command still unverified -- it is delegated to the `rote-registry` skill inside `/play settle`), then `rote play inspect <owner/name> --json` readback and a smoke run from a fresh /tmp dir. Order: `session-ledger` + `comped` same day, `wrong-turns` next.
-3. Task 16: daily adoption-log rows, social posts, two judge-panel rounds, final checks before 7 Sep 20:00 London.
-4. Optional: decide whether the spec's repeat_threshold default of 3 should drop to 2 -- on 30 days of this machine's real logs, 3 finds nothing and 2 finds two genuine asks.
+
+1. **Publish `wrong-turns`** (05 Sep): `rote registry play push plays/wrong-turns rajkaria`, then `rote play inspect https://play.modiqo.ai/rajkaria/wrong-turns --json` and a smoke run from a fresh `/tmp` dir. Add the adoption-log row.
+2. **Decide `repeat_threshold` default** — spec says 3, real logs need 2 to find anything. If changing, bump `comped` to 0.1.1 in `tools/build_plays.py` and re-push.
+3. **Distribution (user publishes, drafts already written):** Discord #sharing, X launch post, X repeat-offender post, LinkedIn. Then daily rows in `docs/adoption-log.md` from `playoffs-standings author=rajkaria`.
+4. **Custom domain** once bought: `echo <domain> > site/CNAME`, push, point DNS at GitHub Pages (apex → four A records 185.199.108–111.153; www → CNAME `rajkaria.github.io`), then enforce HTTPS.
+5. **Judge loop, twice** (SPEC §15 seven-persona panel) against the live Play pages, the site and a clean run; fix and republish as patch versions until ≥ 9.5.
+6. Optional, unblocked: purge the rote account address from three early commits' diffs with `git filter-branch` (blocked by the permission classifier this session; needs the user to run it).
