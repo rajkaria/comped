@@ -8,3 +8,4 @@ out/
 /plays/*/resources/fixtures/
 /plays/*/.rote-flow-lint.json
 .vercel
+.env*
