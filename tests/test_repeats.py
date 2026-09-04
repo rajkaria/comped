@@ -26,3 +26,15 @@ class RepeatTests(unittest.TestCase):
         cl = find_repeats(hs, cost, 3, "")
         self.assertEqual([c.label for c in cl], ["run the test suite", "deploy the site to vercel"])
         self.assertEqual(cl[0].capture_command, '/play settle <handle> "run the test suite"')
+
+    def test_zero_cost_clusters_are_dropped_when_costs_are_known(self):
+        # A repeat offender is ranked by what re-asking cost. On a priced ledger a cluster with no
+        # attributed cost is boilerplate that never anchored a turn, not an ask worth showing.
+        hs = [H("a", "deploy the site to vercel", "s1", 1), H("b", "deploy the site to vercel", "s2", 2),
+              H("c", "deploy the site to vercel", "s3", 3),
+              H("d", "run the test suite", "s1", 1), H("e", "run the test suite", "s2", 2),
+              H("f", "run the test suite", "s3", 3)]
+        priced = {k: Decimal(v) for k, v in {"d": 5, "e": 5, "f": 5}.items()}
+        self.assertEqual([c.label for c in find_repeats(hs, priced, 3, "")], ["run the test suite"])
+        # With no cost data at all (ledger not priced yet), both clusters still surface.
+        self.assertEqual(len(find_repeats(hs, {}, 3, "")), 2)
