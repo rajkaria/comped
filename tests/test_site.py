@@ -47,6 +47,17 @@ class Site(unittest.TestCase):
         self.assertEqual(conf["outputDirectory"], "site")
         self.assertIn("tools/build_site.py", conf["buildCommand"])
 
+    def test_the_www_host_redirects_to_the_canonical_one(self):
+        import json
+        from tools.build_site import SITE_URL
+        conf = json.loads(pathlib.Path("vercel.json").read_text(encoding="utf-8"))
+        host = SITE_URL.split("://", 1)[1]
+        rules = [r for r in conf.get("redirects", [])
+                 if any(h.get("value") == "www." + host for h in r.get("has", []))]
+        self.assertEqual(len(rules), 1, "www.{0} should redirect to the canonical host".format(host))
+        self.assertTrue(rules[0]["destination"].startswith(SITE_URL), rules[0]["destination"])
+        self.assertTrue(rules[0]["permanent"], "the www redirect should be permanent")
+
     def test_the_published_play_uris_are_the_real_ones(self):
         text = (SITE / "index.html").read_text(encoding="utf-8")
         for slug in ("comped", "session-ledger", "wrong-turns"):
