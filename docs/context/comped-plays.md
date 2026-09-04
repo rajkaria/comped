@@ -20,7 +20,10 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Current state — what's working, deployed, broken
 
-- **Tasks 0–15 complete. 97 tests green. Two of three Plays published.**
+- **Tasks 0–15 complete, plus auto-detection (04 Sep). 121 tests green. Two of three Plays published — both now one version behind.**
+- **`plan` is no longer typed.** `comped_core/detect.py` reads the model id on every usage record, names the provider behind it (Anthropic, OpenAI, Moonshot/Kimi, Z.ai/GLM, DeepSeek, Google, xAI, Alibaba, MiniMax, Mistral, Meta, Cohere), and prices every subscription those providers sell at once. `plan=auto` is the default; the assumed row is the most expensive plan that fits (the smallest honest multiplier); `plan=<id>` and `plan=usd:<amount>` override. Card, SVG, report and explain all carry a DETECTED block and the ladder. **Plays are at 0.1.1 locally and the registry still serves 0.1.0 — all three need pushing.**
+- **Price table grew 40 → 78 models** (Kimi, GLM, MiniMax, Qwen, Grok, DeepSeek, Gemini 3), same sha-pinned upstream, and resolution now prefers the model's own vendor over a reseller. Model ids also resolve case-insensitively (`MiniMax-M2`).
+- **The landing page was rebuilt around the detection** — auto-detect section with a replayed terminal, provider marquee, a plan-ladder toy that asks for nothing but the month, aurora background, count-up stats, reveal-on-scroll. Still zero third-party requests; all motion off under `prefers-reduced-motion` and scoped to a class the script removes after 2.5s.
 - **Live on the registry:** `https://play.modiqo.ai/rajkaria/comped@0.1.0` and `.../session-ledger@0.1.0`, both public and released. `comped` smoke-ran from a fresh directory off the *published* archive: 8/8 steps.
 - **`wrong-turns` is packaged, quality-checked and unpublished** — held for 05 Sep so each publish gets its own NEW row in playoffs-standings. One command away: `rote registry play push plays/wrong-turns rajkaria`.
 - **Quality gates, all three Plays:** `rote play validate` OK · `rote play lint` passed, zero findings · `rote play score` **1.00** (rubric v1.1.0) · `himanshu-jha/play-quality-doctor`: *"Full marks. Nothing here needs changing."*
@@ -44,7 +47,7 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 ## Key decisions — choices and trade-offs
 
 - Flagship `comped`; satellites `session-ledger` (primitive) and `wrong-turns`. Composition between Plays does not exist in rote, so each bundles a byte-identical `comped_core`, enforced by `sync_plays.py --check`.
-- Plan tier is a typed input; never read `~/.claude.json` or `~/.codex/auth.json`. Enforced by a test that greps the source.
+- Plan tier is **inferred from the model ids in the logs**, never typed and never read from an account; `~/.claude.json` and `~/.codex/auth.json` are still never opened, enforced by the same source-grep test. The inference is deliberately unflattering (most expensive plan that fits) and every other tier is shown beside it, because guessing in your own favour is the one thing this tool must not do.
 - No network at runtime; bundled price snapshot with source/sha/as-of; unknown models reported, never guessed.
 - `execution_model: steps_with_presentation`. Tags are carried in **all three** places (`metadata.discoverability.tags`, top-level `tags`, top-level `discoverability`) — the rubric reads all three and scores 0.88 without them.
 - Presentation fixtures are captured from real runs, never hand-written; lint replays the body against them.
@@ -55,9 +58,10 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Next steps — specific, actionable
 
-1. **Publish `wrong-turns`** (05 Sep): `rote registry play push plays/wrong-turns rajkaria`, then `rote play inspect https://play.modiqo.ai/rajkaria/wrong-turns --json` and a smoke run from a fresh `/tmp` dir. Add the adoption-log row.
-2. **Decide `repeat_threshold` default** — spec says 3, real logs need 2 to find anything. If changing, bump `comped` to 0.1.1 in `tools/build_plays.py` and re-push.
-3. **Distribution (user publishes, drafts already written):** Discord #sharing, X launch post, X repeat-offender post, LinkedIn. Then daily rows in `docs/adoption-log.md` from `playoffs-standings author=rajkaria`.
-4. **Custom domain — done.** `gotcomped.com` + `www` resolve to Vercel, certificate issued. Remaining: republish the three Plays so the registry copy carries the `https://gotcomped.com` link now in each `DESCRIPTION.md`.
-5. **Judge loop, twice** (SPEC §15 seven-persona panel) against the live Play pages, the site and a clean run; fix and republish as patch versions until ≥ 9.5.
-6. Optional, unblocked: purge the rote account address from three early commits' diffs with `git filter-branch` (blocked by the permission classifier this session; needs the user to run it).
+1. **Re-push `comped` and `session-ledger` at 0.1.1** — the registry copies predate auto-detection and still ask for a plan: `rote registry play push plays/comped rajkaria` and the same for `session-ledger`, then `rote play inspect <uri> --json` and a smoke run from a fresh dir.
+2. **Publish `wrong-turns`** (05 Sep): `rote registry play push plays/wrong-turns rajkaria`, then inspect and smoke-run. Add the adoption-log row.
+3. **Decide `repeat_threshold` default** — spec says 3, real logs need 2 to find anything. The version is already 0.1.1, so a change rides along with the re-push.
+4. **Distribution (user publishes, drafts already written):** Discord #sharing, X launch post, X repeat-offender post, LinkedIn. Then daily rows in `docs/adoption-log.md` from `playoffs-standings author=rajkaria`.
+5. **Custom domain — done.** `gotcomped.com` + `www` resolve to Vercel, certificate issued. Remaining: republish the three Plays so the registry copy carries the `https://gotcomped.com` link now in each `DESCRIPTION.md`.
+6. **Judge loop, twice** (SPEC §15 seven-persona panel) against the live Play pages, the site and a clean run; fix and republish as patch versions until ≥ 9.5.
+7. Optional, unblocked: purge the rote account address from three early commits' diffs with `git filter-branch` (blocked by the permission classifier this session; needs the user to run it).
