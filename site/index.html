@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>comped — how much did your agents actually cost?</title>
+<meta name="description" content="Your coding agents already wrote down what they used. comped reads it and tells you what the last 30 days would have cost at API list price, and how many times over you got comped by your subscription.">
+<meta property="og:title" content="comped — how much did your agents actually cost?">
+<meta property="og:description" content="Read the agent logs already on your disk. Get one card: list-price total, the multiplier against the plan you pay for, and the jobs you keep re-asking.">
+<meta property="og:image" content="card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./">comped<span>.</span></a>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#plays" class="hide-sm">The Plays</a>
+      <a href="#privacy" class="hide-sm">Privacy</a>
+      <a href="docs.html">Docs</a>
+      <a href="https://github.com/rajkaria/comped">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">The receipt nobody printed</p>
+    <h1>You got <em>comped</em>.<br>The question is how badly.</h1>
+    <p class="sub">Every coding session on your machine already wrote down exactly what it burned. Nobody reads it, because it's four gigabytes of JSONL in four different shapes. <strong>comped reads it</strong> and tells you what your last 30 days would have cost at API list price — and how many times over your subscription ate it.</p>
+
+    <div class="cmd">
+      <span class="dollar">$</span>
+      <code id="cmd-main">rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code>
+      <button class="copy" data-copy="#cmd-main">Copy</button>
+    </div>
+    <p class="hero-note">Needs <code>python3</code>. Nothing else. No API key, no sign-in, no upload — <a href="#privacy">and no network calls at all</a>.</p>
+
+    <figure class="card">
+      <img src="card.svg" alt="The comped card: total spent at list price, the multiplier against your plan, spend per model, cache-read share, and the top repeated asks with what each repeat cost.">
+      <figcaption>One card. Rendered from the synthetic logs bundled with the Play, so the numbers are small — on a real month they are not.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section id="meter">
+  <div class="wrap">
+    <h2>Do the maths in your head, badly</h2>
+    <p class="lede">Or don't. Put in what you pay and a guess at what you'd have spent on the API, and find out what you're calling it at parties.</p>
+
+    <div class="toy">
+      <div class="row">
+        <div class="field">
+          <label for="plan">What you pay</label>
+          <select id="plan">
+            <option value="20">Claude Pro — $20/mo</option>
+            <option value="100">Claude Max 5× — $100/mo</option>
+            <option value="200" selected>Claude Max 20× — $200/mo</option>
+            <option value="20-gpt">ChatGPT Plus — $20/mo</option>
+            <option value="200-gpt">ChatGPT Pro — $200/mo</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="spend">What a month would've cost on the API</label>
+          <input id="spend" type="number" inputmode="numeric" min="0" step="50" value="2584">
+        </div>
+      </div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+    <p class="hero-note">Nothing here leaves your browser. It's arithmetic, not a service. The Play does the real version, with your actual token counts.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it gets the number</h2>
+    <p class="lede">No estimates, no sampling, no telemetry. It reads the same files your agent already wrote and does the arithmetic you'd do by hand if you had a spare weekend.</p>
+    <ol class="steps">
+      <li><b>It reads every harness you have.</b> Claude Code — including the subagent transcripts hiding in subdirectories — plus Codex, Pi and OpenCode. Each one is a separate step, so a harness you don't use is a shrug, not an error.</li>
+      <li><b>It throws away the duplicates.</b> Claude Code writes one line per content block, so roughly <b>four in ten usage lines are the same API call again</b>. Price those and your number is fiction. They're collapsed on <code>(message.id, requestId)</code>. Codex is the opposite problem: cumulative counters that have to be differenced.</li>
+      <li><b>It prices what's left.</b> Uncached input, cache writes, cache reads and output, each at its own rate, in exact decimal arithmetic — from a bundled price table that names its source, its upstream checksum and the date it was taken. A model the table doesn't know is reported with its token count and <b>never priced by guess</b>.</li>
+      <li><b>Then it reads you back to yourself.</b> The jobs you've asked three or more times across different days, what each repeat cost, and — for the darker version — the mistakes your agent keeps making and what recovering from them cost.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="plays">
+  <div class="wrap">
+    <h2>Three Plays, one honest parser</h2>
+    <p class="lede">Same core underneath. Pick the one that matches the question you're actually asking.</p>
+    <div class="grid">
+
+      <div class="tile">
+        <div class="slug">rajkaria/comped</div>
+        <h3>What did it cost me?</h3>
+        <p>The card. List-price total, the multiplier against your plan, cache-read share, spend per model, what moved since your last run, and the asks you keep repeating with a price on each.</p>
+        <code class="run">rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code>
+      </div>
+
+      <div class="tile">
+        <div class="slug">rajkaria/session-ledger</div>
+        <h3>Just give me the data</h3>
+        <p>The deduplicated ledger under everything else: usage records, the messages that started each turn, every tool call and whether it failed. Nothing priced, nothing judged. If you're writing a session Play, read this instead of re-parsing the logs.</p>
+        <code class="run">rote play run https://play.modiqo.ai/rajkaria/session-ledger</code>
+      </div>
+
+      <div class="tile">
+        <div class="slug">rajkaria/wrong-turns</div>
+        <h3>Where did it go wrong?</h3>
+        <p>The mistakes your agent makes on repeat — tool errors, the message where you corrected it, reverts — grouped by signature, priced by what recovery cost, each with a drafted rule for your <code>CLAUDE.md</code>. It writes the draft. It never edits your files.</p>
+        <code class="run">rote play run https://play.modiqo.ai/rajkaria/wrong-turns</code>
+      </div>
+
+    </div>
+    <p class="hero-note" style="margin-top:24px">New to rote? <a href="docs.html#install">Two minutes to install</a>, then any of the above.</p>
+  </div>
+</section>
+
+<section id="tracking">
+  <div class="wrap">
+    <h2>What it looks at, exactly</h2>
+    <p class="lede">Short version below. The <a href="docs.html#tracking">long version is in the docs</a>, field by field, including every number the card can show you.</p>
+    <div class="grid">
+      <div class="tile">
+        <h3>Tokens</h3>
+        <p>Per API call: uncached input, cache writes, cache reads, output and reasoning tokens, with the model and the session they belong to. Reasoning bills as output, because that's how you're charged.</p>
+      </div>
+      <div class="tile">
+        <h3>Turns</h3>
+        <p>The message that started each turn, so cost can be attributed to <em>what you asked</em> rather than to a wall of API calls. Messages your harness generated are labelled as such and kept out of the totals that claim to be yours.</p>
+      </div>
+      <div class="tile">
+        <h3>Tools</h3>
+        <p>Every tool call, its one-line summary, and whether it errored. That's what makes "your agent has failed the same way 14 times" a fact rather than a feeling.</p>
+      </div>
+      <div class="tile">
+        <h3>Never</h3>
+        <p>Prompt text beyond a 120-character truncation plus a hash. File contents. Your credentials — it refuses to open the files that hold them, even to work out which plan you're on. You type that.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <h2>The boring, important part</h2>
+    <p class="lede">A tool that reads your logs is asking for a lot of trust. Here's the exact shape of what it does, and how you can check rather than believe.</p>
+    <ul class="promises">
+      <li><span class="mark">→</span><span class="t"><b>Reads</b> session logs under the directories you configure. Nothing else.</span></li>
+      <li><span class="mark">→</span><span class="t"><b>Never reads</b> <code>~/.claude.json</code>, <code>~/.codex/auth.json</code>, or any credential, keychain or token file. Your plan is typed by you, precisely so it never has a reason to look.</span></li>
+      <li><span class="mark">→</span><span class="t"><b>Never sends.</b> No network calls of any kind. Not telemetry, not "anonymous usage", not a version check.</span></li>
+      <li><span class="mark">→</span><span class="t"><b>Writes</b> only under the folder you choose, and lists every path it wrote in the report.</span></li>
+      <li><span class="mark">→</span><span class="t"><b>Message text</b> is truncated to 120 characters and hashed by default. Set <code>redact=false</code> and the full text stays local — it never appears on a card either way.</span></li>
+    </ul>
+    <div class="callout">
+      <p>None of that is a promise you have to take on faith. The test suite fails the build if the core imports <code>urllib</code>, <code>http</code>, <code>socket</code>, <code>requests</code> or <code>ssl</code>; if any module except the PNG renderer so much as mentions <code>subprocess</code>; or if any line of source references a credential path. <a href="https://github.com/rajkaria/comped/blob/main/tests/test_no_network.py">Read that test</a> — it's 20 lines.</p>
+    </div>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <h2>Is the number real?</h2>
+    <p class="lede">It's a list-price equivalent, and the card says so on its face. That distinction matters, so here it is plainly.</p>
+    <div class="grid">
+      <div class="tile">
+        <h3>It is not a bill</h3>
+        <p>You're on a subscription. You paid what you paid. This is what the same tokens would have cost at the API's published rates — the number that tells you whether your plan is a bargain or a rounding error.</p>
+      </div>
+      <div class="tile">
+        <h3>Every figure shows its working</h3>
+        <p>Each run writes <code>comped-explain.txt</code>: one line per model with the token counts, the rate each was multiplied by, and the total. If a number looks wrong, you can find out why in about ten seconds.</p>
+      </div>
+      <div class="tile">
+        <h3>Checked against someone else's maths</h3>
+        <p>Continuous integration compares our Claude Code token totals, per model, against <a href="https://github.com/ryoppippi/ccusage">ccusage</a> — an independent tool with its own parser. Same logs, same dedup, same totals.</p>
+      </div>
+      <div class="tile">
+        <h3>Unknown models stay unknown</h3>
+        <p>If the bundled table has no rate for a model, it appears under "unpriced" with its token count and no dollar figure. A guessed price would make the headline number worse, not better.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <h2>Go and find out</h2>
+    <p class="lede">Try it on the synthetic logs bundled with the Play first, if you'd rather not point a stranger's code at your own on the first date.</p>
+    <div class="cmd" style="margin-bottom:14px">
+      <span class="dollar">$</span>
+      <code id="cmd-demo">rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex plan=claude-max-200</code>
+      <button class="copy" data-copy="#cmd-demo">Copy</button>
+    </div>
+    <div class="cmd">
+      <span class="dollar">$</span>
+      <code id="cmd-real">rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-max-200</code>
+      <button class="copy" data-copy="#cmd-real">Copy</button>
+    </div>
+    <p class="hero-note">Then post your multiplier. Everyone thinks theirs is the bad one.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. MIT licensed.</span>
+    <span class="sp"><a href="docs.html">Docs</a> · <a href="https://github.com/rajkaria/comped">Source</a> · <a href="https://github.com/rajkaria/comped/blob/main/docs/SPEC.md">Methodology</a></span>
+  </div>
+</footer>
+
+<script>
+// Copy buttons. No dependency, no analytics, nothing phoning home.
+document.querySelectorAll("button.copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var el = document.querySelector(b.dataset.copy);
+    navigator.clipboard.writeText(el.textContent.trim()).then(function () {
+      var was = b.textContent;
+      b.textContent = "Copied";
+      b.classList.add("done");
+      setTimeout(function () { b.textContent = was; b.classList.remove("done"); }, 1600);
+    });
+  });
+});
+
+// The multiplier toy: pure arithmetic, entirely in the page.
+var plan = document.getElementById("plan");
+var spend = document.getElementById("spend");
+var verdict = document.getElementById("verdict");
+
+function quip(m) {
+  if (m < 1) return "Your subscription is losing to the API. Either you barely used it, or you should be on pay-as-you-go.";
+  if (m < 2) return "About break-even. You're paying roughly what the tokens are worth.";
+  if (m < 5) return "Comfortably ahead. The plan is doing its job.";
+  if (m < 12) return "You are getting comped properly. This is the part where you tell your team.";
+  if (m < 30) return "At this point the subscription is less a purchase than a hostage situation, and you are not the hostage.";
+  if (m < 80) return "Someone in a pricing meeting is going to see this and go very quiet.";
+  return "Please stop. There is nothing left to comp.";
+}
+
+function render() {
+  var paid = parseFloat(String(plan.value).replace(/[^0-9.]/g, "")) || 0;
+  var listed = parseFloat(spend.value) || 0;
+  if (paid <= 0) { verdict.textContent = ""; return; }
+  var m = listed / paid;
+  var money = "$" + listed.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  verdict.innerHTML =
+    money + " of tokens for $" + paid + '. You got comped <span class="big">' +
+    (m < 10 ? m.toFixed(1) : Math.round(m)) + "×</span>." +
+    '<span class="quip">' + quip(m) + "</span>";
+}
+
+plan.addEventListener("change", render);
+spend.addEventListener("input", render);
+render();
+</script>
+
+</body>
+</html>
