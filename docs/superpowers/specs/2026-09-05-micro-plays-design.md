@@ -124,9 +124,10 @@ would cost more than the feature is worth, so:
 
 - Writers are tagged `effect-local-write`, never `effect-read-only`. (If the registry taxonomy rejects
   that literal, the closest accepted `effect-*` term is used and the choice recorded here.)
-- Every write is an **append** to one file under `state_dir` (default `~/.rote-micro`), or, for `jot`,
-  one line appended to an explicitly named vault inbox. Nothing is deleted, truncated or rewritten
-  in place, ever.
+- Every write in the four log Plays is an **append** to one file under `state_dir` (default
+  `~/.rote-micro`), or, for `jot`, one line appended to an explicitly named vault inbox. Nothing is
+  deleted, truncated or rewritten in place. `since-last` is the one exception and is not a log: it
+  replaces the single snapshot file it owns under `state_dir`, which is the whole mechanism.
 - Every written path is printed in the run output and named in `DESCRIPTION.md`.
 - `since-last` writes exactly one snapshot file, and only under `state_dir`.
 - A test asserts that no write lands outside `state_dir` or the explicit `vault_dir`.

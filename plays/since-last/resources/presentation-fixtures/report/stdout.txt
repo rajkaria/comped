@@ -1,0 +1,6 @@
+── since you last asked ────────────────────────────────────
+  new      src/render.py
+  changed  src/parse.py
+
+2 files touched · +4 / −0 lines · nothing outside the repo
+{"biggest": {"bytes": 54, "path": "src/render.py"}, "created": ["src/render.py"], "deleted": [], "files": 4, "first_run": false, "lines_added": 4, "lines_removed": 0, "modified": ["src/parse.py"], "ok": true, "sensitive_changed": [], "truncated": false, "written": ["/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-mhv0wx4m/snapshot-d767dc62f842ceb2.json", "/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-mhv0wx4m/snapshot-sensitive-d767dc62f842ceb2.json"]}

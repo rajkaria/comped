@@ -1,0 +1,17 @@
+• base64, 201 bytes decoded
+   bytes: 201
+  └─ gzip, 201 bytes compressed
+     compressed: 201
+    └─ JWT, HS256, expires in 119d
+       typ: JWT
+       iat: 2026-09-04 12:00:00Z
+       exp: 2027-01-03 12:00:00Z
+       signature: dGhpcy1z… (59 chars)
+       claim sub: user_8812
+       claim iss: rote-demo
+       claim scope: read:cards
+       claim iat: 1788523200
+       claim exp: 1798977600
+
+3 layers deep: base64 → gzip → jwt · expires in 119d
+{"chain": "base64 \u2192 gzip \u2192 jwt", "chars": 268, "depth_reached": 3, "kind": "base64", "layers": [{"detail": {"bytes": 201}, "kind": "base64", "label": "base64, 201 bytes decoded"}, {"detail": {"compressed": 201}, "kind": "gzip", "label": "gzip, 201 bytes compressed"}, {"detail": {"alg": "HS256", "claim_names": ["exp", "iat", "iss", "scope", "sub"], "claims": {"exp": 1798977600, "iat": 1788523200, "iss": "rote-demo", "scope": "read:cards", "sub": "user_8812"}, "exp": "2027-01-03 12:00:00Z", "expiry": "expires in 119d", "iat": "2026-09-04 12:00:00Z", "signature": "dGhpcy1z\u2026 (59 chars)", "typ": "JWT"}, "kind": "jwt", "label": "JWT, HS256, expires in 119d"}], "ok": true}

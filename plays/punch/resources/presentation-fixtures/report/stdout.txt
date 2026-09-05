@@ -1,0 +1,10 @@
+demo run: reading a bundled 14-day log in /var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-89twom4_
+── today ───────────────────────────────────────────────────
+  14:30  api — writing it down
+  15:30  docs — reading it through
+  16:42  review — finishing the edge case
+
+  punches over 14 days  █▃▁▁█▆▆▁█████▁
+
+2 switches today · longest block 1h 12m · 14-day streak
+{"current_block_min": 48, "longest_block_min": 72, "longest_streak": 14, "ok": true, "punches": 3, "shape": "\u2588\u2583\u2581\u2581\u2588\u2586\u2586\u2581\u2588\u2588\u2588\u2588\u2588\u2581", "streak": 14, "switches": 2, "topics": [{"punches": 1, "topic": "api"}, {"punches": 1, "topic": "docs"}, {"punches": 1, "topic": "review"}]}

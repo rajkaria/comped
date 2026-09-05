@@ -1,0 +1,10 @@
+demo run: reading a bundled 14-day log in /var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-15oqkhf_
+── 2026-09 ─────────────────────────────────────────────────
+  travel              2400.00   48%
+  home                1350.00   27%
+  food                 760.00   15%
+
+  today 320.00 · month 4908.00 · 981.60/day
+
+4908.00 INR this month · travel is 48%
+{"avg_per_day": "981.60", "budget": "0.00", "by_tag": [{"amount": "2400.00", "tag": "travel"}, {"amount": "1350.00", "tag": "home"}, {"amount": "760.00", "tag": "food"}], "currencies": [{"currency": "INR", "month": "4908.00"}], "currency": "INR", "month": "4908.00", "ok": true, "over": false, "projection": "29448.00", "today": "320.00"}

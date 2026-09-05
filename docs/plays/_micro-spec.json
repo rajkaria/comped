@@ -1,0 +1,556 @@
+{
+ "whatis": {
+  "steps": [
+   [
+    "report",
+    [
+     "whatis",
+     "report",
+     "--text",
+     "$text",
+     "--depth",
+     "$depth",
+     "--reveal",
+     "$reveal"
+    ],
+    [],
+    30000
+   ]
+  ],
+  "tags": [
+   "domain-developer-tooling",
+   "job-string-decoding",
+   "job-token-inspection",
+   "audience-developers",
+   "effect-read-only",
+   "tool-jwt",
+   "tool-base64"
+  ],
+  "outputs": [
+   "kind",
+   "chain",
+   "layers",
+   "depth_reached",
+   "chars"
+  ],
+  "summary": "`${j.chain ?? \"nothing\"} \u2014 ${j.depth_reached ?? 0} layer(s) deep`"
+ },
+ "fits": {
+  "steps": [
+   [
+    "report",
+    [
+     "fits",
+     "report",
+     "--text",
+     "$text",
+     "--path",
+     "$path",
+     "--window",
+     "$window",
+     "--models",
+     "$models",
+     "--rates-path",
+     "$rates_path"
+    ],
+    [],
+    60000
+   ]
+  ],
+  "tags": [
+   "domain-agent-operations",
+   "job-context-sizing",
+   "job-cost-estimation",
+   "audience-developers",
+   "effect-read-only",
+   "tool-claude-code",
+   "tool-codex"
+  ],
+  "outputs": [
+   "bytes",
+   "chars",
+   "lines",
+   "words",
+   "tokens_low",
+   "tokens_mid",
+   "tokens_high",
+   "fits",
+   "pct",
+   "window",
+   "costs",
+   "method",
+   "source"
+  ],
+  "summary": "`${j.tokens_low ?? 0}\u2013${j.tokens_high ?? 0} tokens, ${j.pct ?? 0}% of the window${j.fits === false ? \" \u2014 does not fit\" : \"\"}`"
+ },
+ "is-it-secret": {
+  "steps": [
+   [
+    "report",
+    [
+     "secret",
+     "report",
+     "--text",
+     "$text",
+     "--path",
+     "$path",
+     "--strict",
+     "$strict",
+     "--show",
+     "$show"
+    ],
+    [],
+    60000
+   ]
+  ],
+  "tags": [
+   "domain-security",
+   "job-secret-detection",
+   "job-paste-safety",
+   "audience-everyone",
+   "effect-read-only",
+   "tool-dotenv",
+   "tool-git"
+  ],
+  "outputs": [
+   "verdict",
+   "findings",
+   "counts",
+   "redacted",
+   "source",
+   "bytes"
+  ],
+  "summary": "`${j.verdict === \"safe\" ? \"nothing to redact\" : `${(j.findings ?? []).length} to redact \u2014 ${j.verdict}`}`"
+ },
+ "cron-when": {
+  "steps": [
+   [
+    "report",
+    [
+     "cron",
+     "report",
+     "--expr",
+     "$expr",
+     "--tz",
+     "$tz",
+     "--count",
+     "$count"
+    ],
+    [],
+    30000
+   ]
+  ],
+  "tags": [
+   "domain-developer-tooling",
+   "job-schedule-review",
+   "job-timezone-check",
+   "audience-developers",
+   "effect-read-only",
+   "tool-cron"
+  ],
+  "outputs": [
+   "valid",
+   "expr",
+   "english",
+   "zone",
+   "fires",
+   "average_interval_min",
+   "dst_warning"
+  ],
+  "summary": "`${j.valid === false ? `not a cron expression: ${j.error}` : `${j.english} \u2014 next ${(j.fires ?? [{}])[0]?.local ?? \"never\"}${j.dst_warning ? \" \u26a0 clock change\" : \"\"}`}`"
+ },
+ "punch": {
+  "steps": [
+   [
+    "record",
+    [
+     "punch",
+     "record",
+     "--note",
+     "$note",
+     "--tag",
+     "$tag",
+     "--state-dir",
+     "$state_dir"
+    ],
+    [],
+    30000
+   ],
+   [
+    "report",
+    [
+     "punch",
+     "report",
+     "--state-dir",
+     "$state_dir",
+     "--days-back",
+     "$days_back",
+     "--tz",
+     "$tz"
+    ],
+    [
+     "record"
+    ],
+    30000
+   ]
+  ],
+  "tags": [
+   "domain-personal-productivity",
+   "job-time-tracking",
+   "job-context-switch-audit",
+   "audience-everyone",
+   "effect-local-write",
+   "tool-jsonl"
+  ],
+  "outputs": [
+   "punches",
+   "switches",
+   "current_block_min",
+   "longest_block_min",
+   "streak",
+   "longest_streak",
+   "shape",
+   "topics"
+  ],
+  "summary": "`${j.switches ?? 0} switch(es) today \u00b7 longest block ${j.longest_block_min ?? 0} min \u00b7 ${j.streak ?? 0}-day streak`"
+ },
+ "spent": {
+  "steps": [
+   [
+    "record",
+    [
+     "spent",
+     "record",
+     "--entry",
+     "$entry",
+     "--currency",
+     "$currency",
+     "--state-dir",
+     "$state_dir"
+    ],
+    [],
+    30000
+   ],
+   [
+    "report",
+    [
+     "spent",
+     "report",
+     "--state-dir",
+     "$state_dir",
+     "--budget",
+     "$budget",
+     "--currency",
+     "$currency",
+     "--tz",
+     "$tz"
+    ],
+    [
+     "record"
+    ],
+    30000
+   ]
+  ],
+  "tags": [
+   "domain-personal-finance",
+   "job-spend-tracking",
+   "job-budget-check",
+   "audience-everyone",
+   "effect-local-write",
+   "tool-jsonl"
+  ],
+  "outputs": [
+   "currency",
+   "today",
+   "month",
+   "avg_per_day",
+   "projection",
+   "budget",
+   "over",
+   "by_tag",
+   "currencies"
+  ],
+  "summary": "`${j.month ?? 0} ${j.currency ?? \"\"} this month${j.over ? \", on pace to go over\" : \"\"}`"
+ },
+ "jot": {
+  "steps": [
+   [
+    "record",
+    [
+     "jot",
+     "record",
+     "--note",
+     "$note",
+     "--vault-dir",
+     "$vault_dir",
+     "--inbox",
+     "$inbox",
+     "--state-dir",
+     "$state_dir"
+    ],
+    [],
+    30000
+   ],
+   [
+    "report",
+    [
+     "jot",
+     "report",
+     "--vault-dir",
+     "$vault_dir",
+     "--inbox",
+     "$inbox",
+     "--state-dir",
+     "$state_dir",
+     "--tz",
+     "$tz"
+    ],
+    [
+     "record"
+    ],
+    30000
+   ]
+  ],
+  "tags": [
+   "domain-personal-productivity",
+   "job-quick-capture",
+   "job-notes-inbox",
+   "audience-everyone",
+   "effect-local-write",
+   "tool-obsidian",
+   "tool-markdown"
+  ],
+  "outputs": [
+   "today",
+   "week",
+   "inbox_lines",
+   "streak",
+   "longest_streak",
+   "captured"
+  ],
+  "summary": "`${j.today ?? 0} captured today \u00b7 ${j.inbox_lines ?? 0} sitting in the inbox`"
+ },
+ "streak": {
+  "steps": [
+   [
+    "record",
+    [
+     "streak",
+     "record",
+     "--did",
+     "$did",
+     "--state-dir",
+     "$state_dir"
+    ],
+    [],
+    30000
+   ],
+   [
+    "report",
+    [
+     "streak",
+     "report",
+     "--state-dir",
+     "$state_dir",
+     "--window",
+     "$window",
+     "--did",
+     "$did",
+     "--tz",
+     "$tz"
+    ],
+    [
+     "record"
+    ],
+    30000
+   ]
+  ],
+  "tags": [
+   "domain-personal-productivity",
+   "job-habit-tracking",
+   "job-streak-review",
+   "audience-everyone",
+   "effect-local-write",
+   "tool-jsonl"
+  ],
+  "outputs": [
+   "habits",
+   "best",
+   "window"
+  ],
+  "summary": "`${j.best ?? \"nothing\"}: ${(j.habits ?? [{}])[0]?.current ?? 0}-day streak, longest ${(j.habits ?? [{}])[0]?.longest ?? 0}`"
+ },
+ "last-turn": {
+  "steps": [
+   [
+    "report",
+    [
+     "last-turn",
+     "report",
+     "--claude-dir",
+     "$claude_dir",
+     "--codex-dir",
+     "$codex_dir",
+     "--rates-path",
+     "$rates_path",
+     "--tz",
+     "$tz"
+    ],
+    [],
+    60000
+   ]
+  ],
+  "tags": [
+   "domain-agent-operations",
+   "job-token-accounting",
+   "job-agent-cost-review",
+   "audience-developers",
+   "effect-read-only",
+   "tool-claude-code",
+   "tool-codex"
+  ],
+  "outputs": [
+   "model",
+   "input",
+   "output",
+   "cache_read",
+   "cache_write",
+   "cache_pct",
+   "usd",
+   "harness",
+   "at",
+   "today_usd",
+   "turns_today",
+   "priced"
+  ],
+  "summary": "`that turn: ${j.input ?? 0} in / ${j.output ?? 0} out \u00b7 $${j.usd ?? 0} \u00b7 $${j.today_usd ?? 0} today`"
+ },
+ "budget-left": {
+  "steps": [
+   [
+    "report",
+    [
+     "budget",
+     "report",
+     "--daily-budget",
+     "$daily_budget",
+     "--claude-dir",
+     "$claude_dir",
+     "--codex-dir",
+     "$codex_dir",
+     "--rates-path",
+     "$rates_path",
+     "--tz",
+     "$tz"
+    ],
+    [],
+    60000
+   ]
+  ],
+  "tags": [
+   "domain-agent-operations",
+   "job-budget-check",
+   "job-agent-cost-review",
+   "audience-developers",
+   "effect-read-only",
+   "tool-claude-code",
+   "tool-codex"
+  ],
+  "outputs": [
+   "spent",
+   "budget",
+   "pct",
+   "burn_per_hour",
+   "exhausted_at",
+   "verdict",
+   "turns",
+   "models"
+  ],
+  "summary": "`$${j.spent ?? 0} of $${j.budget ?? 0} today \u00b7 ${j.pct ?? 0}%${j.exhausted_at ? ` \u00b7 cap about ${j.exhausted_at}` : \"\"}`"
+ },
+ "since-last": {
+  "steps": [
+   [
+    "report",
+    [
+     "since-last",
+     "report",
+     "--root",
+     "$root",
+     "--state-dir",
+     "$state_dir",
+     "--ignore",
+     "$ignore",
+     "--max-files",
+     "$max_files",
+     "--watch-sensitive",
+     "$watch_sensitive",
+     "--tz",
+     "$tz"
+    ],
+    [],
+    120000
+   ]
+  ],
+  "tags": [
+   "domain-agent-operations",
+   "job-change-review",
+   "job-blast-radius",
+   "audience-developers",
+   "effect-local-write",
+   "tool-filesystem"
+  ],
+  "outputs": [
+   "first_run",
+   "created",
+   "modified",
+   "deleted",
+   "lines_added",
+   "lines_removed",
+   "biggest",
+   "sensitive_changed",
+   "files",
+   "truncated",
+   "written"
+  ],
+  "summary": "`${j.first_run ? `first look: ${j.files ?? 0} files noted` : `${(j.created ?? []).length + (j.modified ?? []).length + (j.deleted ?? []).length} file(s) touched \u00b7 +${j.lines_added ?? 0}/\u2212${j.lines_removed ?? 0} lines${(j.sensitive_changed ?? []).length ? \" \u26a0 something outside the tree moved\" : \"\"}`}`"
+ },
+ "safe-to-commit": {
+  "steps": [
+   [
+    "report",
+    [
+     "staged",
+     "report",
+     "--repo",
+     "$repo",
+     "--max-file-kb",
+     "$max_file_kb",
+     "--strict",
+     "$strict"
+    ],
+    [],
+    60000
+   ]
+  ],
+  "tags": [
+   "domain-security",
+   "job-precommit-check",
+   "job-secret-detection",
+   "audience-developers",
+   "effect-read-only",
+   "tool-git"
+  ],
+  "outputs": [
+   "verdict",
+   "files",
+   "findings",
+   "debug",
+   "oversized",
+   "env_files",
+   "from_worktree",
+   "staged"
+  ],
+  "summary": "`${j.staged ?? 0} staged file(s) \u2014 ${j.verdict ?? \"unknown\"}`"
+ }
+}
