@@ -13,3 +13,7 @@ Downloads are read from the Play's manifest (`https://play.modiqo.ai/<handle>/<p
 | 2026-09-04 | session-ledger | 0.1.2 | 0 | re-push | Same core, same detection underneath. |
 | 2026-09-05 | comped | 0.1.3 | 0 | re-push | Tiers on the card and in the share text (Paying customer → Please stop), a remembered `plan=`, and the one-paste `gotcomped.com/run.sh` that skips the Ready selector. |
 | 2026-09-05 | session-ledger | 0.1.3 | 0 | re-push | Same core. |
+| 2026-09-05 | comped | 0.1.4 | 0 | re-push | **The leaderboard.** Last step `post_score` posts the score to gotcomped.com and prints the rank; `leaderboard=false` sends nothing. Site: `/leaderboard.html`, live top ten on the home page, honest privacy copy. Smoke-run from a fresh dir off the public 0.1.4 archive: 9/9 steps, post reached the live API. |
+| 2026-09-05 | session-ledger | 0.1.4 | 0 | re-push | Same core; privacy paragraph now names comped's poster as the one network step. |
+| 2026-09-05 | wrong-turns | 0.1.4 | 0 | first publish | Published to Community per the stagger plan (its own NEW row). |
+
