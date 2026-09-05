@@ -10,7 +10,7 @@ from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from micro_core import common, cronx, decode, secrets, size, store, turn
+from micro_core import common, cronx, decode, secrets, size, snapshot, store, turn
 
 
 class TestEmit(unittest.TestCase):
@@ -499,3 +499,61 @@ class TestTurn(unittest.TestCase):
         recs, skipped = turn.records_from(Path(p))
         self.assertEqual(len(recs), 1)
         self.assertEqual(skipped, 1)
+
+
+class TestSnapshot(unittest.TestCase):
+    def test_delta_reports_created_modified_deleted(self):
+        prev = {"a.py": [1, 10, 2], "b.py": [1, 10, 2]}
+        cur = {"a.py": [2, 30, 5], "c.py": [2, 5, 1]}
+        d = snapshot.delta(prev, cur)
+        self.assertEqual(d["created"], ["c.py"])
+        self.assertEqual(d["modified"], ["a.py"])
+        self.assertEqual(d["deleted"], ["b.py"])
+        self.assertEqual(d["lines_added"], 4)
+        self.assertEqual(d["lines_removed"], 2)
+
+    def test_a_file_touched_but_unchanged_is_not_modified(self):
+        prev = {"a.py": [1, 10, 2]}
+        cur = {"a.py": [999, 10, 2]}
+        self.assertEqual(snapshot.delta(prev, cur)["modified"], [])
+
+    def test_ignored_directories_are_not_walked(self):
+        root = tempfile.mkdtemp()
+        os.makedirs(os.path.join(root, "node_modules", "deep"))
+        with open(os.path.join(root, "node_modules", "deep", "x.js"), "w") as fh:
+            fh.write("x")
+        with open(os.path.join(root, "keep.py"), "w") as fh:
+            fh.write("y\n")
+        snap, meta = snapshot.scan_tree(Path(root), snapshot.DEFAULT_IGNORE, 1000)
+        self.assertIn("keep.py", snap)
+        self.assertFalse([k for k in snap if "node_modules" in k])
+        self.assertFalse(meta["truncated"])
+
+    def test_the_file_bound_is_reported_not_hidden(self):
+        root = tempfile.mkdtemp()
+        for i in range(20):
+            with open(os.path.join(root, "f{0}.txt".format(i)), "w") as fh:
+                fh.write("x\n")
+        snap, meta = snapshot.scan_tree(Path(root), snapshot.DEFAULT_IGNORE, 5)
+        self.assertTrue(meta["truncated"])
+        self.assertEqual(len(snap), 5)
+
+    def test_a_binary_file_has_no_line_count(self):
+        root = tempfile.mkdtemp()
+        with open(os.path.join(root, "b.bin"), "wb") as fh:
+            fh.write(b"\x00\x01\x02")
+        snap, _meta = snapshot.scan_tree(Path(root), snapshot.DEFAULT_IGNORE, 100)
+        self.assertEqual(snap["b.bin"][2], -1)
+
+    def test_save_and_load_roundtrip(self):
+        state = tempfile.mkdtemp()
+        snapshot.save(state, "k", {"a.py": [1, 2, 3]})
+        self.assertEqual(snapshot.load(state, "k"), {"a.py": [1, 2, 3]})
+        self.assertIsNone(snapshot.load(state, "never"))
+
+    def test_sensitive_state_reads_no_file_contents(self):
+        home = tempfile.mkdtemp()
+        os.makedirs(os.path.join(home, ".ssh"))
+        state = snapshot.sensitive_state(Path(home))
+        self.assertIn("~/.ssh", state)
+        self.assertIsInstance(state["~/.ssh"], int)
