@@ -199,8 +199,12 @@ def _spent_report(argv):
                                                                           Decimal("0")) + amt
         if d == today:
             row["today"] += amt
-    primary = str(a.currency).upper() or max(per_currency, key=lambda c: (per_currency[c]["n"], c))
-    row = per_currency.get(primary) or list(per_currency.values())[0]
+    requested = str(a.currency or "").upper().strip()
+    # The currency parameter is what a new entry defaults to. It is only the currency of the REPORT
+    # if you have actually spent in it, or a month of rupees would be labelled in dollars.
+    primary = requested if requested in per_currency else max(
+        per_currency, key=lambda c: (per_currency[c]["n"], c))
+    row = per_currency[primary]
     elapsed = int(now.astimezone(tz).day)
     days_in_month = calendar.monthrange(now.astimezone(tz).year, now.astimezone(tz).month)[1]
     per_day = row["month"] / Decimal(max(1, elapsed))
@@ -270,6 +274,13 @@ def _jot_report(argv):
                 ("state_dir", DEFAULT_STATE_DIR), ("tz", "")).parse_args(argv)
     now, tz = common.now_utc(a.now), common.tz_of(a.tz)
     state, demo_dir = _state_dir(a, ("jot",))
+    vault_dir = str(a.vault_dir or "")
+    if common.as_bool(a.demo):
+        vault_dir = str(state)
+        seed = common.fixtures_dir() / "log" / "Inbox.md"
+        if seed.is_file():
+            (state / str(a.inbox or "Inbox.md")).write_text(seed.read_text(encoding="utf-8"),
+                                                            encoding="utf-8")
     entries = store.read(state, "jot")
     if not entries:
         return common.emit("Nothing captured yet. Run it with note='the thought'.",
@@ -279,8 +290,8 @@ def _jot_report(argv):
     n_today = len([e for e in entries if common.day(e.t, tz) == today])
     week = len([e for e in entries if e.t >= now - timedelta(days=7)])
     inbox_lines = 0
-    if str(a.vault_dir or "").strip():
-        p = _inbox_path(a.vault_dir, a.inbox)
+    if vault_dir.strip():
+        p = _inbox_path(vault_dir, a.inbox)
         try:
             inbox_lines = len([l for l in p.read_text(encoding="utf-8").split("\n") if l.startswith("- ")])
         except OSError:
@@ -288,8 +299,9 @@ def _jot_report(argv):
     cur_streak, best = store.streak(days, today)
     recent = entries[-5:]
     lines = [_demo_note(demo_dir) + common.rule("last captured")]
-    for e in recent:
-        lines.append("  {0}  {1}".format(common.hhmm(e.t, tz), common.trunc(e.data.get("note", ""), 52)))
+    for e in reversed(recent):
+        when = common.hhmm(e.t, tz) if common.day(e.t, tz) == today else common.day(e.t, tz)
+        lines.append("  {0:<10} {1}".format(when, common.trunc(e.data.get("note", ""), 52)))
     lines += ["", "{0} today · {1} this week · {2} in the inbox · {3}-day streak".format(
         n_today, week, inbox_lines, cur_streak)]
     return common.emit("\n".join(lines),
@@ -382,9 +394,11 @@ def _input_text(a, fixture_name, limit=2 * 1024 * 1024):
     """text, or a file, or the bundled fixture on a demo run — and which one it was."""
     if str(getattr(a, "text", "") or "").strip():
         return str(a.text), "the text you passed"
-    path = str(getattr(a, "path", "") or "").strip()
+    path, label = str(getattr(a, "path", "") or "").strip(), ""
     if not path and common.as_bool(getattr(a, "demo", "false")):
-        path = str(common.fixtures_dir() / fixture_name)
+        # The package lives in a temp workspace at run time; printing that path would tell the
+        # reader nothing except where the runner unpacked it.
+        path, label = str(common.fixtures_dir() / fixture_name), "the bundled sample"
     if not path:
         return "", ""
     p = common.expand(path)
@@ -399,7 +413,7 @@ def _input_text(a, fixture_name, limit=2 * 1024 * 1024):
                     except OSError:
                         continue
             return "\n".join(parts), "{0} files under {1}".format(len(names), p)
-        return p.read_text(encoding="utf-8", errors="replace")[:limit], str(p)
+        return p.read_text(encoding="utf-8", errors="replace")[:limit], label or str(p)
     except OSError as e:
         return "", "could not read {0}: {1}".format(p, e.strerror or e)
 
