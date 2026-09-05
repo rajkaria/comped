@@ -277,6 +277,12 @@ aside.toc a:hover { color: var(--fg); text-decoration: none; }
 .callout { border-left: 4px solid var(--accent); background: var(--panel); border-radius: 0 16px 16px 0; padding: 16px 20px; margin: 24px 0; box-shadow: var(--shadow); }
 .callout.warn { border-left-color: var(--accent-3); }
 .callout p { margin: 0; }
+.callout p + p { margin-top: 12px; }
+/* The agent line is a sentence, not a command: it wraps instead of scrolling, and the button sits
+   with it rather than being pushed to the far edge of a wide callout. */
+.agent-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.agent-line code { white-space: normal; }
+.agent-line button.copy { margin-left: 0; }
 
 footer { border-top: 2px dashed var(--line); padding: 48px 0 72px; color: var(--muted); font-size: 15px; }
 footer .row { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }

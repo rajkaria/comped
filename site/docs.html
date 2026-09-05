@@ -43,6 +43,7 @@
 <aside class="toc">
   <strong>Getting started</strong>
   <a href="#install">One line</a>
+  <a href="#agent">Or ask your agent</a>
   <a href="#quickstart">Try it on sample data</a>
   <a href="#reading">Reading your card</a>
   <a href="#detection">What it works out</a>
@@ -65,6 +66,11 @@
 <p>Prefer to be asked before anything runs? The registry's own installer does the same steps and waits for a <em>yes</em> at each:</p>
 <pre><code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></pre>
 <div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/rajkaria/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
+
+<h2 id="agent">Or ask the agent you already have</h2>
+<p>If you spend your day in Claude Code, Codex, Cursor or anything else with a shell, you don't need the terminal line at all. Paste this at your agent:</p>
+<pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
+<p>It reads <a href="https://gotcomped.com/llms.txt">llms.txt</a>, a briefing written for agents rather than people, and takes it from there: it asks you first whether to put your score on the leaderboard, runs comped without needing an account, and reads the card back to you. That file also tells it what it must not do, including summarising your logs by eye and copying anything out of <code>~/comped</code> into a message or a commit. It is short. Read it before you paste the line.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
 <p>If you'd rather see it work before pointing it at your own logs, the Play ships with sample logs: real in shape, made-up in content.</p>
