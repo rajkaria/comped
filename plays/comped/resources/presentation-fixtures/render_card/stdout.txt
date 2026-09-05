@@ -1,40 +1,38 @@
 ┌──────────────────────────────────────────────────────────────┐
-│ COMPED                                        last 3650 days │
+│ COMPED                                          last 30 days │
 │                                                              │
-│ $14.05 comped                                                │
-│ 0.0×  vs Claude Max 20x + ChatGPT Pro ($47,967.15 prorated)  │
+│ $8.28 comped                                                 │
+│ 0.0×  vs Claude Max 20x + ChatGPT Pro ($394.25 prorated)     │
 │ PAYING CUSTOMER · tier 1 of 7                                │
 │ assumed from your own logs — nothing typed, nothing asked    │
 │                                                              │
-│ claude-opus-5             $6.09   43%   ▇▇▇▇▇                │
-│ claude-fable-5-1          $3.61   26%   ▇▇▇                  │
-│ gpt-5.5                   $3.04   22%   ▇▇▇                  │
-│ cache read share 89%   active days 3/3650   sessions 8       │
-│ since last run (0d ago): +$0.00, +0.0×                       │
+│ claude-fable-5-1          $3.61   44%   ▇▇▇▇▇                │
+│ gpt-5.5                   $3.04   37%   ▇▇▇▇                 │
+│ claude-opus-5             $1.62   20%   ▇▇                   │
+│ cache read share 88%   active days 2/30   sessions 7         │
+│ baseline saved; next run shows the delta                     │
 ├─ DETECTED ───────────────────────────────────────────────────┤
-│ Claude        67%   claude-opus-5, claude-opus-4-8 +2        │
-│ GPT / Codex   32%   gpt-5.5                                  │
+│ Claude        54%   claude-fable-5-1, claude-opus-5 +1       │
+│ GPT / Codex   45%   gpt-5.5                                  │
 │ DeepSeek       1%   deepseek-chat                            │
 │ read from Claude Code, Codex CLI, OpenCode, Pi               │
 ├─ IF YOU'RE ON… ──────────────────────────────────────────────┤
-│ ChatGPT Plus                 $2,398.36     0.0×              │
-│ Claude Pro                   $2,398.36     0.0×              │
-│ Claude Max 5x               $11,991.79     0.0×              │
-│ ChatGPT Pro                 $23,983.57     0.0×              │
-│ Claude Max 20x + ChatGPT Pro$47,967.15     0.0×  ← assumed   │
+│ ChatGPT Plus                    $19.71     0.4×              │
+│ Claude Pro                      $19.71     0.4×              │
+│ Claude Max 5x                   $98.56     0.1×              │
+│ ChatGPT Pro                    $197.13     0.0×              │
+│ Claude Max 20x + ChatGPT Pro   $394.25     0.0×  ← assumed   │
 │ not your row? plan=claude-pro-20 · plan=usd:29 for anything  │
 ├─ REPEAT OFFENDERS ───────────────────────────────────────────┤
-│ 7× "push it to prod"                                  $10.24 │
-│ 4× "merge and push to main and then sa"                $0.77 │
-│ 2× "create a post for the launch with "                $0.54 │
-│ Rote dividend: $11 at 98% · $9 at 80%                        │
-│ capture: /play settle rajkaria "push it to prod"             │
+│ 6× "push it to prod"                                   $5.77 │
+│ Rote dividend: $6 at 98% · $5 at 80%                         │
+│ capture: /play settle demo "push it to prod"                 │
 │                                                              │
 │ list-price equivalent, not a bill · prices as of 2026-09-04  │
 │ explain →                                                    │
 │ comped-out/comped-explain.txt                                │
 └──────────────────────────────────────────────────────────────┘
 
-My comp score is 0.0× (Paying customer). Anthropic and OpenAI gave me $14 of AI for $47,967 this month. What's yours? One line, nothing leaves your machine: gotcomped.com #gotcomped
+My comp score is 0.0× (Paying customer). Anthropic and OpenAI gave me $8 of AI for $394 this month. What's yours? One line: gotcomped.com #gotcomped
 
-{"detected": "Claude 67% \u00b7 GPT / Codex 32% \u00b7 DeepSeek 1% via Claude Code, Codex CLI, OpenCode, Pi", "multiplier": "0.0002929841930008561643835616438", "note": "PNG rendered with qlmanage", "ok": true, "plan": "Claude Max 20x + ChatGPT Pro", "plan_source": "auto", "png": "comped-out/comped-card.png", "repeats": 3, "score": "0.0\u00d7", "tier": "Paying customer", "total_usd": "14.053615500", "written": ["comped-out/comped-card.svg", "comped-out/comped-card-square.svg", "comped-out/comped-card.png", "comped-out/comped-baseline.json", "comped-out/comped-report.md", "comped-out/comped-share.txt"]}
+{"detected": "Claude 54% \u00b7 GPT / Codex 45% \u00b7 DeepSeek 1% via Claude Code, Codex CLI, OpenCode, Pi", "multiplier": "0.02099596885677083333333333334", "note": "PNG rendered with qlmanage", "ok": true, "plan": "Claude Max 20x + ChatGPT Pro", "plan_source": "auto", "png": "comped-out/comped-card.png", "repeats": 1, "score": "0.0\u00d7", "tier": "Paying customer", "total_usd": "8.277671500", "written": ["comped-out/comped-card.svg", "comped-out/comped-card-square.svg", "comped-out/comped-card.png", "comped-out/comped-baseline.json", "comped-out/comped-report.md", "comped-out/comped-share.txt"]}

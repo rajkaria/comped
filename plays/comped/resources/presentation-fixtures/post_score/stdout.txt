@@ -1,0 +1,6 @@
+LEADERBOARD
+  posted as demo: 0.0× · $8 comped over 30 days
+  not ranked: ranks from $20 at list price (1 on the board so far)
+  https://gotcomped.com/leaderboard.html#demo
+  sent: score, tier, list-price total, plan, providers, days, your handle. Nothing else. leaderboard=false to skip.
+{"eligible": false, "handle": "demo", "held": false, "of": 1, "percentile": null, "posted": true, "rank": null, "reason": "ranks from $20 at list price", "url": "https://gotcomped.com/leaderboard.html#demo"}

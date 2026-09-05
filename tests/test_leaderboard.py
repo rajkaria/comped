@@ -282,7 +282,7 @@ class Packaging(unittest.TestCase):
         self.assertIn("- name: leaderboard", text)
         self.assertIn("default: 'true'", text.split("- name: leaderboard")[1].split("- name:")[0])
         # The poster reads the priced card, so it must come after the card is rendered.
-        step = text.split("  post_score:")[1].split("argv:")[0]
+        step = text.split(" * steps:")[1].split("  post_score:")[1].split("argv:")[0]
         self.assertIn("- render_card", step)
 
 
