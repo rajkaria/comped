@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, cronx, decode, secrets, size, store
+from . import common, cronx, decode, secrets, size, store, turn
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -521,7 +521,107 @@ def _fits_report(argv):
                         "costs": rows, "method": size.METHOD, "source": source})
 
 
+# ---------------------------------------------------------------- last-turn, budget-left
+
+def _agent_dirs(a):
+    if common.as_bool(getattr(a, "demo", "false")):
+        return [common.fixtures_dir() / "agent" / "claude", common.fixtures_dir() / "agent" / "codex"]
+    return [common.expand(a.claude_dir), common.expand(a.codex_dir)]
+
+
+def _price_table(a):
+    from comped_core.prices import load_table
+    path = str(getattr(a, "rates_path", "") or "").strip()
+    return load_table(common.expand(path) if path else None)
+
+
+def _last_turn_report(argv):
+    a = _parser("last-turn report", ("claude_dir", "~/.claude/projects"), ("codex_dir", "~/.codex/sessions"),
+                ("rates_path", ""), ("tz", "")).parse_args(argv)
+    now, tz = common.now_utc(a.now), common.tz_of(a.tz)
+    dirs, table = _agent_dirs(a), _price_table(a)
+    t = turn.last_turn(dirs, table)
+    if t is None:
+        return common.emit("No transcript to read. Point claude_dir or codex_dir at your sessions, "
+                           "or run it with demo=true.",
+                           common.warn("no session transcript found under the configured directories"))
+    today = turn.today_total(dirs, table, now, tz)
+    model = t["resolved"] or t["model"] or "unknown model"
+    lines = [common.rule("the turn that just finished"),
+             "  {0:<22} {1}".format(model, t["at"] or ""),
+             "  in {0} · out {1} · cache read {2} · cache write {3}".format(
+                 common.human_tokens(t["input"]), common.human_tokens(t["output"]),
+                 common.human_tokens(t["cache_read"]), common.human_tokens(t["cache_write"])),
+             "  {0}{1}".format(common.human_usd(t["usd"]),
+                               "" if t["resolved"] else "  (model not in the price table)"),
+             "", "  today: {0} across {1} {2}".format(common.human_usd(today["usd"]), today["turns"],
+                                                      common.plural(today["turns"], "turn")),
+             "  read the last 256 KB of {0} — a tail, not an accounting".format(Path(t["source"]).name)]
+    tail = "that turn: {0} in / {1} out · {2}% cached · {3} · {4} today".format(
+        common.human_tokens(t["input"]), common.human_tokens(t["output"]), t["cache_pct"],
+        common.human_usd(t["usd"]), common.human_usd(today["usd"]))
+    lines += ["", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "model": model, "input": t["input"], "output": t["output"],
+                        "cache_read": t["cache_read"], "cache_write": t["cache_write"],
+                        "cache_pct": t["cache_pct"], "usd": t["usd"], "harness": t["harness"],
+                        "at": t["at"], "today_usd": today["usd"], "turns_today": today["turns"],
+                        "priced": bool(t["resolved"]), "skipped_lines": t["skipped_lines"]})
+
+
+def _budget_report(argv):
+    a = _parser("budget report", ("daily_budget", "10"), ("claude_dir", "~/.claude/projects"),
+                ("codex_dir", "~/.codex/sessions"), ("rates_path", ""), ("tz", "")).parse_args(argv)
+    now, tz = common.now_utc(a.now), common.tz_of(a.tz)
+    dirs, table = _agent_dirs(a), _price_table(a)
+    today = turn.today_total(dirs, table, now, tz)
+    try:
+        budget = Decimal(str(a.daily_budget or "0"))
+    except Exception:
+        budget = Decimal("0")
+    spent = Decimal(today["usd"])
+    if today["turns"] == 0:
+        return common.emit("Nothing billed today yet — the budget is untouched.",
+                           {"ok": True, "spent": "0", "budget": str(budget), "pct": 0,
+                            "burn_per_hour": "0", "exhausted_at": "", "verdict": "idle", "turns": 0})
+    hours = max(0.25, (now - today["first_at"]).total_seconds() / 3600.0)
+    rate = spent / Decimal(str(round(hours, 4)))
+    pct = int(spent * 100 / budget) if budget > 0 else 0
+    exhausted, verdict = "", "no budget set"
+    if budget > 0:
+        remaining = budget - spent
+        if remaining <= 0:
+            exhausted, verdict = "already", "over"
+        elif rate > 0:
+            at = now + timedelta(hours=float(remaining / rate))
+            exhausted = common.hhmm(at, tz)
+            verdict = "tight" if at.date() == now.astimezone(tz).date() else "comfortable"
+        else:
+            verdict = "comfortable"
+    bar_width = 24
+    filled = min(bar_width, int(pct / 100.0 * bar_width)) if budget > 0 else 0
+    lines = [common.rule("today"),
+             "  [{0}{1}] {2}%".format("█" * filled, "·" * (bar_width - filled), pct),
+             "  {0} of {1} across {2} {3} since {4}".format(
+                 common.human_usd(spent), common.human_usd(budget), today["turns"],
+                 common.plural(today["turns"], "turn"), common.hhmm(today["first_at"], tz))]
+    tail = "{0} of {1} · burning {2}/h".format(common.human_usd(spent), common.human_usd(budget),
+                                               common.human_usd(rate))
+    if exhausted == "already":
+        tail += " · the cap is behind you"
+    elif exhausted:
+        tail += " · cap reached about {0}".format(exhausted)
+    lines += ["", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "spent": str(spent), "budget": str(budget), "pct": pct,
+                        "burn_per_hour": str(rate.quantize(Decimal("0.0001"))),
+                        "exhausted_at": exhausted, "verdict": verdict, "turns": today["turns"],
+                        "models": today["models"]})
+
+
 _DISPATCH = {
+    ("last-turn", "report"): _last_turn_report,
+    ("budget", "report"): _budget_report,
     ("fits", "report"): _fits_report,
     ("cron", "report"): _cron_report,
     ("secret", "report"): _secret_report,

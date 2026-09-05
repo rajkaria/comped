@@ -264,3 +264,51 @@ class TestFitsStep(unittest.TestCase):
     def test_unknown_model_is_named_not_priced(self):
         rc, human, j = run(["fits", "report", "--text", "hello", "--models", "not-a-model"])
         self.assertIsNone(j["costs"][0]["resolved"])
+
+
+class TestAgentSteps(unittest.TestCase):
+    def _transcript(self, records):
+        d = tempfile.mkdtemp()
+        with open(os.path.join(d, "s.jsonl"), "w") as fh:
+            for r in records:
+                fh.write(json.dumps(r) + "\n")
+        return d
+
+    def _claude(self, at, model, inp, out, cache_read=0):
+        return {"type": "assistant", "timestamp": at,
+                "message": {"model": model, "usage": {"input_tokens": inp, "output_tokens": out,
+                                                      "cache_read_input_tokens": cache_read}}}
+
+    def test_last_turn_reports_the_newest_record(self):
+        d = self._transcript([self._claude("2026-09-05T10:00:00Z", "claude-sonnet-5", 100, 10),
+                              self._claude("2026-09-05T11:00:00Z", "claude-opus-5", 41200, 2100, 30000)])
+        rc, human, j = run(["last-turn", "report", "--claude-dir", d, "--codex-dir", d,
+                            "--tz", "UTC", "--now", "2026-09-05T11:30:00Z"])
+        self.assertEqual(rc, 0)
+        self.assertEqual(j["model"], "claude-opus-5")
+        self.assertEqual(j["turns_today"], 2)
+        self.assertTrue(j["priced"])
+        self.assertIn("that turn:", human)
+
+    def test_no_transcript_warns_and_exits_zero(self):
+        d = tempfile.mkdtemp()
+        rc, human, j = run(["last-turn", "report", "--claude-dir", d, "--codex-dir", d])
+        self.assertEqual(rc, 0)
+        self.assertIn("warning", j)
+
+    def test_budget_reports_a_rate_and_a_crossing_time(self):
+        d = self._transcript([self._claude("2026-09-05T09:00:00Z", "claude-opus-5", 200000, 5000),
+                              self._claude("2026-09-05T10:00:00Z", "claude-opus-5", 200000, 5000)])
+        rc, human, j = run(["budget", "report", "--claude-dir", d, "--codex-dir", d,
+                            "--daily-budget", "10", "--tz", "UTC", "--now", "2026-09-05T11:00:00Z"])
+        self.assertEqual(rc, 0)
+        self.assertEqual(j["turns"], 2)
+        self.assertGreater(float(j["burn_per_hour"]), 0)
+        self.assertIn("burning", human)
+
+    def test_an_idle_day_says_so_rather_than_dividing_by_zero(self):
+        d = tempfile.mkdtemp()
+        rc, human, j = run(["budget", "report", "--claude-dir", d, "--codex-dir", d,
+                            "--now", "2026-09-05T11:00:00Z"])
+        self.assertEqual(j["verdict"], "idle")
+        self.assertEqual(j["turns"], 0)

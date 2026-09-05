@@ -8,8 +8,9 @@ import tempfile
 import unittest
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
-from micro_core import common, cronx, decode, secrets, size, store
+from micro_core import common, cronx, decode, secrets, size, store, turn
 
 
 class TestEmit(unittest.TestCase):
@@ -421,3 +422,80 @@ class TestSize(unittest.TestCase):
         rows = size.costs(100, 200, ["not-a-model"], prices.load_table())
         self.assertIsNone(rows[0]["resolved"])
         self.assertNotIn("low_usd", rows[0])
+
+
+class TestTurn(unittest.TestCase):
+    def _session(self, dirpath, name, records):
+        os.makedirs(dirpath, exist_ok=True)
+        p = os.path.join(dirpath, name)
+        with open(p, "w") as fh:
+            for r in records:
+                fh.write(json.dumps(r) + "\n")
+        return p
+
+    def _claude(self, at, model, inp, out, cache_read=0, cache_write=0):
+        return {"type": "assistant", "timestamp": at,
+                "message": {"model": model, "usage": {
+                    "input_tokens": inp, "output_tokens": out,
+                    "cache_read_input_tokens": cache_read,
+                    "cache_creation_input_tokens": cache_write}}}
+
+    def setUp(self):
+        from comped_core import prices
+        self.table = prices.load_table()
+        self.dir = tempfile.mkdtemp()
+
+    def test_tail_drops_the_first_partial_line(self):
+        p = self._session(self.dir, "s.jsonl", [{"i": i} for i in range(200)])
+        got = turn.tail_records(p, max_bytes=200)
+        self.assertTrue(all("i" in r for r in got))
+        self.assertLess(len(got), 200)
+
+    def test_last_turn_prices_the_newest_usage_record(self):
+        self._session(self.dir, "s.jsonl", [
+            self._claude("2026-09-05T10:00:00Z", "claude-sonnet-5", 100, 50),
+            self._claude("2026-09-05T11:00:00Z", "claude-opus-5", 41200, 2100, cache_read=30000)])
+        t = turn.last_turn([Path(self.dir)], self.table)
+        self.assertEqual(t["model"], "claude-opus-5")
+        self.assertEqual(t["input"], 41200)
+        self.assertEqual(t["cache_read"], 30000)
+        self.assertGreater(float(t["usd"]), 0)
+        self.assertEqual(t["harness"], "claude-code")
+
+    def test_no_transcripts_is_a_none_not_a_crash(self):
+        self.assertIsNone(turn.last_turn([Path(tempfile.mkdtemp())], self.table))
+
+    def test_a_missing_directory_is_not_a_crash(self):
+        self.assertIsNone(turn.last_turn([Path("/nope/not/here")], self.table))
+
+    def test_today_total_ignores_yesterday(self):
+        self._session(self.dir, "s.jsonl", [
+            self._claude("2026-09-04T10:00:00Z", "claude-opus-5", 1000, 10),
+            self._claude("2026-09-05T10:00:00Z", "claude-opus-5", 2000, 20)])
+        tot = turn.today_total([Path(self.dir)], self.table, common.now_utc("2026-09-05T12:00:00Z"),
+                               timezone.utc)
+        self.assertEqual(tot["turns"], 1)
+        self.assertGreater(float(tot["usd"]), 0)
+
+    def test_codex_totals_are_differenced_not_summed(self):
+        self._session(self.dir, "c.jsonl", [
+            {"type": "turn_context", "payload": {"model": "gpt-5"}, "timestamp": "2026-09-05T09:00:00Z"},
+            {"type": "event_msg", "timestamp": "2026-09-05T10:00:00Z",
+             "payload": {"type": "token_count", "info": {"total_token_usage": {
+                 "input_tokens": 1000, "cached_input_tokens": 0, "output_tokens": 100}}}},
+            {"type": "event_msg", "timestamp": "2026-09-05T10:05:00Z",
+             "payload": {"type": "token_count", "info": {"total_token_usage": {
+                 "input_tokens": 3000, "cached_input_tokens": 500, "output_tokens": 300}}}}])
+        t = turn.last_turn([Path(self.dir)], self.table)
+        self.assertEqual(t["harness"], "codex")
+        self.assertEqual(t["output"], 200)
+        self.assertEqual(t["cache_read"], 500)
+
+    def test_unreadable_record_is_skipped_and_counted(self):
+        p = os.path.join(self.dir, "s.jsonl")
+        with open(p, "w") as fh:
+            fh.write("not json\n")
+            fh.write(json.dumps(self._claude("2026-09-05T10:00:00Z", "claude-opus-5", 10, 1)) + "\n")
+        recs, skipped = turn.records_from(Path(p))
+        self.assertEqual(len(recs), 1)
+        self.assertEqual(skipped, 1)
