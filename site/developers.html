@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>comped — developers</title>
+<title>comped: developers</title>
 <meta name="description" content="The three Plays, every parameter, the record fields, the arithmetic, how detection works, the price table, and how to verify the privacy claims.">
 <link rel="canonical" href="https://gotcomped.com/developers.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="comped">
 <meta property="og:url" content="https://gotcomped.com/developers.html">
-<meta property="og:title" content="comped — developers">
+<meta property="og:title" content="comped: developers">
 <meta property="og:description" content="The three Plays, every parameter, the record fields, the arithmetic, how detection works, the price table, and how to verify the privacy claims.">
 <meta property="og:image" content="https://gotcomped.com/card-wide.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="comped — developers">
+<meta name="twitter:title" content="comped: developers">
 <meta name="twitter:description" content="The three Plays, every parameter, the record fields, the arithmetic, how detection works, the price table, and how to verify the privacy claims.">
 <meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
@@ -116,7 +116,7 @@
 </tbody></table>
 <p><strong>What it writes,</strong> all of it under <code>out_dir</code> and nowhere else:</p>
 <table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
-<tr><td><code>ledger-&lt;harness&gt;.jsonl</code></td><td>One partial ledger per harness read — the reads run in parallel and each writes its own.</td></tr>
+<tr><td><code>ledger-&lt;harness&gt;.jsonl</code></td><td>One partial ledger per harness read: the reads run in parallel and each writes its own.</td></tr>
 <tr><td><code>ledger.jsonl</code></td><td>The merged, deduplicated, turn-attributed ledger.</td></tr>
 <tr><td><code>ledger-summary.json</code></td><td>Record, message and tool counts, sessions, subagent records, and a per-source report.</td></tr>
 </tbody></table>
@@ -147,11 +147,11 @@
 
 <h2 id="tracking">What it tracks, field by field</h2>
 <p>Three record types come out of the logs. The tables are generated from the dataclasses that define them, so they cannot drift from the code.</p>
-<h3>Usage records — one per API call</h3>
+<h3>Usage records: one per API call</h3>
 <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
 <tr><td><code>harness</code></td><td>Which tool wrote the line: claude-code, codex, pi, opencode.</td></tr>
 <tr><td><code>session_id</code></td><td>The harness's own session identifier.</td></tr>
-<tr><td><code>record_id</code></td><td>The dedup key. For Claude Code that is (message.id, requestId) — the pair that collapses streaming duplicates.</td></tr>
+<tr><td><code>record_id</code></td><td>The dedup key. For Claude Code that is (message.id, requestId): the pair that collapses streaming duplicates.</td></tr>
 <tr><td><code>timestamp</code></td><td>The record's own timestamp, in UTC. Windowing uses this, never the file's mtime.</td></tr>
 <tr><td><code>model</code></td><td>As written by the harness, before alias resolution.</td></tr>
 <tr><td><code>input_tokens</code></td><td>Uncached input tokens.</td></tr>
@@ -161,9 +161,9 @@
 <tr><td><code>reasoning_tokens</code></td><td>Thinking tokens, reported separately and billed as output.</td></tr>
 <tr><td><code>project</code></td><td>The working directory the session ran in.</td></tr>
 <tr><td><code>is_subagent</code></td><td>True for subagent and sidechain traffic, which is easy to forget and expensive to ignore.</td></tr>
-<tr><td><code>turn_id</code></td><td>The message that started this turn — how cost gets attributed to what you asked.</td></tr>
+<tr><td><code>turn_id</code></td><td>The message that started this turn: how cost gets attributed to what you asked.</td></tr>
 </tbody></table>
-<h3>Human messages — one per message in the user role</h3>
+<h3>Human messages: one per message in the user role</h3>
 <p>These exist to attribute cost to <em>what you asked</em>. Without them a month of agent work is an undifferentiated wall of API calls.</p>
 <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
 <tr><td><code>harness</code></td><td>Which tool the message came from.</td></tr>
@@ -175,13 +175,13 @@
 <tr><td><code>project</code></td><td>Working directory.</td></tr>
 <tr><td><code>origin</code></td><td>human, unknown or automated. Harness-generated messages arrive in the user role and are labelled, not counted as yours.</td></tr>
 </tbody></table>
-<h3>Tool events — one per tool call</h3>
+<h3>Tool events: one per tool call</h3>
 <table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
 <tr><td><code>harness</code></td><td>Which tool.</td></tr>
 <tr><td><code>session_id</code></td><td>Session.</td></tr>
 <tr><td><code>event_id</code></td><td>Stable id.</td></tr>
 <tr><td><code>timestamp</code></td><td>UTC.</td></tr>
-<tr><td><code>tool_name</code></td><td>Bash, Edit, exec_command, and so on — resolved from the call that named it.</td></tr>
+<tr><td><code>tool_name</code></td><td>Bash, Edit, exec_command, and so on: resolved from the call that named it.</td></tr>
 <tr><td><code>input_summary</code></td><td>One short line: the command, path or query. Never the full input.</td></tr>
 <tr><td><code>is_error</code></td><td>Whether the call came back as an error.</td></tr>
 <tr><td><code>error_text</code></td><td>Up to 300 characters of the error, for errors only.</td></tr>
@@ -191,7 +191,7 @@
 
 <h2 id="math">The arithmetic</h2>
 <h3>Pricing</h3>
-<p>Per record, in exact decimal arithmetic — never floating point, which is how cent-level errors get into totals:</p>
+<p>Per record, in exact decimal arithmetic: never floating point, which is how cent-level errors get into totals:</p>
 <pre><code>usd = uncached_input × in_rate
     + cache_write     × cache_write_rate
     + cache_read      × cache_read_rate
@@ -200,39 +200,39 @@
 <h3>Deduplication</h3>
 <p>Claude Code writes a line per content block, so the same API call appears several times with the same <code>message.id</code> and <code>requestId</code>. On real logs <strong>about four in ten usage lines are duplicates</strong>. They are collapsed on that pair, and the count of what was dropped appears in the source report. Codex has the opposite shape: cumulative counters, so each record is the difference from the previous snapshot, and a counter that goes backwards starts a new baseline rather than producing a negative. CI checks the per-model Claude Code totals against <a href="https://github.com/ryoppippi/ccusage">ccusage</a>, an independent parser.</p>
 <h3>Windows and the multiplier</h3>
-<p>A record is in the window if <em>its own timestamp</em> is, never the file's modification time. Plan cost is prorated by <code>days_back ÷ 30.4375</code> — the mean month — so a 14-day window is compared against 14 days of subscription, not a whole month of it.</p>
+<p>A record is in the window if <em>its own timestamp</em> is, never the file's modification time. Plan cost is prorated by <code>days_back ÷ 30.4375</code>: the mean month: so a 14-day window is compared against 14 days of subscription, not a whole month of it.</p>
 <h3>Repeat offenders</h3>
-<p>Messages are normalised (lowercased, paths, URLs, numbers and hashes replaced by placeholders, stop-words dropped), turned into 2-word shingles, and clustered when their Jaccard similarity is <strong>0.5 or higher</strong>. A cluster qualifies when it has at least <code>repeat_threshold</code> asks across <strong>two or more sessions on two or more days</strong>. Its repeat cost is the cluster's total minus its cheapest single solve: what you paid to ask again. Harness-generated text — continuation preambles, injected reminders, observer prompts — stays in the ledger, because it costs real money, but is never counted as something you asked for.</p>
+<p>Messages are normalised (lowercased, paths, URLs, numbers and hashes replaced by placeholders, stop-words dropped), turned into 2-word shingles, and clustered when their Jaccard similarity is <strong>0.5 or higher</strong>. A cluster qualifies when it has at least <code>repeat_threshold</code> asks across <strong>two or more sessions on two or more days</strong>. Its repeat cost is the cluster's total minus its cheapest single solve: what you paid to ask again. Harness-generated text: continuation preambles, injected reminders, observer prompts: stays in the ledger, because it costs real money, but is never counted as something you asked for.</p>
 <h3>Wrong turns</h3>
-<p>Three signals with honest confidence labels. <strong>Tool errors</strong> (high): the call returned an error; its first line, stripped of paths and numbers, is the signature. <strong>Corrections</strong> (medium): your next message matched a correction phrase — "no,", "revert", "that's not", "undo". <strong>Reverts</strong> (high): a destructive git command ran. A class is reported when it recurs at least <code>min_recurrence</code> times across two or more sessions. Recovery cost is the signalling turn plus the next one.</p>
+<p>Three signals with honest confidence labels. <strong>Tool errors</strong> (high): the call returned an error; its first line, stripped of paths and numbers, is the signature. <strong>Corrections</strong> (medium): your next message matched a correction phrase: "no,", "revert", "that's not", "undo". <strong>Reverts</strong> (high): a destructive git command ran. A class is reported when it recurs at least <code>min_recurrence</code> times across two or more sessions. Recovery cost is the signalling turn plus the next one.</p>
 
 <h2 id="detection">Detection</h2>
 <p>Nothing on the machine records which subscription you pay for, and the one place it is written is a file this tool refuses to open. So <code>plan</code> defaults to <code>auto</code> and the run infers what it can:</p>
 <ol class="steps">
 <li><b>The harnesses.</b> <strong>Claude Code</strong>, <strong>Codex CLI</strong>, <strong>Pi</strong>, <strong>OpenCode</strong>. A directory that isn't there is a shrug, and the card names the ones it didn't find.</li>
-<li><b>The provider.</b> Read off the model id after gateway and region prefixes are stripped — <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Claude Code pointed at Moonshot or Z.ai gives itself away the same way.</li>
-<li><b>The tier — the one thing no log records.</b> A Pro session and a Max session are the same bytes. So every subscription the detected providers sell is priced against the window at once; the assumed row is deliberately the least flattering — the most expensive plan that fits, i.e. the smallest multiplier you could honestly claim — and the rest are one glance away.</li>
+<li><b>The provider.</b> Read off the model id after gateway and region prefixes are stripped: <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Claude Code pointed at Moonshot or Z.ai gives itself away the same way.</li>
+<li><b>The tier: the one thing no log records.</b> A Pro session and a Max session are the same bytes. So every subscription the detected providers sell is priced against the window at once; the assumed row is deliberately the least flattering: the most expensive plan that fits, i.e. the smallest multiplier you could honestly claim: and the rest are one glance away.</li>
 <li><b>Anything else.</b> A provider with no subscription in the table is named, its spend stays in the total, and the card says nothing in the plan cost covers it. <code>plan=usd:&lt;amount&gt;</code> prices one the table lacks; <code>plan=&lt;id&gt;</code> overrides the inference outright.</li>
 </ol>
 <table><thead><tr><th>Provider</th><th>What you call it</th><th>Model ids that name it</th><th>Subscriptions priced</th></tr></thead><tbody>
 <tr><td>Anthropic</td><td>Claude</td><td><code>claude, anthropic…</code></td><td><code>claude-pro-20</code>, <code>claude-max-100</code>, <code>claude-max-200</code></td></tr>
 <tr><td>OpenAI</td><td>GPT / Codex</td><td><code>gpt, o1, o3, o4, o5, codex, chatgpt, davinci…</code></td><td><code>chatgpt-plus-20</code>, <code>chatgpt-pro-200</code></td></tr>
-<tr><td>Moonshot</td><td>Kimi</td><td><code>kimi, moonshot…</code></td><td>—</td></tr>
-<tr><td>Z.ai</td><td>GLM</td><td><code>glm, zai, zhipu, chatglm…</code></td><td>—</td></tr>
-<tr><td>DeepSeek</td><td>DeepSeek</td><td><code>deepseek…</code></td><td>—</td></tr>
-<tr><td>Google</td><td>Gemini</td><td><code>gemini, gemma, palm, bison…</code></td><td>—</td></tr>
-<tr><td>xAI</td><td>Grok</td><td><code>grok…</code></td><td>—</td></tr>
-<tr><td>Alibaba</td><td>Qwen</td><td><code>qwen, qwq…</code></td><td>—</td></tr>
-<tr><td>MiniMax</td><td>MiniMax</td><td><code>minimax…</code></td><td>—</td></tr>
-<tr><td>Mistral</td><td>Mistral</td><td><code>mistral, codestral, devstral, magistral, ministral, pixtral…</code></td><td>—</td></tr>
-<tr><td>Meta</td><td>Llama</td><td><code>llama, meta-llama…</code></td><td>—</td></tr>
-<tr><td>Amazon</td><td>Nova</td><td><code>nova-, titan…</code></td><td>—</td></tr>
-<tr><td>Cohere</td><td>Command</td><td><code>command…</code></td><td>—</td></tr>
+<tr><td>Moonshot</td><td>Kimi</td><td><code>kimi, moonshot…</code></td><td>-</td></tr>
+<tr><td>Z.ai</td><td>GLM</td><td><code>glm, zai, zhipu, chatglm…</code></td><td>-</td></tr>
+<tr><td>DeepSeek</td><td>DeepSeek</td><td><code>deepseek…</code></td><td>-</td></tr>
+<tr><td>Google</td><td>Gemini</td><td><code>gemini, gemma, palm, bison…</code></td><td>-</td></tr>
+<tr><td>xAI</td><td>Grok</td><td><code>grok…</code></td><td>-</td></tr>
+<tr><td>Alibaba</td><td>Qwen</td><td><code>qwen, qwq…</code></td><td>-</td></tr>
+<tr><td>MiniMax</td><td>MiniMax</td><td><code>minimax…</code></td><td>-</td></tr>
+<tr><td>Mistral</td><td>Mistral</td><td><code>mistral, codestral, devstral, magistral, ministral, pixtral…</code></td><td>-</td></tr>
+<tr><td>Meta</td><td>Llama</td><td><code>llama, meta-llama…</code></td><td>-</td></tr>
+<tr><td>Amazon</td><td>Nova</td><td><code>nova-, titan…</code></td><td>-</td></tr>
+<tr><td>Cohere</td><td>Command</td><td><code>command…</code></td><td>-</td></tr>
 </tbody></table>
 <div class="callout"><p>Detection reads nothing new. It looks at records the ledger already parsed and at which of the four log directories existed. A model id nobody recognises is reported by name as unknown rather than assigned to a provider by guess. The table above is generated from <code>comped_core/detect.py</code>.</p></div>
 
 <h2 id="prices">Prices and plans</h2>
-<p>The price table is a snapshot, bundled with the Play, that carries its own provenance: the source URL, the upstream file's sha256, and the date it was taken. It is never fetched at runtime. Where several upstream keys map to one model — the vendor's own and a reseller's — the vendor's wins.</p>
+<p>The price table is a snapshot, bundled with the Play, that carries its own provenance: the source URL, the upstream file's sha256, and the date it was taken. It is never fetched at runtime. Where several upstream keys map to one model: the vendor's own and a reseller's: the vendor's wins.</p>
 <table><tbody>
 <tr><th>Source</th><td><code>https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json</code></td></tr>
 <tr><th>As of</th><td>2026-09-04</td></tr>
@@ -243,14 +243,14 @@
 <h3>Plans</h3>
 <p>Public list prices as of 2026-09-03. <code>auto</code> is not a price: it means infer the provider and price every row it sells.</p>
 <table><thead><tr><th>Plan id</th><th>Label</th><th>Monthly</th></tr></thead><tbody>
-<tr><td><code>auto</code></td><td>Detected from your logs</td><td>—</td></tr>
+<tr><td><code>auto</code></td><td>Detected from your logs</td><td>-</td></tr>
 <tr><td><code>claude-pro-20</code></td><td>Claude Pro</td><td>$20</td></tr>
 <tr><td><code>claude-max-100</code></td><td>Claude Max 5x</td><td>$100</td></tr>
 <tr><td><code>claude-max-200</code></td><td>Claude Max 20x</td><td>$200</td></tr>
 <tr><td><code>chatgpt-plus-20</code></td><td>ChatGPT Plus</td><td>$20</td></tr>
 <tr><td><code>chatgpt-pro-200</code></td><td>ChatGPT Pro</td><td>$200</td></tr>
-<tr><td><code>api</code></td><td>API pay-as-you-go</td><td>—</td></tr>
-<tr><td><code>unknown</code></td><td>Unknown plan</td><td>—</td></tr>
+<tr><td><code>api</code></td><td>API pay-as-you-go</td><td>-</td></tr>
+<tr><td><code>unknown</code></td><td>Unknown plan</td><td>-</td></tr>
 </tbody></table>
 <div class="callout warn"><p>The tier is inferred from model ids in the logs, never from an account. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
 
@@ -302,8 +302,8 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 
 <h2 id="source">Source and spec</h2>
 <ul>
-<li><a href="https://github.com/rajkaria/comped">Source</a> — MIT. CI runs the suite on Ubuntu and macOS across Python 3.9 and 3.12, checks the bundled copies of the core haven't drifted, and fails if these pages are stale.</li>
-<li><a href="https://github.com/rajkaria/comped/blob/main/docs/SPEC.md">The spec</a> — the full derivation: record model, pricing, deduplication, windows, repeat clustering, wrong-turn signals, and the trust statements.</li>
+<li><a href="https://github.com/rajkaria/comped">Source</a>: MIT. CI runs the suite on Ubuntu and macOS across Python 3.9 and 3.12, checks the bundled copies of the core haven't drifted, and fails if these pages are stale.</li>
+<li><a href="https://github.com/rajkaria/comped/blob/main/docs/SPEC.md">The spec</a>: the full derivation: record model, pricing, deduplication, windows, repeat clustering, wrong-turn signals, and the trust statements.</li>
 <li>Play sources under <code>docs/plays/&lt;slug&gt;/</code>; the packages under <code>plays/</code> are generated from them by <code>tools/build_plays.py</code>.</li>
 </ul>
 
@@ -313,7 +313,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 
 <footer>
   <div class="wrap row">
-    <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
+    <span>comped: built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
     <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
