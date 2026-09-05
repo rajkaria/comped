@@ -1,0 +1,50 @@
+[
+ {
+  "name": "claude_dir",
+  "type": "string",
+  "default": "~/.claude/projects",
+  "example": "~/.claude/projects",
+  "label": "Claude Code sessions",
+  "description": "Where Claude Code keeps its session transcripts. Only the tail of the newest file is read."
+ },
+ {
+  "name": "codex_dir",
+  "type": "string",
+  "default": "~/.codex/sessions",
+  "example": "~/.codex/sessions",
+  "label": "Codex sessions",
+  "description": "Where Codex keeps its session transcripts. Only the tail of the newest file is read."
+ },
+ {
+  "name": "rates_path",
+  "type": "string",
+  "default": "",
+  "example": "~/prices.json",
+  "label": "Price table",
+  "description": "Empty uses the price table bundled with the Play. Point it at your own JSON to price with different rates."
+ },
+ {
+  "name": "tz",
+  "type": "string",
+  "default": "",
+  "example": "Asia/Kolkata",
+  "label": "Your time zone",
+  "description": "Empty uses the machine's zone. A day boundary is a place, not a fact: this decides when today starts."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic input, so a first run needs nothing configured and touches nothing of yours."
+ },
+ {
+  "name": "now",
+  "type": "string",
+  "default": "",
+  "example": "2026-09-05T14:22:03Z",
+  "label": "Clock override",
+  "description": "Empty reads the real clock. An ISO-8601 instant makes the run reproducible, which is how the tests and the demo produce the same bytes on every machine."
+ }
+]

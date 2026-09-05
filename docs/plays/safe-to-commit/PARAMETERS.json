@@ -1,0 +1,42 @@
+[
+ {
+  "name": "repo",
+  "type": "string",
+  "default": ".",
+  "example": "~/code/my-project",
+  "label": "The repository",
+  "description": "The working copy whose staged set is read, straight out of .git/index. No git process is started."
+ },
+ {
+  "name": "max_file_kb",
+  "type": "integer",
+  "default": "512",
+  "example": "512",
+  "label": "Large-file threshold",
+  "description": "A staged file bigger than this is called out before it goes into history, where it stays for ever."
+ },
+ {
+  "name": "strict",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Entropy rule",
+  "description": "true also flags an assignment whose name says secret and whose value is random enough to be one."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic input, so a first run needs nothing configured and touches nothing of yours."
+ },
+ {
+  "name": "now",
+  "type": "string",
+  "default": "",
+  "example": "2026-09-05T14:22:03Z",
+  "label": "Clock override",
+  "description": "Empty reads the real clock. An ISO-8601 instant makes the run reproducible, which is how the tests and the demo produce the same bytes on every machine."
+ }
+]

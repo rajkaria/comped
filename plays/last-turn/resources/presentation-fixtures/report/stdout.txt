@@ -1,0 +1,10 @@
+── the turn that just finished ─────────────────────────────
+  gpt-5                  2026-09-05T10:00:00Z
+  in 6.5k · out 227 · cache read 1.1k · cache write 0
+  $0.01
+
+  today: $0.17 across 6 turns
+  read the last 256 KB of demo-session.jsonl — a tail, not an accounting
+
+that turn: 6.5k in / 227 out · 14% cached · $0.01 · $0.17 today
+{"at": "2026-09-05T10:00:00Z", "cache_pct": 14, "cache_read": 1080, "cache_write": 0, "harness": "codex", "input": 6451, "model": "gpt-5", "ok": true, "output": 227, "priced": true, "skipped_lines": 0, "today_usd": "0.172996", "turns_today": 6, "usd": "0.010469"}

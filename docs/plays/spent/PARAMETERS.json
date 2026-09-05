@@ -1,0 +1,58 @@
+[
+ {
+  "name": "entry",
+  "type": "string",
+  "default": "",
+  "example": "320 lunch #food",
+  "label": "What you spent",
+  "description": "Amount first, then what it was for, and an optional #tag. A leading symbol sets the currency. Leave it empty to read the month back without adding to it."
+ },
+ {
+  "name": "currency",
+  "type": "string",
+  "default": "USD",
+  "example": "INR",
+  "label": "Default currency",
+  "description": "Used when the entry carries no symbol. Currencies are totalled apart, never converted, because a made-up exchange rate is worse than two honest numbers."
+ },
+ {
+  "name": "budget",
+  "type": "string",
+  "default": "0",
+  "example": "6000",
+  "label": "Monthly budget",
+  "description": "Optional. When set, the report projects the month at the current rate and says whether that lands over."
+ },
+ {
+  "name": "state_dir",
+  "type": "string",
+  "default": "~/.rote-micro",
+  "example": "~/.rote-micro",
+  "label": "Log folder",
+  "description": "The one directory this Play writes to. One append-only JSONL file per stream; nothing is ever deleted or rewritten in place."
+ },
+ {
+  "name": "tz",
+  "type": "string",
+  "default": "",
+  "example": "Asia/Kolkata",
+  "label": "Your time zone",
+  "description": "Empty uses the machine's zone. A day boundary is a place, not a fact: this decides when today starts."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic input, so a first run needs nothing configured and touches nothing of yours."
+ },
+ {
+  "name": "now",
+  "type": "string",
+  "default": "",
+  "example": "2026-09-05T14:22:03Z",
+  "label": "Clock override",
+  "description": "Empty reads the real clock. An ISO-8601 instant makes the run reproducible, which is how the tests and the demo produce the same bytes on every machine."
+ }
+]

@@ -1,0 +1,2 @@
+Nothing to record — pass note='what you are doing now'.
+{"ok": true, "recorded": false, "written": null}

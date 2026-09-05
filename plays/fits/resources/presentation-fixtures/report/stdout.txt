@@ -1,0 +1,12 @@
+── the bundled sample ──────────────────────────────────────
+  41,121 bytes · 623 lines · 5,578 words · looks like indented code
+  9.5k–12.8k tokens (estimate) · 6% of a 200k window
+
+  claude-opus-5          $0.0474–$0.0641   ($5.00/Mtok in)
+  claude-sonnet-5        $0.0190–$0.0257   ($2.00/Mtok in)
+  claude-haiku-4-5       $0.0095–$0.0128   ($1.00/Mtok in)
+
+  character-class estimate: ASCII prose ≈ 4.0 chars/token, punctuation-dense code ≈ 3.1, CJK ≈ 1.0 token/char; band ±15%, widened to ±25% when the text is mostly non-ASCII
+
+9.5k–12.8k tokens · 6% of a 200k window · $0.0474–$0.0641 on claude-opus-5
+{"bytes": 41121, "chars": 41121, "costs": [{"high_usd": "0.0641", "low_usd": "0.0474", "model": "claude-opus-5", "per_mtok_usd": "5.00", "resolved": "claude-opus-5"}, {"high_usd": "0.0257", "low_usd": "0.0190", "model": "claude-sonnet-5", "per_mtok_usd": "2.00", "resolved": "claude-sonnet-5"}, {"high_usd": "0.0128", "low_usd": "0.0095", "model": "claude-haiku-4-5", "per_mtok_usd": "1.00", "resolved": "claude-haiku-4-5"}], "fits": true, "lines": 623, "method": "character-class estimate: ASCII prose \u2248 4.0 chars/token, punctuation-dense code \u2248 3.1, CJK \u2248 1.0 token/char; band \u00b115%, widened to \u00b125% when the text is mostly non-ASCII", "ok": true, "pct": 6, "source": "the bundled sample", "tokens_high": 12828, "tokens_low": 9481, "tokens_mid": 11155, "window": 200000, "words": 5578}

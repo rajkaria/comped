@@ -1,0 +1,2 @@
+Nothing to capture — pass note='the thought'.
+{"ok": true, "reason": "empty", "recorded": false, "written": null}
