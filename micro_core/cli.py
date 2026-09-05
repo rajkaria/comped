@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, store
+from . import common, decode, store
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -346,7 +346,37 @@ def _streak_report(argv):
                        {"ok": True, "habits": rows, "best": best_row["name"], "window": window})
 
 
+# ---------------------------------------------------------------- whatis
+
+def _whatis_report(argv):
+    a = _parser("whatis report", ("text", ""), ("depth", "4"), ("reveal", "false")).parse_args(argv)
+    text = str(a.text or "")
+    if common.as_bool(a.demo) and not text.strip():
+        try:
+            text = (common.fixtures_dir() / "whatis" / "input.txt").read_text(encoding="utf-8").strip()
+        except OSError:
+            text = ""
+    if not text.strip():
+        return common.emit("Nothing to look at — pass text='the opaque thing'.",
+                           common.warn("no text given"))
+    reveal = common.as_bool(a.reveal)
+    layers = decode.peel(text, depth=int(a.depth or 4), reveal=reveal)
+    chain = " → ".join(l.kind for l in layers)
+    body = decode.render(layers, reveal)
+    tail = "{0} {1} deep: {2}".format(len(layers), common.plural(len(layers), "layer"), chain)
+    for l in layers:
+        if l.detail.get("expiry"):
+            tail += " · {0}".format(l.detail["expiry"])
+    return common.emit("\n".join([body, "", tail]),
+                       {"ok": True, "kind": layers[0].kind, "chain": chain,
+                        "layers": [{"kind": l.kind, "label": l.label,
+                                    "detail": {k: v for k, v in l.detail.items() if k != "value"}}
+                                   for l in layers],
+                        "depth_reached": len(layers), "chars": len(text)})
+
+
 _DISPATCH = {
+    ("whatis", "report"): _whatis_report,
     ("punch", "record"): _punch_record, ("punch", "report"): _punch_report,
     ("spent", "record"): _spent_record, ("spent", "report"): _spent_report,
     ("jot", "record"): _jot_record, ("jot", "report"): _jot_report,

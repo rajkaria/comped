@@ -178,3 +178,19 @@ class TestStreak(unittest.TestCase):
     def test_no_habits_yet_warns(self):
         _rc, _h, j = run(["streak", "report", "--state-dir", self.dir, "--tz", "UTC", "--now", "2026-09-05T20:00:00Z"])
         self.assertIn("warning", j)
+
+
+class TestWhatis(unittest.TestCase):
+    def test_reports_the_chain_and_the_first_kind(self):
+        import base64
+        blob = base64.b64encode(b'{"hello":"world"}').decode()
+        rc, human, j = run(["whatis", "report", "--text", blob])
+        self.assertEqual(rc, 0)
+        self.assertEqual(j["kind"], "base64")
+        self.assertEqual(j["chain"], "base64 → json")
+        self.assertIn("2 layers deep", human)
+
+    def test_no_text_warns_and_exits_zero(self):
+        rc, human, j = run(["whatis", "report"])
+        self.assertEqual(rc, 0)
+        self.assertIn("warning", j)
