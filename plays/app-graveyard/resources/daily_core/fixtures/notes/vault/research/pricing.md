@@ -1,5 +1,0 @@
-# Pricing
-
-See [[projects/comped]].
-
-Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. Analysis. 
