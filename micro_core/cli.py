@@ -595,8 +595,11 @@ def _budget_report(argv):
             exhausted, verdict = "already", "over"
         elif rate > 0:
             at = now + timedelta(hours=float(remaining / rate))
-            exhausted = common.hhmm(at, tz)
-            verdict = "tight" if at.date() == now.astimezone(tz).date() else "comfortable"
+            # Only a crossing that happens TODAY is a clock time worth printing: "about 08:32"
+            # for a moment eighteen days out reads as this morning and means nothing.
+            same_day = at.astimezone(tz).date() == now.astimezone(tz).date()
+            exhausted = common.hhmm(at, tz) if same_day else ""
+            verdict = "tight" if same_day else "comfortable"
         else:
             verdict = "comfortable"
     bar_width = 24
@@ -612,9 +615,12 @@ def _budget_report(argv):
         tail += " · the cap is behind you"
     elif exhausted:
         tail += " · cap reached about {0}".format(exhausted)
+    elif budget > 0:
+        tail += " · not today at this rate"
     lines += ["", tail]
     return common.emit("\n".join(lines),
-                       {"ok": True, "spent": str(spent), "budget": str(budget), "pct": pct,
+                       {"ok": True, "spent": str(spent.quantize(Decimal("0.01"))),
+                        "budget": str(budget.quantize(Decimal("0.01"))), "pct": pct,
                         "burn_per_hour": str(rate.quantize(Decimal("0.0001"))),
                         "exhausted_at": exhausted, "verdict": verdict, "turns": today["turns"],
                         "models": today["models"]})

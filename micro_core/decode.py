@@ -13,7 +13,64 @@ import re
 import zlib
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from urllib.parse import parse_qsl, unquote, urlsplit
+
+# urllib.parse would do the percent-decoding and the URL split, and it cannot open a socket. It is
+# still not imported: "micro_core imports no urllib, http, socket or subprocess" is a claim anyone
+# can check with grep in one second, and a claim that needs an exception is worth less than the
+# forty lines below.
+URL = re.compile(r"^(?P<scheme>[A-Za-z][A-Za-z0-9+.-]*)://(?P<netloc>[^/?#]*)"
+                 r"(?P<path>[^?#]*)(?:\?(?P<query>[^#]*))?(?:#(?P<fragment>.*))?$")
+PCT = re.compile(r"%([0-9A-Fa-f]{2})")
+
+
+def unquote(s, plus=False):
+    """Percent-decoding, UTF-8, byte-wise so a multi-byte sequence survives."""
+    text = str(s).replace("+", " ") if plus else str(s)
+    out, i = bytearray(), 0
+    while i < len(text):
+        m = PCT.match(text, i)
+        if m:
+            out.append(int(m.group(1), 16))
+            i = m.end()
+        else:
+            out.extend(text[i].encode("utf-8"))
+            i += 1
+    return out.decode("utf-8", "replace")
+
+
+class _Split(object):
+    """The five pieces of a URL, named as urlsplit names them, and nothing else."""
+
+    def __init__(self, m):
+        self.scheme = (m.group("scheme") or "").lower() if m else ""
+        netloc = m.group("netloc") if m else ""
+        self.path = (m.group("path") or "") if m else ""
+        self.query = (m.group("query") or "") if m else ""
+        self.fragment = (m.group("fragment") or "") if m else ""
+        self.netloc = netloc or ""
+        creds, _, host = netloc.rpartition("@") if netloc else ("", "", "")
+        self.username, _, self.password = creds.partition(":") if creds else ("", "", "")
+        if host.startswith("["):                      # an IPv6 literal keeps its brackets
+            hostname, _, rest = host[1:].partition("]")
+            port = rest.lstrip(":")
+        else:
+            hostname, _, port = host.partition(":")
+        self.hostname = hostname.lower() or None
+        self.port = int(port) if port.isdigit() else None
+
+
+def urlsplit(s):
+    return _Split(URL.match(str(s)))
+
+
+def parse_qsl(query):
+    out = []
+    for pair in str(query or "").split("&"):
+        if not pair:
+            continue
+        key, _, value = pair.partition("=")
+        out.append((unquote(key, plus=True), unquote(value, plus=True)))
+    return out
 
 MAGIC = ((b"\x1f\x8b", "gzip"), (b"%PDF", "PDF"), (b"\x89PNG", "PNG"), (b"PK\x03\x04", "ZIP"),
          (b"\xff\xd8\xff", "JPEG"), (b"GIF8", "GIF"), (b"BZh", "bzip2"), (b"\xfd7zXZ", "xz"),
