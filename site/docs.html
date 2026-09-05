@@ -64,13 +64,18 @@
 <p>No account, no package manager, nothing installed. It downloads about 150 KB of standard-library Python into a temporary directory, runs it, and deletes the directory on the way out. Ten seconds, and the only thing left on your machine is <code>~/comped/</code>. <a href="https://gotcomped.com/comped.sh">The script</a> is sixty lines; read it before you paste it. Anything after <code>sh -s --</code> goes to the run: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
 <p>It checks the download against <a href="https://gotcomped.com/comped.tar.gz.sha256">its published checksum</a> before running anything. That proves the download arrived whole, not that this site is honest; for that, read <a href="https://github.com/rajkaria/comped">the source</a>.</p>
 
+<h3>With node: npx</h3>
+<p>If you already have node, there is nothing to download by hand and no shell to worry about, which also makes this the one to try on Windows:</p>
+<pre><code>npx comped</code></pre>
+<p>The package is the same standard-library Python in an npm wrapper: <strong>no node dependencies</strong>, no install script, and <code>bin/comped.js</code> does nothing but find an interpreter and hand it the payload. You still need Python 3.9 or newer on your PATH. Arguments work the same: <code>npx comped plan=claude-pro-20</code>.</p>
+
 <h3>The other way in: as a rote Play</h3>
 <p>comped is also published as a Play on Modiqo's registry, and that is the careful way in: <strong>rote</strong> prints every parameter and every path the Play will touch and waits for your yes, and the whole package sits in public where you can read it before you run it. The trade is a free Modiqo account, because rote will not run anything until you are signed in.</p>
 <pre><code>curl -fsSL https://gotcomped.com/run.sh | sh</code></pre>
 <p>That line installs rote if you don't have it, signs you in, and runs the Play. About a minute the first time. To be asked at every step instead, use the registry's own installer:</p>
 <pre><code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></pre>
 <div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/rajkaria/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>. Want to read the whole thing before you run it? <code>rote play inspect rajkaria/comped</code> prints the manifest, and that much needs no account.</p></div>
-<p>Same code either way. The Play and the download carry a byte-identical copy of the core, and CI fails if they ever drift apart. Same parameters, same card, same row on the board.</p>
+<p>Same code every way. The Play, the download and the npm package carry a byte-identical copy of the core, and CI fails if they ever drift apart. Same parameters, same card, same row on the board.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
 <p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through either door.</p>

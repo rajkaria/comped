@@ -310,13 +310,18 @@ def docs_page():
 <p>No account, no package manager, nothing installed. It downloads about 150 KB of standard-library Python into a temporary directory, runs it, and deletes the directory on the way out. Ten seconds, and the only thing left on your machine is <code>~/comped/</code>. <a href="{site}/comped.sh">The script</a> is sixty lines; read it before you paste it. Anything after <code>sh -s --</code> goes to the run: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
 <p>It checks the download against <a href="{site}/comped.tar.gz.sha256">its published checksum</a> before running anything. That proves the download arrived whole, not that this site is honest; for that, read <a href="https://github.com/{gh}">the source</a>.</p>
 
+<h3>With node: npx</h3>
+<p>If you already have node, there is nothing to download by hand and no shell to worry about, which also makes this the one to try on Windows:</p>
+<pre><code>npx comped</code></pre>
+<p>The package is the same standard-library Python in an npm wrapper: <strong>no node dependencies</strong>, no install script, and <code>bin/comped.js</code> does nothing but find an interpreter and hand it the payload. You still need Python 3.9 or newer on your PATH. Arguments work the same: <code>npx comped plan=claude-pro-20</code>.</p>
+
 <h3>The other way in: as a rote Play</h3>
 <p>comped is also published as a Play on Modiqo's registry, and that is the careful way in: <strong>rote</strong> prints every parameter and every path the Play will touch and waits for your yes, and the whole package sits in public where you can read it before you run it. The trade is a free Modiqo account, because rote will not run anything until you are signed in.</p>
 <pre><code>{play_one}</code></pre>
 <p>That line installs rote if you don't have it, signs you in, and runs the Play. About a minute the first time. To be asked at every step instead, use the registry's own installer:</p>
 <pre><code>{asking}</code></pre>
 <div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/{handle}/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>. Want to read the whole thing before you run it? <code>rote play inspect {handle}/comped</code> prints the manifest, and that much needs no account.</p></div>
-<p>Same code either way. The Play and the download carry a byte-identical copy of the core, and CI fails if they ever drift apart. Same parameters, same card, same row on the board.</p>
+<p>Same code every way. The Play, the download and the npm package carry a byte-identical copy of the core, and CI fails if they ever drift apart. Same parameters, same card, same row on the board.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
 <p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through either door.</p>
@@ -496,7 +501,7 @@ def developers_page():
 <pre><code>{{"device": "&lt;uuid&gt;", "handle": "priya", "multiplier": 12.99, "comped_usd": 2560.98, "plan_usd": 197.13,
  "tier": "All-you-can-eat", "plan": "Claude Max 20x", "plan_id": "claude-max-200", "plan_source": "auto",
  "providers": ["anthropic"], "harnesses": ["claude-code"], "days_back": 30, "active_days": 22,
- "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.4"}}</code></pre>
+ "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.5"}}</code></pre>
 <p>Reply <code>200</code>: <code>{{"ok": true, "rank": 7, "of": 312, "percentile": 2.2, "eligible": true, "held": false, "reason": null, "handle": "priya", "url": "…/leaderboard.html#priya", "board": "…"}}</code>. <code>400</code> names the first bad field; <code>429</code> is the same device inside 15 seconds; <code>502</code> is storage. The server recomputes <code>multiplier = comped_usd / plan_usd</code> and refuses a mismatch above 2%. Handles are <code>[A-Za-z0-9][A-Za-z0-9_.-]{{0,31}}</code>. Over 2,000× or $250,000 is stored with <code>held: true</code> and not shown.</p>
 <h3>GET /api/leaderboard?sort=multiplier|comped_usd&amp;limit=100</h3>
 <p>One row per handle (the latest run) or per anonymous device, ranked; up to 500. Each row carries what the table above shows plus <code>plan_id</code>, <code>plan_source</code>, <code>runs</code>, <code>first_seen</code> and <code>updated_at</code>, and a <code>rules</code> object restates the thresholds. Cached for 30 seconds at the edge. CORS is open: embed it where you like.</p>
@@ -542,15 +547,112 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
                 "developers", toc, body)
 
 
+def llms_txt():
+    """/llms.txt, the llmstxt.org convention: what this is, in the order a machine needs it.
+
+    Generated, like the rest, from the things it describes. The parameter list comes from the
+    Play's own manifest and the plan and model counts from the bundled resources, so a page whose
+    whole job is to be quoted accurately cannot quietly go stale.
+    """
+    params = json.loads((ROOT / "docs" / "plays" / "comped" / "PARAMETERS.json").read_text(encoding="utf-8"))
+    params = params["parameters"] if isinstance(params, dict) else params
+    plans = json.loads((ROOT / "resources" / "plans.json").read_text(encoding="utf-8"))
+    prices = json.loads((ROOT / "resources" / "prices.json").read_text(encoding="utf-8"))
+    n_models = len(prices.get("models", prices))
+    n_plans = len(plans.get("plans", plans))
+    # The whole description, not a first sentence: these are written as one thought each, and a
+    # machine quoting half of "Leave it. The logs name the providers" would be quoting nonsense.
+    rows = "\n".join("- `{0}` (default `{1}`): {2}".format(
+        d["name"], d.get("default", "") if d.get("default", "") != "" else "empty",
+        " ".join(d["description"].split())) for d in params)
+    return """# comped
+
+> comped reads the session logs your AI coding tools already write, prices the last 30 days at the
+> provider's public API rates, and tells you how many times over your subscription paid for itself.
+> That number is your comp score. Your logs never leave your machine; the only thing sent is the
+> score itself, to a public leaderboard, and one parameter turns that off.
+
+comped is standard-library Python 3.9+, MIT licensed, with no dependencies of any kind. It reads
+Claude Code (including subagent transcripts), Codex CLI, Pi and OpenCode. It prices {n_models}
+models against {n_plans} subscription plans from a bundled table that names its source and as-of
+date; a model the table does not know is reported as tokens and never priced by guess.
+
+## Run it
+
+Three doors, one core, the same fourteen parameters. The code that runs is byte-identical and CI
+fails if the copies drift.
+
+- No account, nothing installed: `curl -fsSL {site}/comped.sh | sh`
+- With node: `npx comped`
+- As an inspectable rote Play, with a consent screen listing every path it touches and a public
+  archive you can read first (needs a free Modiqo account):
+  `curl -fsSL {site}/run.sh | sh`
+
+Arguments are `key=value`, e.g. `npx comped plan=claude-pro-20 handle=yourname`.
+
+## What it reads and sends
+
+- Reads: `~/.claude/projects`, `~/.codex/sessions`, `~/.pi/agent/sessions`,
+  `~/.local/share/opencode/storage`. Nothing else.
+- Never reads: `~/.claude.json`, `~/.codex/auth.json`, or any credential, keychain or token file.
+  Which provider you use is inferred from model ids already in the logs. Your plan tier is never
+  read from your account; every tier is priced and the least flattering one that fits is marked
+  as assumed.
+- Sends: one POST, after the card is written, carrying the score and its supporting counts. No
+  paths, prompts, model ids, session ids or hostnames. The exact payload is written to
+  `~/comped/comped-rank.json` before it is sent. `leaderboard=false` sends nothing at all.
+- Writes: only under `out_dir`, default `~/comped`. Every written path is listed in the report.
+
+## Parameters
+
+{rows}
+
+## Pages
+
+- [Home]({site}/): what it is, in plain words.
+- [Docs]({site}/docs.html): installing, reading the card, options, outputs, troubleshooting, privacy.
+- [Developers]({site}/developers.html): the three Plays, every parameter, record fields, the
+  arithmetic, detection, the price table, the leaderboard API, and how to verify the privacy claims.
+- [Leaderboard]({site}/leaderboard.html): the public board.
+
+## Source and API
+
+- [Source](https://github.com/{gh}): MIT. CI runs the suite on Ubuntu and macOS across Python 3.9
+  and 3.12 and fails on any drift between the copies of the core.
+- [The spec](https://github.com/{gh}/blob/main/docs/SPEC.md): the full derivation.
+- [The install script]({site}/comped.sh) and [its checksum]({site}/comped.tar.gz.sha256).
+- `GET {site}/api/leaderboard?sort=multiplier|comped_usd&limit=N` returns the board as JSON.
+  `POST {site}/api/score` is how a run submits one. Both are public and documented on the
+  developers page.
+
+## Not a bill
+
+The headline number is what the same work would have cost at list price on a metered API. It is
+not an invoice and not money owed. You are on a subscription and you paid what you paid.
+""".format(site=SITE_URL, gh="rajkaria/comped", rows=rows, n_models=n_models, n_plans=n_plans)
+
+
 def main():
     for name, html_text in (("docs.html", docs_page()), ("developers.html", developers_page())):
         out = ROOT / "site" / name
         out.write_text(html_text, encoding="utf-8")
         print("wrote {0} ({1} bytes)".format(out, len(html_text)))
+    out = ROOT / "site" / "llms.txt"
+    out.write_text(llms_txt(), encoding="utf-8")
+    print("wrote {0} ({1} bytes)".format(out, out.stat().st_size))
+    sm = ROOT / "site" / "sitemap.xml"
+    pages = ["", "docs.html", "developers.html", "leaderboard.html"]
+    sm.write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join("  <url><loc>{0}/{1}</loc></url>\n".format(SITE_URL, page) for page in pages)
+        + "</urlset>\n", encoding="utf-8")
+    print("wrote {0}".format(sm))
     # The no-account download is part of the site, so it is built with the site. Deploying a page
     # that offers comped.tar.gz without building comped.tar.gz would be a 404 on the front door.
-    from tools import build_dist
+    from tools import build_dist, build_npm
     build_dist.main()
+    build_npm.main()
     return 0
 
 

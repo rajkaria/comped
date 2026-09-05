@@ -33,13 +33,19 @@ Try it on the bundled synthetic logs first — no configuration, nothing of your
 rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex
 ```
 
-Then on your own. There are two ways in, and they run the same code on the same parameters.
+Then on your own. There are three ways in, and they run the same code on the same parameters.
 
 **One paste, no account, nothing installed.** Downloads ~40 KB of stdlib Python to a temporary
 directory, runs it, deletes it:
 
 ```bash
 curl -fsSL https://gotcomped.com/comped.sh | sh
+```
+
+**With node.** The same Python in an npm wrapper, no node dependencies, no install script:
+
+```bash
+npx comped
 ```
 
 **As an inspectable rote Play.** A consent screen listing every file it touches, and a public

@@ -17,3 +17,6 @@ Downloads are read from the Play's manifest (`https://play.modiqo.ai/<handle>/<p
 | 2026-09-05 | session-ledger | 0.1.4 | 0 | re-push | Same core; privacy paragraph now names comped's poster as the one network step. |
 | 2026-09-05 | wrong-turns | 0.1.4 | 0 | first publish | Published to Community per the stagger plan (its own NEW row). |
 
+| 2026-09-05 | comped | 0.1.5 | 0 | re-push | **Two more front doors.** `curl gotcomped.com/comped.sh \| sh` needs no account and installs nothing; `npx comped` for anyone with node. Same core all three ways, byte-identical, CI fails on drift. Core gained a `run` subcommand and a UTF-8 stdout fix so the card survives a Windows code page. Registry gates still 1.00; smoke-run off the public 0.1.5 archive from a fresh dir: 9/9. |
+| 2026-09-05 | session-ledger | 0.1.5 | 0 | re-push | Same core. |
+| 2026-09-05 | wrong-turns | 0.1.5 | 0 | re-push | Same core. |
