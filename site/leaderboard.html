@@ -70,10 +70,10 @@
 <section id="get" class="get final">
   <div class="wrap">
     <h2>Get on the board. <em>Find out where you land.</em></h2>
-    <p class="lede">One line, about a minute. It reads your AI tools' logs on your own computer, prints your card, and posts just the score. Want the card without the board? Add <code>leaderboard=false</code>.</p>
+    <p class="lede">One line, about ten seconds, no account. It reads your AI tools' logs on your own computer, prints your card, and posts just the score. Want a name instead of <code>anon-xxxx</code>? Add <code>handle=yourname</code>. Want the card without the board? Add <code>leaderboard=false</code>.</p>
     <div class="cmd big" data-label="paste into Terminal">
       <span class="dollar">$</span>
-      <code id="cmd-real">curl -fsSL https://gotcomped.com/run.sh | sh</code>
+      <code id="cmd-real">curl -fsSL https://gotcomped.com/comped.sh | sh</code>
       <button class="copy primary" data-copy="#cmd-real">Copy</button>
     </div>
     <p class="hero-note">What exactly gets sent, and how to check: <a href="./#privacy">the privacy section</a>. The API is public and read-only for everyone but you: <a href="developers.html#leaderboard">developers</a>.</p>

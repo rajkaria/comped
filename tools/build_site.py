@@ -159,7 +159,11 @@ def cli_reference():
             flag = a.option_strings[-1]
             if flag == "--help":
                 continue
-            opts.append(flag if a.default in (None, "") else "{0} {1}".format(flag, a.default))
+            # A switch has no value to show: "--json False" reads like a thing you would type.
+            if a.default in (None, "") or a.nargs == 0:
+                opts.append(flag)
+            else:
+                opts.append("{0} {1}".format(flag, a.default))
         out.append("<tr><td><code>{0}</code></td><td><code>{1}</code></td></tr>".format(
             esc(name), esc(" ".join(opts)) or "-"))
     out.append("</tbody></table>")
@@ -210,7 +214,8 @@ def params_table_for(slug, names):
     return "\n".join(out)
 
 
-ONE_LINER = "curl -fsSL {0}/run.sh | sh".format(SITE_URL)
+ONE_LINER = "curl -fsSL {0}/comped.sh | sh".format(SITE_URL)
+PLAY_LINER = "curl -fsSL {0}/run.sh | sh".format(SITE_URL)
 ASKING_LINER = 'curl -fsSL "https://play.modiqo.ai/install?play={0}/comped" | sh'.format(HANDLE)
 
 
@@ -300,21 +305,32 @@ def docs_page():
   <a href="developers.html">Developers →</a>"""
     body = """
 <h2 id="install">One line</h2>
-<p>You need a Mac or Linux machine, a terminal, and <strong>python3</strong> (3.9 or newer, which every Mac has). Copy this, paste it into Terminal, press Enter:</p>
+<p>You need a terminal and <strong>python3</strong> (3.9 or newer, which every Mac has). Copy this, paste it into Terminal, press Enter:</p>
 <pre><code>{one}</code></pre>
-<p>It fetches <strong>rote</strong>: the free runner from <a href="https://www.modiqo.ai">Modiqo</a> that comped is written for: only if you don't already have it, signs you in to the registry if you aren't, prints what the comped Play reads and writes, and runs it without stopping to ask. About a minute the first time; ten seconds after that. <a href="{site}/run.sh">The script</a> is fifty lines; read it first if you like. Anything after <code>sh -s --</code> goes to the Play: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
-<p>Prefer to be asked before anything runs? The registry's own installer does the same steps and waits for a <em>yes</em> at each:</p>
+<p>No account, no package manager, nothing installed. It downloads about 150 KB of standard-library Python into a temporary directory, runs it, and deletes the directory on the way out. Ten seconds, and the only thing left on your machine is <code>~/comped/</code>. <a href="{site}/comped.sh">The script</a> is sixty lines; read it before you paste it. Anything after <code>sh -s --</code> goes to the run: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
+<p>It checks the download against <a href="{site}/comped.tar.gz.sha256">its published checksum</a> before running anything. That proves the download arrived whole, not that this site is honest; for that, read <a href="https://github.com/{gh}">the source</a>.</p>
+
+<h3>The other way in: as a rote Play</h3>
+<p>comped is also published as a Play on Modiqo's registry, and that is the careful way in: <strong>rote</strong> prints every parameter and every path the Play will touch and waits for your yes, and the whole package sits in public where you can read it before you run it. The trade is a free Modiqo account, because rote will not run anything until you are signed in.</p>
+<pre><code>{play_one}</code></pre>
+<p>That line installs rote if you don't have it, signs you in, and runs the Play. About a minute the first time. To be asked at every step instead, use the registry's own installer:</p>
 <pre><code>{asking}</code></pre>
-<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/{handle}/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
+<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/{handle}/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>. Want to read the whole thing before you run it? <code>rote play inspect {handle}/comped</code> prints the manifest, and that much needs no account.</p></div>
+<p>Same code either way. The Play and the download carry a byte-identical copy of the core, and CI fails if they ever drift apart. Same parameters, same card, same row on the board.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
-<p>If you'd rather see it work before pointing it at your own logs, the Play ships with sample logs: real in shape, made-up in content.</p>
+<p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through either door.</p>
+<pre><code>{one} -s -- \\
+  claude_dir=resources/fixtures/claude \\
+  codex_dir=resources/fixtures/codex \\
+  out_dir=comped-demo leaderboard=false</code></pre>
+<p>Or, as a Play:</p>
 <pre><code>rote play run https://play.modiqo.ai/{handle}/comped \\
   claude_dir=resources/fixtures/claude \\
   codex_dir=resources/fixtures/codex \\
   out_dir=comped-demo</code></pre>
-<p>Eight steps, about two seconds, and a card with tiny numbers. Then the real thing:</p>
-<pre><code>rote play run https://play.modiqo.ai/{handle}/comped</code></pre>
+<p>About two seconds, and a card with tiny numbers. Then the real thing:</p>
+<pre><code>{one}</code></pre>
 <p>Everything lands in <code>~/comped/</code>. Run it again tomorrow and the card grows a line telling you what moved.</p>
 
 <h2 id="reading">Reading your card</h2>
@@ -375,7 +391,7 @@ def docs_page():
 <h3>It says "not posted"</h3>
 <p>The card is done; only the leaderboard post failed, usually because the machine is offline or the post timed out. Run again when you're online, or leave it. The exact reply is in <code>~/comped/comped-rank.json</code>.</p>
 <h3>I'm on the board as anon-xxxx</h3>
-<p>The run had no handle. <code>gotcomped.com/run.sh</code> fills in your rote handle; if you ran the Play some other way, pass <code>handle=yourname</code>. A re-run replaces your row, so the anonymous one goes away when a named one arrives from the same machine.</p>
+<p>The run had no handle, which is what happens by default: nothing about you is assumed. Pass <code>handle=yourname</code> to claim a name. The rote path fills in your rote handle automatically. A re-run replaces your row, so the anonymous one goes away when a named one arrives from the same machine.</p>
 
 <h2 id="privacy">Privacy</h2>
 <ul>
@@ -386,7 +402,8 @@ def docs_page():
 <li><strong>Your messages</strong> are cut to 120 characters and hashed. Never the full text, never on a card.</li>
 </ul>
 <p>How to verify each of those rather than believe them is on the <a href="developers.html#privacy">developers page</a>.</p>
-""".format(one=esc(ONE_LINER), asking=esc(ASKING_LINER), site=SITE_URL, handle=HANDLE,
+""".format(one=esc(ONE_LINER), play_one=esc(PLAY_LINER), asking=esc(ASKING_LINER), site=SITE_URL, handle=HANDLE,
+           gh="rajkaria/comped",
            options=params_table_for("comped", ("days_back", "plan", "leaderboard", "handle", "repeat_threshold", "out_dir", "card_theme")),
            outputs=outputs_table("comped"))
     return page("docs.html", "comped: docs",
@@ -530,6 +547,10 @@ def main():
         out = ROOT / "site" / name
         out.write_text(html_text, encoding="utf-8")
         print("wrote {0} ({1} bytes)".format(out, len(html_text)))
+    # The no-account download is part of the site, so it is built with the site. Deploying a page
+    # that offers comped.tar.gz without building comped.tar.gz would be a 404 on the front door.
+    from tools import build_dist
+    build_dist.main()
     return 0
 
 

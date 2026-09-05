@@ -46,7 +46,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <p class="kicker"><span class="dot"></span>Free · one paste · about a minute</p>
+    <p class="kicker"><span class="dot"></span>Free · one paste · no account</p>
     <h1>How much did AI <em>comp</em> you this month?</h1>
     <p class="sub">You pay a flat fee for Claude, ChatGPT or Codex. Behind that fee, your coding assistant does work that would cost real money at full price. <strong>comped adds it up from the receipts your tools already keep</strong>, gives you a score, and puts you on <a href="leaderboard.html">the leaderboard</a>. Your logs never leave your computer.</p>
 
@@ -73,7 +73,7 @@
   <div class="wrap">
     <p class="eyebrow">Get your score</p>
     <h2>Copy one line. Paste it. <em>Read your card.</em></h2>
-    <p class="lede">There is no app and no sign-up. The line fetches a small runner called <strong>rote</strong> if you don't already have it, reads your AI tools' logs on your own machine, prints your card, and posts your score to the board. That's the whole thing.</p>
+    <p class="lede">No app, no sign-up, nothing installed. The line downloads about 150 KB of Python into a temporary folder, reads your AI tools' logs on your own machine, prints your card, posts your score to the board, and deletes itself. That's the whole thing.</p>
 
     <ol class="howto">
       <li>
@@ -82,7 +82,7 @@
           <h3>Copy this line</h3>
           <div class="cmd big" data-label="the whole thing">
             <span class="dollar">$</span>
-            <code id="cmd-main">curl -fsSL https://gotcomped.com/run.sh | sh</code>
+            <code id="cmd-main">curl -fsSL https://gotcomped.com/comped.sh | sh</code>
             <button class="copy primary" data-copy="#cmd-main">Copy</button>
           </div>
         </div>
@@ -91,7 +91,7 @@
         <div class="step-n">2</div>
         <div class="step-body">
           <h3>Paste it into Terminal and press Enter</h3>
-          <p>On a Mac: press <kbd>⌘</kbd> <kbd>space</kbd>, type <em>Terminal</em>, press Enter. Then <kbd>⌘</kbd> <kbd>V</kbd> and Enter. It tells you what it is about to read, then reads it. No questions after that. (<a href="https://gotcomped.com/run.sh">The script is short</a> and worth a glance. A version that asks before running is <a href="docs.html#install">in the docs</a>.)</p>
+          <p>On a Mac: press <kbd>⌘</kbd> <kbd>space</kbd>, type <em>Terminal</em>, press Enter. Then <kbd>⌘</kbd> <kbd>V</kbd> and Enter. About ten seconds later you have a card. <a href="https://gotcomped.com/comped.sh">The script is sixty lines</a> and worth a glance before you paste it. Want a consent screen and a public archive to read first? <a href="docs.html#install">Run it as a rote Play</a> instead.</p>
         </div>
       </li>
       <li>
@@ -107,6 +107,7 @@
       <div><b>Nothing to type in.</b> It works out which AI you use from your logs and scores every plan you could be on. Told it your plan once? It remembers.</div>
       <div><b>Your logs stay home.</b> The only thing sent is your score, to the leaderboard, and <code>leaderboard=false</code> stops even that. <a href="#privacy">Here is exactly what goes.</a></div>
       <div><b>Nothing changes.</b> It only reads. It writes one folder, <code>~/comped</code>, and tells you what it put there.</div>
+      <div><b>Nothing is installed.</b> No account, no package manager, no runner. It unpacks into a temporary folder, runs, and deletes it. Only <code>~/comped</code> is left.</div>
     </div>
   </div>
 </section>
@@ -293,15 +294,19 @@
       </details>
       <details>
         <summary>Can I get the card without going on the board?</summary>
-        <p>Yes. Add <code>leaderboard=false</code> to the line, like this: <code>curl -fsSL https://gotcomped.com/run.sh | sh -s -- leaderboard=false</code>. Then the run makes no network calls at all. Already on the board and want off? <a href="https://github.com/rajkaria/comped/issues">Open an issue</a> with your handle and the row goes.</p>
+        <p>Yes. Add <code>leaderboard=false</code> to the line, like this: <code>curl -fsSL https://gotcomped.com/comped.sh | sh -s -- leaderboard=false</code>. Then the run makes no network calls at all. Already on the board and want off? <a href="https://github.com/rajkaria/comped/issues">Open an issue</a> with your handle and the row goes.</p>
       </details>
       <details>
         <summary>Do I need to know how to code?</summary>
         <p>No. If you use an AI coding tool you've opened Terminal before. Copy one line, paste it, press Enter. That's it.</p>
       </details>
       <details>
-        <summary>What is "rote", and why does it get installed?</summary>
-        <p>rote is a free command-line tool from <a href="https://www.modiqo.ai">Modiqo</a> that runs small, versioned programs called Plays. comped is one. rote is what shows you what a Play is about to do before it runs. If you already have it, nothing gets installed.</p>
+        <summary>Do I need an account?</summary>
+        <p>No. The line above installs nothing and signs you in to nothing. You can put a name on the board with <code>handle=yourname</code>; without one you go up as <code>anon-xxxx</code>.</p>
+      </details>
+      <details>
+        <summary>What is "rote", and do I need it?</summary>
+        <p>rote is a free command-line tool from <a href="https://www.modiqo.ai">Modiqo</a> that runs small, versioned programs called Plays. comped is one, and running it that way gives you a consent screen listing every file it will touch, plus a public archive you can read before anything happens. It is the careful way in, and it needs a free Modiqo account. The line above is the quick way in. Same code, same card, same numbers. <a href="docs.html#install">Both are in the docs.</a></p>
       </details>
       <details>
         <summary>Which tools does it read?</summary>
@@ -317,7 +322,7 @@
       </details>
       <details>
         <summary>Windows?</summary>
-        <p>Not yet. The runner is Mac and Linux. WSL works.</p>
+        <p>The one-line paste needs a Unix shell, so on Windows use WSL, which works today. comped itself is plain Python with nothing Unix-specific in it: you can <a href="comped.tar.gz">download the archive</a>, unpack it and run <code>py comped.py</code>. That path is not yet tested on a real Windows machine, so it is offered, not promised.</p>
       </details>
       <details>
         <summary>Can I see it work before pointing it at my own stuff?</summary>
@@ -330,13 +335,13 @@
 <section id="start" class="get final">
   <div class="wrap">
     <h2>Go on. <em>Find out.</em></h2>
-    <p class="lede">One line, about a minute, your logs stay home. Then see where you land.</p>
+    <p class="lede">One line, about ten seconds, no account, your logs stay home. Then see where you land.</p>
     <div class="cmd big" data-label="paste into Terminal">
       <span class="dollar">$</span>
-      <code id="cmd-real">curl -fsSL https://gotcomped.com/run.sh | sh</code>
+      <code id="cmd-real">curl -fsSL https://gotcomped.com/comped.sh | sh</code>
       <button class="copy primary" data-copy="#cmd-real">Copy</button>
     </div>
-    <p class="hero-note">Already have rote? <code>rote play run https://play.modiqo.ai/rajkaria/comped --yes</code> does the same thing. Prefer to be asked first? The registry's own installer: <code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></p>
+    <p class="hero-note">Prefer a consent screen and an archive you can read first? Run it as a rote Play: <code>curl -fsSL https://gotcomped.com/run.sh | sh</code>, or the registry's own installer, <code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code>. Already have rote? <code>rote play run https://play.modiqo.ai/rajkaria/comped --yes</code>.</p>
   </div>
 </section>
 
