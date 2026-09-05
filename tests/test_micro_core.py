@@ -1,4 +1,6 @@
 """Unit tests for micro_core: the emit contract, scalars and formatting."""
+import base64
+import gzip
 import io
 import json
 import os
@@ -7,7 +9,7 @@ import unittest
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 
-from micro_core import common, store
+from micro_core import common, decode, store
 
 
 class TestEmit(unittest.TestCase):
@@ -138,3 +140,104 @@ class TestStore(unittest.TestCase):
         store.append(self.dir, "punch", {"note": "x", "t": "2026-09-05T10:00:00Z"})
         got = store.days_with_entries(store.read(self.dir, "punch"), timezone.utc)
         self.assertEqual(got, {"2026-09-05"})
+
+
+class TestDecode(unittest.TestCase):
+    JWT = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
+           "eyJzdWIiOiJ1c2VyXzg4MTIiLCJleHAiOjE3ODg2MDAwMDB9.c2lnbmF0dXJlLWJ5dGVz")
+
+    def test_jwt_is_identified_with_claims_and_expiry(self):
+        layers = decode.peel(self.JWT)
+        self.assertEqual(layers[0].kind, "jwt")
+        self.assertEqual(layers[0].detail["alg"], "HS256")
+        self.assertIn("sub", layers[0].detail["claims"])
+        self.assertIn("exp", layers[0].detail)
+
+    def test_jwt_signature_is_never_printed_whole(self):
+        rendered = decode.render(decode.peel(self.JWT))
+        self.assertNotIn("c2lnbmF0dXJlLWJ5dGVz", rendered)
+
+    def test_peels_base64_then_json(self):
+        inner = base64.b64encode(b'{"hello":"world"}').decode()
+        self.assertEqual([l.kind for l in decode.peel(inner)], ["base64", "json"])
+
+    def test_peels_base64_gzip_json(self):
+        blob = base64.b64encode(gzip.compress(b'{"a":1}')).decode()
+        self.assertEqual([l.kind for l in decode.peel(blob)], ["base64", "gzip", "json"])
+
+    def test_depth_is_honoured(self):
+        blob = base64.b64encode(gzip.compress(b'{"a":1}')).decode()
+        self.assertEqual(len(decode.peel(blob, depth=2)), 2)
+
+    def test_url_encoding_is_a_layer(self):
+        layers = decode.peel("%7B%22a%22%3A1%7D")
+        self.assertEqual([l.kind for l in layers], ["urlencoded", "json"])
+
+    def test_uuid_v7_reports_its_embedded_time(self):
+        l = decode.identify("018f2c3d-4e5f-7abc-8def-0123456789ab")
+        self.assertEqual(l.kind, "uuid")
+        self.assertEqual(l.detail["version"], 7)
+        self.assertIn("time", l.detail)
+
+    def test_uuid_v4_has_no_time(self):
+        l = decode.identify("f47ac10b-58cc-4372-a567-0e02b2c3d479")
+        self.assertEqual(l.detail["version"], 4)
+        self.assertNotIn("time", l.detail)
+
+    def test_epoch_ms_vs_seconds(self):
+        self.assertEqual(decode.identify("1788600000").detail["unit"], "s")
+        self.assertEqual(decode.identify("1788600000000").detail["unit"], "ms")
+
+    def test_an_implausible_epoch_stays_a_number(self):
+        self.assertEqual(decode.identify("42").kind, "number")
+
+    def test_private_ip_is_classified(self):
+        self.assertEqual(decode.identify("10.1.2.3").detail["scope"], "private")
+        self.assertEqual(decode.identify("8.8.8.8").detail["scope"], "public")
+        self.assertEqual(decode.identify("100.64.0.1").detail["scope"], "carrier-grade NAT")
+
+    def test_plain_text_is_a_leaf_not_a_guess(self):
+        l = decode.identify("just some words here")
+        self.assertEqual(l.kind, "text")
+        self.assertIsNone(l.text)
+
+    def test_hash_by_length(self):
+        self.assertEqual(decode.identify("a" * 64).detail["candidates"], ["sha256"])
+        self.assertTrue(decode.identify("a" * 40).detail["git"])
+
+    def test_hex_colour(self):
+        l = decode.identify("#1f6feb")
+        self.assertEqual(l.kind, "color")
+        self.assertEqual(l.detail["rgb"], [31, 111, 235])
+
+    def test_url_breaks_out_its_query(self):
+        l = decode.identify("https://example.com/a/b?x=1&y=two")
+        self.assertEqual(l.kind, "url")
+        self.assertEqual(l.detail["host"], "example.com")
+        self.assertEqual(l.detail["query"], {"x": "1", "y": "two"})
+
+    def test_data_uri_peels_to_its_payload(self):
+        uri = "data:application/json;base64," + base64.b64encode(b'{"a":1}').decode()
+        self.assertEqual([l.kind for l in decode.peel(uri)], ["data-uri", "json"])
+
+    def test_magic_bytes_behind_base64(self):
+        blob = base64.b64encode(b"%PDF-1.7\n" + b"x" * 40).decode()
+        layers = decode.peel(blob)
+        self.assertEqual(layers[-1].kind, "binary")
+        self.assertEqual(layers[-1].detail["format"], "PDF")
+
+    def test_a_git_sha_is_not_read_as_base64(self):
+        self.assertEqual(decode.identify("356a192b7913b04c54574d18c28d46e6395428ab").kind, "hash")
+
+    def test_semver_and_mac_and_cidr(self):
+        self.assertEqual(decode.identify("1.2.3-rc.1").kind, "semver")
+        self.assertEqual(decode.identify("3c:22:fb:aa:bb:cc").kind, "mac")
+        self.assertEqual(decode.identify("192.168.0.0/24").kind, "cidr")
+
+    def test_cron_is_recognised_as_a_schedule(self):
+        self.assertEqual(decode.identify("30 9 * * 1-5").kind, "cron")
+
+    def test_reveal_false_truncates_long_values(self):
+        blob = base64.b64encode(json.dumps({"k": "y" * 400}).encode()).decode()
+        rendered = decode.render(decode.peel(blob, reveal=False))
+        self.assertNotIn("y" * 200, rendered)
