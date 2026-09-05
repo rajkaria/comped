@@ -412,3 +412,34 @@ class TestDemo(unittest.TestCase):
     def test_demo_whatis_peels_three_layers(self):
         rc, human, j = run(["whatis", "report", "--demo", "true", "--now", "2026-09-05T12:00:00Z"])
         self.assertEqual(j["chain"], "base64 → gzip → jwt")
+
+
+class TestBudgetCrossing(unittest.TestCase):
+    def _transcript(self, records):
+        d = tempfile.mkdtemp()
+        with open(os.path.join(d, "s.jsonl"), "w") as fh:
+            for r in records:
+                fh.write(json.dumps(r) + "\n")
+        return d
+
+    def _claude(self, at, inp, out):
+        return {"type": "assistant", "timestamp": at,
+                "message": {"model": "claude-opus-5",
+                            "usage": {"input_tokens": inp, "output_tokens": out}}}
+
+    def test_a_crossing_days_away_is_not_printed_as_a_clock_time(self):
+        d = self._transcript([self._claude("2026-09-05T09:00:00Z", 1000, 10),
+                              self._claude("2026-09-05T10:00:00Z", 1000, 10)])
+        rc, human, j = run(["budget", "report", "--claude-dir", d, "--codex-dir", d,
+                            "--daily-budget", "500", "--tz", "UTC", "--now", "2026-09-05T11:00:00Z"])
+        self.assertEqual(j["exhausted_at"], "")
+        self.assertEqual(j["verdict"], "comfortable")
+        self.assertIn("not today at this rate", human)
+
+    def test_a_crossing_later_today_is_printed(self):
+        d = self._transcript([self._claude("2026-09-05T09:00:00Z", 3000000, 100000),
+                              self._claude("2026-09-05T10:00:00Z", 3000000, 100000)])
+        rc, human, j = run(["budget", "report", "--claude-dir", d, "--codex-dir", d,
+                            "--daily-budget", "40", "--tz", "UTC", "--now", "2026-09-05T11:00:00Z"])
+        self.assertTrue(j["exhausted_at"])
+        self.assertEqual(j["verdict"], "tight")

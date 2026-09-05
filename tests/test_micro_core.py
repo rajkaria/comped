@@ -606,3 +606,13 @@ class TestStaged(unittest.TestCase):
         r = staged.review(Path(tempfile.mkdtemp()), 512, True)
         self.assertEqual(r["verdict"], "nothing-staged")
         self.assertIn("warning", r)
+
+    def test_percent_decoding_survives_a_multibyte_sequence(self):
+        self.assertEqual(decode.unquote("caf%C3%A9"), "café")
+        self.assertEqual(decode.unquote("a+b", plus=True), "a b")
+        self.assertEqual(decode.unquote("a+b"), "a+b")
+
+    def test_url_split_reads_credentials_and_an_ipv6_host(self):
+        s = decode.urlsplit("https://user:pw@[2001:db8::1]:8443/a/b?x=1#f")
+        self.assertEqual((s.hostname, s.port, s.username), ("2001:db8::1", 8443, "user"))
+        self.assertEqual(s.fragment, "f")
