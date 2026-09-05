@@ -16,10 +16,10 @@
  * - Runs cold: set `demo=true` to read a bundled fourteen-day log copied to a temporary folder. Your own log and vault are not opened.
  *
  * See also: `vault-pulse`, which measures the vault this one fills — orphans, broken links, and the notes you never went back to. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/jot
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

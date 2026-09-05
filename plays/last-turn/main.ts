@@ -19,10 +19,10 @@
  * - Runs cold: set `demo=true` to read bundled synthetic transcripts with nothing configured.
  *
  * See also: `budget-left` for what today has left in it, `comped` for the month and the multiplier, and `session-ledger` for the normalized ledger underneath both. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/last-turn
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

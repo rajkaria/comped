@@ -17,10 +17,10 @@
  * - Runs cold: set `demo=true` to read a bundled fourteen-day log copied to a temporary folder. Your own log is not opened.
  *
  * See also: `punch` for the hours inside a day, and `jot` for the thoughts. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/streak
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

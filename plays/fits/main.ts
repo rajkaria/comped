@@ -16,10 +16,10 @@
  * - Runs cold: set `demo=true` to measure a bundled 40 KB document with nothing configured.
  *
  * See also: `last-turn`, which prices the turn that actually happened, and `budget-left`, which tells you what today has left in it. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/fits
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

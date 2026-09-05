@@ -460,3 +460,17 @@ class TestBudgetCrossing(unittest.TestCase):
                             "--daily-budget", "40", "--tz", "UTC", "--now", "2026-09-05T11:00:00Z"])
         self.assertTrue(j["exhausted_at"])
         self.assertEqual(j["verdict"], "tight")
+
+
+class TestDemoOutputIsPortable(unittest.TestCase):
+    def test_no_demo_card_prints_a_machine_specific_path(self):
+        for args in ALL_REPORTS:
+            _rc, human, _j = run(args + ["--demo", "true", "--now", "2026-09-05T12:00:00Z"])
+            for marker in (tempfile.gettempdir(), os.path.expanduser("~"), "/var/folders"):
+                self.assertNotIn(marker, human, args)
+
+    def test_two_demo_runs_print_the_same_bytes(self):
+        for args in ALL_REPORTS:
+            first = run(args + ["--demo", "true", "--now", "2026-09-05T12:00:00Z"])
+            second = run(args + ["--demo", "true", "--now", "2026-09-05T12:00:00Z"])
+            self.assertEqual(first, second, args)

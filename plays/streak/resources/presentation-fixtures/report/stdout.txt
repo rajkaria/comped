@@ -1,4 +1,4 @@
-demo run: reading a bundled 14-day log in /var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-2mqk0dz0
+demo run: a bundled 14-day log, copied to a temporary folder
 ── last 21 days ────────────────────────────────────────────
   water          ·······██████████████  14 days
   reading        ·······█·██·██·██·██·  2 days
