@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, decode, store
+from . import common, decode, secrets, store
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -375,7 +375,70 @@ def _whatis_report(argv):
                         "depth_reached": len(layers), "chars": len(text)})
 
 
+# ---------------------------------------------------------------- is-it-secret
+
+def _input_text(a, fixture_name, limit=2 * 1024 * 1024):
+    """text, or a file, or the bundled fixture on a demo run — and which one it was."""
+    if str(getattr(a, "text", "") or "").strip():
+        return str(a.text), "the text you passed"
+    path = str(getattr(a, "path", "") or "").strip()
+    if not path and common.as_bool(getattr(a, "demo", "false")):
+        path = str(common.fixtures_dir() / fixture_name)
+    if not path:
+        return "", ""
+    p = common.expand(path)
+    try:
+        if p.is_dir():
+            parts, names = [], []
+            for f in sorted(p.rglob("*"))[:200]:
+                if f.is_file() and f.stat().st_size < limit:
+                    try:
+                        parts.append(f.read_text(encoding="utf-8", errors="replace"))
+                        names.append(f.name)
+                    except OSError:
+                        continue
+            return "\n".join(parts), "{0} files under {1}".format(len(names), p)
+        return p.read_text(encoding="utf-8", errors="replace")[:limit], str(p)
+    except OSError as e:
+        return "", "could not read {0}: {1}".format(p, e.strerror or e)
+
+
+def _secret_report(argv):
+    a = _parser("secret report", ("text", ""), ("path", ""), ("strict", "true"),
+                ("show", "redacted")).parse_args(argv)
+    body, source = _input_text(a, "secret/config.env")
+    if not body.strip():
+        return common.emit("Nothing to check — pass text='...' or path=/some/file.",
+                           common.warn(source or "no text or path given"))
+    found = secrets.scan(body, strict=common.as_bool(a.strict))
+    call = secrets.verdict(found)
+    lines = [common.rule("read {0}".format(common.trunc(source, 40)))]
+    for f in found:
+        lines.append("  {0:<9} line {1:<4} {2:<20} {3}".format(f.severity, f.line, f.kind, f.masked))
+        lines.append("             {0}".format(f.why))
+    if not found:
+        lines.append("  nothing that looks like a credential")
+    redacted = ""
+    if found and str(a.show).lower() == "redacted":
+        redacted = secrets.redact(body, found)
+        if len(redacted) <= 4000:
+            lines += ["", common.rule("safe to paste")] + ["  " + l for l in redacted.split("\n")[:60]]
+    verdicts = {"safe": "nothing to redact — paste it",
+                "redact": "{0} thing{1} to redact before you paste that",
+                "do-not-paste": "do not paste this: {0} live credential{1} in it"}
+    n = len(found)
+    tail = verdicts[call].format(n, "" if n == 1 else "s") if call != "safe" else verdicts["safe"]
+    lines += ["", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "verdict": call, "findings": [
+                           {"kind": f.kind, "severity": f.severity, "line": f.line, "masked": f.masked,
+                            "why": f.why} for f in found],
+                        "counts": secrets.counts(found), "redacted": redacted,
+                        "source": source, "bytes": len(body)})
+
+
 _DISPATCH = {
+    ("secret", "report"): _secret_report,
     ("whatis", "report"): _whatis_report,
     ("punch", "record"): _punch_record, ("punch", "report"): _punch_report,
     ("spent", "record"): _spent_record, ("spent", "report"): _spent_report,

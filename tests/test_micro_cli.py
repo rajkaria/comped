@@ -194,3 +194,31 @@ class TestWhatis(unittest.TestCase):
         rc, human, j = run(["whatis", "report"])
         self.assertEqual(rc, 0)
         self.assertIn("warning", j)
+
+
+class TestSecretStep(unittest.TestCase):
+    def test_blocker_makes_the_verdict_do_not_paste(self):
+        rc, human, j = run(["secret", "report", "--text", "k=AKIA1234567890ABCD12"])
+        self.assertEqual(rc, 0)
+        self.assertEqual(j["verdict"], "do-not-paste")
+        self.assertIn("do not paste", human)
+
+    def test_the_secret_itself_is_never_printed(self):
+        key = "AKIA1234567890ABCD12"
+        rc, human, j = run(["secret", "report", "--text", "k=" + key])
+        self.assertNotIn(key, human)
+        self.assertNotIn(key, json.dumps(j))
+
+    def test_clean_text_says_so(self):
+        rc, human, j = run(["secret", "report", "--text", "host=db\nport=5432"])
+        self.assertEqual(j["verdict"], "safe")
+        self.assertEqual(j["findings"], [])
+
+    def test_reads_a_file_by_path(self):
+        d = tempfile.mkdtemp()
+        p = os.path.join(d, "dev.env")
+        with open(p, "w") as fh:
+            fh.write("API_KEY=AKIA1234567890ABCD12\n")
+        rc, human, j = run(["secret", "report", "--path", p])
+        self.assertEqual(j["verdict"], "do-not-paste")
+        self.assertIn("dev.env", j["source"])
