@@ -1,0 +1,6 @@
+{
+ "read_desktop": "resources/presentation-fixtures/read_desktop/fixture.yaml",
+ "read_downloads": "resources/presentation-fixtures/read_downloads/fixture.yaml",
+ "read_screenshots": "resources/presentation-fixtures/read_screenshots/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

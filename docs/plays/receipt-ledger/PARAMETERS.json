@@ -1,0 +1,42 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs against bundled synthetic receipts in four formats, including one that must not count."
+ },
+ {
+  "name": "months_back",
+  "type": "integer",
+  "default": 12,
+  "example": 12,
+  "label": "Months back",
+  "description": "How far back to total. Receipts older than this are read and reported as outside the window."
+ },
+ {
+  "name": "receipts_dir",
+  "type": "string",
+  "default": "~/Downloads",
+  "example": "~/Downloads",
+  "label": "Where to look",
+  "description": "A folder of PDFs, .eml exports and saved pages. Searched recursively."
+ },
+ {
+  "name": "mail_dir",
+  "type": "string",
+  "default": "~/Library/Mail",
+  "example": "~/Library/Mail",
+  "label": "Mail folder",
+  "description": "Optional second folder. macOS protects this one; without Full Disk Access it is skipped by name."
+ }
+]

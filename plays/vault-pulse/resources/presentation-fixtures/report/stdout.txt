@@ -1,0 +1,38 @@
+┌──────────────────────────────────────────────────────────────┐
+│ VAULT PULSE                                         10 notes │
+│                                                              │
+│ 354 words across 10 notes                                    │
+│ …/daily_core/fixtures/notes/vault            bundled fixture │
+│ new notes, last 16 weeks  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁█                   │
+│                                                              │
+├─ THE GRAPH ──────────────────────────────────────────────────┤
+│ links between notes                           7 (0 external) │
+│ orphans, no link either way                         5  (50%) │
+│ nothing links to them                                      1 │
+│ links pointing at nothing                                  1 │
+│ most linked: projects/comped.md                         2 in │
+│ most linked: research/pricing.md                        2 in │
+│ most linked: index.md                                   1 in │
+├─ WRITTEN ONCE ───────────────────────────────────────────────┤
+│ never edited after creation                       10  (100%) │
+│ under 30 words                                      6  (60%) │
+│ untouched 180+ days                                        0 │
+│ Every note carries the same creation time, which is what a   │
+│ fresh clone or a restored backup looks like. Treat the       │
+│ never-edited count as unmeasured here.                       │
+│ projects/abandoned.md                            47w · today │
+│ orphan-thoughts.md                               34w · today │
+│ 2026-08-30.md                                     7w · today │
+├─ HABIT ──────────────────────────────────────────────────────┤
+│ daily notes                            3, last on 2026-09-01 │
+│ streak                           0 days (broken) · longest 3 │
+│ open checkboxes                     5 across 3 notes, 1 done │
+│ tags                            2 distinct · #hub, #shipping │
+│                                                              │
+│ Read-only: every note was opened for reading and nothing was │
+│ written into the vault. The report lands in your output      │
+│ folder instead.                                              │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/vault-pulse/vault-pulse.md
+{"broken_links": 1, "notes": 10, "ok": true, "orphans": 5, "sources": [{"found": true, "items": 10, "name": "notes", "note": "bundled fixture; 0 attachment(s)", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpfXwIAW/resources/daily_core/fixtures/notes/vault"}], "streak": 0, "todo": 5, "words": 354, "write_only": 10, "written": ["/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/vault-pulse/vault-pulse.md", "/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/vault-pulse/vault-pulse.json"]}

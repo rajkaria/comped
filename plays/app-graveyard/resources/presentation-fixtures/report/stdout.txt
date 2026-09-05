@@ -1,0 +1,35 @@
+┌──────────────────────────────────────────────────────────────┐
+│ APP GRAVEYARD                               9.4 GB installed │
+│                                                              │
+│ 5 of 8 apps unopened in 180+ days                            │
+│ 2.1 GB reclaimable                                           │
+│ 1 of those have no recorded opening at all                   │
+│                                                              │
+├─ LAST OPENED ────────────────────────────────────────────────┤
+│ this week         1  ▇▇▇▇▇                                   │
+│ this month        2  ▇▇▇▇▇▇▇▇▇▇                              │
+│ 6 months          0                                          │
+│ older             4  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇                    │
+│ 7 dated by Spotlight, 0 by file access time                  │
+├─ BIGGEST AND COLDEST ────────────────────────────────────────┤
+│ Keynote 14.5                                     698 MB  7mo │
+│ Sparrow 1.7.2                                   113 MB  3.5y │
+│ Screen Recorder 3.0                            87.7 MB  14mo │
+│ Old Torrent Client 2.1                         43.9 MB  21mo │
+│ Photo Editor Trial 1.0                         1.2 GB  never │
+├─ INTEL ONLY, ON AN ARM MACHINE ──────────────────────────────┤
+│ Sparrow                                               113 MB │
+│ Screen Recorder                                      87.7 MB │
+│ Old Torrent Client                                   43.9 MB │
+│ Each of these runs under Rosetta every time you open it.     │
+│ Check for a universal build before you decide it is fine.    │
+├─ HOMEBREW ───────────────────────────────────────────────────┤
+│ 3 casks, 956 MB on disk, 2 superseded version(s) still kept  │
+│ no matching app for: old-editor                              │
+│                                                              │
+│ Sizes are measured on disk. Nothing here is deleted, moved   │
+│ or opened: the list is yours to act on.                      │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/app-graveyard/app-graveyard.md
+{"apps": 8, "bytes": 10120000000, "casks": 3, "intel_only": 3, "never_used": 1, "ok": true, "reclaimable": 2228000000, "sources": [{"found": true, "items": 8, "name": "applications (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSzUYOJ/resources/daily_core/fixtures/apps/apps.json"}, {"found": true, "items": 3, "name": "casks (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSzUYOJ/resources/daily_core/fixtures/apps/casks.json"}], "unused": 4, "written": ["/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/app-graveyard/app-graveyard.md", "/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/app-graveyard/app-graveyard.json"]}

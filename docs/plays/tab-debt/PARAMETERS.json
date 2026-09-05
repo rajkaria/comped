@@ -1,0 +1,26 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic sessions, so a first run needs nothing installed."
+ },
+ {
+  "name": "keep_path",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Keep URL paths",
+  "description": "false shows hostnames only. true keeps the path as well; query strings and fragments are dropped either way."
+ }
+]

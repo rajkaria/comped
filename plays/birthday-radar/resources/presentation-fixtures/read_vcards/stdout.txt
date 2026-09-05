@@ -1,0 +1,2 @@
+vcard: 7 contact(s)
+{"complete": true, "ok": true, "people": 7, "scanned_files": 1, "source": "vcard", "sources": [{"found": true, "items": 7, "name": "vCard files", "note": "1 file(s)", "path": "demo"}]}

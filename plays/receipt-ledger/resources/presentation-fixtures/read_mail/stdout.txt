@@ -1,0 +1,2 @@
+mail: 0 receipt-shaped document(s)
+{"complete": true, "documents": 0, "ok": true, "scanned_files": 0, "source": "mail", "sources": [{"found": true, "items": 0, "name": "mail (demo)", "note": "the demo reads one folder", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpI0AQNI/resources/daily_core/fixtures/receipts"}]}

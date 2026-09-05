@@ -1,0 +1,10 @@
+schema_version: 1
+kind: process.exec
+status:
+  exit:
+    kind: code
+    code: 0
+  duration_ms: 278
+  timeout_ms: 90000
+stdout: resources/presentation-fixtures/read_desktop/stdout.txt
+stderr: resources/presentation-fixtures/read_desktop/stderr.txt

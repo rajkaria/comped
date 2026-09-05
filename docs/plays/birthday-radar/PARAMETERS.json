@@ -1,0 +1,50 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs against a bundled synthetic address book, so a first run needs nothing exported."
+ },
+ {
+  "name": "horizon",
+  "type": "integer",
+  "default": 45,
+  "example": 45,
+  "label": "Days ahead",
+  "description": "How far ahead to look for the next birthdays."
+ },
+ {
+  "name": "vcard_dir",
+  "type": "string",
+  "default": "~/Documents",
+  "example": "~/Documents",
+  "label": "vCard folder",
+  "description": "A folder of .vcf exports, or one .vcf file. Searched recursively."
+ },
+ {
+  "name": "csv_path",
+  "type": "string",
+  "default": "",
+  "example": "",
+  "label": "CSV export",
+  "description": "Optional path to a Google or Outlook contacts CSV. Columns are matched by name."
+ },
+ {
+  "name": "redact",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Show initials only",
+  "description": "true prints A. L. instead of the full name. Set false for a private run on your own machine."
+ }
+]

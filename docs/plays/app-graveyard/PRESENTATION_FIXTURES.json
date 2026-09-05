@@ -1,0 +1,5 @@
+{
+ "read_applications": "resources/presentation-fixtures/read_applications/fixture.yaml",
+ "read_casks": "resources/presentation-fixtures/read_casks/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

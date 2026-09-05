@@ -1,0 +1,38 @@
+┌──────────────────────────────────────────────────────────────┐
+│ DESKTOP CLUTTER                                      grade C │
+│                                                              │
+│ 18 files, 1.1 GB                                             │
+│ oldest is from 2024-05-24 (2.3y ago): resume.pdf             │
+│ 10 desktop (183 MB) · 8 downloads (893 MB)                   │
+│                                                              │
+├─ BY AGE ─────────────────────────────────────────────────────┤
+│ today            0                         0 B               │
+│ this week        1  ▇▇                  2.3 MB               │
+│ this month       4  ▇▇▇▇▇▇▇▇▇          84.9 MB               │
+│ this year        6  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇      766 MB               │
+│ older            7  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇    223 MB               │
+│ 12 untouched 90+ days (67%), 989 MB                          │
+├─ WHAT THEY ARE ──────────────────────────────────────────────┤
+│ document                          6   33% ▇▇▇▇               │
+│ media                             5   28% ▇▇▇                │
+│ screenshot                        4   22% ▇▇▇                │
+│ installer                         2   11% ▇                  │
+│ archive                           1    6% ▇                  │
+│ screenshots alone: 4 files, 10.6 MB                          │
+│ installers you already ran: 2, 662 MB                        │
+├─ THE SAME FILE TWICE ────────────────────────────────────────┤
+│ 2× final.mp4                                         80.1 MB │
+│ proof: same size and type, contents not compared             │
+├─ BIGGEST ────────────────────────────────────────────────────┤
+│ Setup.dmg                                        591 MB  7mo │
+│ archive.zip                                     149 MB  20mo │
+│ final.mp4                                       80.1 MB  6mo │
+│ final (1).mp4                                   80.1 MB  6mo │
+│                                                              │
+│ 742 MB reclaimable without opening a single file             │
+│ Grade C: 18 files, 12 of them cold, 1 duplicate group(s).    │
+│ Nothing was moved, renamed or deleted.                       │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/desktop-clutter/desktop-clutter.md
+{"bytes": 1128159400, "cold": 12, "duplicates": 1, "files": 18, "grade": "C", "ok": true, "reclaimable": 778000000, "screenshots": 4, "sources": [{"found": true, "items": 10, "name": "desktop (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpXOw8SE/resources/daily_core/fixtures/clutter/files.json"}, {"found": true, "items": 8, "name": "downloads (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpXOw8SE/resources/daily_core/fixtures/clutter/files.json"}, {"found": true, "items": 0, "name": "screenshots (demo)", "note": "same folder as the Desktop", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpXOw8SE/resources/daily_core/fixtures/clutter/files.json"}], "written": ["/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/desktop-clutter/desktop-clutter.md", "/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/desktop-clutter/desktop-clutter.json"]}

@@ -1,0 +1,2 @@
+addressbook: 0 contact(s)
+{"complete": true, "ok": true, "people": 0, "scanned_files": 0, "source": "addressbook", "sources": [{"found": true, "items": 0, "name": "addressbook (demo)", "note": "the demo reads one address book", "path": ""}]}

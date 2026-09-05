@@ -1,0 +1,34 @@
+[
+ {
+  "bytes": 402000000,
+  "files": 20,
+  "name": "figma",
+  "path": "/opt/homebrew/Caskroom/figma",
+  "sized": true,
+  "versions": [
+   "124.5",
+   "124.6"
+  ]
+ },
+ {
+  "bytes": 210000000,
+  "files": 20,
+  "name": "old-editor",
+  "path": "/opt/homebrew/Caskroom/old-editor",
+  "sized": true,
+  "versions": [
+   "1.0"
+  ]
+ },
+ {
+  "bytes": 390000000,
+  "files": 20,
+  "name": "slack",
+  "path": "/opt/homebrew/Caskroom/slack",
+  "sized": true,
+  "versions": [
+   "4.40",
+   "4.41"
+  ]
+ }
+]

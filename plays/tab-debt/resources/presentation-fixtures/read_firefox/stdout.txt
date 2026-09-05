@@ -1,0 +1,2 @@
+firefox: 3 tab(s) from 1 source(s)
+{"complete": true, "family": "firefox", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 3, "name": "Firefox (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/firefox-sessionstore.json"}], "tabs": 3}

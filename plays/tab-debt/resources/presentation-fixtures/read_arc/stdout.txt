@@ -1,0 +1,2 @@
+arc: 3 tab(s) from 1 source(s)
+{"complete": true, "family": "arc", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 3, "name": "Arc (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/arc-sidebar.json"}], "tabs": 3}

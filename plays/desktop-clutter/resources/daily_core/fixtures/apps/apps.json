@@ -1,0 +1,151 @@
+[
+ {
+  "accessed": "2026-01-30T12:00:00Z",
+  "architectures": [
+   "arm64",
+   "x86_64"
+  ],
+  "bundle_id": "com.apple.iWork.Keynote",
+  "bytes": 732000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2026-01-30T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Keynote",
+  "path": "/Applications/Keynote.app",
+  "sized": true,
+  "updated": "2026-01-30T12:00:00Z",
+  "version": "14.5"
+ },
+ {
+  "accessed": "2026-08-23T12:00:00Z",
+  "architectures": [
+   "arm64",
+   "x86_64"
+  ],
+  "bundle_id": "com.apple.dt.Xcode",
+  "bytes": 7100000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2026-08-23T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Xcode",
+  "path": "/Applications/Xcode.app",
+  "sized": true,
+  "updated": "2026-08-23T12:00:00Z",
+  "version": "16.2"
+ },
+ {
+  "accessed": "2023-02-19T12:00:00Z",
+  "architectures": [
+   "i386",
+   "x86_64"
+  ],
+  "bundle_id": "com.sparrowmailapp.sparrow",
+  "bytes": 118000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2023-02-19T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Sparrow",
+  "path": "/Applications/Sparrow.app",
+  "sized": true,
+  "updated": "2023-02-19T12:00:00Z",
+  "version": "1.7.2"
+ },
+ {
+  "accessed": "2024-11-30T12:00:00Z",
+  "architectures": [
+   "x86_64"
+  ],
+  "bundle_id": "org.example.torrent",
+  "bytes": 46000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2024-11-30T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Old Torrent Client",
+  "path": "/Applications/Old Torrent Client.app",
+  "sized": true,
+  "updated": "2024-11-30T12:00:00Z",
+  "version": "2.1"
+ },
+ {
+  "accessed": "2026-08-31T12:00:00Z",
+  "architectures": [
+   "arm64",
+   "x86_64"
+  ],
+  "bundle_id": "com.tinyspeck.slackmacgap",
+  "bytes": 412000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2026-08-31T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Slack",
+  "path": "/Applications/Slack.app",
+  "sized": true,
+  "updated": "2026-08-31T12:00:00Z",
+  "version": "4.41"
+ },
+ {
+  "accessed": "2026-08-29T12:00:00Z",
+  "architectures": [
+   "arm64",
+   "x86_64"
+  ],
+  "bundle_id": "com.figma.Desktop",
+  "bytes": 380000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2026-08-29T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Figma",
+  "path": "/Applications/Figma.app",
+  "sized": true,
+  "updated": "2026-08-29T12:00:00Z",
+  "version": "124.6"
+ },
+ {
+  "accessed": "2025-06-27T12:00:00Z",
+  "architectures": [
+   "x86_64"
+  ],
+  "bundle_id": "com.example.recorder",
+  "bytes": 92000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "2025-06-27T12:00:00Z",
+  "last_used_source": "spotlight",
+  "min_system": "12.0",
+  "name": "Screen Recorder",
+  "path": "/Applications/Screen Recorder.app",
+  "sized": true,
+  "updated": "2025-06-27T12:00:00Z",
+  "version": "3.0"
+ },
+ {
+  "accessed": "",
+  "architectures": [
+   "arm64"
+  ],
+  "bundle_id": "com.example.photoedit",
+  "bytes": 1240000000,
+  "files": 1200,
+  "installed": "2024-03-15T12:00:00Z",
+  "last_used": "",
+  "last_used_source": "",
+  "min_system": "12.0",
+  "name": "Photo Editor Trial",
+  "path": "/Applications/Photo Editor Trial.app",
+  "sized": true,
+  "updated": "2024-03-15T12:00:00Z",
+  "version": "1.0"
+ }
+]
