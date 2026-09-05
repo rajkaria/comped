@@ -245,3 +245,22 @@ class TestCronStep(unittest.TestCase):
                             "--now", "2027-03-01T00:00:00Z"])
         self.assertTrue(j["warning"])
         self.assertIn("clocks go forward", human)
+
+
+class TestFitsStep(unittest.TestCase):
+    def test_reports_a_range_and_a_method(self):
+        rc, human, j = run(["fits", "report", "--text", "hello world " * 500])
+        self.assertEqual(rc, 0)
+        self.assertLess(j["tokens_low"], j["tokens_high"])
+        self.assertTrue(j["fits"])
+        self.assertIn("chars/token", j["method"])
+        self.assertIn("tokens", human)
+
+    def test_a_text_larger_than_the_window_says_it_does_not_fit(self):
+        rc, human, j = run(["fits", "report", "--text", "word " * 2000, "--window", "100"])
+        self.assertFalse(j["fits"])
+        self.assertIn("does not fit", human)
+
+    def test_unknown_model_is_named_not_priced(self):
+        rc, human, j = run(["fits", "report", "--text", "hello", "--models", "not-a-model"])
+        self.assertIsNone(j["costs"][0]["resolved"])
