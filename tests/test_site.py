@@ -89,7 +89,7 @@ class Site(unittest.TestCase):
         text = (SITE / "index.html").read_text(encoding="utf-8")
         for word in ("JSONL", "dedup", "requestId", "harness", "argparse", "stdlib"):
             self.assertNotIn(word, text, "landing page says '{0}'".format(word))
-        self.assertIn("Get my comp score", text)
+        self.assertIn("Get my <span class=\"hide-xs\">comp </span>score", text)
 
     def test_every_page_is_canonical_on_the_one_configured_origin(self):
         # tools/build_site.py's SITE_URL is the single source of truth for where this site lives.
