@@ -22,6 +22,20 @@
     });
   });
 
+  // ---- "Get my comp score": scroll to the one line and put the Copy button in focus ----------
+  document.querySelectorAll('a[href="#get"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var target = document.getElementById("get");
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+      setTimeout(function () {
+        var b = target.querySelector("button.copy");
+        if (b) b.focus({ preventScroll: true });
+      }, calm ? 0 : 500);
+    });
+  });
+
   // ---- the plan ladder ---------------------------------------------------------------------
   // The point of the toy is the point of the tool: you pick nothing. One number in, every plan
   // priced at once, and the row that matches your subscription is yours to read.
@@ -65,7 +79,7 @@
     });
     if (spendOut) spendOut.textContent = money(listed);
     if (verdict) {
-      verdict.innerHTML = "On the row it would have assumed — <b>Claude Max 20×</b> — that's <b>" +
+      verdict.innerHTML = "On the safe assumption — <b>Claude Max 20×</b> — your score is <b>" +
         mult(assumed) + "</b>. " + quip(assumed);
     }
   }
@@ -123,7 +137,7 @@
 
   // Reveal-on-scroll for the section blocks. Applied from script, so a reader without JS gets
   // the whole page rather than a column of invisible divs.
-  var revealables = document.querySelectorAll(".stats li, .tile, .note, .promises li, ol.steps li, figure.card, .toy, .term");
+  var revealables = document.querySelectorAll(".stats li, .tile, .note, .promises li, ol.steps li, ol.howto li, .reassure div, .faq details, figure.card, .toy, .term");
   revealables.forEach(function (el) { el.classList.add("reveal"); });
   // The hidden-until-revealed state only exists while this class is on <html>, and it comes off
   // on a timer: a page whose content depends on an observer firing is a page that can go blank.

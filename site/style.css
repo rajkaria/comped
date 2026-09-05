@@ -126,11 +126,13 @@ h1 em {
 .cmd + .cmd { margin-top: 14px; }
 .cmd code { color: var(--fg); white-space: nowrap; }
 .cmd .dollar { color: var(--accent-dim); user-select: none; }
+/* The label sits inside the box: the box scrolls sideways for long commands, and a label hung
+   outside its edge would be the first thing that scrolling clips. */
+.cmd[data-label] { padding-top: 30px; }
 .cmd[data-label]::before {
   content: attr(data-label);
-  position: absolute; top: -9px; left: 14px;
-  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--muted); background: var(--bg); padding: 0 8px;
+  position: absolute; top: 9px; left: 16px;
+  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
 }
 button.copy {
   margin-left: auto; flex: none; background: transparent; color: var(--muted);
@@ -304,6 +306,58 @@ ol.ladder .pbar i {
 .verdict { margin: 24px 0 0; font-size: 18px; color: var(--muted); }
 .verdict b { color: var(--fg); }
 
+/* ---------- the consumer landing: hero button, three steps, faq ---------- */
+.hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin: 0 0 8px; }
+.btn-big {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--accent); color: var(--bg); font-weight: 750; font-size: 19px;
+  padding: 16px 26px; border-radius: 999px; letter-spacing: -0.01em;
+  box-shadow: 0 10px 30px rgba(92, 242, 160, .28);
+  transition: transform .18s var(--ease), box-shadow .18s var(--ease);
+}
+.btn-big span { font-weight: 500; transition: transform .18s var(--ease); }
+.btn-big:hover { text-decoration: none; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(92, 242, 160, .38); }
+.btn-big:hover span { transform: translateX(3px); }
+.cta-note { color: var(--muted); font-size: 14.5px; }
+
+.get { background: linear-gradient(180deg, rgba(92, 242, 160, .05), transparent 60%); }
+.get.final { text-align: left; }
+.cmd.big { padding: 18px 18px; font-size: 15.5px; border-color: #2c3a4a; }
+button.copy.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 650; padding: 8px 16px; }
+button.copy.primary:hover { background: #7ff5b3; }
+button.copy.primary.done { background: var(--fg); border-color: var(--fg); }
+
+ol.howto { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+ol.howto li { display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; min-width: 0; }
+ol.howto .step-body { min-width: 0; }
+.step-n {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--bg);
+  background: linear-gradient(140deg, var(--accent), var(--accent-2));
+}
+.step-body h3 { font-size: 22px; margin: 10px 0 10px; }
+.step-body p { color: var(--muted); margin: 0; max-width: 66ch; }
+.step-body p b { color: var(--fg); }
+kbd {
+  font-family: var(--mono); font-size: 12.5px; color: var(--fg); background: var(--panel-2);
+  border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px;
+}
+.reassure { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); margin-top: 40px; }
+.reassure div { border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; color: var(--muted); font-size: 15px; background: rgba(18, 24, 33, .6); }
+.reassure b { color: var(--fg); display: block; margin-bottom: 4px; }
+
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.tile .ico { font-size: 26px; margin-bottom: 10px; line-height: 1; }
+.tile p b { color: var(--fg); }
+
+.faq { display: grid; gap: 10px; max-width: 800px; }
+.faq details { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 0 20px; }
+.faq summary { cursor: pointer; padding: 16px 0; font-weight: 650; font-size: 17px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-family: var(--mono); font-size: 20px; flex: none; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin: 0 0 18px; color: var(--muted); }
+
 /* ---------- privacy ---------- */
 .promises { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
 .promises li {
@@ -365,6 +419,9 @@ footer .row .sp { margin-left: auto; }
   ol.ladder li { grid-template-columns: 1fr 64px; gap: 6px 12px; }
   ol.ladder .pbar { grid-column: 1 / -1; }
   ol.ladder .pc { display: none; }
+  ol.howto li { grid-template-columns: 40px 1fr; gap: 12px; }
+  .step-n { width: 40px; height: 40px; font-size: 16px; border-radius: 12px; }
+  .btn-big { font-size: 17px; padding: 14px 20px; }
 }
 
 /* Motion is decoration here; anyone who asked for less gets the page without any of it. */

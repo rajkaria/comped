@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>comped — docs</title>
-<meta name="description" content="How to run the comped Plays, every parameter, exactly what they read from your logs, and the arithmetic behind every number on the card.">
+<meta name="description" content="How to get your comp score in one line, how to read the card, what it works out for you, and what to do when a number looks wrong.">
 <link rel="canonical" href="https://gotcomped.com/docs.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="comped">
 <meta property="og:url" content="https://gotcomped.com/docs.html">
 <meta property="og:title" content="comped — docs">
-<meta property="og:description" content="How to run the comped Plays, every parameter, exactly what they read from your logs, and the arithmetic behind every number on the card.">
+<meta property="og:description" content="How to get your comp score in one line, how to read the card, what it works out for you, and what to do when a number looks wrong.">
 <meta property="og:image" content="https://gotcomped.com/card-wide.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="comped — docs">
-<meta name="twitter:description" content="How to run the comped Plays, every parameter, exactly what they read from your logs, and the arithmetic behind every number on the card.">
+<meta name="twitter:description" content="How to get your comp score in one line, how to read the card, what it works out for you, and what to do when a number looks wrong.">
 <meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
 <link rel="stylesheet" href="style.css">
@@ -28,10 +28,10 @@
     <a class="brand" href="./">comped<span>.</span></a>
     <div class="links">
       <a href="./">Home</a>
-      <a href="#install">Install</a>
-      <a href="#plays" class="hide-sm">Plays</a>
-      <a href="#tracking" class="hide-sm">What it tracks</a>
+      <a href="docs.html" class="on">Docs</a>
+      <a href="developers.html">Developers</a>
       <a href="https://github.com/rajkaria/comped">GitHub</a>
+      <a class="cta" href="./#get">Get my comp score</a>
     </div>
   </div>
 </nav>
@@ -41,106 +41,70 @@
 
 <aside class="toc">
   <strong>Getting started</strong>
-  <a href="#install">Install</a>
-  <a href="#quickstart">Quick start</a>
-  <a href="#reading">Reading the card</a>
-  <a href="#detection">What you're running</a>
-  <strong>The Plays</strong>
-  <a href="#play-comped">comped</a>
-  <a href="#play-session-ledger">session-ledger</a>
-  <a href="#play-wrong-turns">wrong-turns</a>
-  <strong>Under it</strong>
-  <a href="#tracking">What it tracks</a>
-  <a href="#math">The arithmetic</a>
-  <a href="#prices">Prices and plans</a>
+  <a href="#install">One line</a>
+  <a href="#quickstart">Try it on sample data</a>
+  <a href="#reading">Reading your card</a>
+  <a href="#detection">What it works out</a>
+  <strong>Going further</strong>
+  <a href="#options">Options</a>
+  <a href="#outputs">What it writes</a>
+  <a href="#trouble">When it looks wrong</a>
   <a href="#privacy">Privacy</a>
-  <strong>Reference</strong>
-  <a href="#cli">Without rote</a>
-  <a href="#trouble">Troubleshooting</a>
+  <strong>More</strong>
+  <a href="developers.html">Developers →</a>
 </aside>
 
 <main class="doc">
 
-<h2 id="install">Install</h2>
-<p>You need two things: <strong>rote</strong>, and a <strong>python3</strong> of at least 3.9. Nothing else — no pip install, no node, no lockfile.</p>
-<pre><code>curl -fsSL https://getrote.dev/install | sh</code></pre>
-<p>Then sign in when it asks. That's it; the Plays pull themselves on first run.</p>
-<div class="callout"><p>Already have rote? Check you're on 0.78 or newer with <code>rote --version</code>. The Plays declare their tool requirements in <code>deps.toml</code>, and <code>rote play inspect &lt;uri&gt;</code> will tell you before you run anything whether this machine satisfies them.</p></div>
+<h2 id="install">One line</h2>
+<p>You need a Mac or Linux machine, a terminal, and <strong>python3</strong> (3.9 or newer, which every Mac has). Copy this, paste it into Terminal, press Enter:</p>
+<pre><code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></pre>
+<p>It fetches <strong>rote</strong> — the free runner from <a href="https://www.modiqo.ai">Modiqo</a> that comped is written for — only if you don't already have it, asks you to sign in to the registry, shows you exactly what the comped Play reads and writes, and waits for your <em>yes</em>. Then it runs. About a minute the first time; ten seconds after that.</p>
+<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/rajkaria/comped</code>. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
 
-<h2 id="quickstart">Quick start</h2>
-<p>Run it against the synthetic logs bundled inside the Play first. They are real logs in structure and completely fabricated in content, so you can watch the whole thing work without pointing it at anything of yours:</p>
+<h2 id="quickstart">Try it on sample data first</h2>
+<p>If you'd rather see it work before pointing it at your own logs, the Play ships with sample logs: real in shape, made-up in content.</p>
 <pre><code>rote play run https://play.modiqo.ai/rajkaria/comped \
   claude_dir=resources/fixtures/claude \
   codex_dir=resources/fixtures/codex \
   out_dir=comped-demo</code></pre>
-<p>Eight steps, about two seconds, and a card. Then the real thing:</p>
+<p>Eight steps, about two seconds, and a card with tiny numbers. Then the real thing:</p>
 <pre><code>rote play run https://play.modiqo.ai/rajkaria/comped</code></pre>
-<p>Ten seconds or so on a month of heavy use. Everything lands in <code>~/comped/</code>. Run it again tomorrow and the card grows a line telling you what moved.</p>
+<p>Everything lands in <code>~/comped/</code>. Run it again tomorrow and the card grows a line telling you what moved.</p>
 
-<h2 id="reading">Reading the card</h2>
-<p>Top to bottom, the card says:</p>
+<h2 id="reading">Reading your card</h2>
+<p>Top to bottom:</p>
 <ul>
-<li><strong>The total.</strong> What the window's tokens would have cost at API list prices. Not a bill — you're on a subscription and you paid what you paid.</li>
-<li><strong>The multiplier.</strong> That total divided by your plan, prorated across the window by days ÷ 30.4375. You do not type the plan: see <a href="#detection">what you're running</a>.</li>
-<li><strong>Spend per model,</strong> largest first, with a bar. If one model is quietly eating your month, this is where you see it.</li>
-<li><strong>Cache-read share.</strong> The fraction of your input tokens served from cache. High is good and normal — most agent traffic is re-reading the same context. A number near zero means something at the front of your prompt keeps changing and the whole prefix is being re-billed.</li>
-<li><strong>Active days and sessions,</strong> so a big total can be read as either heavy use or a heavy week.</li>
-<li><strong>The delta,</strong> once there's a previous run to compare against.</li>
-<li><strong>Repeat offenders.</strong> Jobs you've asked for repeatedly, with what the repeats cost, and the command to turn the top one into a Play so you stop paying for it.</li>
-<li><strong>The Rote dividend.</strong> What those repeats would have cost as a Play instead, at Modiqo's stated 98% reduction and at a more conservative 80%.</li>
-<li><strong>Detected.</strong> Which providers your window actually used — Claude, GPT/Codex, Kimi, GLM and the rest — with their share and the harnesses they came through. None of it typed.</li>
-<li><strong>If you're on…</strong> every subscription those providers sell, priced against this window at once, with the assumed row marked. Your tier is the one thing your logs do not record, so the card shows all of them rather than asking.</li>
+<li><strong>The big number.</strong> What the last 30 days would have cost at the provider's public API prices. <em>Not a bill</em> — you're on a subscription and you paid what you paid.</li>
+<li><strong>Your comp score.</strong> That number divided by what your plan costs for the same window. <strong>13×</strong> means your subscription paid for itself thirteen times over.</li>
+<li><strong>Which AI cost what,</strong> largest first, with a bar.</li>
+<li><strong>Cache-read share.</strong> How much of what the AI read came from cache. High is normal and good.</li>
+<li><strong>Active days and sessions,</strong> so a big number reads as either heavy use or a heavy week.</li>
+<li><strong>Since last time,</strong> once there is a last time.</li>
+<li><strong>Detected.</strong> Which AI you use and through which tools. None of it typed by you.</li>
+<li><strong>If you're on…</strong> every plan your provider sells, scored at once, with the one it assumed marked. Find your row.</li>
+<li><strong>Repeat offenders.</strong> Things you've asked your agent to do three or more times on different days, with what the repeats cost.</li>
 </ul>
 
-<h2 id="detection">What you're running, worked out for you</h2>
-<p>Asking you which AI you use makes no sense: your logs already say. Every usage record carries the model id the harness sent, and that id names the provider behind it. So <code>plan</code> defaults to <code>auto</code> and the run works the rest out itself.</p>
-<ol class="steps">
-<li><b>The harnesses.</b> <strong>Claude Code</strong>, <strong>Codex CLI</strong>, <strong>Pi</strong>, <strong>OpenCode</strong>. A directory that isn't there is a shrug, and the card names the ones it didn't find so you know what wasn't counted.</li>
-<li><b>The provider.</b> Read off the model id, after gateway and region prefixes are stripped — <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Point Claude Code at Moonshot or Z.ai and the ids give that away too, which is the whole point.</li>
-<li><b>The tier — the one thing no log records.</b> A Pro session and a Max session are the same bytes. So instead of asking, every subscription the detected providers sell is priced against your window at once and you read your own row. The one the card assumes is deliberately the least flattering: the most expensive plan that fits, which is the smallest multiplier you could honestly claim.</li>
-<li><b>Anything else.</b> A provider with no subscription in the table (Kimi, GLM, DeepSeek and friends) is named, its spend stays in the total, and the card says plainly that nothing in the plan cost covers it. If you pay for one, <code>plan=usd:29</code> prices it without the table having to know.</li>
-</ol>
-<p>Overriding is still one word — <code>plan=claude-pro-20</code>, or several separated by commas — and it wins over the inference.</p>
-<table><thead><tr><th>Provider</th><th>What you call it</th><th>Model ids that name it</th><th>Subscriptions priced</th></tr></thead><tbody>
-<tr><td>Anthropic</td><td>Claude</td><td><code>claude, anthropic…</code></td><td><code>claude-pro-20</code>, <code>claude-max-100</code>, <code>claude-max-200</code></td></tr>
-<tr><td>OpenAI</td><td>GPT / Codex</td><td><code>gpt, o1, o3, o4, o5, codex, chatgpt, davinci…</code></td><td><code>chatgpt-plus-20</code>, <code>chatgpt-pro-200</code></td></tr>
-<tr><td>Moonshot</td><td>Kimi</td><td><code>kimi, moonshot…</code></td><td>—</td></tr>
-<tr><td>Z.ai</td><td>GLM</td><td><code>glm, zai, zhipu, chatglm…</code></td><td>—</td></tr>
-<tr><td>DeepSeek</td><td>DeepSeek</td><td><code>deepseek…</code></td><td>—</td></tr>
-<tr><td>Google</td><td>Gemini</td><td><code>gemini, gemma, palm, bison…</code></td><td>—</td></tr>
-<tr><td>xAI</td><td>Grok</td><td><code>grok…</code></td><td>—</td></tr>
-<tr><td>Alibaba</td><td>Qwen</td><td><code>qwen, qwq…</code></td><td>—</td></tr>
-<tr><td>MiniMax</td><td>MiniMax</td><td><code>minimax…</code></td><td>—</td></tr>
-<tr><td>Mistral</td><td>Mistral</td><td><code>mistral, codestral, devstral, magistral, ministral, pixtral…</code></td><td>—</td></tr>
-<tr><td>Meta</td><td>Llama</td><td><code>llama, meta-llama…</code></td><td>—</td></tr>
-<tr><td>Amazon</td><td>Nova</td><td><code>nova-, titan…</code></td><td>—</td></tr>
-<tr><td>Cohere</td><td>Command</td><td><code>command…</code></td><td>—</td></tr>
-</tbody></table>
-<div class="callout"><p>Detection reads nothing new. It looks at records the ledger already parsed, and at which of the four log directories existed. A model id nobody recognises is reported by name as unknown rather than assigned to a provider by guess.</p></div>
+<h2 id="detection">What it works out for you</h2>
+<p>You type nothing. Every request your AI tools log carries the name of the model that answered it, and that name says who made it. From that, comped knows whether you're on Claude, ChatGPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen, MiniMax or Mistral, and which tools you read it through.</p>
+<p>The one thing your logs don't record is which <em>tier</em> you pay for — a Pro session and a Max session look identical. So rather than ask, or peek at your account (it never will), the card prices every plan your provider sells and marks the most expensive one that fits as the safe assumption. Your real score is at least that. If you want the exact row on the headline, say so once:</p>
+<pre><code>rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-pro-20</code></pre>
+<p>Paying for something the table doesn't list — a Kimi or GLM coding plan, a team seat? <code>plan=usd:29</code> prices it.</p>
 
-<h2 id="plays">The three Plays</h2>
-
-<h3 id="play-comped">comped</h3>
-<p>The card: what your window cost at list price, the multiplier against your plan, and the asks you keep repeating.</p>
-<pre><code>rote play run https://play.modiqo.ai/rajkaria/comped</code></pre>
-<p><strong>Steps.</strong> read_claude, read_codex, read_pi, read_opencode (in parallel) → merge_ledger → price_ledger → find_repeats → render_card</p>
-<p><strong>Parameters.</strong> Every one has a default, so the bare command above works. Pass them as <code>name=value</code> after the URI.</p>
-<table><thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>What it does</th></tr></thead><tbody>
-<tr><td><code>days_back</code></td><td>integer</td><td><code>30</code></td><td>Filter on each record's own timestamp.</td></tr>
-<tr><td><code>out_dir</code></td><td>string</td><td><code>~/comped</code></td><td>Created if missing. Everything this Play writes goes here and nowhere else.</td></tr>
-<tr><td><code>claude_dir</code></td><td>string</td><td><code>~/.claude/projects</code></td><td>Set to resources/fixtures/claude for a demo run on synthetic logs.</td></tr>
-<tr><td><code>codex_dir</code></td><td>string</td><td><code>~/.codex/sessions</code></td><td>Set to resources/fixtures/codex for a demo run on synthetic logs.</td></tr>
-<tr><td><code>pi_dir</code></td><td>string</td><td><code>~/.pi/agent/sessions</code></td><td>Best-effort adapter; the source note says so.</td></tr>
-<tr><td><code>opencode_dir</code></td><td>string</td><td><code>~/.local/share/opencode/storage</code></td><td>Best-effort adapter; the source note says so.</td></tr>
-<tr><td><code>include_subagents</code></td><td>string</td><td><code>true</code></td><td>Claude Code subagent transcripts. true or false.</td></tr>
-<tr><td><code>redact</code></td><td>string</td><td><code>true</code></td><td>true stores a 120-character truncation plus sha256; false keeps full text locally, never in a card.</td></tr>
-<tr><td><code>plan</code></td><td>string</td><td><code>auto</code></td><td>Leave it. auto reads the model ids already in your logs, names the providers behind them (Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen and the rest) and prices every tier those providers sell, marking the least flattering one as assumed -- you read your own row instead of typing it. Override with a comma-separated list of ids, or usd:&lt;amount&gt; for a subscription this table does not carry. This Play never opens your OAuth files to find out.</td></tr>
-<tr><td><code>repeat_threshold</code></td><td>integer</td><td><code>3</code></td><td>Minimum asks for a repeat offender; also needs 2 sessions and 2 days.</td></tr>
-<tr><td><code>rates_path</code></td><td>string</td><td><code>(empty)</code></td><td>Path to a prices.json that replaces the bundled table.</td></tr>
-<tr><td><code>handle</code></td><td>string</td><td><code>(empty)</code></td><td>Your rote handle, used only to print the /play settle command.</td></tr>
-<tr><td><code>card_theme</code></td><td>string</td><td><code>dark</code></td><td>dark or light.</td></tr>
+<h2 id="options">Options you might change</h2>
+<p>Add any of these after the command as <code>name=value</code>. Everything has a sensible default.</p>
+<table><thead><tr><th>Option</th><th>Default</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>days_back</code></td><td><code>30</code></td><td>Filter on each record's own timestamp.</td></tr>
+<tr><td><code>out_dir</code></td><td><code>~/comped</code></td><td>Created if missing. Everything this Play writes goes here and nowhere else.</td></tr>
+<tr><td><code>plan</code></td><td><code>auto</code></td><td>Leave it. auto reads the model ids already in your logs, names the providers behind them (Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen and the rest) and prices every tier those providers sell, marking the least flattering one as assumed -- you read your own row instead of typing it. Override with a comma-separated list of ids, or usd:&lt;amount&gt; for a subscription this table does not carry. This Play never opens your OAuth files to find out.</td></tr>
+<tr><td><code>repeat_threshold</code></td><td><code>3</code></td><td>Minimum asks for a repeat offender; also needs 2 sessions and 2 days.</td></tr>
+<tr><td><code>card_theme</code></td><td><code>dark</code></td><td>dark or light.</td></tr>
 </tbody></table>
-<p><strong>What it writes,</strong> all of it under <code>out_dir</code> and nowhere else:</p>
+<p>The full parameter list, including where each tool's logs are read from, is on the <a href="developers.html#play-comped">developers page</a>.</p>
+
+<h2 id="outputs">What it writes</h2>
+<p>All of it under <code>~/comped/</code> (or the <code>out_dir</code> you chose), and nowhere else. The card lists every path it wrote.</p>
 <table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
 <tr><td><code>comped-report.md</code></td><td>The whole run in Markdown: card, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written.</td></tr>
 <tr><td><code>comped-card.svg</code></td><td>The shareable card, 1200×675.</td></tr>
@@ -153,190 +117,29 @@
 <tr><td><code>ledger-summary.json</code></td><td>Counts per source, including what could not be read and why.</td></tr>
 </tbody></table>
 
-
-<h3 id="play-session-ledger">session-ledger</h3>
-<p>The deduplicated ledger everything else is built on. Nothing priced, nothing judged.</p>
-<pre><code>rote play run https://play.modiqo.ai/rajkaria/session-ledger</code></pre>
-<p><strong>Steps.</strong> read_claude, read_codex, read_pi, read_opencode (in parallel) → merge_ledger → summarize</p>
-<p><strong>Parameters.</strong> Every one has a default, so the bare command above works. Pass them as <code>name=value</code> after the URI.</p>
-<table><thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>What it does</th></tr></thead><tbody>
-<tr><td><code>days_back</code></td><td>integer</td><td><code>30</code></td><td>Filter on each record's own timestamp.</td></tr>
-<tr><td><code>out_dir</code></td><td>string</td><td><code>~/comped</code></td><td>Created if missing. Everything this Play writes goes here and nowhere else.</td></tr>
-<tr><td><code>claude_dir</code></td><td>string</td><td><code>~/.claude/projects</code></td><td>Set to resources/fixtures/claude for a demo run on synthetic logs.</td></tr>
-<tr><td><code>codex_dir</code></td><td>string</td><td><code>~/.codex/sessions</code></td><td>Set to resources/fixtures/codex for a demo run on synthetic logs.</td></tr>
-<tr><td><code>pi_dir</code></td><td>string</td><td><code>~/.pi/agent/sessions</code></td><td>Best-effort adapter; the source note says so.</td></tr>
-<tr><td><code>opencode_dir</code></td><td>string</td><td><code>~/.local/share/opencode/storage</code></td><td>Best-effort adapter; the source note says so.</td></tr>
-<tr><td><code>include_subagents</code></td><td>string</td><td><code>true</code></td><td>Claude Code subagent transcripts. true or false.</td></tr>
-<tr><td><code>redact</code></td><td>string</td><td><code>true</code></td><td>true stores a 120-character truncation plus sha256; false keeps full text locally, never in a card.</td></tr>
-</tbody></table>
-<p><strong>What it writes,</strong> all of it under <code>out_dir</code> and nowhere else:</p>
-<table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
-<tr><td><code>ledger-&lt;harness&gt;.jsonl</code></td><td>One partial ledger per harness read — the reads run in parallel and each writes its own.</td></tr>
-<tr><td><code>ledger.jsonl</code></td><td>The merged, deduplicated, turn-attributed ledger.</td></tr>
-<tr><td><code>ledger-summary.json</code></td><td>Record, message and tool counts, sessions, subagent records, and a per-source report.</td></tr>
-</tbody></table>
-
-
-<h3 id="play-wrong-turns">wrong-turns</h3>
-<p>Recurring mistakes, what recovering from them cost, and a drafted rule for each.</p>
-<pre><code>rote play run https://play.modiqo.ai/rajkaria/wrong-turns</code></pre>
-<p><strong>Steps.</strong> read_claude, read_codex (in parallel) → merge_ledger → classify_turns → draft_rules</p>
-<p><strong>Parameters.</strong> Every one has a default, so the bare command above works. Pass them as <code>name=value</code> after the URI.</p>
-<table><thead><tr><th>Parameter</th><th>Type</th><th>Default</th><th>What it does</th></tr></thead><tbody>
-<tr><td><code>days_back</code></td><td>integer</td><td><code>14</code></td><td>Filter on each record's own timestamp.</td></tr>
-<tr><td><code>out_dir</code></td><td>string</td><td><code>~/comped</code></td><td>Created if missing. Everything this Play writes goes here and nowhere else.</td></tr>
-<tr><td><code>claude_dir</code></td><td>string</td><td><code>~/.claude/projects</code></td><td>Set to resources/fixtures/claude for a demo run on synthetic logs.</td></tr>
-<tr><td><code>codex_dir</code></td><td>string</td><td><code>~/.codex/sessions</code></td><td>Set to resources/fixtures/codex for a demo run on synthetic logs.</td></tr>
-<tr><td><code>include_subagents</code></td><td>string</td><td><code>true</code></td><td>Claude Code subagent transcripts. true or false.</td></tr>
-<tr><td><code>min_recurrence</code></td><td>integer</td><td><code>3</code></td><td>How many times a mistake class must recur before it is reported; it also needs 2 sessions.</td></tr>
-<tr><td><code>show_snippets</code></td><td>string</td><td><code>true</code></td><td>true shows one redacted evidence line per class; false replaces it with (snippets hidden).</td></tr>
-<tr><td><code>rules_target</code></td><td>string</td><td><code>both</code></td><td>claude, agents or both. Drafts only; nothing is ever written to your rules files.</td></tr>
-</tbody></table>
-<p><strong>What it writes,</strong> all of it under <code>out_dir</code> and nowhere else:</p>
-<table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
-<tr><td><code>wrong-turns-report.md</code></td><td>A table of recurring mistake classes: kind, confidence, tool, signature, count, sessions, recovery cost, evidence.</td></tr>
-<tr><td><code>wrong-turns-rules.md</code></td><td>The drafted rules, one block per class, ready to paste into CLAUDE.md or AGENTS.md. Nothing is applied for you.</td></tr>
-<tr><td><code>ledger.jsonl</code></td><td>The ledger it classified.</td></tr>
-</tbody></table>
-
-
-<h2 id="tracking">What it tracks, field by field</h2>
-<p>Three record types come out of your logs. This is all of them — the table below is generated from the code that defines them, so it cannot drift.</p>
-
-<h3>Usage records — one per API call</h3>
-<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>harness</code></td><td>Which tool wrote the line: claude-code, codex, pi, opencode.</td></tr>
-<tr><td><code>session_id</code></td><td>The harness's own session identifier.</td></tr>
-<tr><td><code>record_id</code></td><td>The dedup key. For Claude Code that is (message.id, requestId) — the pair that collapses streaming duplicates.</td></tr>
-<tr><td><code>timestamp</code></td><td>The record's own timestamp, in UTC. Windowing uses this, never the file's mtime.</td></tr>
-<tr><td><code>model</code></td><td>As written by the harness, before alias resolution.</td></tr>
-<tr><td><code>input_tokens</code></td><td>Uncached input tokens.</td></tr>
-<tr><td><code>cache_write_tokens</code></td><td>Tokens written to the prompt cache, billed at a premium.</td></tr>
-<tr><td><code>cache_read_tokens</code></td><td>Tokens served from cache, billed at a discount. Usually most of your traffic.</td></tr>
-<tr><td><code>output_tokens</code></td><td>Generated tokens.</td></tr>
-<tr><td><code>reasoning_tokens</code></td><td>Thinking tokens, reported separately and billed as output.</td></tr>
-<tr><td><code>project</code></td><td>The working directory the session ran in.</td></tr>
-<tr><td><code>is_subagent</code></td><td>True for subagent and sidechain traffic, which is easy to forget and expensive to ignore.</td></tr>
-<tr><td><code>turn_id</code></td><td>The message that started this turn — how cost gets attributed to what you asked.</td></tr>
-</tbody></table>
-
-<h3>Human messages — one per message in the user role</h3>
-<p>These exist for one reason: to attribute cost to <em>what you asked</em>. Without them a month of agent work is an undifferentiated wall of API calls.</p>
-<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>harness</code></td><td>Which tool the message came from.</td></tr>
-<tr><td><code>session_id</code></td><td>The session it belongs to.</td></tr>
-<tr><td><code>message_id</code></td><td>Stable id, used as the turn id.</td></tr>
-<tr><td><code>timestamp</code></td><td>UTC.</td></tr>
-<tr><td><code>text</code></td><td>Truncated to 120 characters by default. Set redact=false and full text stays local.</td></tr>
-<tr><td><code>text_sha256</code></td><td>Hash of the normalised text, so identical asks can be matched without keeping them.</td></tr>
-<tr><td><code>project</code></td><td>Working directory.</td></tr>
-<tr><td><code>origin</code></td><td>human, unknown or automated. Harness-generated messages arrive in the user role and are labelled, not counted as yours.</td></tr>
-</tbody></table>
-
-<h3>Tool events — one per tool call</h3>
-<table><thead><tr><th>Field</th><th>Meaning</th></tr></thead><tbody>
-<tr><td><code>harness</code></td><td>Which tool.</td></tr>
-<tr><td><code>session_id</code></td><td>Session.</td></tr>
-<tr><td><code>event_id</code></td><td>Stable id.</td></tr>
-<tr><td><code>timestamp</code></td><td>UTC.</td></tr>
-<tr><td><code>tool_name</code></td><td>Bash, Edit, exec_command, and so on — resolved from the call that named it.</td></tr>
-<tr><td><code>input_summary</code></td><td>One short line: the command, path or query. Never the full input.</td></tr>
-<tr><td><code>is_error</code></td><td>Whether the call came back as an error.</td></tr>
-<tr><td><code>error_text</code></td><td>Up to 300 characters of the error, for errors only.</td></tr>
-<tr><td><code>turn_id</code></td><td>The turn this happened in.</td></tr>
-</tbody></table>
-
-<div class="callout"><p><strong>What is never collected:</strong> file contents, tool outputs beyond a 300-character error snippet, prompt text beyond the 120-character truncation, and anything at all from a credential, keychain or token file. There is no identifier for you, no machine id and no run id that leaves your disk, because nothing leaves your disk.</p></div>
-
-<h2 id="math">The arithmetic</h2>
-
-<h3>Pricing</h3>
-<p>Per record, in exact decimal arithmetic — never floating point, which is how cent-level errors get into totals:</p>
-<pre><code>usd = uncached_input × in_rate
-    + cache_write     × cache_write_rate
-    + cache_read      × cache_read_rate
-    + output          × out_rate</code></pre>
-<p>Reasoning tokens are already counted inside output, because that is how they are billed. Rounding happens once, at display time.</p>
-
-<h3>Deduplication</h3>
-<p>Claude Code writes a line per content block, so the same API call appears several times with the same <code>message.id</code> and <code>requestId</code>. On real logs <strong>about four in ten usage lines are duplicates</strong>. They are collapsed on that pair, and the count of what was dropped appears in the source report. Codex has the opposite shape: its counters are cumulative totals, so each record is the difference from the previous snapshot, and a counter that goes backwards starts a new baseline rather than producing a negative.</p>
-
-<h3>Windows and the multiplier</h3>
-<p>A record is in the window if <em>its own timestamp</em> is, never the file's modification time. Plan cost is prorated by <code>days_back ÷ 30.4375</code> — the mean month — so a 14-day window is compared against 14 days of subscription, not a whole month of it.</p>
-
-<h3>Repeat offenders</h3>
-<p>Messages are normalised (lowercased, paths, URLs, numbers and hashes replaced by placeholders, stop-words dropped), turned into 2-word shingles, and clustered when their Jaccard similarity is <strong>0.5 or higher</strong>. A cluster qualifies when it has at least <code>repeat_threshold</code> asks across <strong>two or more sessions on two or more days</strong> — one frustrated afternoon of retries is not a repeated job. Its repeat cost is the cluster's total minus its cheapest single solve: what you paid to ask again.</p>
-<p>Harness-generated text is kept out: session-continuation preambles, injected reminders, observer prompts and anything in the automated origin class. They stay in the ledger, because they cost real money, but they are not things you asked for.</p>
-
-<h3>Wrong turns</h3>
-<p>Three signals, with honest confidence labels. <strong>Tool errors</strong> (high confidence): the call returned an error, and the error's first line is stripped of paths and numbers to make a signature that clusters across sessions. <strong>Corrections</strong> (medium): your next message matched a correction phrase — "no,", "revert", "that's not", "undo". <strong>Reverts</strong> (high): a destructive git command ran. A class is reported when it recurs at least <code>min_recurrence</code> times across two or more sessions. Recovery cost is the signalling turn plus the next one — what it took to get back on track.</p>
-
-<h2 id="prices">Prices and plans</h2>
-<p>The price table is a snapshot, bundled with the Play, that carries its own provenance: the source URL, the upstream file's sha256, and the date it was taken. It is never fetched at runtime.</p>
-<table><tbody>
-<tr><th>Source</th><td><code>https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json</code></td></tr>
-<tr><th>As of</th><td>2026-09-04</td></tr>
-<tr><th>Models</th><td>78</td></tr>
-</tbody></table>
-<p><code>MiniMax-M2</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M3</code>, <code>claude-fable-5</code>, <code>claude-fable-5-1</code>, <code>claude-haiku-4-5</code>, <code>claude-opus-4-1</code>, <code>claude-opus-4-5</code>, <code>claude-opus-4-6</code>, <code>claude-opus-4-7</code>, <code>claude-opus-4-8</code>, <code>claude-opus-5</code>, <code>claude-sonnet-4-5</code>, <code>claude-sonnet-4-6</code>, <code>claude-sonnet-5</code>, <code>codestral-latest</code>, <code>codex-mini-latest</code>, <code>deepseek-chat</code>, <code>deepseek-reasoner</code>, <code>deepseek-v3.2</code>, <code>deepseek-v4-flash</code>, <code>deepseek-v4-pro</code>, <code>devstral-medium-latest</code>, <code>gemini-2.5-flash</code>, <code>gemini-2.5-pro</code>, <code>gemini-3-flash-preview</code>, <code>gemini-3-pro-preview</code>, <code>glm-4.5</code>, <code>glm-4.5-air</code>, <code>glm-4.6</code>, <code>glm-4.7</code>, <code>glm-4.7-flash</code>, <code>glm-5</code>, <code>glm-5-code</code>, <code>glm-5.1</code>, <code>glm-5.2</code>, <code>glm-5.3</code>, <code>glm-5.3-flash</code>, <code>gpt-5</code>, <code>gpt-5-codex</code>, <code>gpt-5-mini</code>, <code>gpt-5-nano</code>, <code>gpt-5.1</code>, <code>gpt-5.1-codex</code>, <code>gpt-5.1-codex-max</code>, <code>gpt-5.1-codex-mini</code>, <code>gpt-5.2</code>, <code>gpt-5.2-codex</code>, <code>gpt-5.2-pro</code>, <code>gpt-5.3-codex</code>, <code>gpt-5.4</code>, <code>gpt-5.4-mini</code>, <code>gpt-5.4-nano</code>, <code>gpt-5.4-pro</code>, <code>gpt-5.5</code>, <code>gpt-5.5-pro</code>, <code>gpt-5.6</code>, <code>grok-4</code>, <code>grok-4.3</code>, <code>grok-4.6</code>, <code>grok-code-fast-1</code>, <code>kimi-k2-0905-preview</code>, <code>kimi-k2-thinking</code>, <code>kimi-k2-thinking-turbo</code>, <code>kimi-k2-turbo-preview</code>, <code>kimi-k2.5</code>, <code>kimi-k2.6</code>, <code>kimi-k2.7-code</code>, <code>kimi-k3</code>, <code>kimi-latest</code>, <code>mistral-large-latest</code>, <code>o3</code>, <code>o4-mini</code>, <code>qwen-max</code>, <code>qwen-plus</code>, <code>qwen3-coder</code>, <code>qwen3-coder-plus</code></p>
-<p>A model that is not in this list is reported under "unpriced" with its token counts, and no dollar figure is invented for it.</p>
-<h3>Plans</h3>
-<p>Public list prices as of 2026-09-03. You normally pass none of these: <code>plan=auto</code> prices every row a detected provider sells and marks the one it assumed. Pass one id, or several separated by commas, to override — or <code>usd:&lt;amount&gt;</code> for a subscription this table does not carry.</p>
-<table><thead><tr><th>Plan id</th><th>Label</th><th>Monthly</th></tr></thead><tbody>
-<tr><td><code>auto</code></td><td>Detected from your logs</td><td>—</td></tr>
-<tr><td><code>claude-pro-20</code></td><td>Claude Pro</td><td>$20</td></tr>
-<tr><td><code>claude-max-100</code></td><td>Claude Max 5x</td><td>$100</td></tr>
-<tr><td><code>claude-max-200</code></td><td>Claude Max 20x</td><td>$200</td></tr>
-<tr><td><code>chatgpt-plus-20</code></td><td>ChatGPT Plus</td><td>$20</td></tr>
-<tr><td><code>chatgpt-pro-200</code></td><td>ChatGPT Pro</td><td>$200</td></tr>
-<tr><td><code>api</code></td><td>API pay-as-you-go</td><td>—</td></tr>
-<tr><td><code>unknown</code></td><td>Unknown plan</td><td>—</td></tr>
-</tbody></table>
-<div class="callout warn"><p>Your tier is inferred from the model ids in your own logs, never from your account. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
-
-<h2 id="privacy">Privacy, and how to check it</h2>
-<p>The claims are on the <a href="./#privacy">front page</a>. Here is how you verify them rather than believing them:</p>
-<ul>
-<li><strong>No network.</strong> <code>python3 -m unittest tests.test_no_network</code> fails if the core imports <code>urllib</code>, <code>http</code>, <code>socket</code>, <code>requests</code> or <code>ssl</code>, if anything but the PNG renderer mentions <code>subprocess</code>, or if any source line references a credential path.</li>
-<li><strong>No surprises in what it writes.</strong> Every run lists every path it wrote, in the report and in its JSON output.</li>
-<li><strong>Determinism.</strong> Pin <code>--now</code> and two runs produce byte-identical output. The suite proves it with the PATH emptied, which also proves the pipeline needs no external binary.</li>
-<li><strong>Read the code.</strong> It is a few thousand lines of standard-library Python with no dependencies. <a href="https://github.com/rajkaria/comped">github.com/rajkaria/comped</a>.</li>
-</ul>
-
-<h2 id="cli">Running it without rote</h2>
-<p>The Plays are a thin wrapper around a Python package with no dependencies. If you would rather run it directly, clone the repo and use the module. Every subcommand prints one JSON object as its last line; a missing log directory is a warning and exit 0, bad arguments exit 2, and nothing ever prints a traceback.</p>
-<pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
-python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
-python3 -m comped_core price   --out-dir ~/comped            # --plan auto by default
-python3 -m comped_core repeats --out-dir ~/comped --repeat-threshold 3
-python3 -m comped_core card    --out-dir ~/comped</code></pre>
-<p>The full set:</p>
-<table><thead><tr><th>Subcommand</th><th>Options</th></tr></thead><tbody>
-<tr><td><code>ledger</code></td><td><code>--out-dir ~/comped --claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage --days-back 30 --include-subagents true --redact true --now --only</code></td></tr>
-<tr><td><code>merge</code></td><td><code>--out-dir ~/comped</code></td></tr>
-<tr><td><code>price</code></td><td><code>--out-dir ~/comped --plan auto --rates-path --days-back 0 --now</code></td></tr>
-<tr><td><code>repeats</code></td><td><code>--out-dir ~/comped --repeat-threshold 3 --handle</code></td></tr>
-<tr><td><code>card</code></td><td><code>--out-dir ~/comped --card-theme dark</code></td></tr>
-<tr><td><code>wrongturns</code></td><td><code>--out-dir ~/comped --min-recurrence 3 --show-snippets true</code></td></tr>
-<tr><td><code>rules</code></td><td><code>--out-dir ~/comped --rules-target both</code></td></tr>
-<tr><td><code>explain</code></td><td><code>--out-dir ~/comped</code></td></tr>
-<tr><td><code>verify</code></td><td><code>--out-dir ~/comped</code></td></tr>
-<tr><td><code>sources</code></td><td><code>--claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage</code></td></tr>
-<tr><td><code>summary</code></td><td><code>--out-dir ~/comped</code></td></tr>
-</tbody></table>
-<p><code>verify</code> is worth knowing about: it re-prices the ledger from scratch and confirms the total in your report still reproduces.</p>
-
-<h2 id="trouble">Troubleshooting</h2>
+<h2 id="trouble">When it looks wrong</h2>
 <h3>"no log directory found"</h3>
-<p>Expected, not an error, if you don't use that harness — the step exits 0 with a warning and the run continues. If you <em>do</em> use it and it's missing, point the parameter at the right path: <code>claude_dir</code>, <code>codex_dir</code>, <code>pi_dir</code>, <code>opencode_dir</code>.</p>
-<h3>The total looks too low</h3>
-<p>Check <code>days_back</code> — it defaults to 30 — and check the unpriced list at the bottom of the report. A model missing from the price table contributes tokens but no dollars, on purpose.</p>
+<p>Expected if you don't use that tool — it's skipped and the run continues. If you <em>do</em> use it, its logs live somewhere unusual; point the right option at them: <code>claude_dir</code>, <code>codex_dir</code>, <code>pi_dir</code>, <code>opencode_dir</code>.</p>
+<h3>The number looks too low</h3>
+<p>Check <code>days_back</code> (it's 30 by default), then the "unpriced" list at the bottom of the report. A model that isn't in the price list contributes nothing to the total, on purpose — a guessed price would make the number worse, not better.</p>
+<h3>The score is lower than I expected</h3>
+<p>The headline assumes the most expensive plan that fits. Look at the <em>If you're on…</em> rows for your actual tier, or pass <code>plan=</code>.</p>
 <h3>No repeat offenders</h3>
-<p>The bar is deliberately high: three asks, two sessions, two days. Try <code>repeat_threshold=2</code>. If you work on one thing at a time in long sessions, you may genuinely not repeat yourself across days.</p>
+<p>The bar is deliberately high: three asks, two sessions, two days. Try <code>repeat_threshold=2</code>.</p>
 <h3>No PNG</h3>
-<p>Install <code>rsvg-convert</code>, or use macOS where <code>qlmanage</code> is built in. The SVG is always written, and it uploads to LinkedIn as-is.</p>
-<h3>The numbers moved and I didn't change anything</h3>
-<p>You ran it on a different day: the window slid. Pin it with <code>--now</code> on the CLI if you need two runs to be comparable.</p>
+<p>The SVG card is always written and uploads to LinkedIn as-is. For a PNG, install <code>rsvg-convert</code>, or use a Mac where it's built in.</p>
+<h3>It asked me to sign in</h3>
+<p>That's rote's registry, so the Play can be fetched and verified. comped itself never signs in to anything and never makes a network call.</p>
+
+<h2 id="privacy">Privacy</h2>
+<ul>
+<li><strong>Reads</strong> your AI tools' session logs. Nothing else.</li>
+<li><strong>Never reads</strong> <code>~/.claude.json</code>, <code>~/.codex/auth.json</code> or any credential, keychain or token file. Which AI you use comes from the logs; your plan is never looked up.</li>
+<li><strong>Never sends.</strong> No network calls of any kind. Not telemetry, not "anonymous usage", not a version check.</li>
+<li><strong>Writes</strong> only under the folder you choose, and tells you every path.</li>
+<li><strong>Your messages</strong> are cut to 120 characters and hashed. Never the full text, never on a card.</li>
+</ul>
+<p>How to verify each of those rather than believe them is on the <a href="developers.html#privacy">developers page</a>.</p>
 
 </main>
 </div>
@@ -344,8 +147,8 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 
 <footer>
   <div class="wrap row">
-    <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. MIT licensed.</span>
-    <span class="sp"><a href="./">Home</a> · <a href="https://github.com/rajkaria/comped">Source</a> · <a href="https://github.com/rajkaria/comped/blob/main/docs/SPEC.md">Methodology</a></span>
+    <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
+    <span class="sp"><a href="./">Home</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
 

@@ -1,17 +1,19 @@
 import unittest, pathlib, re, subprocess, sys
 
 SITE = pathlib.Path("site")
+PAGES = ("index.html", "docs.html", "developers.html")
 
 
 class Site(unittest.TestCase):
     def test_docs_are_regenerated_from_the_repo(self):
-        before = (SITE / "docs.html").read_text(encoding="utf-8")
+        before = {p: (SITE / p).read_text(encoding="utf-8") for p in ("docs.html", "developers.html")}
         subprocess.run([sys.executable, "tools/build_site.py"], check=True, capture_output=True)
-        self.assertEqual(before, (SITE / "docs.html").read_text(encoding="utf-8"),
-                         "site/docs.html is stale; run python3 tools/build_site.py")
+        for p, text in before.items():
+            self.assertEqual(text, (SITE / p).read_text(encoding="utf-8"),
+                             "site/{0} is stale; run python3 tools/build_site.py".format(p))
 
     def test_every_local_link_and_asset_resolves(self):
-        for page in ("index.html", "docs.html"):
+        for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             for ref in re.findall(r'(?:href|src)="([^"#][^"]*)"', text):
                 if ref.startswith(("http://", "https://", "data:", "mailto:")):
@@ -22,7 +24,7 @@ class Site(unittest.TestCase):
                 self.assertTrue((SITE / target).is_file(), "{0} -> missing {1}".format(page, target))
 
     def test_every_in_page_anchor_exists(self):
-        for page in ("index.html", "docs.html"):
+        for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             ids = set(re.findall(r'id="([^"]+)"', text))
             for ref in re.findall(r'href="#([^"]+)"', text):
@@ -31,7 +33,7 @@ class Site(unittest.TestCase):
     def test_the_site_makes_no_network_calls_of_its_own(self):
         # The Play promises no network. A landing page that quietly loads a font or an analytics
         # script from a third party would make that promise a lie in the one place people read it.
-        for page in ("index.html", "docs.html"):
+        for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             for ref in re.findall(r'(?:src|href)="(https?://[^"]+)"', text):
                 self.assertTrue(re.match(r"https://(gotcomped\.com|github\.com|www\.modiqo\.ai|play\.modiqo\.ai)", ref),
@@ -63,9 +65,18 @@ class Site(unittest.TestCase):
         self.assertIn("/", [r["source"] for r in rules], "no www redirect covers the root")
 
     def test_the_published_play_uris_are_the_real_ones(self):
-        text = (SITE / "index.html").read_text(encoding="utf-8")
+        text = (SITE / "developers.html").read_text(encoding="utf-8")
         for slug in ("comped", "session-ledger", "wrong-turns"):
             self.assertIn("https://play.modiqo.ai/rajkaria/{0}".format(slug), text, slug)
+        # The landing page leads with the registry's own one-line installer for the flagship.
+        self.assertIn('https://play.modiqo.ai/install?play=rajkaria/comped', (SITE / "index.html").read_text(encoding="utf-8"))
+
+    def test_the_landing_page_speaks_to_people_not_parsers(self):
+        # Jargon that belongs on the developers page, not the front door.
+        text = (SITE / "index.html").read_text(encoding="utf-8")
+        for word in ("JSONL", "dedup", "requestId", "harness", "argparse", "stdlib"):
+            self.assertNotIn(word, text, "landing page says '{0}'".format(word))
+        self.assertIn("Get my comp score", text)
 
     def test_every_page_is_canonical_on_the_one_configured_origin(self):
         # tools/build_site.py's SITE_URL is the single source of truth for where this site lives.
@@ -74,7 +85,7 @@ class Site(unittest.TestCase):
         sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
         from tools.build_site import SITE_URL
         self.assertTrue(SITE_URL.startswith("https://") and not SITE_URL.endswith("/"), SITE_URL)
-        for page in ("index.html", "docs.html"):
+        for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             canon = re.findall(r'<link rel="canonical" href="([^"]+)"', text)
             self.assertEqual(len(canon), 1, "{0} needs exactly one canonical".format(page))
