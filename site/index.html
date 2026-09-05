@@ -309,7 +309,7 @@
       </details>
       <details>
         <summary>Do I need an account?</summary>
-        <p>No. The line above installs nothing and signs you in to nothing. You can put a name on the board with <code>handle=yourname</code>; without one you go up as <code>anon-xxxx</code>.</p>
+        <p>No. The line above installs nothing and signs you in to nothing. Without a name you go up as <code>anon-xxxx</code>; to claim one, put <code>handle=yourname</code> on the end of the line, after <code>sh -s --</code>: <code>curl -fsSL https://gotcomped.com/comped.sh | sh -s -- handle=yourname</code>. The <code>-s --</code> is what makes <code>sh</code> pass it through, so <code>| sh handle=yourname</code> will not work. <a href="leaderboard.html#get">The leaderboard page has it as a copy button.</a></p>
       </details>
       <details>
         <summary>What is "rote", and do I need it?</summary>
