@@ -31,6 +31,32 @@ class CliTests(unittest.TestCase):
         rc, j, _o, _e = run("verify", "--out-dir", self.out); self.assertEqual(rc, 0); self.assertTrue(j["ok"])
         rc, j, _o, _e = run("sources", *sum(([k, v] for k, v in FIX.items()), [])); self.assertEqual(rc, 0); self.assertTrue(all(s["found"] for s in j["sources"]))
         rc, j, _o, _e = run("summary", "--out-dir", self.out); self.assertEqual(rc, 0); self.assertGreater(j["records"], 0)
+    def test_run_is_the_pipeline_in_one_command(self):
+        # `run` exists so a shell with no runner in front of it is one command, not four in an order
+        # that must not change. If it ever stops producing what the four steps produce, it is a
+        # second implementation of the arithmetic, and the Play and the CLI have started to disagree.
+        one, steps = tempfile.mkdtemp(), tempfile.mkdtemp()
+        fix = sum(([k, v] for k, v in FIX.items()), [])
+        rc, j, out, _e = run("run", *fix, "--days-back", "3650", "--now", NOW, "--out-dir", one, "--handle", "priya")
+        self.assertEqual(rc, 0); self.assertTrue(j["ok"]); self.assertIn("COMPED", out)
+        self.assertGreater(float(j["total_usd"]), 0); self.assertGreaterEqual(j["repeats"], 1)
+        self.assertEqual(j["report"], str(pathlib.Path(one, "comped-report.md")))
+        run("ledger", *fix, "--days-back", "3650", "--now", NOW, "--out-dir", steps)
+        run("price", "--out-dir", steps, "--days-back", "3650", "--now", NOW)
+        run("repeats", "--out-dir", steps, "--handle", "priya")
+        run("card", "--out-dir", steps)
+        for name in ("ledger.jsonl", "comped-card.svg", "comped-explain.txt", "comped-share.txt", "comped-baseline.json"):
+            self.assertEqual(pathlib.Path(one, name).read_bytes(), pathlib.Path(steps, name).read_bytes(), name)
+        # The report lists the paths it wrote, so it differs by out_dir and by nothing else.
+        self.assertEqual(pathlib.Path(one, "comped-report.md").read_text().replace(one, "OUT"),
+                         pathlib.Path(steps, "comped-report.md").read_text().replace(steps, "OUT"))
+
+    def test_run_with_no_logs_to_read_says_what_to_do_and_exits_1(self):
+        rc, j, _o, _e = run("run", "--claude-dir", "/nope", "--codex-dir", "/nope", "--pi-dir", "/nope",
+                            "--opencode-dir", "/nope", "--out-dir", self.out, "--now", NOW)
+        self.assertEqual(rc, 1); self.assertFalse(j["ok"])
+        self.assertIn("nothing to read", j["error"]); self.assertIn("--days-back", j["note"])
+
     def test_bad_args_exit_2_json(self):
         rc, j, _o, _e = run("price", "--out-dir", self.out, "--days-back", "x"); self.assertEqual(rc, 2); self.assertFalse(j["ok"])
     def test_missing_ledger_is_json_error(self):

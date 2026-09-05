@@ -276,6 +276,40 @@ def cmd_card(a):
             "tier": (v.get("tier") or {}).get("name", ""), "score": score(v["multiplier"])}
 
 
+def cmd_run(a):
+    """Read, price, cluster and render in one command: the four steps the Play runs as steps.
+
+    Same functions, same order, same numbers; it exists because a person or an agent working from a
+    shell has no runner to sequence them, and four commands that must not be reordered is a trap.
+    Prints the card, then one JSON object like every other command. Still offline: the leaderboard
+    post is a separate script outside this package, and this never calls it.
+    """
+    print("Reading your logs...", file=sys.stderr)
+    led = cmd_ledger(a)
+    warnings = [w for w in [led.get("warning")] if w]
+    if not led.get("records"):
+        looked = ", ".join(str(Path(d).expanduser()) for d in (a.claude_dir, a.codex_dir, a.pi_dir, a.opencode_dir))
+        return {"ok": False, "written": led.get("written", []), "warnings": warnings,
+                "error": led.get("warning") or "no usage records in the window",
+                "note": "looked in {0}. Widen the window with --days-back 90, or point --claude-dir "
+                        "and --codex-dir at where your logs actually are.".format(looked)}
+    print("Pricing {0} records from {1} sessions...".format(led["records"], led["sessions"]), file=sys.stderr)
+    cmd_price(a)
+    print("Finding what you have asked for more than once...", file=sys.stderr)
+    cmd_repeats(a)
+    print("", file=sys.stderr)
+    res = cmd_card(a)
+    out = Path(a.out_dir).expanduser()
+    res["warnings"] = warnings + [n for n in [led.get("note"), res.get("note")] if n]
+    res["sources"] = led.get("sources", [])
+    res["records"] = led["records"]
+    res["report"] = str(out / "comped-report.md")
+    res["share"] = str(out / "comped-share.txt")
+    res["explain"] = str(out / "comped-explain.txt")
+    res["out_dir"] = str(out)
+    return res
+
+
 def cmd_wrongturns(a):
     led = read_ledger(a.out_dir)
     p = Path(a.out_dir).expanduser() / ".priced.json"
@@ -351,51 +385,6 @@ def cmd_verify(a):
             "note": "totals reproduce" if ok else "MISMATCH: ledger or price table changed since the report"}
 
 
-def _say(msg):
-    """Progress goes to stderr so a piped stdout stays exactly the card."""
-    print(msg, file=sys.stderr)
-
-
-def cmd_run(a):
-    """Read, price, cluster and render in one process: the whole card, no runner required.
-
-    The Play splits this across eight steps because rote wants one reading per step and runs the
-    four readers in parallel. A person at a terminal wants none of that, and paying eight Python
-    start-ups for a two-second job is silly. Same functions, same order, same output; still no
-    network, which is why posting the score lives outside this file.
-    """
-    a.only = ""                     # read every harness in one pass; parse_all already attributes turns
-    _say("Reading your logs...")
-    led = cmd_ledger(a)
-    if not led.get("ok"):
-        return led
-    if led.get("records", 0) == 0:
-        # An expected absence, not a failure. Say where it looked; that is the only useful reply.
-        looked = "\n".join("  {0}".format(s0["root"]) for s0 in led.get("sources", []))
-        print("comped found no usage in the last {0} days.".format(a.days_back))
-        print("")
-        print("It looked in:")
-        print(looked)
-        print("")
-        print("If your logs are somewhere else, name the directory and run it again:")
-        print("  claude_dir=/path/to/.claude/projects")
-        return {"ok": True, "records": 0, "warning": led.get("warning", "nothing to read"),
-                "sources": led.get("sources", [])} if a.json_out else None
-    _say("Pricing {0} records from {1} sessions...".format(led["records"], led["sessions"]))
-    priced = cmd_price(a)
-    _say("Finding what you have asked for more than once...")
-    cmd_repeats(a)
-    _say("")
-    card = cmd_card(a)                      # prints the card and the share line
-    if not a.json_out:
-        return None
-    return {"ok": True, "records": led["records"], "sessions": led["sessions"],
-            "total_usd": card["total_usd"], "multiplier": card["multiplier"], "tier": card["tier"],
-            "plan": card["plan"], "plan_source": card["plan_source"], "repeats": card["repeats"],
-            "detected": card["detected"], "unpriced": priced["unpriced"], "written": card["written"],
-            "note": card["note"]}
-
-
 def build_parser():
     P = argparse.ArgumentParser(prog="comped")
     sub = P.add_subparsers(dest="cmd", required=True)
@@ -408,40 +397,40 @@ def build_parser():
                      ("pi-dir", "~/.pi/agent/sessions"), ("opencode-dir", "~/.local/share/opencode/storage")):
             p.add_argument("--{0}".format(k), default=d)
 
-    p = sub.add_parser("run", help="the whole card in one go: read, price, cluster, render")
-    common(p); dirs(p)
-    p.add_argument("--days-back", type=int, default=30)
-    p.add_argument("--include-subagents", default="true")
-    p.add_argument("--redact", default="true")
-    p.add_argument("--now", default="")
-    p.add_argument("--plan", default=AUTO,
-                   help="auto (default) infers the providers from the logs and prices every tier they sell; "
-                        "or a comma-separated list of plan ids, or usd:<amount>")
-    p.add_argument("--rates-path", default="")
-    p.add_argument("--repeat-threshold", type=int, default=3)
-    p.add_argument("--handle", default="")
-    p.add_argument("--card-theme", default="dark")
-    p.add_argument("--json", dest="json_out", action="store_true",
-                   help="also print the machine-readable summary the Play steps print")
-    p = sub.add_parser("ledger"); common(p); dirs(p)
-    p.add_argument("--days-back", type=int, default=30)
-    p.add_argument("--include-subagents", default="true")
-    p.add_argument("--redact", default="true")
-    p.add_argument("--now", default="")
+    # One group per step, so `run` takes exactly the arguments of the steps it runs, with the same
+    # defaults. A flag that means one thing under `price` and another under `run` is a bug waiting.
+    def read_args(p):
+        p.add_argument("--days-back", type=int, default=30)
+        p.add_argument("--include-subagents", default="true")
+        p.add_argument("--redact", default="true")
+        p.add_argument("--now", default="")
+
+    def price_args(p):
+        p.add_argument("--plan", default=AUTO,
+                       help="auto (default) infers the providers from the logs and prices every tier they sell; "
+                            "or a comma-separated list of plan ids, or usd:<amount>")
+        p.add_argument("--rates-path", default="")
+
+    def repeat_args(p):
+        p.add_argument("--repeat-threshold", type=int, default=3)
+        p.add_argument("--handle", default="", help="your name in the /play settle command, and on the leaderboard")
+
+    def card_args(p):
+        p.add_argument("--card-theme", default="dark")
+
+    p = sub.add_parser("ledger"); common(p); dirs(p); read_args(p)
     p.add_argument("--only", default="", help="read exactly one harness and write ledger-<harness>.jsonl (rote: one reading = one step)")
     p = sub.add_parser("merge"); common(p)
-    p = sub.add_parser("price"); common(p)
-    p.add_argument("--plan", default=AUTO,
-                   help="auto (default) infers the providers from the logs and prices every tier they sell; "
-                        "or a comma-separated list of plan ids, or usd:<amount>")
-    p.add_argument("--rates-path", default="")
+    p = sub.add_parser("price"); common(p); price_args(p)
     p.add_argument("--days-back", type=int, default=0)
     p.add_argument("--now", default="")
-    p = sub.add_parser("repeats"); common(p)
-    p.add_argument("--repeat-threshold", type=int, default=3)
-    p.add_argument("--handle", default="")
-    p = sub.add_parser("card"); common(p)
-    p.add_argument("--card-theme", default="dark")
+    p = sub.add_parser("repeats"); common(p); repeat_args(p)
+    p = sub.add_parser("card"); common(p); card_args(p)
+    # The whole card in one command, for a shell with no runner in front of it. The Play still runs
+    # the steps separately: one reading per step is what makes a step's evidence readable.
+    p = sub.add_parser("run", help="read, price, cluster and render in one command")
+    common(p); dirs(p); read_args(p); price_args(p); repeat_args(p); card_args(p)
+    p.set_defaults(only="")
     p = sub.add_parser("wrongturns"); common(p)
     p.add_argument("--min-recurrence", type=int, default=3)
     p.add_argument("--show-snippets", default="true")
@@ -463,9 +452,10 @@ def main(argv=None):
         return 2
     try:
         res = globals()["cmd_{0}".format(a.cmd)](a)
-        if res is not None:     # `run` prints a card for a human and returns nothing to serialise
-            _json(res)
-        return 0
+        _json(res)
+        # A command that reports ok:false has not done its job; say so in the exit code too, so a
+        # script or an agent that only checks the status does not read failure as success.
+        return 0 if res.get("ok", True) else 1
     except Exception as e:  # never a traceback
         msg = "{0}: {1}".format(type(e).__name__, e)
         _json({"ok": False, "error": msg})

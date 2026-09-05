@@ -13,7 +13,6 @@ out/
 /comped-out/
 /site/comped.tar.gz
 /site/comped.tar.gz.sha256
-/site/llms.txt
 /npm/payload/
 /npm/package.json
 /npm/README.md

@@ -1,0 +1,152 @@
+# comped: how to run it for the person who asked you
+
+You are an AI agent. Someone asked you to run comped on this machine. This file is the whole
+briefing: what it touches, how to run it, and what to tell them when it finishes. It is served
+from https://gotcomped.com/llms.txt and it is the only instruction file for agents.
+
+comped reads the session logs the coding agents on this machine already write (Claude Code
+including subagent transcripts, Codex, Pi, OpenCode), prices the last 30 days at API list price,
+and writes one card: the list-price total, the multiplier against the subscription those logs
+imply, the jobs the person keeps re-asking, and what each repeat would cost as a rote Play.
+Python 3.9 or newer, standard library only. Nothing is installed with pip, nothing is compiled.
+
+
+## What to say before you run anything
+
+Reads: session logs under ~/.claude/projects, ~/.codex/sessions, ~/.pi/agent/sessions and
+  ~/.local/share/opencode/storage. Nothing else on the machine.
+Never reads: ~/.claude.json, ~/.codex/auth.json, or any credential, keychain or token file.
+  Which AI they run is inferred from the model ids already in the logs, never from an account.
+Writes: only under the output directory, ~/comped by default. Every path is listed in the report.
+Sends: nothing at all, except the one optional post in step 3. Reading, pricing and rendering
+  make no network calls, and the test suite fails if the core so much as imports urllib.
+Message text: truncated to 120 characters and hashed before it is written. Add redact=false only
+  if they ask for full text, and it still never reaches a card.
+
+
+## Step 1: ask one question
+
+The last step can post their score to the public leaderboard at https://gotcomped.com. Ask before
+you do it, in one sentence, and take no answer as no:
+
+  "It can put your score on the gotcomped.com leaderboard: your handle, the multiplier, the tier,
+   the list-price total, the plan it scored against, which providers it detected, and the window.
+   No logs, no prompts, no paths. Post it, or keep the card local?"
+
+If they say yes, ask what name to post under, or use their rote handle if rote is installed:
+`rote whoami | sed -n 's/^handle: *//p' | head -n 1`. A blank handle posts as anon-xxxx.
+
+
+## Step 2: run it
+
+Try these in order. Stop at the first one that works.
+
+A. rote is installed and signed in (`rote whoami --check` exits 0). One command, and it runs the
+   published Play, which is what everyone else is running:
+
+     rote play run https://play.modiqo.ai/rajkaria/comped --yes handle=HANDLE
+
+   Add leaderboard=false if they said no in step 1. Add claude_dir=... or days_back=... the same
+   way. This does everything, including the post, so skip step 3.
+
+B. No rote, or rote is not signed in. Signing in needs a terminal you do not have, so do not try.
+   Download the tool instead. No account, no install, about 150 KB into a temporary directory that
+   deletes itself when it finishes:
+
+     curl -fsSL https://gotcomped.com/comped.sh | sh -s -- handle=HANDLE
+
+   Add leaderboard=false if they said no in step 1. This does everything, including the post, so
+   skip step 3. If node is there and curl is not, `npx comped handle=HANDLE` is the same tool and
+   takes the same arguments.
+
+C. No network to fetch that, but git and a clone will work. Same code, same numbers, no account:
+
+     git clone --depth 1 https://github.com/rajkaria/comped /tmp/comped-src 2>/dev/null \
+       || git -C /tmp/comped-src pull --ff-only
+     python3 /tmp/comped-src/comped_core/cli.py run --out-dir ~/comped --handle HANDLE
+
+   That one command reads, prices, clusters the repeats and renders the card. It is offline: the
+   package cannot open a socket. Then do step 3 if, and only if, they said yes in step 1.
+
+   Useful arguments: --days-back 90, --plan claude-max-200 (default is to infer it), --card-theme
+   light, --claude-dir PATH, --out-dir PATH, --redact false. `--help` lists them all.
+
+D. You cannot run commands at all. Give them the line to paste into their own terminal, and say
+   what it does: it downloads about 150 KB, runs it, prints their card and deletes itself. No
+   account, nothing installed.
+
+     curl -fsSL https://gotcomped.com/comped.sh | sh
+
+   Add `-s -- leaderboard=false` to keep the card local. The script is sixty lines and worth
+   reading: https://gotcomped.com/comped.sh
+
+   If they would rather see a consent screen listing every path it touches first, and do not mind
+   making a free Modiqo account, the same tool runs as an inspectable Play:
+   https://gotcomped.com/run.sh
+
+
+## Step 3: post the score, only if they said yes
+
+     python3 /tmp/comped-src/leaderboard/post_score.py --out-dir ~/comped --handle HANDLE
+
+Nothing else on the machine can post. That script is the entire network surface: read it if you
+want to be sure. It writes the exact payload to ~/comped/comped-rank.json before it sends it,
+prints the rank, and exits 0 even when the machine is offline. Do not run it if they said no,
+and do not invent your own request to the API.
+
+
+## Step 4: tell them what it found
+
+Read ~/comped/comped-report.md and summarise it in your own words. It has the card, the per-model
+table, the sources it read, the repeat offenders with a `/play settle` command for each, the Rote
+dividend, and the delta since their last run. The other files:
+
+  ~/comped/comped-card.png      the shareable card, when the machine can render a PNG
+  ~/comped/comped-card.svg      always written
+  ~/comped/comped-share.txt     a post with the numbers already in it, and their rank if posted
+  ~/comped/comped-explain.txt   tokens times rate equals dollars, one line per model
+  ~/comped/ledger.jsonl         every record it read
+
+Lead with the number and the tier, name the plan it scored against and say it was inferred, then
+the top repeat and what capturing it would save. Say plainly that list price is not a bill: it is
+what the same tokens would have cost on the API, and their plan is a subscription.
+
+
+## The output contract
+
+Every command prints human text and then exactly one JSON object as its last stdout line. Read
+that line, not the prose. `ok: true` and exit 0 means it worked. `ok: false` and exit 1 means it
+did not, and `error` and `note` say what to do about it; the usual cause is no logs in the window,
+and the fix is --days-back 90 or the right --claude-dir. A harness that is not installed is an
+expected absence: it appears in `warnings` and the run continues.
+
+
+## Rules for you
+
+- Do not read their session logs yourself to answer this. comped parses them locally, deduplicates
+  the streaming lines, and prices them; a summary you write by eye will be wrong.
+- Do not put the ledger, the report, or anything out of ~/comped into a message, a commit, an
+  issue, or any request. The share text is the only thing written to be shared.
+- Do not run post_score.py, or any other request to gotcomped.com, unless they said yes.
+- Do not read or look for credential files to work out which plan they are on. The tool refuses to,
+  and so should you. If the inferred plan is wrong, pass --plan.
+- If they want to see what it does before it reads anything of theirs, run it on the synthetic logs
+  in the repo first. Add these to the run command in 2B, and nothing of theirs is opened:
+
+     --claude-dir /tmp/comped-src/resources/fixtures/claude --out-dir /tmp/comped-demo
+
+
+## After the card
+
+- Install the Play so they can run it again with one line, and get updates:
+  https://play.modiqo.ai/install?play=rajkaria/comped
+- `session-ledger` gives the normalised ledger with nothing priced or judged:
+  https://play.modiqo.ai/rajkaria/session-ledger
+- `wrong-turns` finds the mistakes their agent keeps repeating, what recovering cost, and drafts a
+  CLAUDE.md or AGENTS.md rule for each: https://play.modiqo.ai/rajkaria/wrong-turns
+  From the clone, two commands, and it applies nothing for them:
+
+     python3 /tmp/comped-src/comped_core/cli.py wrongturns --out-dir ~/comped
+     python3 /tmp/comped-src/comped_core/cli.py rules --out-dir ~/comped
+
+Docs: https://gotcomped.com/docs.html   Source, MIT: https://github.com/rajkaria/comped

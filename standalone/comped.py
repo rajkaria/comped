@@ -21,6 +21,7 @@ if sys.version_info < (3, 9):  # this file stays parseable by older interpreters
 import io
 import json
 import os
+import re
 import time
 from contextlib import redirect_stdout
 from pathlib import Path
@@ -72,6 +73,19 @@ def parse_args(argv):
             raise ValueError("unknown parameter: {0}\nValid keys: {1}".format(key, ", ".join(sorted(PARAMS))))
         vals[key] = value
     return vals
+
+
+def as_parameters(text):
+    """Rewrite the core's --flag advice into the key=value this door actually takes.
+
+    Two shapes appear: a flag with a value, and a flag named in a sentence. Only the first becomes
+    key=value, or "point --claude-dir and --codex-dir at" turns into nonsense.
+    """
+    for name in PARAMS:
+        flag = "--" + name.replace("_", "-")
+        text = re.sub(re.escape(flag) + r"[= ](?=[0-9/~])", name + "=", text)
+        text = text.replace(flag, name)
+    return text
 
 
 def freshen(path):
@@ -167,9 +181,20 @@ def main(argv=None):
         sys.stderr.write("comped could not finish: {0}: {1}\n".format(type(e).__name__, e))
         return 1
     # Nothing was read, so there is no card from this run. Posting here would send the previous
-    # run's score as if it were today's. The run already said where it looked.
+    # run's score as if it were today's. The core returns this rather than printing it, because
+    # every other caller wants the JSON; a person at a terminal wants the sentence.
     if not result.get("records"):
-        return 0
+        if result.get("error"):
+            print("comped found nothing to price: {0}".format(result["error"]))
+        if result.get("note"):
+            print("")
+            # The core speaks in --flags because that is what it takes. This door takes key=value,
+            # and advice a person cannot paste is not advice.
+            print(as_parameters(result["note"]))
+        return 1
+    if result.get("warnings"):
+        for w in result["warnings"]:
+            print(w, file=sys.stderr)
     # The poster runs either way, exactly as it does in the Play: when leaderboard=false it is
     # the thing that says so out loud, and "nothing was sent" is worth reading.
     print("")
