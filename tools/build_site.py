@@ -287,6 +287,7 @@ def docs_page():
     """The user guide: how to run it, how to read it, what to do when it looks wrong."""
     toc = """  <strong>Getting started</strong>
   <a href="#install">One line</a>
+  <a href="#agent">Or ask your agent</a>
   <a href="#quickstart">Try it on sample data</a>
   <a href="#reading">Reading your card</a>
   <a href="#detection">What it works out</a>
@@ -306,6 +307,11 @@ def docs_page():
 <p>Prefer to be asked before anything runs? The registry's own installer does the same steps and waits for a <em>yes</em> at each:</p>
 <pre><code>{asking}</code></pre>
 <div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/{handle}/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
+
+<h2 id="agent">Or ask the agent you already have</h2>
+<p>If you spend your day in Claude Code, Codex, Cursor or anything else with a shell, you don't need the terminal line at all. Paste this at your agent:</p>
+<pre><code>Run comped on this machine: fetch {site}/llms.txt and follow it.</code></pre>
+<p>It reads <a href="{site}/llms.txt">llms.txt</a>, a briefing written for agents rather than people, and takes it from there: it asks you first whether to put your score on the leaderboard, runs comped without needing an account, and reads the card back to you. That file also tells it what it must not do, including summarising your logs by eye and copying anything out of <code>~/comped</code> into a message or a commit. It is short. Read it before you paste the line.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
 <p>If you'd rather see it work before pointing it at your own logs, the Play ships with sample logs: real in shape, made-up in content.</p>
@@ -411,6 +417,7 @@ def developers_page():
   <a href="#privacy">Verifying privacy</a>
   <strong>Reference</strong>
   <a href="#cli">Without rote</a>
+  <a href="#agents">From an agent</a>
   <a href="#source">Source and spec</a>
   <a href="docs.html">← User docs</a>"""
     body = """
@@ -497,15 +504,25 @@ def developers_page():
 </ul>
 
 <h2 id="cli">Running it without rote</h2>
-<p>The Plays are a thin wrapper around the package. Clone the repo and use the module directly:</p>
+<p>The Plays are a thin wrapper around the package. Clone the repo and use the module directly. One command does the whole card:</p>
 <pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
-python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
+python3 -m comped_core run --out-dir ~/comped              # read, price, cluster, render</code></pre>
+<p><code>run</code> is the four steps the Play runs, in one process, calling the same functions in the same order: the numbers are identical. It stays offline, so posting your score to the leaderboard is still a separate script you run yourself:</p>
+<pre><code>python3 leaderboard/post_score.py --out-dir ~/comped --handle you</code></pre>
+<p>The steps on their own, when you want to look at one of them:</p>
+<pre><code>python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
 python3 -m comped_core price   --out-dir ~/comped            # --plan auto by default
 python3 -m comped_core repeats --out-dir ~/comped --repeat-threshold 3
 python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>The full set, generated from the argument parser:</p>
 {cli}
-<p><code>verify</code> re-prices the ledger from scratch and confirms the total in your report still reproduces.</p>
+<p><code>verify</code> re-prices the ledger from scratch and confirms the total in your report still reproduces. Every command prints one JSON object as its last stdout line; <code>ok: false</code> exits 1.</p>
+
+<h2 id="agents">Running it from your coding agent</h2>
+<p>You already have an agent with a shell. Paste this at it and it will do the rest:</p>
+<pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
+<p><a href="https://gotcomped.com/llms.txt">llms.txt</a> is the briefing written for the agent rather than for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before posting your score anywhere, the output contract, and how to read the report back to you. It tells the agent not to summarise your logs by eye and not to paste anything out of <code>~/comped</code> into a message or a commit.</p>
+<p>The path it takes needs no account: <code>git clone --depth 1</code>, then <code>python3 comped_core/cli.py run</code>. If you already have rote signed in, it runs the published Play instead, which is the same code with a runner in front of it. Read the file before you paste the line; it is a hundred lines and it is the whole of what your agent is being told.</p>
 
 <h2 id="source">Source and spec</h2>
 <ul>

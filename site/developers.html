@@ -55,6 +55,7 @@
   <a href="#privacy">Verifying privacy</a>
   <strong>Reference</strong>
   <a href="#cli">Without rote</a>
+  <a href="#agents">From an agent</a>
   <a href="#source">Source and spec</a>
   <a href="docs.html">← User docs</a>
 </aside>
@@ -278,9 +279,13 @@
 </ul>
 
 <h2 id="cli">Running it without rote</h2>
-<p>The Plays are a thin wrapper around the package. Clone the repo and use the module directly:</p>
+<p>The Plays are a thin wrapper around the package. Clone the repo and use the module directly. One command does the whole card:</p>
 <pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
-python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
+python3 -m comped_core run --out-dir ~/comped              # read, price, cluster, render</code></pre>
+<p><code>run</code> is the four steps the Play runs, in one process, calling the same functions in the same order: the numbers are identical. It stays offline, so posting your score to the leaderboard is still a separate script you run yourself:</p>
+<pre><code>python3 leaderboard/post_score.py --out-dir ~/comped --handle you</code></pre>
+<p>The steps on their own, when you want to look at one of them:</p>
+<pre><code>python3 -m comped_core ledger  --days-back 30 --out-dir ~/comped
 python3 -m comped_core price   --out-dir ~/comped            # --plan auto by default
 python3 -m comped_core repeats --out-dir ~/comped --repeat-threshold 3
 python3 -m comped_core card    --out-dir ~/comped</code></pre>
@@ -291,6 +296,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <tr><td><code>price</code></td><td><code>--out-dir ~/comped --plan auto --rates-path --days-back 0 --now</code></td></tr>
 <tr><td><code>repeats</code></td><td><code>--out-dir ~/comped --repeat-threshold 3 --handle</code></td></tr>
 <tr><td><code>card</code></td><td><code>--out-dir ~/comped --card-theme dark</code></td></tr>
+<tr><td><code>run</code></td><td><code>--out-dir ~/comped --claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage --days-back 30 --include-subagents true --redact true --now --plan auto --rates-path --repeat-threshold 3 --handle --card-theme dark</code></td></tr>
 <tr><td><code>wrongturns</code></td><td><code>--out-dir ~/comped --min-recurrence 3 --show-snippets true</code></td></tr>
 <tr><td><code>rules</code></td><td><code>--out-dir ~/comped --rules-target both</code></td></tr>
 <tr><td><code>explain</code></td><td><code>--out-dir ~/comped</code></td></tr>
@@ -298,7 +304,13 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <tr><td><code>sources</code></td><td><code>--claude-dir ~/.claude/projects --codex-dir ~/.codex/sessions --pi-dir ~/.pi/agent/sessions --opencode-dir ~/.local/share/opencode/storage</code></td></tr>
 <tr><td><code>summary</code></td><td><code>--out-dir ~/comped</code></td></tr>
 </tbody></table>
-<p><code>verify</code> re-prices the ledger from scratch and confirms the total in your report still reproduces.</p>
+<p><code>verify</code> re-prices the ledger from scratch and confirms the total in your report still reproduces. Every command prints one JSON object as its last stdout line; <code>ok: false</code> exits 1.</p>
+
+<h2 id="agents">Running it from your coding agent</h2>
+<p>You already have an agent with a shell. Paste this at it and it will do the rest:</p>
+<pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
+<p><a href="https://gotcomped.com/llms.txt">llms.txt</a> is the briefing written for the agent rather than for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before posting your score anywhere, the output contract, and how to read the report back to you. It tells the agent not to summarise your logs by eye and not to paste anything out of <code>~/comped</code> into a message or a commit.</p>
+<p>The path it takes needs no account: <code>git clone --depth 1</code>, then <code>python3 comped_core/cli.py run</code>. If you already have rote signed in, it runs the published Play instead, which is the same code with a runner in front of it. Read the file before you paste the line; it is a hundred lines and it is the whole of what your agent is being told.</p>
 
 <h2 id="source">Source and spec</h2>
 <ul>
