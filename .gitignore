@@ -4,6 +4,7 @@ __pycache__/
 out/
 /plays/*/resources/comped_core/
 /plays/*/resources/daily_core/
+/plays/*/resources/micro_core/
 /plays/*/resources/prices.json
 /plays/*/resources/plans.json
 /plays/*/resources/fixtures/
