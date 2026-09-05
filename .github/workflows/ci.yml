@@ -29,10 +29,21 @@ jobs:
         with: { python-version: "3.12" }
       - run: python tools/build_dist.py
       - run: python -m tarfile -e site/comped.tar.gz unpacked
-      - name: run the card on the sample logs
+      - name: the archive, run the way a person would
         run: |
           python unpacked/comped/comped.py claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex out_dir=comped-out leaderboard=false > card.txt
           type card.txt
           findstr /C:"COMPED" card.txt
           if not exist comped-out\comped-card.svg exit /b 1
+        shell: cmd
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: the npm package, installed and run
+        run: |
+          python tools/build_npm.py
+          npm pack ./npm
+          npm install -g comped-*.tgz
+          comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex out_dir=npm-out leaderboard=false > npmcard.txt
+          type npmcard.txt
+          findstr /C:"COMPED" npmcard.txt
         shell: cmd

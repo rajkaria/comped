@@ -260,7 +260,7 @@
 <pre><code>{"device": "&lt;uuid&gt;", "handle": "priya", "multiplier": 12.99, "comped_usd": 2560.98, "plan_usd": 197.13,
  "tier": "All-you-can-eat", "plan": "Claude Max 20x", "plan_id": "claude-max-200", "plan_source": "auto",
  "providers": ["anthropic"], "harnesses": ["claude-code"], "days_back": 30, "active_days": 22,
- "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.4"}</code></pre>
+ "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.5"}</code></pre>
 <p>Reply <code>200</code>: <code>{"ok": true, "rank": 7, "of": 312, "percentile": 2.2, "eligible": true, "held": false, "reason": null, "handle": "priya", "url": "…/leaderboard.html#priya", "board": "…"}</code>. <code>400</code> names the first bad field; <code>429</code> is the same device inside 15 seconds; <code>502</code> is storage. The server recomputes <code>multiplier = comped_usd / plan_usd</code> and refuses a mismatch above 2%. Handles are <code>[A-Za-z0-9][A-Za-z0-9_.-]{0,31}</code>. Over 2,000× or $250,000 is stored with <code>held: true</code> and not shown.</p>
 <h3>GET /api/leaderboard?sort=multiplier|comped_usd&amp;limit=100</h3>
 <p>One row per handle (the latest run) or per anonymous device, ranked; up to 500. Each row carries what the table above shows plus <code>plan_id</code>, <code>plan_source</code>, <code>runs</code>, <code>first_seen</code> and <code>updated_at</code>, and a <code>rules</code> object restates the thresholds. Cached for 30 seconds at the edge. CORS is open: embed it where you like.</p>

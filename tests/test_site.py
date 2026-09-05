@@ -1,4 +1,4 @@
-import unittest, pathlib, re, subprocess, sys
+import unittest, pathlib, re, subprocess, sys, json
 
 SITE = pathlib.Path("site")
 PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html")
@@ -83,6 +83,32 @@ class Site(unittest.TestCase):
         self.assertTrue((SITE / "run.sh").is_file())
         self.assertTrue((SITE / "comped.sh").is_file())
         self.assertTrue((SITE / "comped.tar.gz").is_file())
+
+    def test_llms_txt_says_the_same_things_the_pages_say(self):
+        # A file whose whole job is to be quoted by a machine must not drift from the site. It is
+        # generated from the Play manifest and the bundled resources, so this checks the joins.
+        txt = (SITE / "llms.txt").read_text(encoding="utf-8")
+        self.assertTrue(txt.startswith("# comped\n"))
+        self.assertIn("\n> ", txt, "llms.txt needs the one-line summary blockquote")
+        for line in ("curl -fsSL https://gotcomped.com/comped.sh | sh", "npx comped",
+                     "curl -fsSL https://gotcomped.com/run.sh | sh"):
+            self.assertIn(line, txt, line)
+        # Every parameter the Play declares is documented here, with its real default.
+        declared = json.loads((pathlib.Path("docs/plays/comped/PARAMETERS.json")).read_text(encoding="utf-8"))
+        params = declared["parameters"] if isinstance(declared, dict) else declared
+        for d in params:
+            self.assertIn("`{0}`".format(d["name"]), txt, d["name"])
+        # The privacy claims are the corrected ones, not the old absolute ones.
+        self.assertIn("Your logs never leave your machine", txt)
+        self.assertNotIn("nothing leaves your computer", txt.lower())
+        self.assertNotIn("0 bytes", txt)
+        self.assertIn("not an invoice", txt)
+
+    def test_llms_txt_links_only_to_things_that_exist(self):
+        txt = (SITE / "llms.txt").read_text(encoding="utf-8")
+        for ref in re.findall(r"\]\((https://gotcomped\.com[^)]*)\)", txt):
+            local = ref.replace("https://gotcomped.com", "").lstrip("/") or "index.html"
+            self.assertTrue((SITE / local).is_file(), "llms.txt points at missing {0}".format(local))
 
     def test_the_copy_button_offers_the_account_free_line(self):
         # Both copy buttons on the site paste the same line, and it is the one with no sign-in.

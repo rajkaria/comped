@@ -25,7 +25,7 @@ import uuid
 from decimal import Decimal
 from pathlib import Path
 
-VERSION = "0.1.4"
+VERSION = "0.1.5"
 DEFAULT_URL = "https://gotcomped.com/api/score"
 BOARD_URL = "https://gotcomped.com/leaderboard.html"
 DEVICE_FILE = "comped-device.txt"

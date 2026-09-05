@@ -23,7 +23,7 @@ import score as score_fn  # noqa: E402
 GOOD = {"device": "11111111-1111-4111-8111-111111111111", "handle": "priya", "multiplier": 12.99, "comped_usd": 2560.98,
         "plan_usd": 197.13, "tier": "All-you-can-eat", "plan": "Claude Max 20x", "plan_id": "claude-max-200",
         "plan_source": "auto", "providers": ["anthropic"], "harnesses": ["claude-code"], "days_back": 30,
-        "active_days": 22, "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.4"}
+        "active_days": 22, "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.5"}
 
 
 class FakeResponse(io.BytesIO):

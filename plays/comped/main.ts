@@ -12,10 +12,10 @@
  * - Message text: truncated to 120 chars and hashed by default. `redact=false` keeps full text locally, never in the card.
  *
  * See also: `session-ledger` (the normalized ledger this reads) and `wrong-turns` (recurring mistakes, with drafted rules). Docs, the full methodology and a worked example: https://gotcomped.com'
- * version: '0.1.4'
+ * version: '0.1.5'
  * source_url: https://play.modiqo.ai/rajkaria/comped
  * metadata:
- *   version: '0.1.4'
+ *   version: '0.1.5'
  *   rote_version: '0.79.0'
  *   status: released
  *   kind: atomic
