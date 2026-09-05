@@ -4,8 +4,11 @@
 Serves site/ statically and routes /api/score and /api/leaderboard to the handler classes in
 api/, so the board on the home page and leaderboard.html render against real storage.
 
-    vercel env pull .env.local        # once: SUPABASE_URL and SUPABASE_KEY (a publishable key)
+    printf 'SUPABASE_URL=https://<ref>.supabase.co\nSUPABASE_KEY=sb_publishable_...\n' > .env.local
     python3 tools/devserver.py 8123
+
+(.env.local is gitignored. `vercel env pull` writes "[SENSITIVE]" for these two, so write them by
+hand; the key is the publishable one, which the SQL functions treat as anonymous anyway.)
 
 Without the two variables the pages still serve; the API answers 502 and the board shows its
 empty state, which is also worth seeing.
