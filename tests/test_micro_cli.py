@@ -92,6 +92,23 @@ class TestSpent(unittest.TestCase):
         self.assertFalse(j["over"])
         self.assertIn("food", human)
 
+    def test_a_currency_you_have_not_spent_in_does_not_label_the_month(self):
+        run(["spent", "record", "--entry", "₹500 lunch", "--state-dir", self.dir,
+             "--now", "2026-09-05T09:00:00Z"])
+        _rc, _h, j = run(["spent", "report", "--state-dir", self.dir, "--currency", "USD",
+                          "--tz", "UTC", "--now", "2026-09-05T20:00:00Z"])
+        self.assertEqual(j["currency"], "INR")
+        self.assertEqual(j["month"], "500.00")
+
+    def test_a_currency_you_have_spent_in_is_honoured(self):
+        run(["spent", "record", "--entry", "₹500 lunch", "--state-dir", self.dir,
+             "--now", "2026-09-05T09:00:00Z"])
+        run(["spent", "record", "--entry", "$4 coffee", "--state-dir", self.dir,
+             "--now", "2026-09-05T10:00:00Z"])
+        _rc, _h, j = run(["spent", "report", "--state-dir", self.dir, "--currency", "USD",
+                          "--tz", "UTC", "--now", "2026-09-05T20:00:00Z"])
+        self.assertEqual(j["currency"], "USD")
+
     def test_a_bad_entry_explains_itself_and_exits_zero(self):
         rc, human, j = run(["spent", "record", "--entry", "lunch", "--state-dir", self.dir,
                             "--now", "2026-09-05T10:00:00Z"])

@@ -1,4 +1,4 @@
-── read /Users/rajkaria/Projects/comped/.claude… ───────────
+── read the bundled sample ─────────────────────────────────
   blocker   line 5    aws-access-key       AKIA…DM (20 chars)
              an AWS access key id
   blocker   line 6    connection-string    post…od (52 chars)
@@ -18,4 +18,4 @@
   
 
 do not paste this: 3 live credentials in it
-{"bytes": 289, "counts": {"aws-access-key": 1, "connection-string": 1, "high-entropy-value": 1}, "findings": [{"kind": "aws-access-key", "line": 5, "masked": "AKIA\u2026DM (20 chars)", "severity": "blocker", "why": "an AWS access key id"}, {"kind": "connection-string", "line": 6, "masked": "post\u2026od (52 chars)", "severity": "blocker", "why": "a connection string carrying a password"}, {"kind": "high-entropy-value", "line": 7, "masked": "8fJ2\u2026gH (30 chars)", "severity": "medium", "why": "SESSION_SECRET holds 4.9 bits per character of randomness \u2014 that is a key, not a setting"}], "ok": true, "redacted": "# a fixture: every value below is invented and signs nothing\nAPP_NAME=comped\nPORT=5432\nAPI_KEY=your-key-here\nAWS_ACCESS_KEY_ID=<REDACTED:aws-access-key>\nDATABASE_URL=<REDACTED:connection-string>\nSESSION_SECRET=<REDACTED:high-entropy-value>\nGITHUB_TOKEN=${GITHUB_TOKEN}\n", "source": "/Users/rajkaria/Projects/comped/.claude/worktrees/plays-micro-interactions-2dbab6/micro_core/fixtures/secret/config.env", "verdict": "do-not-paste"}
+{"bytes": 289, "counts": {"aws-access-key": 1, "connection-string": 1, "high-entropy-value": 1}, "findings": [{"kind": "aws-access-key", "line": 5, "masked": "AKIA\u2026DM (20 chars)", "severity": "blocker", "why": "an AWS access key id"}, {"kind": "connection-string", "line": 6, "masked": "post\u2026od (52 chars)", "severity": "blocker", "why": "a connection string carrying a password"}, {"kind": "high-entropy-value", "line": 7, "masked": "8fJ2\u2026gH (30 chars)", "severity": "medium", "why": "SESSION_SECRET holds 4.9 bits per character of randomness \u2014 that is a key, not a setting"}], "ok": true, "redacted": "# a fixture: every value below is invented and signs nothing\nAPP_NAME=comped\nPORT=5432\nAPI_KEY=your-key-here\nAWS_ACCESS_KEY_ID=<REDACTED:aws-access-key>\nDATABASE_URL=<REDACTED:connection-string>\nSESSION_SECRET=<REDACTED:high-entropy-value>\nGITHUB_TOKEN=${GITHUB_TOKEN}\n", "source": "the bundled sample", "verdict": "do-not-paste"}

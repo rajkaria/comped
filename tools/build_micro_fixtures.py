@@ -178,6 +178,9 @@ def logs():
                 at = day.replace(hour=8, minute=0, second=0, microsecond=0)
                 if at <= NOW:
                     streak.append({"t": at.strftime("%Y-%m-%dT%H:%M:%SZ"), "v": 1, "habit": name})
+    write("log/Inbox.md", "# Inbox\n\n" + "".join(
+        "- {0} {1}\n".format((NOW - timedelta(days=d)).strftime("%H:%M"), NOTES[d % len(NOTES)])
+        for d in range(6)))
     for name, rows in (("punch", punch), ("spent", spent), ("jot", jot), ("streak", streak)):
         write("log/{0}.jsonl".format(name),
               "".join(json.dumps(r, sort_keys=True) + "\n" for r in sorted(rows, key=lambda r: r["t"])))
