@@ -152,10 +152,10 @@
 <h2 id="outputs">What it writes</h2>
 <p>All of it under <code>~/comped/</code> (or the <code>out_dir</code> you chose), and nowhere else. The card lists every path it wrote.</p>
 <table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
-<tr><td><code>comped-report.md</code></td><td>The whole run in Markdown: card, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written.</td></tr>
+<tr><td><code>comped-report.md</code></td><td>The whole run in Markdown: card, the line to post, a link that draws the card as a downloadable picture, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written.</td></tr>
 <tr><td><code>comped-card.svg</code></td><td>The shareable card, 1200×675.</td></tr>
 <tr><td><code>comped-card-square.svg</code></td><td>The same card on a square canvas. PNG renderers fit thumbnails into a square box and would otherwise crop the wide one.</td></tr>
-<tr><td><code>comped-card.png</code></td><td>Rendered from the square SVG when this machine has rsvg-convert or macOS qlmanage. Absent, with a note, when it doesn't.</td></tr>
+<tr><td><code>comped-card.png</code></td><td>Rendered from the square SVG when this machine has rsvg-convert or macOS qlmanage. Absent, with a note pointing at the card page, when it doesn't: that page draws the same card in your browser and downloads it as a PNG.</td></tr>
 <tr><td><code>comped-explain.txt</code></td><td>One line per model showing tokens × rate = dollars, plus the plan arithmetic and one line per source.</td></tr>
 <tr><td><code>comped-share.txt</code></td><td>A post you can paste, with the numbers already in it.</td></tr>
 <tr><td><code>comped-baseline.json</code></td><td>Totals and repeat labels from this run, so the next one can show you the delta.</td></tr>

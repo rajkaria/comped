@@ -17,7 +17,7 @@ from .repeats import find_repeats
 from .wrongturns import classify, draft_rules
 from .baseline import load_baseline, save_baseline, delta
 from .render_terminal import render_terminal
-from .render_report import render_report, render_explain, share_text
+from .render_report import render_report, render_explain, share_text, card_url
 from .detect import summary_line
 from .tiers import tier, score
 from .render_svg import render_svg, render_svg_square
@@ -255,8 +255,14 @@ def cmd_card(a):
     sq.write_text(render_svg_square(v, a.card_theme), encoding="utf-8")
     written = [str(svg), str(sq)]
     png, note = render_png(sq, out, png_name="comped-card.png")
+    link = card_url(v)
     if png:
         written.append(png)
+    else:
+        # No rasteriser on this machine is the common case on Linux and under npx on Windows. The
+        # card page draws the same card in the browser and hands back a PNG, so nobody is stuck
+        # with an SVG they cannot post.
+        note = "{0}. Or open {1} and click Download the PNG.".format(note, link)
     written.append(save_baseline(out, s, cls, now))
     v["written"] = written + [str(out / "comped-report.md"), str(out / "comped-explain.txt"), str(out / "ledger.jsonl")]
     rep = out / "comped-report.md"
@@ -269,8 +275,10 @@ def cmd_card(a):
     print()
     print(share_text(v))
     print()
+    print("The card as a picture you can post: {0}".format(link))
+    print()
     return {"ok": True, "written": written, "total_usd": v["total_usd"], "multiplier": v["multiplier"],
-            "repeats": len(v["repeats"]), "png": png, "note": note,
+            "repeats": len(v["repeats"]), "png": png, "note": note, "card_url": link,
             "detected": summary_line(v["detected"]) if v.get("detected") else "",
             "plan": " + ".join(v["plan_labels"]), "plan_source": v.get("plan_source", "typed"),
             "tier": (v.get("tier") or {}).get("name", ""), "score": score(v["multiplier"])}

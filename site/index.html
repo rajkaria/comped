@@ -99,7 +99,7 @@
         <div class="step-n">3</div>
         <div class="step-body">
           <h3>Read your card</h3>
-          <p>The big number is your comp score. <b>13×</b> means your subscription paid for itself thirteen times over. Under it: your <b>tier</b>, and your <b>rank</b> on <a href="leaderboard.html">the leaderboard</a>. A picture you can post lands in <code>~/comped/comped-card.png</code>, and a line ready to paste, rank included, in <code>comped-share.txt</code>.</p>
+          <p>The big number is your comp score. <b>13×</b> means your subscription paid for itself thirteen times over. Under it: your <b>tier</b>, and your <b>rank</b> on <a href="leaderboard.html">the leaderboard</a>. A picture you can post lands in <code>~/comped/comped-card.png</code>, a line ready to paste, rank included, in <code>comped-share.txt</code>, and a link to <a href="card.html">your card on this site</a>, ready to download as a PNG.</p>
         </div>
       </li>
     </ol>
@@ -113,8 +113,7 @@
     <div class="reassure">
       <div><b>Nothing to type in.</b> It works out which AI you use from your logs and scores every plan you could be on. Told it your plan once? It remembers.</div>
       <div><b>Your logs stay home.</b> The only thing sent is your score, to the leaderboard, and <code>leaderboard=false</code> stops even that. <a href="#privacy">Here is exactly what goes.</a></div>
-      <div><b>Nothing changes.</b> It only reads. It writes one folder, <code>~/comped</code>, and tells you what it put there.</div>
-      <div><b>Nothing is installed.</b> No account, no package manager, no runner. It unpacks into a temporary folder, runs, and deletes it. Only <code>~/comped</code> is left.</div>
+      <div><b>Nothing installed, nothing changed.</b> No account, no package manager, no runner: it unpacks into a temporary folder, runs, and deletes it. It only reads, and the one folder it writes is <code>~/comped</code>.</div>
     </div>
   </div>
 </section>
@@ -264,7 +263,7 @@
   <div class="wrap">
     <p class="eyebrow">Which tier are you?</p>
     <h2>Seven tiers. <em>Everyone thinks theirs is the bad one.</em></h2>
-    <p class="lede">Your score lands you in a tier. It goes on the card, and in the line the tool writes for you to post, with your rank once you're on the board. Screenshot the card, or paste the line.</p>
+    <p class="lede">Your score lands you in a tier. It goes on the card, and in the line the tool writes for you to post, with your rank once you're on the board. Paste the line, or <a href="card.html">make the card</a> and post the picture.</p>
     <ol class="tiers">
       <li><b>&lt;1×</b><span>Paying customer</span><em>The API would have been cheaper.</em></li>
       <li><b>1 to 2×</b><span>Break-even</span><em>Paying roughly what the tokens are worth.</em></li>
@@ -280,8 +279,9 @@
         <a class="btn" href="https://x.com/intent/post?text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat).%20Anthropic%20gave%20me%20%242%2C578%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on X</a>
         <a class="btn" href="https://www.linkedin.com/feed/?shareActive=true&amp;text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat).%20Anthropic%20gave%20me%20%242%2C578%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on LinkedIn</a>
         <button class="copy" data-copy="#share-text">Copy the line</button>
+        <a class="btn primary" href="card.html">Make my card →</a>
       </div>
-      <p class="hero-note">Those are one person's numbers. Yours are in <code>~/comped/comped-share.txt</code> after you run it. Paste that instead.</p>
+      <p class="hero-note">Those are one person's numbers. Yours are in <code>~/comped/comped-share.txt</code> after you run it. Paste that instead. <a href="card.html">The card page</a> draws your score as a picture you can download and attach, from your handle on the board or from the link the tool prints.</p>
     </div>
   </div>
 </section>

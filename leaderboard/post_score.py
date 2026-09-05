@@ -141,20 +141,28 @@ def _score(m) -> str:
     return "{0:.1f}×".format(m) if m < 10 else "{0:.0f}×".format(m)
 
 
-def rewrite_share(out_dir: Path, pr: dict, rank, of) -> bool:
-    """Put the rank into the line that gets posted, using the core's own wording so it never drifts."""
+def rewrite_share(out_dir: Path, pr: dict, rank, of, handle: str) -> str:
+    """Put the rank into the line that gets posted, and into the link that draws the card as a
+    picture, using the core's own wording so neither drifts. Returns that link, or "" when the
+    core is not importable from beside this script."""
     try:
-        from comped_core.render_report import share_text
+        from comped_core.render_report import card_url, share_text
         from comped_core.tiers import tier
     except Exception:
-        return False
+        return ""
     m = Decimal(str(pr["multiplier"])) if pr.get("multiplier") is not None else None
+    label, _id = _plan(pr)
     v = {"total_usd": Decimal(str(pr.get("total_usd") or "0")), "multiplier": m, "tier": pr.get("tier") or tier(m),
          "plan_cost": Decimal(str(pr["plan_cost"])) if pr.get("plan_cost") is not None else None,
          "detected": pr.get("detected") or {}, "window_days": pr.get("days_back", 30),
-         "site": "https://gotcomped.com", "rank": rank, "rank_of": of}
+         "site": "https://gotcomped.com", "rank": rank, "rank_of": of, "handle": handle or "",
+         "plan_labels": [label] if label else [], "active_days": pr.get("active_days") or 0,
+         "sessions": pr.get("sessions") or 0, "cache_share": pr.get("cache_share")}
     (out_dir / SHARE_FILE).write_text(share_text(v) + "\n", encoding="utf-8")
-    return True
+    try:
+        return card_url(v)
+    except Exception:
+        return ""
 
 
 def finish(human: list, result: dict) -> int:
@@ -217,20 +225,23 @@ def main(argv=None) -> int:
     lines = ["LEADERBOARD", "  posted as {0}: {1} · {2} comped over {3} days".format(
         who, _score(body["multiplier"]) if body["multiplier"] is not None else "no multiplier",
         _money(body["comped_usd"]), body["days_back"])]
+    link = rewrite_share(out_dir, pr, rank, of, handle)
     if rank:
         # "top 67%" of three people is technically true and reads like a joke; say it from ten up.
         top = " · top {0:g}%".format(pct) if pct and of and of >= 10 else ""
         lines.append("  #{0} of {1} on gotcomped.com{2}".format(rank, of, top))
-        if rewrite_share(out_dir, pr, rank, of):
+        if link:
             lines.append("  {0} now carries your rank.".format(out_dir / SHARE_FILE))
     elif reply.get("reason"):
         lines.append("  not ranked: {0} ({1} on the board so far)".format(reply["reason"], of))
+    if link:
+        lines.append("  the card as a picture you can post: {0}".format(link))
     lines.append("  {0}".format(url))
     lines.append("  sent: score, tier, list-price total, plan, providers, days, your handle. Nothing else."
                  " leaderboard=false to skip.")
     return finish(lines, {"posted": True, "rank": rank, "of": of, "percentile": pct,
                           "eligible": reply.get("eligible"), "held": reply.get("held"), "reason": reply.get("reason"),
-                          "handle": handle, "url": url})
+                          "handle": handle, "url": url, "card_url": link})
 
 
 if __name__ == "__main__":

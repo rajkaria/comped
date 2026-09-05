@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make your comped card</title>
+<meta name="description" content="Draw your comp score as a picture you can post: your handle, your score, your tier and what your AI cost at full price. Downloads as a PNG. Nothing is uploaded.">
+<link rel="canonical" href="https://gotcomped.com/card.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="comped">
+<meta property="og:url" content="https://gotcomped.com/card.html">
+<meta property="og:title" content="Make your comped card">
+<meta property="og:description" content="Your comp score as a picture you can post. Type your handle, or open the link comped printed. Downloads as a PNG; nothing is uploaded.">
+<meta property="og:image" content="https://gotcomped.com/card-wide.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="The comped card: the month at full price, the comp score, the tier and which AI it found.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Make your comped card">
+<meta name="twitter:description" content="Your comp score as a picture you can post. Downloads as a PNG; nothing is uploaded.">
+<meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼️</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="landing card-page">
+
+<div class="aurora" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./">comped<span>.</span></a>
+    <div class="links">
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="card.html" class="on">Card</a>
+      <a href="docs.html" class="hide-xs">Docs</a>
+      <a href="developers.html" class="hide-sm">Developers</a>
+      <a class="cta" href="./#get">Get my <span class="hide-xs">comp </span>score</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero slim">
+  <div class="wrap">
+    <p class="kicker"><span class="dot"></span>Drawn in your browser · nothing uploaded</p>
+    <h1>Your card, <em>ready to post</em>.</h1>
+    <p class="sub">The card comped prints in your terminal, as a picture. Type the handle you posted under and it draws your row off <a href="leaderboard.html">the board</a>, or open the link comped printed for you, which carries your numbers in the part of the URL browsers never send to a server. Either way it renders here, on your machine, and downloads as a PNG you can attach to a post.</p>
+
+    <form class="card-find" id="card-find">
+      <label for="card-handle">Handle on the board</label>
+      <input id="card-handle" type="text" placeholder="rajkaria" autocomplete="off" spellcheck="false" maxlength="32">
+      <button class="btn primary" type="submit">Draw my card</button>
+    </form>
+    <p class="board-status" id="card-status">Type a handle, or open the link comped printed.</p>
+  </div>
+</header>
+
+<section class="card-section">
+  <div class="wrap">
+    <div class="card-stage" id="card-stage" aria-live="polite"></div>
+
+    <div class="card-actions" id="card-actions" hidden>
+      <button class="btn primary" id="dl-png" type="button">Download the PNG</button>
+      <button class="btn" id="copy-png" type="button">Copy the image</button>
+      <a class="btn" id="post-x" href="https://x.com/intent/post" rel="noopener" target="_blank">Post on X</a>
+      <a class="btn" id="post-li" href="https://www.linkedin.com/feed/" rel="noopener" target="_blank">Post on LinkedIn</a>
+      <button class="btn" id="copy-link" type="button">Copy the link</button>
+      <div class="seg" role="group" aria-label="Card theme">
+        <button class="on" data-card-theme="dark" type="button">Dark</button>
+        <button data-card-theme="light" type="button">Light</button>
+      </div>
+    </div>
+
+    <div class="share-text" id="card-line" hidden></div>
+
+    <div class="reassure">
+      <div><b>Nothing is uploaded.</b> Drawing your card off the board is one read of <code>/api/leaderboard</code>, the same public list <a href="leaderboard.html">the leaderboard page</a> shows. The link comped prints keeps your numbers after the <code>#</code>, and browsers never send that part to a server.</div>
+      <div><b>Same numbers as your row.</b> The card carries exactly the fields the leaderboard already has: score, tier, the full-price total, the plan it was scored against, which AIs and tools were found, the window, and cache-read share. <a href="./#privacy">Here is that list.</a></div>
+      <div><b>No handle yet?</b> <a href="./#get">One line gets you on the board</a>, about ten seconds, no account. comped prints this card in your terminal at the end, along with the link that opens it here.</div>
+    </div>
+  </div>
+</section>
+
+<section id="get" class="get final">
+  <div class="wrap">
+    <h2>Haven't run it yet? <em>That's the ten seconds.</em></h2>
+    <p class="lede">It reads your AI tools' logs on your own computer, prints your card, and posts just the score. Add <code>handle=yourname</code> to claim a name.</p>
+    <div class="cmd big" data-label="paste into Terminal">
+      <span class="dollar">$</span>
+      <code id="cmd-real">curl -fsSL https://gotcomped.com/comped.sh | sh</code>
+      <button class="copy primary" data-copy="#cmd-real">Copy</button>
+    </div>
+    <p class="hero-note">Windows, or no shell? <code>npx comped</code> does the same thing. What exactly gets sent: <a href="./#privacy">the privacy section</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>comped is built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+<script src="card.js" defer></script>
+
+</body>
+</html>

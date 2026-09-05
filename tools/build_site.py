@@ -36,10 +36,10 @@ PLAY_STEPS = {
 
 PLAY_OUTPUTS = {
     "comped": [
-        ("comped-report.md", "The whole run in Markdown: card, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written."),
+        ("comped-report.md", "The whole run in Markdown: card, the line to post, a link that draws the card as a downloadable picture, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written."),
         ("comped-card.svg", "The shareable card, 1200×675."),
         ("comped-card-square.svg", "The same card on a square canvas. PNG renderers fit thumbnails into a square box and would otherwise crop the wide one."),
-        ("comped-card.png", "Rendered from the square SVG when this machine has rsvg-convert or macOS qlmanage. Absent, with a note, when it doesn't."),
+        ("comped-card.png", "Rendered from the square SVG when this machine has rsvg-convert or macOS qlmanage. Absent, with a note pointing at the card page, when it doesn't: that page draws the same card in your browser and downloads it as a PNG."),
         ("comped-explain.txt", "One line per model showing tokens × rate = dollars, plus the plan arithmetic and one line per source."),
         ("comped-share.txt", "A post you can paste, with the numbers already in it."),
         ("comped-baseline.json", "Totals and repeat labels from this run, so the next one can show you the delta."),
@@ -580,7 +580,7 @@ def main():
         out.write_text(html_text, encoding="utf-8")
         print("wrote {0} ({1} bytes)".format(out, len(html_text)))
     sm = ROOT / "site" / "sitemap.xml"
-    pages = ["", "docs.html", "developers.html", "leaderboard.html"]
+    pages = ["", "docs.html", "developers.html", "leaderboard.html", "card.html"]
     sm.write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

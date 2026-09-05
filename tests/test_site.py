@@ -1,7 +1,7 @@
 import unittest, pathlib, re, subprocess, sys, json
 
 SITE = pathlib.Path("site")
-PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html")
+PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html", "card.html")
 
 
 def setUpModule():
@@ -201,3 +201,45 @@ class Site(unittest.TestCase):
         self.assertIn("handle=$H", sh)
         self.assertIn("leaderboard=false", sh)
         self.assertIn("leaderboard.html", sh)
+
+
+class CardPage(unittest.TestCase):
+    """card.html turns a score into a picture. Everything it needs it either already has in the
+    URL or reads from this site's own board, and it must stay that way: the page is offered to
+    people on the strength of "nothing is uploaded"."""
+
+    def test_the_card_page_ships_with_its_script(self):
+        self.assertTrue((SITE / "card.html").is_file())
+        self.assertTrue((SITE / "card.js").is_file())
+
+    def test_it_has_no_inline_script_so_the_deployed_csp_can_run_it(self):
+        # vercel.json sets script-src 'self'. An inline <script> would be silently refused and the
+        # page would render an empty stage with no error anyone would see.
+        text = (SITE / "card.html").read_text(encoding="utf-8")
+        for block in re.findall(r"<script([^>]*)>(.*?)</script>", text, re.S):
+            self.assertIn("src=", block[0], "card.html has an inline script")
+            self.assertEqual("", block[1].strip())
+
+    def test_the_only_thing_it_fetches_is_this_site_s_own_board(self):
+        js = (SITE / "card.js").read_text(encoding="utf-8")
+        for url in re.findall(r'fetch\(\s*"([^"]+)"', js):
+            self.assertTrue(url.startswith("/api/"), "card.js fetches {0}".format(url))
+        self.assertNotIn("XMLHttpRequest", js)
+        # The PNG is rasterised from a data: URL so the canvas is never tainted and the file can
+        # be handed back. An <img> pointed at a remote SVG would break that and leak a request.
+        self.assertIn("data:image/svg+xml", js)
+
+    def test_the_numbers_ride_in_the_fragment_the_core_writes(self):
+        # comped_core.render_report.card_url builds "#c=<payload>"; card.js reads it back. If one
+        # side changes the key the other keeps rendering an empty card.
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+        from comped_core.render_report import card_url
+        url = card_url({"multiplier": None, "total_usd": 0, "window_days": 30})
+        self.assertIn("/card.html#c=", url)
+        self.assertIn("c=([A-Za-z0-9_-]+)", (SITE / "card.js").read_text(encoding="utf-8"))
+
+    def test_the_pages_that_promise_a_card_link_to_it(self):
+        for page in ("index.html", "leaderboard.html"):
+            self.assertIn('href="card.html', (SITE / page).read_text(encoding="utf-8"), page)
+        self.assertIn("card.html", (SITE / "board.js").read_text(encoding="utf-8"))
+        self.assertIn("<loc>https://gotcomped.com/card.html</loc>", (SITE / "sitemap.xml").read_text(encoding="utf-8"))

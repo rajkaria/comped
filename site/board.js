@@ -26,7 +26,9 @@
   function rowHtml(r, opts) {
     var provs = (r.providers || []).map(function (k) { return "<span class=\"chip\">" + esc(name(PROVIDERS, k)) + "</span>"; }).join("");
     var tools = (r.harnesses || []).map(function (k) { return esc(name(HARNESSES, k)); }).join(", ");
-    var who = r.anonymous ? "<span class=\"anon\">" + esc(r.handle) + "</span>" : "<b>" + esc(r.handle) + "</b>";
+    // Every row links to its own card: the same numbers, drawn as a picture you can download.
+    var shown = r.anonymous ? "<span class=\"anon\">" + esc(r.handle) + "</span>" : "<b>" + esc(r.handle) + "</b>";
+    var who = "<a class=\"who-link\" href=\"card.html?h=" + encodeURIComponent(r.handle) + "\" title=\"Draw this row as a card\">" + shown + "</a>";
     var medal = r.rank === 1 ? "🥇" : r.rank === 2 ? "🥈" : r.rank === 3 ? "🥉" : "#" + r.rank;
     return "<tr id=\"" + (r.anonymous ? "" : "h-" + esc(r.handle)) + "\" class=\"" + tierSlug(r.tier) + "\">" +
       "<td class=\"rk\">" + medal + "</td>" +
