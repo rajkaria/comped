@@ -19,10 +19,9 @@ jobs:
   # it is plain standard-library Python with nothing Unix-specific in it, and this job is what
   # turns "should work on Windows" into something we actually know. It runs the real archive the
   # way a person would, with stdout redirected, which is exactly where a Windows code page bites.
-  # Not a gate yet: it reports, it does not block.
+  # It went green on 05 Sep, so it gates now: the site tells people this works.
   windows-standalone:
     runs-on: windows-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
