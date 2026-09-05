@@ -216,11 +216,13 @@ ASKING_LINER = 'curl -fsSL "https://play.modiqo.ai/install?play={0}/comped" | sh
 
 def page(path, title, description, nav_active, toc, body):
     """One page in the site's shell: the shared head, nav and footer around a docs layout."""
-    links = [("./", "Home", ""), ("leaderboard.html", "Leaderboard", ""), ("docs.html", "Docs", "docs"),
-             ("developers.html", "Developers", "developers"),
-             ("https://github.com/rajkaria/comped", "GitHub", "")]
+    # (href, label, nav key, class that hides it on small screens)
+    links = [("./", "Home", "", "hide-xs"), ("leaderboard.html", "Leaderboard", "", ""), ("docs.html", "Docs", "docs", ""),
+             ("developers.html", "Developers", "developers", "hide-sm"),
+             ("https://github.com/rajkaria/comped", "GitHub", "", "hide-sm")]
     nav = "\n".join('      <a href="{0}"{2}>{1}</a>'.format(
-        href, label, ' class="on"' if key and key == nav_active else "") for href, label, key in links)
+        href, label, ' class="{0}"'.format(" ".join(c for c in (("on" if key and key == nav_active else ""), hide) if c))
+        if (key == nav_active and key) or hide else "") for href, label, key, hide in links)
     return """<!doctype html>
 <html lang="en">
 <head>
