@@ -58,9 +58,11 @@
 
 <h2 id="install">One line</h2>
 <p>You need a Mac or Linux machine, a terminal, and <strong>python3</strong> (3.9 or newer, which every Mac has). Copy this, paste it into Terminal, press Enter:</p>
+<pre><code>curl -fsSL https://gotcomped.com/run.sh | sh</code></pre>
+<p>It fetches <strong>rote</strong> — the free runner from <a href="https://www.modiqo.ai">Modiqo</a> that comped is written for — only if you don't already have it, signs you in to the registry if you aren't, prints what the comped Play reads and writes, and runs it without stopping to ask. About a minute the first time; ten seconds after that. <a href="https://gotcomped.com/run.sh">The script</a> is fifty lines; read it first if you like. Anything after <code>sh -s --</code> goes to the Play: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
+<p>Prefer to be asked before anything runs? The registry's own installer does the same steps and waits for a <em>yes</em> at each:</p>
 <pre><code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></pre>
-<p>It fetches <strong>rote</strong> — the free runner from <a href="https://www.modiqo.ai">Modiqo</a> that comped is written for — only if you don't already have it, asks you to sign in to the registry, shows you exactly what the comped Play reads and writes, and waits for your <em>yes</em>. Then it runs. About a minute the first time; ten seconds after that.</p>
-<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/rajkaria/comped</code>. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
+<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/rajkaria/comped --yes</code> — drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
 
 <h2 id="quickstart">Try it on sample data first</h2>
 <p>If you'd rather see it work before pointing it at your own logs, the Play ships with sample logs: real in shape, made-up in content.</p>
@@ -76,7 +78,7 @@
 <p>Top to bottom:</p>
 <ul>
 <li><strong>The big number.</strong> What the last 30 days would have cost at the provider's public API prices. <em>Not a bill</em> — you're on a subscription and you paid what you paid.</li>
-<li><strong>Your comp score.</strong> That number divided by what your plan costs for the same window. <strong>13×</strong> means your subscription paid for itself thirteen times over.</li>
+<li><strong>Your comp score, and your tier.</strong> That number divided by what your plan costs for the same window. <strong>13×</strong> means your subscription paid for itself thirteen times over; the tier is the word for that.</li>
 <li><strong>Which AI cost what,</strong> largest first, with a bar.</li>
 <li><strong>Cache-read share.</strong> How much of what the AI read came from cache. High is normal and good.</li>
 <li><strong>Active days and sessions,</strong> so a big number reads as either heavy use or a heavy week.</li>
@@ -90,7 +92,9 @@
 <p>You type nothing. Every request your AI tools log carries the name of the model that answered it, and that name says who made it. From that, comped knows whether you're on Claude, ChatGPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen, MiniMax or Mistral, and which tools you read it through.</p>
 <p>The one thing your logs don't record is which <em>tier</em> you pay for — a Pro session and a Max session look identical. So rather than ask, or peek at your account (it never will), the card prices every plan your provider sells and marks the most expensive one that fits as the safe assumption. Your real score is at least that. If you want the exact row on the headline, say so once:</p>
 <pre><code>rote play run https://play.modiqo.ai/rajkaria/comped plan=claude-pro-20</code></pre>
-<p>Paying for something the table doesn't list — a Kimi or GLM coding plan, a team seat? <code>plan=usd:29</code> prices it.</p>
+<p>Say it once: a typed plan is remembered in <code>~/comped/comped-plan.txt</code> and every later run uses it. Delete the file to go back to inferring. Paying for something the table doesn't list — a Kimi or GLM coding plan, a team seat? <code>plan=usd:29</code> prices it.</p>
+<h3>Your tier</h3>
+<p>The score lands you in one of seven tiers, printed on the card and in <code>comped-share.txt</code>: Paying customer (under 1×), Break-even (1–2×), Comped (2–5×), Properly comped (5–12×), All-you-can-eat (12–30×), Hostage situation (30–80×), Please stop (80× and up).</p>
 
 <h2 id="options">Options you might change</h2>
 <p>Add any of these after the command as <code>name=value</code>. Everything has a sensible default.</p>

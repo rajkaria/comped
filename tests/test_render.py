@@ -62,7 +62,7 @@ class RenderTests(unittest.TestCase):
         md = render_report(V())
         for h in ("## Card", "## Models", "## Sources", "## Repeat offenders", "## Rote dividend", "## Delta since last run", "## Unpriced models", "## Methodology", "## Privacy"): self.assertIn(h, md)
         self.assertIn("never reads", md.lower()); s = share_text(V())
-        self.assertIn("$8,570", s); self.assertIn("43×", s); self.assertIn("@Modiqo", s); self.assertIn("play.modiqo.ai/priya/comped", s)
+        self.assertIn("$8,570", s); self.assertIn("43×", s); self.assertIn("gotcomped.com", s); self.assertIn("#gotcomped", s)
     def test_svg_escapes_and_size(self):
         v = V(); v["per_model"][0]["model"] = "<script>&"
         svg = render_svg(v, "dark"); self.assertIn('width="1200"', svg); self.assertIn("&lt;script&gt;&amp;", svg); self.assertNotIn("<script>", svg)

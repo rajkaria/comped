@@ -358,6 +358,27 @@ kbd {
 .faq details[open] summary::after { content: "–"; }
 .faq details p { margin: 0 0 18px; color: var(--muted); }
 
+/* ---------- tiers and sharing ---------- */
+ol.tiers { list-style: none; margin: 0 0 32px; padding: 0; display: grid; gap: 8px; }
+ol.tiers li {
+  display: grid; grid-template-columns: 84px 200px 1fr; gap: 16px; align-items: baseline;
+  padding: 12px 16px; border-radius: 12px; border: 1px solid transparent; background: rgba(18, 24, 33, .5);
+}
+ol.tiers li.on { border-color: var(--accent-dim); background: rgba(92, 242, 160, .07); }
+ol.tiers b { font-family: var(--mono); color: var(--accent); font-size: 15px; }
+ol.tiers span { font-weight: 700; }
+ol.tiers em { font-style: normal; color: var(--muted); font-size: 15px; }
+.share-row { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: var(--panel); }
+.share-text { font-size: 18px; line-height: 1.5; margin-bottom: 16px; }
+.share-btns { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.share-btns .btn {
+  display: inline-block; background: var(--fg); color: var(--bg); font-weight: 650; padding: 9px 16px;
+  border-radius: 999px; font-size: 14.5px; transition: transform .15s var(--ease);
+}
+.share-btns .btn:hover { text-decoration: none; transform: translateY(-1px); }
+.share-btns button.copy { margin-left: 0; }
+.share-row .hero-note { margin-top: 14px; }
+
 /* ---------- privacy ---------- */
 .promises { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
 .promises li {
@@ -420,6 +441,8 @@ footer .row .sp { margin-left: auto; }
   ol.ladder .pbar { grid-column: 1 / -1; }
   ol.ladder .pc { display: none; }
   ol.howto li { grid-template-columns: 40px 1fr; gap: 12px; }
+  ol.tiers li { grid-template-columns: 70px 1fr; }
+  ol.tiers em { grid-column: 1 / -1; }
   .step-n { width: 40px; height: 40px; font-size: 16px; border-radius: 12px; }
   .btn-big { font-size: 17px; padding: 14px 20px; }
 }

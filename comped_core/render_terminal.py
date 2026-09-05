@@ -53,8 +53,13 @@ def render_terminal(v: dict, color: bool) -> str:
         L.append(_row("{0:.1f}×  vs {1} ({2} prorated)".format(v["multiplier"], " + ".join(v["plan_labels"]), money(v["plan_cost"]))[: W - 4]))
     else:
         L.append(_row("list-price total only: no subscription matched what you run"[: W - 4]))
+    t = v.get("tier")
+    if t:
+        L.append(_row(_c("{0} · tier {1} of {2}".format(t["name"].upper(), t["rank"], t["of"]), "1;33", color), 11 if color else 0))
     if v.get("plan_source") == "auto" and v.get("plan_labels"):
         L.append(_row("assumed from your own logs — nothing typed, nothing asked"[: W - 4]))
+    elif v.get("plan_source") == "remembered":
+        L.append(_row("remembered from last time (plan=<id> to change)"[: W - 4]))
     L.append(_row(""))
     for m in v["per_model"][:3]:
         name = m["model"][:18].ljust(18)

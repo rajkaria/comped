@@ -19,6 +19,7 @@ from .baseline import load_baseline, save_baseline, delta
 from .render_terminal import render_terminal
 from .render_report import render_report, render_explain, share_text
 from .detect import summary_line
+from .tiers import tier, score
 from .render_svg import render_svg, render_svg_square
 from .render_png import render_png
 
@@ -132,12 +133,28 @@ def cmd_price(a):
     # An empty plan= means "work it out", not "give up": the ids in the logs name the providers,
     # and every tier they sell is priced side by side. Typing a plan overrides the inference.
     ids = parse_plan_ids(a.plan) or [AUTO]
+    # Say it once. A typed plan is remembered under out_dir, so the next bare run uses it; the
+    # logs cannot tell a Pro month from a Max month, and nobody should have to retype what the
+    # tool cannot know. plan=auto with no memory infers; delete the file to go back to inferring.
+    memo = Path(a.out_dir).expanduser() / "comped-plan.txt"
+    remembered = False
+    if ids == [AUTO] and memo.exists():
+        kept = parse_plan_ids(memo.read_text(encoding="utf-8"))
+        if kept and kept != [AUTO]:
+            ids, remembered = kept, True
+    elif ids != [AUTO]:
+        memo.parent.mkdir(parents=True, exist_ok=True)
+        memo.write_text(",".join(ids) + "\n", encoding="utf-8")
     s = price_ledger(led, table, plans, ids, a.days_back or st["days_back"], now)
+    if remembered:
+        s.plan_source = "remembered"
+        s.explain.append("plan: remembered from {0} (pass plan=<id> to change it, or delete the file to infer)".format(memo))
     doc = {"total_usd": s.total_usd, "per_model": s.per_model, "unpriced": s.unpriced, "cache_share": s.cache_share,
            "active_days": s.active_days, "sessions": s.sessions, "per_turn_usd": s.per_turn_usd, "plan_cost": s.plan_cost,
            "multiplier": s.multiplier, "plan_ids": s.plan_ids, "explain": s.explain, "window_start": s.window_start,
            "window_end": s.window_end, "price_meta": s.price_meta, "days_back": a.days_back or st["days_back"], "now": iso(now),
-           "detected": s.detected, "plan_ladder": s.plan_ladder, "plan_source": s.plan_source}
+           "detected": s.detected, "plan_ladder": s.plan_ladder, "plan_source": s.plan_source,
+           "tier": tier(s.multiplier)}
     _state(a.out_dir, "priced", doc)
     p = Path(a.out_dir).expanduser() / "comped-explain.txt"
     p.write_text(render_explain(s), encoding="utf-8")
@@ -145,8 +162,11 @@ def cmd_price(a):
             "per_model": s.per_model, "unpriced": s.unpriced, "cache_share": s.cache_share, "active_days": s.active_days,
             "sessions": s.sessions, "detected": summary_line(s.detected), "plan_source": s.plan_source,
             "plans": [{"label": r["label"], "multiplier": r["multiplier"], "assumed": r["assumed"]} for r in s.plan_ladder],
+            "tier": tier(s.multiplier),
             "note": ("plan inferred from the logs: {0}".format(" + ".join(plan_label(p, plans) for p in s.plan_ids))
-                     if s.plan_source == "auto" and s.plan_ids else "")}
+                     if s.plan_source == "auto" and s.plan_ids else
+                     ("plan remembered from an earlier run: {0}".format(" + ".join(plan_label(p, plans) for p in s.plan_ids))
+                      if s.plan_source == "remembered" else ""))}
 
 
 def cmd_repeats(a):
@@ -179,6 +199,7 @@ def _view(a, pr, rp, led):
             "unpriced": pr["unpriced"], "price_as_of": pr["price_meta"].get("as_of", "?"),
             "price_source": pr["price_meta"].get("source_url", "?"),
             "detected": pr.get("detected") or {}, "plan_source": pr.get("plan_source", "typed"),
+            "tier": pr.get("tier"), "site": "https://gotcomped.com",
             "plan_ladder": [{"label": r["label"], "cost": Decimal(str(r["cost"])),
                              "multiplier": Decimal(str(r["multiplier"])) if r.get("multiplier") is not None else None,
                              "assumed": r["assumed"]} for r in (pr.get("plan_ladder") or [])],
@@ -240,7 +261,8 @@ def cmd_card(a):
     return {"ok": True, "written": written, "total_usd": v["total_usd"], "multiplier": v["multiplier"],
             "repeats": len(v["repeats"]), "png": png, "note": note,
             "detected": summary_line(v["detected"]) if v.get("detected") else "",
-            "plan": " + ".join(v["plan_labels"]), "plan_source": v.get("plan_source", "typed")}
+            "plan": " + ".join(v["plan_labels"]), "plan_source": v.get("plan_source", "typed"),
+            "tier": (v.get("tier") or {}).get("name", ""), "score": score(v["multiplier"])}
 
 
 def cmd_wrongturns(a):

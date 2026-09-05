@@ -81,7 +81,7 @@
           <h3>Copy this line</h3>
           <div class="cmd big" data-label="the whole thing">
             <span class="dollar">$</span>
-            <code id="cmd-main">curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code>
+            <code id="cmd-main">curl -fsSL https://gotcomped.com/run.sh | sh</code>
             <button class="copy primary" data-copy="#cmd-main">Copy</button>
           </div>
         </div>
@@ -90,20 +90,20 @@
         <div class="step-n">2</div>
         <div class="step-body">
           <h3>Paste it into Terminal and press Enter</h3>
-          <p>On a Mac: press <kbd>⌘</kbd> <kbd>space</kbd>, type <em>Terminal</em>, press Enter. Then <kbd>⌘</kbd> <kbd>V</kbd> and Enter. It will show you exactly what it's about to do and wait for a <em>yes</em>.</p>
+          <p>On a Mac: press <kbd>⌘</kbd> <kbd>space</kbd>, type <em>Terminal</em>, press Enter. Then <kbd>⌘</kbd> <kbd>V</kbd> and Enter. No questions after that — it prints what it's about to read, then reads it. (<a href="https://gotcomped.com/run.sh">The script is 50 lines</a>; the cautious version that asks first is <a href="docs.html#install">in the docs</a>.)</p>
         </div>
       </li>
       <li>
         <div class="step-n">3</div>
         <div class="step-body">
           <h3>Read your card</h3>
-          <p>Your comp score is the big number — <b>13×</b> means your subscription paid for itself thirteen times over. A shareable image lands in <code>~/comped/comped-card.png</code>. Post it. Everyone thinks theirs is the bad one.</p>
+          <p>Your comp score is the big number — <b>13×</b> means your subscription paid for itself thirteen times over — and under it, your <b>tier</b>. A shareable image lands in <code>~/comped/comped-card.png</code> and a ready-to-post line in <code>comped-share.txt</code>. <a href="#share">Post it.</a></p>
         </div>
       </li>
     </ol>
 
     <div class="reassure">
-      <div><b>Nothing to type in.</b> It works out which AI you use and which plans you could be on from the logs themselves.</div>
+      <div><b>Nothing to type in.</b> It works out which AI you use from the logs, and scores every plan you could be on. Told it your plan once? It remembers.</div>
       <div><b>Nothing leaves your computer.</b> No upload, no account, no tracking. <a href="#privacy">Here's how you can check.</a></div>
       <div><b>Nothing changed.</b> It only reads. It writes one folder, <code>~/comped</code>, and tells you what it put there.</div>
     </div>
@@ -232,6 +232,32 @@
   </div>
 </section>
 
+<section id="share">
+  <div class="wrap">
+    <p class="eyebrow">Which tier are you?</p>
+    <h2>Seven tiers. <em>Everyone thinks theirs is the bad one.</em></h2>
+    <p class="lede">Your score lands you in a tier, printed on the card and in the line it writes for you to post. Screenshot it, or paste the line — it already has your number in it.</p>
+    <ol class="tiers">
+      <li><b>&lt;1×</b><span>Paying customer</span><em>The API would have been cheaper.</em></li>
+      <li><b>1–2×</b><span>Break-even</span><em>Paying roughly what the tokens are worth.</em></li>
+      <li><b>2–5×</b><span>Comped</span><em>Comfortably ahead. The plan is doing its job.</em></li>
+      <li><b>5–12×</b><span>Properly comped</span><em>This is the part where you tell your team.</em></li>
+      <li class="on"><b>12–30×</b><span>All-you-can-eat</span><em>Less a purchase than a hostage situation, and you are not the hostage.</em></li>
+      <li><b>30–80×</b><span>Hostage situation</span><em>Someone in a pricing meeting is about to go very quiet.</em></li>
+      <li><b>80×+</b><span>Please stop</span><em>There is nothing left to comp.</em></li>
+    </ol>
+    <div class="share-row">
+      <div class="share-text" id="share-text">My comp score is 13× (All-you-can-eat). Anthropic gave me $2,557 of AI for $197 this month. What's yours? One line, nothing leaves your machine: gotcomped.com #gotcomped</div>
+      <div class="share-btns">
+        <a class="btn" href="https://x.com/intent/post?text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat).%20Anthropic%20gave%20me%20%242%2C557%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%2C%20nothing%20leaves%20your%20machine%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on X</a>
+        <a class="btn" href="https://www.linkedin.com/feed/?shareActive=true&amp;text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat).%20Anthropic%20gave%20me%20%242%2C557%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%2C%20nothing%20leaves%20your%20machine%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on LinkedIn</a>
+        <button class="copy" data-copy="#share-text">Copy the line</button>
+      </div>
+      <p class="hero-note">Those are the sample numbers. Yours are in <code>~/comped/comped-share.txt</code> after you run it — paste that instead.</p>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
     <h2>Questions people ask</h2>
@@ -257,6 +283,10 @@
         <p>It doesn't, and it doesn't try to find out — that would mean reading your account, which it refuses to do. Instead it prices every plan your provider sells and marks the most expensive one that fits. Your real score is at least that; find your row for the exact one.</p>
       </details>
       <details>
+        <summary>Why does it say "assumed"? Can't it tell if I'm on Pro or Max?</summary>
+        <p>No — and neither can anything else that only reads your logs. A Pro session and a Max session are byte-for-byte the same. The only file on your computer that knows your tier is your account file, and we won't open it. So the card scores every tier and assumes the priciest one that fits, which is the smallest number you could honestly claim. Say <code>plan=claude-pro-20</code> once and it remembers.</p>
+      </details>
+      <details>
         <summary>Windows?</summary>
         <p>Not yet — the runner is Mac and Linux. WSL works.</p>
       </details>
@@ -274,10 +304,10 @@
     <p class="lede">One line, about a minute, nothing leaves your machine. Then post your score — everyone thinks theirs is the bad one.</p>
     <div class="cmd big" data-label="paste into Terminal">
       <span class="dollar">$</span>
-      <code id="cmd-real">curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code>
+      <code id="cmd-real">curl -fsSL https://gotcomped.com/run.sh | sh</code>
       <button class="copy primary" data-copy="#cmd-real">Copy</button>
     </div>
-    <p class="hero-note">Already have rote? <code>rote play run https://play.modiqo.ai/rajkaria/comped</code> does the same thing.</p>
+    <p class="hero-note">Already have rote? <code>rote play run https://play.modiqo.ai/rajkaria/comped --yes</code> does the same thing. Prefer to be asked first? The registry's own installer: <code>curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></p>
   </div>
 </section>
 
