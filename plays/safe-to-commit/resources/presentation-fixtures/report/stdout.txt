@@ -1,0 +1,15 @@
+── 4 staged files ──────────────────────────────────────────
+  README.md                                    39
+  config/dev.env                               121
+  scripts/report.py                            19
+  src/app.py                                   83
+
+── credentials ─────────────────────────────────────────────
+  blocker   config/dev.env:1  connection-string  post…ev (50 chars)
+  blocker   config/dev.env:2  aws-access-key  AKIA…12 (20 chars)
+
+── left-behind debugging ───────────────────────────────────
+  src/app.py:2  print('here')
+
+4 staged files · 2 blockers: connection-string in config/dev.env
+{"debug": [{"kind": "python debug output", "line": 2, "path": "src/app.py", "text": "print('here')"}], "env_files": ["config/dev.env"], "files": [{"bytes": 39, "path": "README.md", "source": "index"}, {"bytes": 121, "path": "config/dev.env", "source": "index"}, {"bytes": 19, "path": "scripts/report.py", "source": "index"}, {"bytes": 83, "path": "src/app.py", "source": "index"}], "findings": [{"kind": "connection-string", "line": 1, "masked": "post\u2026ev (50 chars)", "path": "config/dev.env", "severity": "blocker", "why": "a connection string carrying a password"}, {"kind": "aws-access-key", "line": 2, "masked": "AKIA\u202612 (20 chars)", "path": "config/dev.env", "severity": "blocker", "why": "an AWS access key id"}], "from_worktree": [], "ok": true, "oversized": [], "staged": 4, "verdict": "do-not-commit"}

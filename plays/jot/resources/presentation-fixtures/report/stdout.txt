@@ -1,0 +1,10 @@
+demo run: reading a bundled 14-day log in /var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-jy8twk34
+── last captured ───────────────────────────────────────────
+  19:35  look up the cron OR rule
+  15:35  reply to Priya
+  15:35  the parser needs a bound
+  15:35  ask about the invoice
+  15:35  ring the dentist
+
+1 today · 6 this week · 0 in the inbox · 1-day streak
+{"captured": 17, "inbox_lines": 0, "longest_streak": 5, "ok": true, "streak": 1, "today": 1, "week": 6}

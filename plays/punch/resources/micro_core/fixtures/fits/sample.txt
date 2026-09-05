@@ -1,0 +1,623 @@
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
+
+The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. The card is the product. A number nobody can check is a number nobody repeats, so every figure printed here is one the reader could recompute from their own machine. 
+
+```python
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+def price(record, table):
+    rate = table["models"].get(record.model)
+    if rate is None:
+        return None, "unpriced: {0}".format(record.model)
+    return (record.input_tokens * rate["in"] + record.output_tokens * rate["out"]), None
+
+```
