@@ -57,7 +57,7 @@ nav .links { margin-left: auto; display: flex; gap: 22px; font-size: 15.5px; fon
 nav .links a { color: var(--muted); }
 nav .links a:hover, nav .links a.on { color: var(--fg); text-decoration: none; }
 nav .links a.cta {
-  background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 700;
+  background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 700; white-space: nowrap;
   transition: transform .18s var(--ease), box-shadow .18s var(--ease);
 }
 nav .links a.cta:hover { transform: translateY(-1px) rotate(-1deg); box-shadow: var(--shadow); }
@@ -327,6 +327,8 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
   aside.toc { position: static; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
   nav .links a.hide-sm { display: none; }
   nav .links { gap: 14px; font-size: 14.5px; }
+  nav .links a.cta { padding: 8px 14px; font-size: 13.5px; }
+  .kicker { font-size: 11px; letter-spacing: 0.08em; }
   .hero { padding: 56px 0 44px; }
   section { padding: 60px 0; }
   ol.ladder li { grid-template-columns: 1fr 64px; gap: 6px 12px; }
@@ -341,6 +343,12 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
   #board-search { margin-left: 0; width: 100%; }
   table.board { font-size: 14px; }
   table.board td, table.board th { padding: 11px 12px; }
+}
+
+@media (max-width: 520px) {
+  nav .links a.hide-xs { display: none; }
+  nav .links { gap: 12px; }
+  .brand { font-size: 20px; }
 }
 
 /* Motion is decoration. Anyone who asked for less gets the page without it. */
