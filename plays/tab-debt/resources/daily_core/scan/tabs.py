@@ -94,6 +94,11 @@ def read_source(family: str, budget: Budget, demo_root=None) -> tuple:
             except OSError as exc:
                 sources.append(src.miss(_os_note(exc, newest)))
                 continue
+            if not parsed["commands"]:
+                # The file is there and its header parsed, but nothing in it replayed. That is a
+                # session format this reader does not know, not a browser with no tabs open.
+                sources.append(src.miss("no commands could be replayed; unsupported session format"))
+                continue
             for tab in parsed["tabs"]:
                 tab["browser"] = name
             tabs += parsed["tabs"]
@@ -191,6 +196,8 @@ def _read_demo(family: str, root):
         parsed = _read_file(path, reader, epoch)
     except Exception as exc:                     # a broken fixture must not look like a broken browser
         return [src.miss("fixture unreadable: {0}".format(str(exc)[:60]))], []
+    if not parsed["commands"]:
+        return [src.miss("fixture replayed no commands")], []
     for tab in parsed["tabs"]:
         tab["browser"] = "{0} (demo)".format(label)
     return [src.hit(len(parsed["tabs"]), "bundled fixture")], parsed["tabs"]

@@ -1,2 +1,2 @@
 casks: 3 item(s)
-{"casks": 3, "complete": true, "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 3, "name": "casks (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSzUYOJ/resources/daily_core/fixtures/apps/casks.json"}]}
+{"casks": 3, "complete": true, "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 3, "name": "casks (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpsLSp5K/resources/daily_core/fixtures/apps/casks.json"}]}

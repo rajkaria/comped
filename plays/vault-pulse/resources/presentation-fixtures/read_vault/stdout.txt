@@ -1,2 +1,2 @@
 vault: 10 note(s)
-{"complete": true, "notes": 10, "ok": true, "scanned_files": 20, "sources": [{"found": true, "items": 10, "name": "notes", "note": "bundled fixture; 0 attachment(s)", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpfXwIAW/resources/daily_core/fixtures/notes/vault"}]}
+{"complete": true, "notes": 10, "ok": true, "scanned_files": 20, "sources": [{"found": true, "items": 10, "name": "notes", "note": "bundled fixture; 0 attachment(s)", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpAuaxOb/resources/daily_core/fixtures/notes/vault"}]}

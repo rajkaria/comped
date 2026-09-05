@@ -1,2 +1,2 @@
 applications: 8 item(s)
-{"applications": 8, "complete": true, "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 8, "name": "applications (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSzUYOJ/resources/daily_core/fixtures/apps/apps.json"}]}
+{"applications": 8, "complete": true, "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 8, "name": "applications (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpsLSp5K/resources/daily_core/fixtures/apps/apps.json"}]}

@@ -21,7 +21,8 @@ def unfold(text: str):
 
 
 def _unescape(v: str) -> str:
-    return v.replace("\\n", "\n").replace("\\N", "\n").replace("\\,", ",").replace("\;", ";").replace("\\\\", "\\")
+    return (v.replace("\\n", "\n").replace("\\N", "\n").replace("\\,", ",")
+            .replace("\\;", ";").replace("\\\\", "\\"))
 
 
 def parse(text: str) -> list:

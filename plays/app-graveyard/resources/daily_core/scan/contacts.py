@@ -149,6 +149,9 @@ def _read_vcard_paths(paths, budget: Budget, label: str) -> tuple:
     src = Source(name="vCard files", path=label)
     if not files:
         return [src.miss("no readable .vcf file")], []
+    if not people:
+        # A .vcf that parsed to no cards at all is a damaged export, not an empty address book.
+        return [src.miss("{0} file(s) held no readable vCard".format(files))], []
     return [src.hit(len(people), "{0} file(s)".format(files))], people
 
 

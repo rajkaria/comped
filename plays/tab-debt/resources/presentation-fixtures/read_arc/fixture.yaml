@@ -4,7 +4,7 @@ status:
   exit:
     kind: code
     code: 0
-  duration_ms: 173
+  duration_ms: 156
   timeout_ms: 30000
 stdout: resources/presentation-fixtures/read_arc/stdout.txt
 stderr: resources/presentation-fixtures/read_arc/stderr.txt
