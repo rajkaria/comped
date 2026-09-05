@@ -80,7 +80,8 @@ class TestStore(unittest.TestCase):
 
     def test_append_stamps_time_and_version(self):
         store.append(self.dir, "punch", {"note": "x"})
-        line = json.loads(open(str(store.stream_path(self.dir, "punch"))).read().strip())
+        with open(str(store.stream_path(self.dir, "punch"))) as fh:
+            line = json.loads(fh.read().strip())
         self.assertIn("t", line)
         self.assertEqual(line["v"], 1)
 
@@ -90,7 +91,8 @@ class TestStore(unittest.TestCase):
     def test_torn_trailing_line_is_skipped_not_fatal(self):
         p = store.stream_path(self.dir, "punch")
         os.makedirs(self.dir, exist_ok=True)
-        open(str(p), "w").write('{"t":"2026-09-05T10:00:00Z","note":"good"}\n{"t":"2026-')
+        with open(str(p), "w") as fh:
+            fh.write('{"t":"2026-09-05T10:00:00Z","note":"good"}\n{"t":"2026-')
         self.assertEqual(len(store.read(self.dir, "punch")), 1)
 
     def test_read_since_filters(self):
