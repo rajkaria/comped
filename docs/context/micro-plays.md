@@ -32,25 +32,25 @@ Plan: `docs/superpowers/plans/2026-09-05-micro-plays.md`.
 
 ## Current state — what's working, deployed, broken
 
-**All twelve are published, public, and verified running from the registry.** Pushed at `0.1.0`
+**All twelve are published, public, and verified running from the registry.** Pushed at `0.1.0` and republished at `0.1.1`
 under the `rajkaria` personal namespace (this account still has no orgs). Each was linted, dry-run,
 pushed, then executed through its published URI with `demo=true` **from an empty scratch
 directory**, which is what proves the package is self-contained.
 
 | Play | URI | Answers | Effect |
 |---|---|---|---|
-| `whatis` | `play.modiqo.ai/rajkaria/whatis@0.1.0` | what that opaque string is, and what is inside it | read-only |
-| `fits` | `play.modiqo.ai/rajkaria/fits@0.1.0` | will this fit the window, and what will it cost | read-only |
-| `is-it-secret` | `play.modiqo.ai/rajkaria/is-it-secret@0.1.0` | what to redact before you paste that | read-only |
-| `cron-when` | `play.modiqo.ai/rajkaria/cron-when@0.1.0` | the next five fires, in both zones, and the DST trap | read-only |
-| `punch` | `play.modiqo.ai/rajkaria/punch@0.1.0` | how many times the day was broken | local write |
-| `spent` | `play.modiqo.ai/rajkaria/spent@0.1.0` | today, this month, and where the month lands | local write |
-| `jot` | `play.modiqo.ai/rajkaria/jot@0.1.0` | the thought, into the vault inbox, in two seconds | local write |
-| `streak` | `play.modiqo.ai/rajkaria/streak@0.1.0` | the run, the record, and the weekday you drop it | local write |
-| `last-turn` | `play.modiqo.ai/rajkaria/last-turn@0.1.0` | what the turn that just finished cost | read-only |
-| `budget-left` | `play.modiqo.ai/rajkaria/budget-left@0.1.0` | how much of today's budget is gone, and how fast | read-only |
-| `since-last` | `play.modiqo.ai/rajkaria/since-last@0.1.0` | what the agent touched, and whether anything outside the repo moved | local write |
-| `safe-to-commit` | `play.modiqo.ai/rajkaria/safe-to-commit@0.1.0` | what is in the staged set that should not go into history | read-only |
+| `whatis` | `play.modiqo.ai/rajkaria/whatis@0.1.1` | what that opaque string is, and what is inside it | read-only |
+| `fits` | `play.modiqo.ai/rajkaria/fits@0.1.1` | will this fit the window, and what will it cost | read-only |
+| `is-it-secret` | `play.modiqo.ai/rajkaria/is-it-secret@0.1.1` | what to redact before you paste that | read-only |
+| `cron-when` | `play.modiqo.ai/rajkaria/cron-when@0.1.1` | the next five fires, in both zones, and the DST trap | read-only |
+| `punch` | `play.modiqo.ai/rajkaria/punch@0.1.1` | how many times the day was broken | local write |
+| `spent` | `play.modiqo.ai/rajkaria/spent@0.1.1` | today, this month, and where the month lands | local write |
+| `jot` | `play.modiqo.ai/rajkaria/jot@0.1.1` | the thought, into the vault inbox, in two seconds | local write |
+| `streak` | `play.modiqo.ai/rajkaria/streak@0.1.1` | the run, the record, and the weekday you drop it | local write |
+| `last-turn` | `play.modiqo.ai/rajkaria/last-turn@0.1.1` | what the turn that just finished cost | read-only |
+| `budget-left` | `play.modiqo.ai/rajkaria/budget-left@0.1.1` | how much of today's budget is gone, and how fast | read-only |
+| `since-last` | `play.modiqo.ai/rajkaria/since-last@0.1.1` | what the agent touched, and whether anything outside the repo moved | local write |
+| `safe-to-commit` | `play.modiqo.ai/rajkaria/safe-to-commit@0.1.1` | what is in the staged set that should not go into history | read-only |
 
 Verified output, from the published URIs, run in `/tmp`:
 
@@ -69,7 +69,7 @@ since-last       2 files touched · +4 / −0 lines · nothing outside the repo
 safe-to-commit   4 staged files · 2 blockers: connection-string in config/dev.env
 ```
 
-- **Tests: 512 in the repo, all passing** (`python3 -m unittest discover -s tests`), 183 of them new
+- **Tests: 516 in the repo, all passing** (`python3 -m unittest discover -s tests`), 187 of them new
   across `test_micro_core`, `test_micro_cli`, `test_micro_package`, `test_micro_safety`,
   `test_micro_perf`.
 - **All twelve pass `rote play lint`** (path form: `rote play lint ./plays/<slug>`; the bare name
