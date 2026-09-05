@@ -69,6 +69,7 @@
  * presentation_fixtures:
  *   find_repeats: resources/presentation-fixtures/find_repeats/fixture.yaml
  *   merge_ledger: resources/presentation-fixtures/merge_ledger/fixture.yaml
+ *   post_score: resources/presentation-fixtures/post_score/fixture.yaml
  *   price_ledger: resources/presentation-fixtures/price_ledger/fixture.yaml
  *   read_claude: resources/presentation-fixtures/read_claude/fixture.yaml
  *   read_codex: resources/presentation-fixtures/read_codex/fixture.yaml
