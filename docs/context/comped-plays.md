@@ -23,6 +23,11 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Current state — what's working, deployed, broken
 
+- **The repo now holds nine published Plays, not three.** Six local-machine Plays on a second
+  stdlib-only core (`daily_core`) were built and published on 5 Sep 2026 and live in their own
+  context doc: [daily-plays.md](daily-plays.md). Nothing in `comped_core` changed for them;
+  `tools/sync_plays.py` gained a second list.
+
 - **Live on prod, verified end to end (05 Sep).** `main` is at `afb7d92`; Vercel has deployed it. The full production path was run and watched: `curl -fsSL https://gotcomped.com/comped.sh | sh -s -- handle=rajkaria` downloaded the archive, matched the published sha256, printed the card and posted. Board reads one row, `rajkaria` 13.31x $2,623.20. The published checksum and the live archive hash agree byte for byte.
 - **Three front doors, one core.** `comped.sh` (no account, ~150 KB temp dir, deletes itself), `npx comped` (**published to npm at 0.1.5**), and `run.sh` (the rote Play, consent screen, free Modiqo account). All take the same fourteen parameters, asserted against `docs/plays/comped/PARAMETERS.json`. The core copy in each is byte-identical and CI fails on drift.
 - **`npx comped` is live on npm (05 Sep).** `comped@0.1.5`, the name was free. The tarball pulled back down from the registry is the one that was built here: 44 files, 156,248 bytes, shasum `0d7f4c8c1a554879f911749fdfe4bb3656ca6a7e`, its `comped_core` identical to the repo's and its `payload/comped.py` sha256-equal to `standalone/comped.py`. Ran the published payload off its own shipped fixtures: card, PNG, SVG, report and share text all written, `leaderboard=false` honoured. `npm whoami` had been 401 the whole time — that was the only blocker, and the dead token in `~/.npmrc` is still worth rotating (next steps).

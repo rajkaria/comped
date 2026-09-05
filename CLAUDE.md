@@ -6,7 +6,8 @@ Rote Playoffs hackathon entry: **nine** published rote Plays on **two** stdlib-o
 
 | Doc | Covers |
 |---|---|
-| [docs/context/comped-plays.md](docs/context/comped-plays.md) | Whole project: core, the three ways to run it (comped.sh, npx, the Play), publishing, the landing site, the leaderboard, adoption. Current state, decisions, next steps. |
+| [docs/context/comped-plays.md](docs/context/comped-plays.md) | The comped entry: `comped_core`, the three ways to run it (comped.sh, npx, the Play), publishing, the landing site, the leaderboard, adoption. |
+| [docs/context/daily-plays.md](docs/context/daily-plays.md) | The six local-machine Plays on `daily_core`: format readers, demo fixtures, the safety invariants, what is published and what is left. |
 
 ## The six daily Plays (`daily_core`)
 
