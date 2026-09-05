@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, cronx, decode, secrets, size, snapshot, store, turn
+from . import common, cronx, decode, secrets, size, snapshot, staged, store, turn
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -684,7 +684,57 @@ def _since_last_report(argv):
                         "files": len(cur), "truncated": meta["truncated"], "written": written})
 
 
+# ---------------------------------------------------------------- safe-to-commit
+
+def _staged_report(argv):
+    a = _parser("staged report", ("repo", "."), ("max_file_kb", "512"), ("strict", "true")).parse_args(argv)
+    repo = common.fixtures_dir() / "staged" / "repo" if common.as_bool(a.demo) else common.expand(a.repo)
+    r = staged.review(repo, int(a.max_file_kb), common.as_bool(a.strict))
+    if r["verdict"] == "nothing-staged":
+        return common.emit("Nothing staged in {0} — stage something and ask again.".format(repo),
+                           dict(common.warn(r["warning"]), verdict="nothing-staged", files=[],
+                                findings=[], debug=[], oversized=[], env_files=[]))
+    lines = [common.rule("{0} staged {1}".format(len(r["files"]), common.plural(len(r["files"]), "file")))]
+    for f in r["files"]:
+        lines.append("  {0:<44} {1}".format(common.trunc(f["path"], 44), common.human_int(f["bytes"])))
+    if r["findings"]:
+        lines += ["", common.rule("credentials")]
+        for f in r["findings"]:
+            lines.append("  {0:<9} {1}:{2}  {3}  {4}".format(f["severity"], common.trunc(f["path"], 28),
+                                                             f["line"], f["kind"], f["masked"]))
+    if r["debug"]:
+        lines += ["", common.rule("left-behind debugging")]
+        for d in r["debug"][:10]:
+            lines.append("  {0}:{1}  {2}".format(common.trunc(d["path"], 28), d["line"], d["text"]))
+    if r["oversized"]:
+        lines += ["", common.rule("large files")]
+        for o in r["oversized"]:
+            lines.append("  {0}  {1} bytes".format(common.trunc(o["path"], 40), common.human_int(o["bytes"])))
+    if r["from_worktree"]:
+        lines += ["", "  read from the working tree (the staged blob is packed): {0}".format(
+            ", ".join(r["from_worktree"][:5]))]
+    blockers = [f for f in r["findings"] if f["severity"] == "blocker"]
+    if r["verdict"] == "clean":
+        tail = "{0} staged {1} · nothing to hold the commit".format(
+            len(r["files"]), common.plural(len(r["files"]), "file"))
+    elif blockers:
+        tail = "{0} staged {1} · {2} {3}: {4} in {5}".format(
+            len(r["files"]), common.plural(len(r["files"]), "file"), len(blockers),
+            common.plural(len(blockers), "blocker"), blockers[0]["kind"], blockers[0]["path"])
+    else:
+        n = len(r["findings"]) + len(r["debug"]) + len(r["oversized"])
+        tail = "{0} staged {1} · {2} thing{3} worth a look before you commit".format(
+            len(r["files"]), common.plural(len(r["files"]), "file"), n, "" if n == 1 else "s")
+    lines += ["", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "verdict": r["verdict"], "files": r["files"],
+                        "findings": r["findings"], "debug": r["debug"], "oversized": r["oversized"],
+                        "env_files": r["env_files"], "from_worktree": r["from_worktree"],
+                        "staged": len(r["files"])})
+
+
 _DISPATCH = {
+    ("staged", "report"): _staged_report,
     ("since-last", "report"): _since_last_report,
     ("last-turn", "report"): _last_turn_report,
     ("budget", "report"): _budget_report,

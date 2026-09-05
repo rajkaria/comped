@@ -10,7 +10,7 @@ from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from micro_core import common, cronx, decode, secrets, size, snapshot, store, turn
+from micro_core import common, cronx, decode, gitindex, secrets, size, snapshot, staged, store, turn
 
 
 class TestEmit(unittest.TestCase):
@@ -557,3 +557,52 @@ class TestSnapshot(unittest.TestCase):
         state = snapshot.sensitive_state(Path(home))
         self.assertIn("~/.ssh", state)
         self.assertIsInstance(state["~/.ssh"], int)
+
+
+class TestGitIndex(unittest.TestCase):
+    REPO = Path(__file__).resolve().parent.parent / "micro_core" / "fixtures" / "staged" / "repo"
+
+    def test_reads_an_index_written_to_the_documented_format(self):
+        paths = [p for p, _s, _n in gitindex.staged_entries(self.REPO)]
+        self.assertIn("config/dev.env", paths)
+        self.assertIn("src/app.py", paths)
+        self.assertEqual(len(paths), 4)
+
+    def test_missing_index_is_empty_not_an_exception(self):
+        self.assertEqual(gitindex.staged_entries(Path(tempfile.mkdtemp())), [])
+
+    def test_blob_reads_back_its_bytes(self):
+        for path, sha, _size in gitindex.staged_entries(self.REPO):
+            if path == "src/app.py":
+                self.assertIn(b"def main", gitindex.read_blob(self.REPO, sha))
+
+    def test_a_packed_or_missing_object_is_none_not_an_exception(self):
+        self.assertIsNone(gitindex.read_blob(self.REPO, "0" * 40))
+
+
+class TestStaged(unittest.TestCase):
+    REPO = Path(__file__).resolve().parent.parent / "micro_core" / "fixtures" / "staged" / "repo"
+
+    def test_finds_the_key_in_the_staged_env_file(self):
+        r = staged.review(self.REPO, 512, True)
+        self.assertEqual(r["verdict"], "do-not-commit")
+        self.assertTrue(any(f["kind"] == "aws-access-key" for f in r["findings"]))
+        self.assertIn("config/dev.env", r["env_files"])
+
+    def test_reads_the_staged_bytes_from_the_index_not_the_worktree(self):
+        r = staged.review(self.REPO, 512, True)
+        self.assertEqual(r["from_worktree"], [])
+        self.assertTrue(all(f["source"] == "index" for f in r["files"]))
+
+    def test_print_in_a_script_directory_is_not_a_debug_line(self):
+        self.assertEqual(staged.debug_lines("scripts/report.py", "print('total')\n"), [])
+        self.assertEqual(len(staged.debug_lines("src/app.py", "print('here')\n")), 1)
+
+    def test_console_log_only_counts_in_javascript(self):
+        self.assertEqual(len(staged.debug_lines("a.ts", "console.log(x)\n")), 1)
+        self.assertEqual(staged.debug_lines("a.py", "console.log(x)\n"), [])
+
+    def test_not_a_repository_says_so_rather_than_reporting_clean(self):
+        r = staged.review(Path(tempfile.mkdtemp()), 512, True)
+        self.assertEqual(r["verdict"], "nothing-staged")
+        self.assertIn("warning", r)
