@@ -59,11 +59,25 @@ Add `handle=yourname` for a name on the board instead of `anon-xxxx`, or `leader
 the card alone with no network call at all. With rote already installed:
 `rote play run https://play.modiqo.ai/rajkaria/comped handle=you`.
 
-The core also runs on its own, with nothing but `python3`:
+### From the coding agent you already have
+
+Don't open a terminal. Paste this at Claude Code, Codex, Cursor or anything else with a shell:
+
+```
+Fetch https://gotcomped.com/llms.txt and do what it says.
+```
+
+[`llms.txt`](site/llms.txt) is the briefing written for the agent instead of for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before your score goes on any board, the output contract, and how to read the card back to you. The path it takes needs no account and installs nothing: `git clone --depth 1`, then one `python3` command.
+
+### With nothing but python3
 
 ```bash
-python3 -m comped_core run --days-back 30 --out-dir ~/comped
+git clone --depth 1 https://github.com/rajkaria/comped && cd comped
+python3 -m comped_core run --out-dir ~/comped        # read, price, cluster, render
+python3 leaderboard/post_score.py --out-dir ~/comped --handle you   # optional, and the only thing that sends
 ```
+
+`run` is the four steps the Play runs, in one process, calling the same functions in the same order. The steps are still there on their own (`ledger`, `price`, `repeats`, `card`, plus `wrongturns` and `rules`); every command prints one JSON object as its last line and exits 1 if that object says `ok: false`.
 
 ## Built with
 
@@ -96,7 +110,7 @@ Enforced by tests, not just promised: the suite fails if `comped_core` imports `
 ## Development
 
 ```bash
-python3 -m unittest discover -s tests -v   # 84 tests
+python3 -m unittest discover -s tests -v   # 165 tests
 python3 tools/sync_plays.py --check        # Plays bundle a byte-identical core
 ```
 

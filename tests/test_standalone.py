@@ -205,7 +205,7 @@ class EndToEnd(unittest.TestCase):
                                capture_output=True, text=True, cwd=out, timeout=180)
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertIn("COMPED", r.stdout)
-            self.assertNotIn("found no usage", r.stdout)
+            self.assertNotIn("nothing to price", r.stdout)
 
     def test_an_unreachable_board_is_a_warning_not_a_failure(self):
         with tempfile.TemporaryDirectory() as out:
@@ -224,8 +224,9 @@ class EndToEnd(unittest.TestCase):
                                 "codex_dir=/nonexistent", "pi_dir=/nonexistent",
                                 "opencode_dir=/nonexistent", "out_dir={0}".format(out)],
                                capture_output=True, text=True, timeout=120)
-            self.assertEqual(r.returncode, 0, r.stderr)
-            self.assertIn("found no usage", r.stdout)
+            # ok:false in the core means a non-zero exit, so a script wrapping this can tell.
+            self.assertEqual(r.returncode, 1, r.stderr)
+            self.assertIn("nothing to price", r.stdout)
             self.assertIn("/nonexistent", r.stdout)
             self.assertNotIn("LEADERBOARD", r.stdout)
             self.assertFalse((pathlib.Path(out) / "comped-rank.json").exists())

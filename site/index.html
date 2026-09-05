@@ -104,6 +104,12 @@
       </li>
     </ol>
 
+    <div class="callout" id="agent">
+      <p><b>Or don't open a terminal at all.</b> If you live in Claude Code, Codex, Cursor or anything else that can run commands for you, paste this at it instead:</p>
+      <p class="agent-line"><code id="cmd-agent">Fetch https://gotcomped.com/llms.txt and do what it says.</code> <button class="copy" data-copy="#cmd-agent">Copy</button></p>
+      <p>Your agent reads <a href="https://gotcomped.com/llms.txt">that file</a>, runs comped the way it says to, and reads the card back to you. No account, nothing installed. It has to ask you before it puts your score on the board, and it is told in writing not to copy anything out of <code>~/comped</code> into a message or a commit. Read it first; it was written to be read.</p>
+    </div>
+
     <div class="reassure">
       <div><b>Nothing to type in.</b> It works out which AI you use from your logs and scores every plan you could be on. Told it your plan once? It remembers.</div>
       <div><b>Your logs stay home.</b> The only thing sent is your score, to the leaderboard, and <code>leaderboard=false</code> stops even that. <a href="#privacy">Here is exactly what goes.</a></div>
