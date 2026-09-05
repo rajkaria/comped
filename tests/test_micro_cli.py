@@ -243,7 +243,7 @@ class TestCronStep(unittest.TestCase):
     def test_dst_warning_surfaces_in_the_human_block(self):
         rc, human, j = run(["cron", "report", "--expr", "30 1 * * *", "--tz", "Europe/London",
                             "--now", "2027-03-01T00:00:00Z"])
-        self.assertTrue(j["warning"])
+        self.assertTrue(j["dst_warning"])
         self.assertIn("clocks go forward", human)
 
 
@@ -377,3 +377,38 @@ class TestStagedStep(unittest.TestCase):
         self.assertEqual(rc, 0)
         self.assertEqual(j["verdict"], "nothing-staged")
         self.assertIn("warning", j)
+
+
+ALL_REPORTS = (["whatis", "report"], ["fits", "report"], ["secret", "report"],
+               ["cron", "report"], ["punch", "report"], ["spent", "report"], ["jot", "report"],
+               ["streak", "report"], ["last-turn", "report"], ["budget", "report"],
+               ["since-last", "report"], ["staged", "report"])
+
+
+class TestDemo(unittest.TestCase):
+    def test_every_play_runs_in_demo_and_prints_json(self):
+        for args in ALL_REPORTS:
+            rc, human, j = run(args + ["--demo", "true", "--now", "2026-09-05T12:00:00Z"])
+            self.assertEqual(rc, 0, args)
+            self.assertTrue(j.get("ok", True), args)
+            self.assertTrue(human.strip(), args)
+            self.assertNotIn("warning", j, args)
+
+    def test_demo_does_not_touch_the_real_state_dir(self):
+        home = os.path.expanduser("~/.rote-micro")
+        before = sorted(os.listdir(home)) if os.path.isdir(home) else None
+        for args in ALL_REPORTS:
+            run(args + ["--demo", "true", "--now", "2026-09-05T12:00:00Z"])
+        after = sorted(os.listdir(home)) if os.path.isdir(home) else None
+        self.assertEqual(before, after)
+
+    def test_demo_since_last_shows_a_real_delta(self):
+        rc, human, j = run(["since-last", "report", "--demo", "true", "--watch-sensitive", "false",
+                            "--now", "2026-09-05T12:00:00Z"])
+        self.assertFalse(j["first_run"])
+        self.assertEqual(j["created"], ["src/render.py"])
+        self.assertEqual(j["modified"], ["src/parse.py"])
+
+    def test_demo_whatis_peels_three_layers(self):
+        rc, human, j = run(["whatis", "report", "--demo", "true", "--now", "2026-09-05T12:00:00Z"])
+        self.assertEqual(j["chain"], "base64 → gzip → jwt")
