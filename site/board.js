@@ -98,7 +98,7 @@
     if (status && state.data) {
       var d = state.data;
       status.textContent = (d.count === 1 ? "1 person" : d.count.toLocaleString() + " people") + " ranked · " +
-        d.submissions.toLocaleString() + " runs posted" + (d.updated ? " · last one " + ago(d.updated) : "") +
+        (d.submissions === 1 ? "1 run posted" : d.submissions.toLocaleString() + " runs posted") + (d.updated ? " · last one " + ago(d.updated) : "") +
         (rows.length !== d.rows.length ? " · showing " + rows.length : "");
     }
     jumpToHash();
