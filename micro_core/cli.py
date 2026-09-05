@@ -7,6 +7,7 @@ write a file to prove it.
 """
 import argparse
 import calendar
+import json
 import re
 import sys
 from datetime import timedelta, timezone
@@ -472,7 +473,7 @@ def _cron_report(argv):
                         "fires": [{"local": f.strftime("%Y-%m-%d %H:%M"),
                                    "utc": f.astimezone(timezone.utc).strftime("%Y-%m-%d %H:%M")}
                                   for f in fires],
-                        "average_interval_min": gap, "warning": warning or ""})
+                        "average_interval_min": gap, "dst_warning": warning or ""})
 
 
 # ---------------------------------------------------------------- fits
@@ -628,15 +629,10 @@ def _since_last_report(argv):
     root = common.expand(a.root)
     if common.as_bool(a.demo):
         root = common.fixtures_dir() / "since" / "tree"
-    state, _demo = common.expand(a.state_dir), None
+    state = common.expand(a.state_dir)
     if common.as_bool(a.demo):
-        import shutil
         import tempfile
         state = Path(tempfile.mkdtemp(prefix="rote-micro-demo-"))
-        seed = common.fixtures_dir() / "since" / "state"
-        if seed.is_dir():
-            for f in seed.iterdir():
-                shutil.copy2(str(f), str(state / f.name))
     ignore = set(snapshot.DEFAULT_IGNORE) | {x.strip() for x in str(a.ignore or "").split(",") if x.strip()}
     cur, meta = snapshot.scan_tree(root, ignore, int(a.max_files))
     if meta.get("missing"):
@@ -644,6 +640,14 @@ def _since_last_report(argv):
                            common.warn("{0} is not a directory".format(root)))
     key = snapshot.key_for(root)
     prev = snapshot.load(state, key)
+    if common.as_bool(a.demo):
+        # The bundled seed is keyed by nothing: the fixture's absolute path differs on every
+        # machine, so the demo loads the tree as it was before the last turn directly.
+        try:
+            prev = json.loads((common.fixtures_dir() / "since" / "state" / "seed.json")
+                              .read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            prev = None
     sens_key = "sensitive-" + key
     prev_sens = snapshot.load(state, sens_key) if common.as_bool(a.watch_sensitive) else None
     cur_sens = snapshot.sensitive_state() if common.as_bool(a.watch_sensitive) else {}
