@@ -9,7 +9,7 @@ import unittest
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 
-from micro_core import common, decode, store
+from micro_core import common, decode, secrets, store
 
 
 class TestEmit(unittest.TestCase):
@@ -241,3 +241,76 @@ class TestDecode(unittest.TestCase):
         blob = base64.b64encode(json.dumps({"k": "y" * 400}).encode()).decode()
         rendered = decode.render(decode.peel(blob, reveal=False))
         self.assertNotIn("y" * 200, rendered)
+
+
+class TestSecrets(unittest.TestCase):
+    def test_aws_key_is_a_blocker(self):
+        f = secrets.scan("aws_access_key_id = AKIA1234567890ABCD12")
+        self.assertEqual(f[0].kind, "aws-access-key")
+        self.assertEqual(f[0].severity, "blocker")
+
+    def test_github_and_slack_and_stripe(self):
+        kinds = {f.kind for f in secrets.scan(
+            "a=ghp_" + "a" * 36 + "\nb=xox" + "b-123456789012-abcdefghijklmnop\nc=sk_live_" + "b" * 24)}
+        self.assertEqual(kinds, {"github-token", "slack-token", "stripe-key"})
+
+    def test_private_key_block(self):
+        f = secrets.scan("-----BEGIN OPENSSH PRIVATE KEY-----\nabc\n-----END OPENSSH PRIVATE KEY-----")
+        self.assertEqual(f[0].kind, "private-key")
+        self.assertEqual(f[0].severity, "blocker")
+
+    def test_placeholder_is_not_a_finding(self):
+        self.assertEqual(secrets.scan("API_KEY=your-key-here"), [])
+        self.assertEqual(secrets.scan("TOKEN=${GITHUB_TOKEN}"), [])
+        self.assertEqual(secrets.scan("password=changeme"), [])
+        self.assertEqual(secrets.scan("SECRET=<your-secret>"), [])
+        self.assertEqual(secrets.scan("KEY=$MY_VAR"), [])
+
+    def test_documented_example_key_is_not_a_finding(self):
+        self.assertEqual(secrets.scan("key = AKIAIOSFODNN7EXAMPLE"), [])
+        self.assertEqual(secrets.scan("k=sk_test_" + "c" * 24), [])
+
+    def test_low_entropy_env_value_is_not_a_finding(self):
+        self.assertEqual(secrets.scan("API_KEY=aaaaaaaaaaaaaaaa"), [])
+
+    def test_high_entropy_env_value_is_medium_not_blocker(self):
+        f = secrets.scan("SESSION_SECRET=8fJ2kL9mQ4xR7vN1pZ3wY6bC0dE5gH")
+        self.assertEqual(f[0].severity, "medium")
+
+    def test_connection_string_password(self):
+        f = secrets.scan("postgres://app:hunter2hunter2@db.internal:5432/prod")
+        self.assertEqual(f[0].kind, "connection-string")
+
+    def test_a_url_without_credentials_is_not_a_finding(self):
+        self.assertEqual(secrets.scan("https://example.com/a?b=1"), [])
+
+    def test_redaction_removes_every_secret_and_keeps_the_rest(self):
+        text = "host=db\nAPI_KEY=AKIA1234567890ABCD12\nport=5432"
+        out = secrets.redact(text, secrets.scan(text))
+        self.assertNotIn("AKIA1234567890ABCD12", out)
+        self.assertIn("host=db", out)
+        self.assertIn("port=5432", out)
+
+    def test_redaction_handles_two_secrets_on_one_line(self):
+        text = "a=AKIA1234567890ABCD12 b=ghp_" + "z" * 36
+        out = secrets.redact(text, secrets.scan(text))
+        self.assertNotIn("AKIA1234567890ABCD12", out)
+        self.assertNotIn("ghp_" + "z" * 36, out)
+
+    def test_masked_finding_never_carries_the_secret(self):
+        for f in secrets.scan("API_KEY=AKIA1234567890ABCD12"):
+            self.assertNotIn("1234567890ABCD12", f.masked)
+
+    def test_line_numbers_are_one_based(self):
+        f = secrets.scan("one\ntwo\nkey=AKIA1234567890ABCD12")
+        self.assertEqual(f[0].line, 3)
+
+    def test_entropy_separates_random_from_repeated(self):
+        self.assertLess(secrets.entropy("aaaaaaaaaaaaaaaa"), 1.0)
+        self.assertGreater(secrets.entropy("8fJ2kL9mQ4xR7vN1"), 3.0)
+
+    def test_verdicts(self):
+        self.assertEqual(secrets.verdict([]), "safe")
+        self.assertEqual(secrets.verdict(secrets.scan("k=AKIA1234567890ABCD12")), "do-not-paste")
+        self.assertEqual(secrets.verdict(secrets.scan("SESSION_SECRET=8fJ2kL9mQ4xR7vN1pZ3wY6bC0dE5gH")),
+                         "redact")
