@@ -357,3 +357,23 @@ class TestSinceLast(unittest.TestCase):
                             "--state-dir", self.state])
         self.assertEqual(rc, 0)
         self.assertIn("warning", j)
+
+
+class TestStagedStep(unittest.TestCase):
+    def test_the_fixture_repo_is_a_do_not_commit(self):
+        rc, human, j = run(["staged", "report", "--demo", "true"])
+        self.assertEqual(rc, 0)
+        self.assertEqual(j["verdict"], "do-not-commit")
+        self.assertIn("config/dev.env", j["env_files"])
+        self.assertIn("blocker", human)
+
+    def test_the_staged_secret_is_never_printed(self):
+        rc, human, j = run(["staged", "report", "--demo", "true"])
+        self.assertNotIn("AKIA1234567890ABCD12", human)
+        self.assertNotIn("AKIA1234567890ABCD12", json.dumps(j))
+
+    def test_not_a_repository_warns_and_exits_zero(self):
+        rc, human, j = run(["staged", "report", "--repo", tempfile.mkdtemp()])
+        self.assertEqual(rc, 0)
+        self.assertEqual(j["verdict"], "nothing-staged")
+        self.assertIn("warning", j)
