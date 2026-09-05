@@ -356,3 +356,32 @@ comped is the product; the Play is how you run it. Every run ends by posting the
 
 **Copy.** The absolute "nothing leaves your machine" is retired everywhere. The honest line is: your logs never leave; the one thing sent is your score, here is the exact list, and here is the switch.
 
+
+## 18. The account-free path (added 05 Sep)
+
+rote will not run a Play until the person running it is signed in to a Modiqo account. That is true of a published Play fetched from the registry and equally true of a local package directory, verified by running both from a clean config: `error: rote requires login`. Reading a Play needs no account (`rote play inspect rajkaria/comped` returns the full manifest anonymously); running one does.
+
+For a tool whose growth thesis is that the card spreads on its own, an account gate in front of the payoff is the most expensive thing in the funnel: install a binary runner, then create an account, and only then see your number. So comped ships a second front door, and the Play stays as the first.
+
+**Two doors, one tool.**
+
+| | `comped.sh` | `run.sh` (the Play) |
+|---|---|---|
+| Account | none | free Modiqo account |
+| Installs | nothing; a temp dir, deleted on exit | rote, to `~/.local/bin` |
+| Before it runs | the script, and a published sha256 | a consent screen listing every path, and a public archive |
+| Download | ~150 KB | rote binary, then the Play |
+| Code that runs | byte-identical core | byte-identical core |
+
+Both take the same fourteen parameters with the same defaults, enforced by `tests/test_standalone.py` against `docs/plays/comped/PARAMETERS.json`. A line copied from the docs works through either door.
+
+**How it is built.** `tools/build_dist.py` assembles `site/comped.tar.gz` from `comped_core/`, `resources/{prices,plans}.json`, `leaderboard/post_score.py`, `standalone/comped.py`, the sample logs and the licence. Layout matches the repo so `prices.py::_bundled()` finds its resources unchanged. The archive is reproducible: fixed mtimes, fixed ownership, sorted entries, a gzip header with no timestamp. Two builds of one commit produce one sha256, which is what makes the published checksum worth checking. `tools/build_site.py` builds it, so Vercel produces it on every deploy.
+
+**The entry point.** `standalone/comped.py` takes `key=value` arguments exactly as the Play does, calls `comped_core.cli.cmd_run` for the offline pipeline, then `post_score.py` for the one network call. The core stays provably offline: `cmd_run` reads, prices, clusters and renders, and knows nothing about the poster, so `test_no_network.py` is unchanged.
+
+**Two things the archive forced.**
+
+- `comped_core/cli.py` gained a `run` subcommand: the same functions the eight Play steps call, in one process, printing the card for a person instead of a JSON line for a runner. Progress goes to stderr so a piped stdout is exactly the card.
+- Reproducible mtimes made the packaged sample logs invisible, because the readers skip files modified before the window. `comped.py` stamps the packaged fixtures with the current time when a relative path resolves inside the package, and never touches anybody's real logs.
+
+**Windows.** The paste needs a Unix shell, so WSL remains the answer for the one-liner. The tool underneath is standard-library Python with no Unix dependency; `cli.py` now asks for UTF-8 on stdout, without which the card's box characters raise `UnicodeEncodeError` against a Windows code page whenever stdout is a pipe. A non-gating `windows-standalone` CI job unpacks the real archive on `windows-latest` and runs it with stdout redirected. The site offers that path and does not promise it until that job has been green.

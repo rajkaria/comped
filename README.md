@@ -33,18 +33,30 @@ Try it on the bundled synthetic logs first — no configuration, nothing of your
 rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex
 ```
 
-Then on your own (one paste; posts your score to the leaderboard under your rote handle):
+Then on your own. There are two ways in, and they run the same code on the same parameters.
+
+**One paste, no account, nothing installed.** Downloads ~40 KB of stdlib Python to a temporary
+directory, runs it, deletes it:
+
+```bash
+curl -fsSL https://gotcomped.com/comped.sh | sh
+```
+
+**As an inspectable rote Play.** A consent screen listing every file it touches, and a public
+archive you can read first. Needs a free Modiqo account:
 
 ```bash
 curl -fsSL https://gotcomped.com/run.sh | sh
 ```
 
-or, with rote already installed, `rote play run https://play.modiqo.ai/rajkaria/comped handle=you`. Add `leaderboard=false` for the card alone with no network call at all.
+Add `handle=yourname` for a name on the board instead of `anon-xxxx`, or `leaderboard=false` for
+the card alone with no network call at all. With rote already installed:
+`rote play run https://play.modiqo.ai/rajkaria/comped handle=you`.
 
 The core also runs on its own, with nothing but `python3`:
 
 ```bash
-python3 -m comped_core ledger --days-back 30 --out-dir ~/comped
+python3 -m comped_core run --days-back 30 --out-dir ~/comped
 ```
 
 ## Built with

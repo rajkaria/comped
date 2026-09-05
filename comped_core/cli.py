@@ -23,6 +23,17 @@ from .tiers import tier, score
 from .render_svg import render_svg, render_svg_square
 from .render_png import render_png
 
+# The card is drawn with box characters and the report is UTF-8. On Windows the default stdout
+# encoding is the system code page, and printing the card to a pipe dies with UnicodeEncodeError
+# before anything reaches the screen. Ask for UTF-8 and carry on if the stream cannot provide it
+# (a test harness may have replaced stdout with something that has no reconfigure).
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError, OSError):
+        pass
+
+
 
 def _bool(s) -> bool:
     return str(s).strip().lower() in ("1", "true", "yes", "y", "on")
@@ -340,6 +351,51 @@ def cmd_verify(a):
             "note": "totals reproduce" if ok else "MISMATCH: ledger or price table changed since the report"}
 
 
+def _say(msg):
+    """Progress goes to stderr so a piped stdout stays exactly the card."""
+    print(msg, file=sys.stderr)
+
+
+def cmd_run(a):
+    """Read, price, cluster and render in one process: the whole card, no runner required.
+
+    The Play splits this across eight steps because rote wants one reading per step and runs the
+    four readers in parallel. A person at a terminal wants none of that, and paying eight Python
+    start-ups for a two-second job is silly. Same functions, same order, same output; still no
+    network, which is why posting the score lives outside this file.
+    """
+    a.only = ""                     # read every harness in one pass; parse_all already attributes turns
+    _say("Reading your logs...")
+    led = cmd_ledger(a)
+    if not led.get("ok"):
+        return led
+    if led.get("records", 0) == 0:
+        # An expected absence, not a failure. Say where it looked; that is the only useful reply.
+        looked = "\n".join("  {0}".format(s0["root"]) for s0 in led.get("sources", []))
+        print("comped found no usage in the last {0} days.".format(a.days_back))
+        print("")
+        print("It looked in:")
+        print(looked)
+        print("")
+        print("If your logs are somewhere else, name the directory and run it again:")
+        print("  claude_dir=/path/to/.claude/projects")
+        return {"ok": True, "records": 0, "warning": led.get("warning", "nothing to read"),
+                "sources": led.get("sources", [])} if a.json_out else None
+    _say("Pricing {0} records from {1} sessions...".format(led["records"], led["sessions"]))
+    priced = cmd_price(a)
+    _say("Finding what you have asked for more than once...")
+    cmd_repeats(a)
+    _say("")
+    card = cmd_card(a)                      # prints the card and the share line
+    if not a.json_out:
+        return None
+    return {"ok": True, "records": led["records"], "sessions": led["sessions"],
+            "total_usd": card["total_usd"], "multiplier": card["multiplier"], "tier": card["tier"],
+            "plan": card["plan"], "plan_source": card["plan_source"], "repeats": card["repeats"],
+            "detected": card["detected"], "unpriced": priced["unpriced"], "written": card["written"],
+            "note": card["note"]}
+
+
 def build_parser():
     P = argparse.ArgumentParser(prog="comped")
     sub = P.add_subparsers(dest="cmd", required=True)
@@ -352,6 +408,21 @@ def build_parser():
                      ("pi-dir", "~/.pi/agent/sessions"), ("opencode-dir", "~/.local/share/opencode/storage")):
             p.add_argument("--{0}".format(k), default=d)
 
+    p = sub.add_parser("run", help="the whole card in one go: read, price, cluster, render")
+    common(p); dirs(p)
+    p.add_argument("--days-back", type=int, default=30)
+    p.add_argument("--include-subagents", default="true")
+    p.add_argument("--redact", default="true")
+    p.add_argument("--now", default="")
+    p.add_argument("--plan", default=AUTO,
+                   help="auto (default) infers the providers from the logs and prices every tier they sell; "
+                        "or a comma-separated list of plan ids, or usd:<amount>")
+    p.add_argument("--rates-path", default="")
+    p.add_argument("--repeat-threshold", type=int, default=3)
+    p.add_argument("--handle", default="")
+    p.add_argument("--card-theme", default="dark")
+    p.add_argument("--json", dest="json_out", action="store_true",
+                   help="also print the machine-readable summary the Play steps print")
     p = sub.add_parser("ledger"); common(p); dirs(p)
     p.add_argument("--days-back", type=int, default=30)
     p.add_argument("--include-subagents", default="true")
@@ -391,7 +462,9 @@ def main(argv=None):
         _json({"ok": False, "error": "bad arguments; see --help"})
         return 2
     try:
-        _json(globals()["cmd_{0}".format(a.cmd)](a))
+        res = globals()["cmd_{0}".format(a.cmd)](a)
+        if res is not None:     # `run` prints a card for a human and returns nothing to serialise
+            _json(res)
         return 0
     except Exception as e:  # never a traceback
         msg = "{0}: {1}".format(type(e).__name__, e)

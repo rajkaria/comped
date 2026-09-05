@@ -14,3 +14,25 @@ jobs:
           python-version: "${{ matrix.python }}"
       - run: python -m unittest discover -s tests -v
       - run: python tools/sync_plays.py && python tools/sync_plays.py --check
+
+  # The one-line paste needs a Unix shell, so Windows people are told to use WSL. The tool under
+  # it is plain standard-library Python with nothing Unix-specific in it, and this job is what
+  # turns "should work on Windows" into something we actually know. It runs the real archive the
+  # way a person would, with stdout redirected, which is exactly where a Windows code page bites.
+  # Not a gate yet: it reports, it does not block.
+  windows-standalone:
+    runs-on: windows-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python tools/build_dist.py
+      - run: python -m tarfile -e site/comped.tar.gz unpacked
+      - name: run the card on the sample logs
+        run: |
+          python unpacked/comped/comped.py claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex out_dir=comped-out leaderboard=false > card.txt
+          type card.txt
+          findstr /C:"COMPED" card.txt
+          if not exist comped-out\comped-card.svg exit /b 1
+        shell: cmd

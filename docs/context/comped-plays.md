@@ -20,6 +20,8 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Current state — what's working, deployed, broken
 
+- **The account-free path shipped (05 Sep, this session).** Measured first: `rote play run` refuses without a login for a *local* package directory as well as a registry URI (`error: rote requires login`), while `rote play inspect` works anonymously. So an account sat in front of the payoff. comped now has two front doors on one core. `curl -fsSL https://gotcomped.com/comped.sh | sh` needs no account and installs nothing: it downloads `site/comped.tar.gz` (~150 KB, reproducible, sha256 published and checked) into a temp dir, runs it, and deletes the dir on exit, leaving only `~/comped/`. `site/run.sh` is unchanged and still runs the Play for anyone who wants the consent screen and the public archive. Both take the same fourteen parameters, asserted against `docs/plays/comped/PARAMETERS.json`. New: `standalone/comped.py`, `tools/build_dist.py`, `site/comped.sh`, `tests/test_standalone.py` (23 tests). 175 tests green; `rote play validate/lint/score` still 1.00 on comped.
+
 - **The leaderboard is live (05 Sep, later session).** comped is the product; the Play is how you run it. Every run of `comped` ends with a new step `post_score` that POSTs the score to `https://gotcomped.com/api/score` and prints the rank (`Leaderboard: #1 of 1 · …/leaderboard.html#rajkaria`); `leaderboard=false` sends nothing; a failed post is a warning, exit 0. The poster is `leaderboard/post_score.py` (stdlib; urllib → system CA bundle → `curl` fixed-argv fallback for python.org builds without certs), synced by `tools/sync_plays.py` into `plays/comped/resources/post_score.py` only. `comped_core` is still verifiably offline (`test_no_network.py`), and `tests/test_leaderboard.py` (20 tests) proves the poster is the only file in any package that can open a socket.
 - **Server:** `api/score.py` + `api/leaderboard.py` + `api/_common.py`, stdlib Python on Vercel (same project `comped`, auto-deployed from `main`, env `SUPABASE_URL`/`SUPABASE_KEY` = publishable key). They call two `security definer` SQL functions on the existing Supabase project `bpwmpkguhrcpxtcignzo` (shared with hunch; migration `comped_leaderboard`): `comped_submit(jsonb)` validates every bound (handle regex, ranges, `multiplier == comped_usd/plan_usd` ±2%, 15 s per-device interval, held over 2,000×/$250k) and upserts on the device uuid; `comped_board(text,int)` ranks the view `comped_board_rows` (eligible = multiplier present, ≥$20, ≥3 active days; one row per handle, latest wins; anon rows per device shown as `anon-xxxx`). Table and view are closed to anon; the device id is never returned. Verified live: POST/GET from Python, 400/429/405 paths, the registry copy posting from a fresh dir, and `sh site/run.sh` on real logs.
 - **Site:** `site/leaderboard.html` (sort by score/dollars, provider chips, handle search, `#handle` highlight) + `site/board.js` (one fetch to this origin, `cache: "no-store"`; the API sends `max-age=0, must-revalidate, s-maxage=30` because Chrome honours stale-while-revalidate and showed a stale empty board). Home page: nav link, "See the leaderboard" button, live people-count stat, a `#board` top-ten section, rewritten privacy tiles/FAQ/share sample. CSP is now `connect-src 'self'`. `tools/devserver.py 8123` serves site + API locally (`.claude/launch.json` config `site`; `vercel env pull .env.local` first).
@@ -33,6 +35,13 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Recent changes — files touched and why
 
+- `comped_core/cli.py` — new `run` subcommand: ledger, price, repeats and card in one process, progress on stderr, the card on stdout, `--json` for the machine summary; `main()` now skips the JSON line when a command returns None. Also asks for UTF-8 on stdout/stderr, without which a Windows code page kills the card on a pipe. Still no network, so `test_no_network.py` is untouched.
+- `standalone/comped.py` (new) — the account-free entry: `key=value` args like the Play, calls `cmd_run` then `post_score.py`. Relative log dirs resolve against the package so the documented demo line works from any directory, and packaged fixtures get their mtime stamped on use (the archive's fixed mtimes made them invisible to the readers' window filter).
+- `tools/build_dist.py` (new) — builds `site/comped.tar.gz` + `.sha256`, reproducibly. `tools/build_site.py` calls it, so Vercel builds it on deploy; docs install section rewritten around the two doors.
+- `site/comped.sh` (new) — 65 lines: find python3, download, verify checksum, unpack, run, delete. Not `exec`, or the cleanup trap never fires.
+- `site/index.html`, `site/leaderboard.html`, `README.md`, `docs/SPEC.md` §18, `CLAUDE.md` — copy now leads with the account-free line; rote is offered as the careful way in, with its own reason.
+- `.github/workflows/ci.yml` — non-gating `windows-standalone` job unpacks the real archive on windows-latest and runs it with stdout redirected.
+
 - `leaderboard/post_score.py` (new) — the poster; payload built in `payload()`, TLS fallbacks in `post()`, share rewrite via the core's `share_text`.
 - `api/_common.py`, `api/score.py`, `api/leaderboard.py` (new) — Vercel functions; `submit()` and `board()` are plain functions the tests call with a fake opener.
 - `tools/build_plays.py` — VERSION 0.1.4, `post_score` step (depends on `render_card`), `leaderboard` in the output schema, comped presentation reads the poster's JSON and appends the rank to human/summary/result. `tools/sync_plays.py` — `EXTRA` per-play files. `tools/devserver.py` (new). `tools/build_site.py` — nav/footer link, docs Leaderboard section + troubleshooting, developers Leaderboard API section, privacy bullets.
@@ -42,6 +51,11 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 - `tests/test_leaderboard.py` (new), `tests/test_site.py` (four pages, new CSP, new copy guard, board.js guard, run.sh guard).
 
 ## Key decisions — choices and trade-offs
+
+- **Two doors, not a replacement.** `run.sh` and the published Play are untouched: the Play is the Playoffs submission, and its consent screen plus public archive are the real answer to "why would I paste this". `comped.sh` is for everyone who will not make an account to find out what their subscription is worth.
+- The archive carries the sample logs (+112 KB) so a stranger can watch it work on invented data before pointing it at their own, through either door.
+- The checksum is served from the same origin as the archive, so it proves the download arrived whole, not that the origin is honest. The script says so in a comment rather than implying more.
+- Windows is offered, not promised, until the new CI job has been green.
 
 - Flagship `comped`; satellites `session-ledger` (primitive) and `wrong-turns`. Composition between Plays does not exist in rote, so each bundles a byte-identical `comped_core`, enforced by `sync_plays.py --check`.
 - Plan tier is **inferred from the model ids in the logs**, never typed and never read from an account; `~/.claude.json` and `~/.codex/auth.json` are still never opened, enforced by the same source-grep test. The inference is deliberately unflattering (most expensive plan that fits) and every other tier is shown beside it, because guessing in your own favour is the one thing this tool must not do.
@@ -56,7 +70,8 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Next steps — specific, actionable
 
-1. **Post the launch** — Discord #sharing, X, LinkedIn. Lead with the board: `curl -fsSL https://gotcomped.com/run.sh | sh` puts you on https://gotcomped.com/leaderboard.html; the share line in `~/comped/comped-share.txt` already carries the rank.
+1. **Decide whether to republish the Plays.** The repo core has a `run` subcommand and the UTF-8 fix; the published 0.1.4 archives do not. Nothing is broken by the difference, but a republish would need a version bump and a re-run of the quality gates.
+2. **Post the launch** — Discord #sharing, X, LinkedIn. Lead with the board: `curl -fsSL https://gotcomped.com/run.sh | sh` puts you on https://gotcomped.com/leaderboard.html; the share line in `~/comped/comped-share.txt` already carries the rank.
 2. **Daily adoption-log rows** from `playoffs-standings author=rajkaria` (manifest `stats.downloads`), and the board count from `https://gotcomped.com/api/leaderboard?limit=1` (`count`, `submissions`).
 3. **Judge loop, twice** (SPEC §15) against gotcomped.com (home + leaderboard), the three Play pages and a clean run; fix and republish as patch versions until ≥ 9.5.
 4. **Watch the board for junk.** `select handle, multiplier, comped_usd, held from comped_scores order by updated_at desc` via the Supabase MCP; `update … set held = true` hides a row. Consider a `removed` flag + an issue template for "take me off".

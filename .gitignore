@@ -11,3 +11,5 @@ out/
 .vercel
 .env*
 /comped-out/
+/site/comped.tar.gz
+/site/comped.tar.gz.sha256

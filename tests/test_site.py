@@ -4,6 +4,11 @@ SITE = pathlib.Path("site")
 PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html")
 
 
+def setUpModule():
+    """docs.html, developers.html and comped.tar.gz are generated. Build before asserting."""
+    subprocess.run([sys.executable, "tools/build_site.py"], check=True, capture_output=True)
+
+
 class Site(unittest.TestCase):
     def test_docs_are_regenerated_from_the_repo(self):
         before = {p: (SITE / p).read_text(encoding="utf-8") for p in ("docs.html", "developers.html")}
@@ -70,11 +75,30 @@ class Site(unittest.TestCase):
         text = (SITE / "developers.html").read_text(encoding="utf-8")
         for slug in ("comped", "session-ledger", "wrong-turns"):
             self.assertIn("https://play.modiqo.ai/rajkaria/{0}".format(slug), text, slug)
-        # The landing page leads with the registry's own one-line installer for the flagship.
+        # The landing page leads with the door that needs no account, and offers the other one.
         text = (SITE / "index.html").read_text(encoding="utf-8")
+        self.assertIn("https://gotcomped.com/comped.sh", text)
         self.assertIn("https://gotcomped.com/run.sh", text)
         self.assertIn('https://play.modiqo.ai/install?play=rajkaria/comped', text)
         self.assertTrue((SITE / "run.sh").is_file())
+        self.assertTrue((SITE / "comped.sh").is_file())
+        self.assertTrue((SITE / "comped.tar.gz").is_file())
+
+    def test_the_copy_button_offers_the_account_free_line(self):
+        # Both copy buttons on the site paste the same line, and it is the one with no sign-in.
+        for page, ident in (("index.html", "cmd-main"), ("index.html", "cmd-real"),
+                            ("leaderboard.html", "cmd-real")):
+            text = (SITE / page).read_text(encoding="utf-8")
+            m = re.search(r'<code id="{0}">([^<]+)</code>'.format(ident), text)
+            self.assertIsNotNone(m, "{0} has no #{1}".format(page, ident))
+            self.assertEqual("curl -fsSL https://gotcomped.com/comped.sh | sh", m.group(1))
+
+    def test_the_pages_never_claim_an_account_is_needed_to_get_a_card(self):
+        text = (SITE / "index.html").read_text(encoding="utf-8")
+        self.assertIn("No account", text)
+        # rote is offered as a choice with its own reason, never as a requirement.
+        self.assertNotIn("you need rote", text.lower())
+        self.assertNotIn("requires an account", text.lower())
 
     def test_the_one_line_script_runs_the_published_play_and_nothing_else(self):
         sh = (SITE / "run.sh").read_text(encoding="utf-8")
