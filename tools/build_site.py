@@ -253,7 +253,7 @@ def page(path, title, description, nav_active, toc, body):
     <a class="brand" href="./">comped<span>.</span></a>
     <div class="links">
 {nav}
-      <a class="cta" href="./#get">Get my comp score</a>
+      <a class="cta" href="./#get">Get my <span class="hide-xs">comp </span>score</a>
     </div>
   </div>
 </nav>

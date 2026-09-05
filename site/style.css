@@ -346,9 +346,11 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
 }
 
 @media (max-width: 520px) {
-  nav .links a.hide-xs { display: none; }
+  .hide-xs { display: none !important; }
   nav .links { gap: 12px; }
+  nav .wrap { padding: 0 16px; }
   .brand { font-size: 20px; }
+  .wrap { padding: 0 18px; }
 }
 
 /* Motion is decoration. Anyone who asked for less gets the page without it. */
