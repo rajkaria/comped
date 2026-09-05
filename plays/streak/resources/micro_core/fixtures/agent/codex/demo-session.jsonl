@@ -1,5 +1,0 @@
-{"payload": {"cwd": "/tmp/demo", "model": "gpt-5"}, "timestamp": "2026-09-05T06:00:00Z", "type": "turn_context"}
-{"payload": {"info": {"total_token_usage": {"cached_input_tokens": 1552, "input_tokens": 7872, "output_tokens": 712}}, "type": "token_count"}, "timestamp": "2026-09-05T07:00:00Z", "type": "event_msg"}
-{"payload": {"info": {"total_token_usage": {"cached_input_tokens": 3824, "input_tokens": 14413, "output_tokens": 1236}}, "type": "token_count"}, "timestamp": "2026-09-05T08:00:00Z", "type": "event_msg"}
-{"payload": {"info": {"total_token_usage": {"cached_input_tokens": 7012, "input_tokens": 20176, "output_tokens": 1789}}, "type": "token_count"}, "timestamp": "2026-09-05T09:00:00Z", "type": "event_msg"}
-{"payload": {"info": {"total_token_usage": {"cached_input_tokens": 8092, "input_tokens": 27707, "output_tokens": 2016}}, "type": "token_count"}, "timestamp": "2026-09-05T10:00:00Z", "type": "event_msg"}

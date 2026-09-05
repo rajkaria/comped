@@ -1,2 +1,0 @@
-- [ ] read the index format
-- [x] write the fixture
