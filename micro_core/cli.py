@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, cronx, decode, secrets, size, store, turn
+from . import common, cronx, decode, secrets, size, snapshot, store, turn
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -619,7 +619,73 @@ def _budget_report(argv):
                         "models": today["models"]})
 
 
+# ---------------------------------------------------------------- since-last
+
+def _since_last_report(argv):
+    a = _parser("since-last report", ("root", "."), ("state_dir", DEFAULT_STATE_DIR), ("ignore", ""),
+                ("max_files", "20000"), ("watch_sensitive", "true"), ("tz", "")).parse_args(argv)
+    now, tz = common.now_utc(a.now), common.tz_of(a.tz)
+    root = common.expand(a.root)
+    if common.as_bool(a.demo):
+        root = common.fixtures_dir() / "since" / "tree"
+    state, _demo = common.expand(a.state_dir), None
+    if common.as_bool(a.demo):
+        import shutil
+        import tempfile
+        state = Path(tempfile.mkdtemp(prefix="rote-micro-demo-"))
+        seed = common.fixtures_dir() / "since" / "state"
+        if seed.is_dir():
+            for f in seed.iterdir():
+                shutil.copy2(str(f), str(state / f.name))
+    ignore = set(snapshot.DEFAULT_IGNORE) | {x.strip() for x in str(a.ignore or "").split(",") if x.strip()}
+    cur, meta = snapshot.scan_tree(root, ignore, int(a.max_files))
+    if meta.get("missing"):
+        return common.emit("No such directory: {0}".format(root),
+                           common.warn("{0} is not a directory".format(root)))
+    key = snapshot.key_for(root)
+    prev = snapshot.load(state, key)
+    sens_key = "sensitive-" + key
+    prev_sens = snapshot.load(state, sens_key) if common.as_bool(a.watch_sensitive) else None
+    cur_sens = snapshot.sensitive_state() if common.as_bool(a.watch_sensitive) else {}
+    written = [snapshot.save(state, key, cur)]
+    if common.as_bool(a.watch_sensitive):
+        written.append(snapshot.save(state, sens_key, cur_sens))
+    if prev is None:
+        return common.emit(
+            "First look at {0}: {1} files noted. Run it again after the agent works and this "
+            "becomes a list of what it touched.".format(root, common.human_int(len(cur))),
+            {"ok": True, "first_run": True, "created": [], "modified": [], "deleted": [],
+             "lines_added": 0, "lines_removed": 0, "biggest": None, "sensitive_changed": [],
+             "files": len(cur), "truncated": meta["truncated"], "written": written})
+    d = snapshot.delta(prev, cur)
+    changed_sens = snapshot.sensitive_changed(prev_sens, cur_sens)
+    touched = len(d["created"]) + len(d["modified"]) + len(d["deleted"])
+    lines = [common.rule("since you last asked")]
+    for label, paths in (("new", d["created"]), ("changed", d["modified"]), ("gone", d["deleted"])):
+        for p in paths[:12]:
+            lines.append("  {0:<8} {1}".format(label, common.trunc(p, 56)))
+        if len(paths) > 12:
+            lines.append("  {0:<8} … and {1} more".format("", len(paths) - 12))
+    if not touched:
+        lines.append("  nothing changed")
+    if meta["truncated"]:
+        lines.append("  (stopped at {0} files; this is a lower bound)".format(meta["files"]))
+    if changed_sens:
+        lines += ["", "  ⚠ changed outside the tree: {0}".format(", ".join(changed_sens))]
+    tail = "{0} {1} touched · +{2} / −{3} lines · {4}".format(
+        touched, common.plural(touched, "file"), d["lines_added"], d["lines_removed"],
+        "nothing outside the repo" if not changed_sens else "something outside the repo moved")
+    lines += ["", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "first_run": False, "created": d["created"],
+                        "modified": d["modified"], "deleted": d["deleted"],
+                        "lines_added": d["lines_added"], "lines_removed": d["lines_removed"],
+                        "biggest": d["biggest"], "sensitive_changed": changed_sens,
+                        "files": len(cur), "truncated": meta["truncated"], "written": written})
+
+
 _DISPATCH = {
+    ("since-last", "report"): _since_last_report,
     ("last-turn", "report"): _last_turn_report,
     ("budget", "report"): _budget_report,
     ("fits", "report"): _fits_report,

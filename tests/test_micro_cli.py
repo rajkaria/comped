@@ -312,3 +312,48 @@ class TestAgentSteps(unittest.TestCase):
                             "--now", "2026-09-05T11:00:00Z"])
         self.assertEqual(j["verdict"], "idle")
         self.assertEqual(j["turns"], 0)
+
+
+class TestSinceLast(unittest.TestCase):
+    def setUp(self):
+        self.root, self.state = tempfile.mkdtemp(), tempfile.mkdtemp()
+
+    def _write(self, name, body):
+        p = os.path.join(self.root, name)
+        with open(p, "w") as fh:
+            fh.write(body)
+
+    def test_first_run_says_so_instead_of_claiming_everything_is_new(self):
+        self._write("a.py", "x\n")
+        rc, human, j = run(["since-last", "report", "--root", self.root, "--state-dir", self.state,
+                            "--watch-sensitive", "false", "--now", "2026-09-05T10:00:00Z"])
+        self.assertEqual(rc, 0)
+        self.assertTrue(j["first_run"])
+        self.assertEqual(j["created"], [])
+
+    def test_second_run_sees_the_new_file(self):
+        self._write("a.py", "x\n")
+        run(["since-last", "report", "--root", self.root, "--state-dir", self.state,
+             "--watch-sensitive", "false", "--now", "2026-09-05T10:00:00Z"])
+        self._write("b.py", "y\ny\n")
+        rc, human, j = run(["since-last", "report", "--root", self.root, "--state-dir", self.state,
+                            "--watch-sensitive", "false", "--now", "2026-09-05T10:05:00Z"])
+        self.assertFalse(j["first_run"])
+        self.assertEqual(j["created"], ["b.py"])
+        self.assertEqual(j["lines_added"], 2)
+        self.assertIn("1 file touched", human)
+
+    def test_nothing_changed_reads_as_nothing_changed(self):
+        self._write("a.py", "x\n")
+        run(["since-last", "report", "--root", self.root, "--state-dir", self.state,
+             "--watch-sensitive", "false", "--now", "2026-09-05T10:00:00Z"])
+        rc, human, j = run(["since-last", "report", "--root", self.root, "--state-dir", self.state,
+                            "--watch-sensitive", "false", "--now", "2026-09-05T10:05:00Z"])
+        self.assertEqual((j["created"], j["modified"], j["deleted"]), ([], [], []))
+        self.assertIn("nothing changed", human)
+
+    def test_a_missing_root_warns_and_exits_zero(self):
+        rc, human, j = run(["since-last", "report", "--root", "/nope/not/here",
+                            "--state-dir", self.state])
+        self.assertEqual(rc, 0)
+        self.assertIn("warning", j)
