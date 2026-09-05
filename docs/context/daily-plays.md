@@ -50,7 +50,8 @@ pushed, inspected, then executed through its published URI with `demo=true` and,
 - **Verified on real data on this Mac.** 62 tabs across 6 browsers, oldest last used 21 months ago.
   22 applications, 4 unopened past 180 days. 1,724 Desktop+Downloads files, grade F, 164 hashed
   duplicate groups. 13 real receipts found among 168 candidate files in Downloads.
-- **Branch `claude/publish-plays-daily-activities-122fcf` is pushed; no PR opened yet.**
+- **Merged to `main`** at `2c35002` (fast-forward, no PR). CI green on all five jobs: Ubuntu and
+  macOS on Python 3.9 and 3.12, plus the Windows standalone job.
 - **Working tree clean.** The test suite regenerates `npm/` and `site/comped.tar.gz`; they match.
 
 Known limits, deliberate and documented in each DESCRIPTION.md:
@@ -111,6 +112,12 @@ for all six, plus `docs/plays/_daily-spec.json` as the DAG/tags/output source, p
   nothing personal can leak, and the binary formats get exercised by the same readers a real run
   uses. `clutter` and `apps` read a JSON manifest in demo mode because a git checkout stamps every
   file with the checkout time and every age would read "today".
+- **The generated copies under `plays/*/resources/` are gitignored, not committed.** The six
+  packages were briefly tracking their own copy of `daily_core`, 276 files of duplication. They now
+  follow the same rule as `comped_core`: CI regenerates them with `tools/sync_plays.py`. Any test
+  that reads a package's core must sync first, which `tests/test_daily_package.py` does in
+  `setUpModule`. The lint sidecars are gitignored too, so that assertion skips when absent.
+  Verify changes like this in a clean clone, because a working tree hides exactly this class of bug.
 - **Presentation fixtures must be captured from a run whose `out_dir` has no personal path.**
   The first capture used a scratchpad path containing the username and
   `tests/test_fixture_privacy.py` caught it. Capture with `out_dir=/tmp/daily-demo/<slug>`.
@@ -126,17 +133,15 @@ for all six, plus `docs/plays/_daily-spec.json` as the DAG/tags/output source, p
 
 ## Next steps — specific, actionable
 
-1. **Open the PR** for `claude/publish-plays-daily-activities-122fcf` into `main` and merge, so
-   the published Plays and the repo agree.
-2. **Announce the six.** The X and Discord posts from the earlier session covered comped only.
+1. **Announce the six.** The X and Discord posts from the earlier session covered comped only.
    `desktop-clutter` (grade F, 164 duplicate groups) and `tab-debt` (oldest tab 21 months) are the
    two with a number worth posting.
-3. **Decide whether the leaderboard generalises.** `api/score` and the Supabase functions are
+2. **Decide whether the leaderboard generalises.** `api/score` and the Supabase functions are
    comped-shaped. Adding a `play` column would let `tab-debt`, `desktop-clutter` and
    `app-graveyard` post a score too. This is the largest remaining piece of work and it is
    optional.
-4. **Consider a landing-page section** on gotcomped.com for the six, or leave the site
+3. **Consider a landing-page section** on gotcomped.com for the six, or leave the site
    comped-only. Currently the site says nothing about them.
-5. **Watch adoption.** `rote play search --source registry` and `docs/adoption-log.md`.
-6. **Optional recall work on `receipt-ledger`.** The 69 unreadable PDFs would need per-font
+4. **Watch adoption.** `rote play search --source registry` and `docs/adoption-log.md`.
+5. **Optional recall work on `receipt-ledger`.** The 69 unreadable PDFs would need per-font
    encoding tables beyond ToUnicode. Only worth it if downloads suggest people care.
