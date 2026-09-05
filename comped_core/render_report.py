@@ -1,3 +1,5 @@
+import base64
+import json
 from decimal import Decimal
 
 from .render_terminal import render_terminal
@@ -31,6 +33,42 @@ def share_text(v: dict) -> str:
                 score(m), t["name"], where, who, total, money(v["plan_cost"]).split(".")[0], site))
 
 
+def _round(x, places):
+    """A Decimal, a float or None, as a JSON number the browser can read back."""
+    if x is None:
+        return None
+    return round(float(x), places)
+
+
+def card_url(v: dict) -> str:
+    """A link that draws this card on the site, as a picture you can download and post.
+
+    The numbers ride in the fragment -- everything after the "#" -- and a browser never puts the
+    fragment in a request, so opening this uploads nothing: the page rebuilds the card locally.
+    What it carries is exactly the field list the leaderboard row already holds (score, tier, the
+    list-price total, the plan it was scored against, which AIs and tools were found, the window,
+    active days, sessions and cache-read share). No paths, no prompts, no model ids.
+    """
+    site = (v.get("site") or "https://gotcomped.com").rstrip("/")
+    det = v.get("detected") or {}
+    handle = v.get("handle") or ""
+    if handle.startswith("<"):  # the CLI's placeholder for "you did not give one"
+        handle = ""
+    m = v.get("multiplier")
+    t = v.get("tier") or tier(m)
+    doc = {"v": 1, "h": handle[:32], "m": _round(m, 4), "t": (t or {}).get("name", ""),
+           "u": _round(v.get("total_usd"), 2) or 0, "p": _round(v.get("plan_cost"), 2),
+           "pl": " + ".join(v.get("plan_labels") or [])[:60],
+           "pv": [p["key"] for p in det.get("providers", []) if p.get("records")][:6],
+           "hs": [h["harness"] for h in det.get("harnesses", []) if h.get("records")][:6],
+           "d": int(v.get("window_days") or 30), "a": int(v.get("active_days") or 0),
+           "c": _round(v.get("cache_share"), 4), "s": int(v.get("sessions") or 0)}
+    if v.get("rank") and v.get("rank_of"):
+        doc["r"], doc["n"] = int(v["rank"]), int(v["rank_of"])
+    blob = base64.urlsafe_b64encode(json.dumps(doc, separators=(",", ":"), sort_keys=True).encode("utf-8"))
+    return "{0}/card.html#c={1}".format(site, blob.decode("ascii").rstrip("="))
+
+
 def _vendor_word(v: dict) -> str:
     provs = [p for p in (v.get("detected") or {}).get("providers", []) if p.get("records")]
     names = [p["label"] for p in provs[:2]]
@@ -41,7 +79,9 @@ def render_report(v: dict) -> str:
     # The card is normally rendered by the CLI and passed in; render it here when a caller
     # builds the view without one, so the report never depends on call order.
     card = v.get("terminal_card") or render_terminal(v, False)
-    o = ["# Comped report · last {0} days".format(v["window_days"]), "", "## Card", "", "```", card, "```", "", share_text(v), "", "## Models", "",
+    o = ["# Comped report · last {0} days".format(v["window_days"]), "", "## Card", "", "```", card, "```", "", share_text(v), "",
+         "The same card as a picture, drawn in your browser and ready to download: " + card_url(v),
+         "", "## Models", "",
          "| model | usd | share |", "|---|---|---|"] + ["| {0} | {1} | {2:.0f}% |".format(m["model"], money(m["usd"]), float(m["share"]) * 100) for m in v["per_model"]]
     o += ["", "## Detected", "",
           "Worked out from the model ids in your own logs -- nothing was typed and no account was read.", "",

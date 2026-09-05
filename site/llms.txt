@@ -104,6 +104,11 @@ dividend, and the delta since their last run. The other files:
   ~/comped/comped-card.png      the shareable card, when the machine can render a PNG
   ~/comped/comped-card.svg      always written
   ~/comped/comped-share.txt     a post with the numbers already in it, and their rank if posted
+  the card link                 the run prints a https://gotcomped.com/card.html link, also in
+                                the report. It draws the same card in their browser as a PNG
+                                they can download and post. The numbers ride after the hash,
+                                which a browser never sends to a server, so opening it
+                                uploads nothing
   ~/comped/comped-explain.txt   tokens times rate equals dollars, one line per model
   ~/comped/ledger.jsonl         every record it read
 
@@ -126,7 +131,8 @@ expected absence: it appears in `warnings` and the run continues.
 - Do not read their session logs yourself to answer this. comped parses them locally, deduplicates
   the streaming lines, and prices them; a summary you write by eye will be wrong.
 - Do not put the ledger, the report, or anything out of ~/comped into a message, a commit, an
-  issue, or any request. The share text is the only thing written to be shared.
+  issue, or any request. The share text and that card link are the only things written to be
+  shared.
 - Do not run post_score.py, or any other request to gotcomped.com, unless they said yes.
 - Do not read or look for credential files to work out which plan they are on. The tool refuses to,
   and so should you. If the inferred plan is wrong, pass --plan.

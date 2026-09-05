@@ -328,6 +328,25 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
 .board-home .board-more { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; font-size: 14.5px; color: var(--muted); flex-wrap: wrap; }
 
 /* ---------- small screens ---------- */
+/* ---------- the card page ---------- */
+.btn.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.btn.primary:hover { background: #2f2a45; border-color: #2f2a45; }
+.who-link { color: inherit; }
+.who-link:hover { text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+.card-find { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 24px 0 12px; }
+.card-find label { font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: 0.02em; }
+.card-find input { font: inherit; font-size: 15px; font-weight: 700; padding: 10px 16px; border-radius: 999px; border: 2px solid var(--line-2); background: var(--panel); color: var(--fg); min-width: 220px; }
+.card-find input:focus { outline: 0; border-color: var(--accent); }
+.card-find button { font: inherit; cursor: pointer; }
+.card-section { padding-top: 28px; }
+.card-stage { border-radius: 22px; overflow: hidden; box-shadow: var(--shadow-lg); background: var(--panel); min-height: 4px; }
+.card-stage:empty { display: none; }
+.card-stage svg { display: block; width: 100%; height: auto; }
+.card-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 20px 0 18px; }
+.card-actions .seg { margin-left: auto; }
+.card-page .share-text { border: 2px solid var(--line); border-radius: 18px; padding: 18px 20px; background: var(--panel); font-size: 16px; margin-bottom: 8px; }
+.card-page .reassure { margin-top: 26px; }
+
 @media (max-width: 940px) { .split { grid-template-columns: 1fr; } .term { transform: none; } }
 @media (max-width: 860px) {
   .doc-layout { grid-template-columns: 1fr; }
@@ -367,4 +386,9 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
   .js-anim .reveal { opacity: 1; transform: none; }
   .term[data-anim="on"] .ln { opacity: 1; transform: none; }
   * { transition-duration: .01ms !important; }
+}
+
+@media (max-width: 860px) {
+  .card-actions .seg { margin-left: 0; }
+  .card-find input { width: 100%; }
 }

@@ -1,7 +1,7 @@
-import unittest, tempfile, pathlib
+import unittest, tempfile, pathlib, base64, json
 from decimal import Decimal
 from comped_core.render_terminal import render_terminal
-from comped_core.render_report import render_report, share_text
+from comped_core.render_report import render_report, share_text, card_url
 from comped_core.render_svg import render_svg
 from comped_core.render_png import render_png
 
@@ -72,3 +72,57 @@ class RenderTests(unittest.TestCase):
         d = pathlib.Path(tempfile.mkdtemp()); p = d / "c.svg"; p.write_text(render_svg(V(), "dark"))
         png, note = render_png(p, d, renderers=[])
         self.assertIsNone(png); self.assertIn("PNG skipped", note)
+
+
+class CardLinkTests(unittest.TestCase):
+    """The link the run prints so a machine with no rasteriser can still get a PNG.
+
+    Two promises are load bearing: the numbers sit in the fragment, which a browser never puts in
+    a request, and they are the same fields the leaderboard row already carries. A path, a prompt
+    or a model id sliding into this link would put it into every post someone pastes it in.
+    """
+
+    def doc(self, v):
+        url = card_url(v)
+        head, blob = url.split("#c=", 1)
+        self.assertEqual(head, "https://gotcomped.com/card.html", "the numbers must be after the #")
+        return json.loads(base64.urlsafe_b64decode(blob + "=" * (-len(blob) % 4)).decode("utf-8")), blob
+
+    def test_it_carries_the_leaderboard_fields_and_no_others(self):
+        d, _ = self.doc(V())
+        self.assertEqual(set(d), {"v", "h", "m", "t", "u", "p", "pl", "pv", "hs", "d", "a", "c", "s"})
+        self.assertEqual(d["h"], "priya")
+        self.assertEqual(d["m"], 42.9)
+        self.assertEqual(d["u"], 8570.2)
+        self.assertEqual(d["p"], 216.84)
+        self.assertEqual(d["pl"], "Claude Max 20x + ChatGPT Plus")
+        self.assertEqual(d["pv"], ["anthropic", "moonshot"])
+        self.assertEqual(d["hs"], ["claude-code"])          # a harness with no records is not a source
+        self.assertEqual((d["d"], d["a"], d["s"], d["c"]), (30, 27, 312, 0.78))
+        self.assertEqual(d["t"], "Hostage situation")
+
+    def test_no_path_prompt_or_model_id_rides_along(self):
+        _, blob = self.doc(V())
+        text = base64.urlsafe_b64decode(blob + "=" * (-len(blob) % 4)).decode("utf-8")
+        for leak in ("claude-opus-5", "push it to prod", "play settle", "comped-explain", "/", "\\"):
+            self.assertNotIn(leak, text, "the card link carries {0!r}".format(leak))
+
+    def test_a_run_with_no_handle_and_no_plan_still_makes_a_link(self):
+        v = V(mult=None)
+        v["handle"] = "<handle>"                            # the CLI's placeholder for "not given"
+        v["plan_labels"] = []
+        v["plan_cost"] = None
+        d, _ = self.doc(v)
+        self.assertEqual(d["h"], "")
+        self.assertIsNone(d["m"])
+        self.assertIsNone(d["p"])
+        self.assertEqual(d["pl"], "")
+
+    def test_the_rank_rides_along_once_the_score_has_been_posted(self):
+        v = V()
+        v["rank"], v["rank_of"] = 3, 128
+        d, _ = self.doc(v)
+        self.assertEqual((d["r"], d["n"]), (3, 128))
+
+    def test_the_report_hands_you_the_link(self):
+        self.assertIn("https://gotcomped.com/card.html#c=", render_report(V()))

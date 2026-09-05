@@ -88,10 +88,10 @@
 </tbody></table>
 <p><strong>What it writes,</strong> all of it under <code>out_dir</code> and nowhere else:</p>
 <table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
-<tr><td><code>comped-report.md</code></td><td>The whole run in Markdown: card, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written.</td></tr>
+<tr><td><code>comped-report.md</code></td><td>The whole run in Markdown: card, the line to post, a link that draws the card as a downloadable picture, per-model table, sources, repeats, dividend, delta, unpriced models, methodology, privacy, and every path written.</td></tr>
 <tr><td><code>comped-card.svg</code></td><td>The shareable card, 1200×675.</td></tr>
 <tr><td><code>comped-card-square.svg</code></td><td>The same card on a square canvas. PNG renderers fit thumbnails into a square box and would otherwise crop the wide one.</td></tr>
-<tr><td><code>comped-card.png</code></td><td>Rendered from the square SVG when this machine has rsvg-convert or macOS qlmanage. Absent, with a note, when it doesn't.</td></tr>
+<tr><td><code>comped-card.png</code></td><td>Rendered from the square SVG when this machine has rsvg-convert or macOS qlmanage. Absent, with a note pointing at the card page, when it doesn't: that page draws the same card in your browser and downloads it as a PNG.</td></tr>
 <tr><td><code>comped-explain.txt</code></td><td>One line per model showing tokens × rate = dollars, plus the plan arithmetic and one line per source.</td></tr>
 <tr><td><code>comped-share.txt</code></td><td>A post you can paste, with the numbers already in it.</td></tr>
 <tr><td><code>comped-baseline.json</code></td><td>Totals and repeat labels from this run, so the next one can show you the delta.</td></tr>
@@ -312,7 +312,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>You already have an agent with a shell. Paste this at it and it will do the rest:</p>
 <pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
 <p><a href="https://gotcomped.com/llms.txt">llms.txt</a> is the briefing written for the agent rather than for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before posting your score anywhere, the output contract, and how to read the report back to you. It tells the agent not to summarise your logs by eye and not to paste anything out of <code>~/comped</code> into a message or a commit.</p>
-<p>It tries the doors in order and stops at the first that opens: the published Play if rote is already signed in, then the account-free <code>comped.sh</code> download, then <code>npx comped</code> where there is node but no Unix shell, and a <code>git clone --depth 1</code> last. Same code every way. Read the file before you paste the line; it is 152 lines and it is the whole of what your agent is being told.</p>
+<p>It tries the doors in order and stops at the first that opens: the published Play if rote is already signed in, then the account-free <code>comped.sh</code> download, then <code>npx comped</code> where there is node but no Unix shell, and a <code>git clone --depth 1</code> last. Same code every way. Read the file before you paste the line; it is 158 lines and it is the whole of what your agent is being told.</p>
 
 <h2 id="source">Source and spec</h2>
 <ul>
