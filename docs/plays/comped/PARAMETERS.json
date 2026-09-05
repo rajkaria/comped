@@ -103,7 +103,7 @@
   "default": "",
   "example": "priya",
   "label": "Handle",
-  "description": "Your rote handle, used only to print the /play settle command."
+  "description": "Your name on the gotcomped.com leaderboard, and in the /play settle command. Blank posts anonymously (anon-xxxx). gotcomped.com/run.sh fills in your rote handle."
  },
  {
   "name": "card_theme",
@@ -116,5 +116,17 @@
    "dark",
    "light"
   ]
+ },
+ {
+  "name": "leaderboard",
+  "type": "string",
+  "default": "true",
+  "label": "Post to the leaderboard",
+  "choices": [
+   "true",
+   "false"
+  ],
+  "description": "true posts your score to gotcomped.com after the card is written and prints your rank: the multiplier, tier, list-price total, plan, detected providers, days, and your handle. Nothing else, ever; the exact payload is saved to out_dir/comped-rank.json. false sends nothing, and the run is then entirely offline.",
+  "example": "true"
  }
 ]

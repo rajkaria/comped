@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The comped leaderboard — who got comped the most this month?</title>
+<meta name="description" content="Live ranking of comp scores: how many times over people's AI subscriptions paid for themselves this month, by handle. Ranked by multiplier, so a $20 plan can beat a $200 one.">
+<link rel="canonical" href="https://gotcomped.com/leaderboard.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="comped">
+<meta property="og:url" content="https://gotcomped.com/leaderboard.html">
+<meta property="og:title" content="The comped leaderboard">
+<meta property="og:description" content="Who's getting comped the most? Live comp scores, ranked. One paste puts you on it.">
+<meta property="og:image" content="https://gotcomped.com/card-wide.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The comped leaderboard">
+<meta name="twitter:description" content="Who's getting comped the most? Live comp scores, ranked. One paste puts you on it.">
+<meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="landing board-page">
+
+<div class="aurora" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./">comped<span>.</span></a>
+    <div class="links">
+      <a href="leaderboard.html" class="on">Leaderboard</a>
+      <a href="docs.html">Docs</a>
+      <a href="developers.html" class="hide-sm">Developers</a>
+      <a class="cta" href="./#get">Get my comp score</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero slim">
+  <div class="wrap">
+    <p class="kicker"><span class="dot"></span>Live · updates with every run</p>
+    <h1>Who's getting <em>comped</em> the most?</h1>
+    <p class="sub">Every run of comped posts one line here: the score, the tier, the dollars, a name. Your logs stay on your computer. Ranked by <strong>comp score</strong> — how many times over the plan paid for itself — so a $20 plan can beat a $200 one.</p>
+    <p class="board-status" id="board-status">Loading the board…</p>
+  </div>
+</header>
+
+<section class="board-section">
+  <div class="wrap">
+    <div class="board-controls">
+      <div class="seg" role="group" aria-label="Sort">
+        <button class="on" data-sort="multiplier">By comp score</button>
+        <button data-sort="comped_usd">By dollars</button>
+      </div>
+      <div class="chips" id="board-providers" aria-label="Filter by AI"></div>
+      <input id="board-search" type="search" placeholder="Find a handle" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div id="board-full" aria-live="polite"><div class="board-empty">Loading…</div></div>
+
+    <div class="board-rules">
+      <div><b>Getting on it.</b> One paste, about a minute. Your run posts your score with your rote handle; blank handles post as <code>anon-xxxx</code>.</div>
+      <div><b>Ranking.</b> By comp score, then dollars, then active days. Ranks from $20 at full price over 3 active days. One row per handle: a re-run replaces it, never stacks.</div>
+      <div><b>Kept honest.</b> The server recomputes score = dollars ÷ plan and refuses a mismatch. Scores over 2,000× or $250,000 are held for a look before they show. Nothing you can post moves anyone else's row.</div>
+    </div>
+  </div>
+</section>
+
+<section id="get" class="get final">
+  <div class="wrap">
+    <h2>Get on the board. <em>Find out where you land.</em></h2>
+    <p class="lede">One line, about a minute. It reads your AI tools' logs on your own computer, prints your card, and posts just the score. Want the card without the board? Add <code>leaderboard=false</code>.</p>
+    <div class="cmd big" data-label="paste into Terminal">
+      <span class="dollar">$</span>
+      <code id="cmd-real">curl -fsSL https://gotcomped.com/run.sh | sh</code>
+      <button class="copy primary" data-copy="#cmd-real">Copy</button>
+    </div>
+    <p class="hero-note">What exactly gets sent, and how to check: <a href="./#privacy">the privacy section</a>. The API is public and read-only for everyone but you: <a href="developers.html#leaderboard">developers</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap row">
+    <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
+    <span class="sp"><a href="./">Home</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+<script src="board.js" defer></script>
+
+</body>
+</html>

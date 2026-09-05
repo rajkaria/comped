@@ -455,3 +455,50 @@ footer .row .sp { margin-left: auto; }
   .term[data-anim="on"] .ln { opacity: 1; transform: none; }
   * { transition-duration: .01ms !important; }
 }
+
+/* ---- the leaderboard ------------------------------------------------------------------- */
+.hero.slim { padding: 72px 0 24px; }
+.board-status { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0; letter-spacing: 0.02em; }
+.board-section { padding-top: 28px; border-top: 0; }
+.board-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 18px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--panel); }
+.seg button { font: inherit; font-size: 14px; padding: 9px 14px; background: none; border: 0; color: var(--muted); cursor: pointer; }
+.seg button.on { background: rgba(92, 242, 160, .12); color: var(--fg); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px; padding: 6px 11px; border-radius: 99px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--muted); cursor: default; }
+button.chip { cursor: pointer; }
+button.chip:hover { color: var(--fg); border-color: var(--muted); }
+.chip.on { border-color: var(--accent-dim); color: var(--fg); background: rgba(92, 242, 160, .08); }
+.chip i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+#board-search { margin-left: auto; font: inherit; font-size: 14px; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--panel); color: var(--fg); min-width: 200px; }
+#board-search:focus { outline: 0; border-color: var(--accent-dim); }
+.board-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+table.board { width: 100%; border-collapse: collapse; font-size: 15px; }
+table.board th { text-align: left; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500; padding: 14px 16px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.board td { padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; white-space: nowrap; }
+table.board tr:last-child td { border-bottom: 0; }
+table.board tbody tr:hover td { background: rgba(255, 255, 255, .02); }
+table.board td small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; white-space: nowrap; }
+table.board .rk { font-family: var(--mono); color: var(--muted); width: 1%; font-size: 15px; }
+table.board .who b { font-weight: 650; }
+table.board .anon { color: var(--muted); font-family: var(--mono); font-size: 13.5px; }
+table.board .sc b { font-family: var(--mono); font-size: 20px; letter-spacing: -0.02em; color: var(--accent); font-weight: 700; }
+table.board .usd { font-family: var(--mono); }
+table.board .pv .chip { margin-right: 4px; }
+table.board tr.me td { background: rgba(92, 242, 160, .10); box-shadow: inset 3px 0 0 var(--accent); }
+table.board tr.t-paying-customer .sc b { color: var(--muted); }
+table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { color: var(--accent-2); }
+.board-empty { padding: 44px 24px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 18px; }
+.board-rules { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); margin-top: 22px; font-size: 14.5px; color: var(--muted); }
+.board-rules b { color: var(--fg); }
+.board-rules code { font-family: var(--mono); font-size: 12.5px; }
+.board-home { margin-top: 28px; }
+.board-home .board-more { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; font-size: 14.5px; color: var(--muted); flex-wrap: wrap; }
+@media (max-width: 720px) {
+  #board-search { margin-left: 0; width: 100%; }
+  table.board { font-size: 14px; }
+  table.board td, table.board th { padding: 11px 12px; }
+}

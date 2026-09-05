@@ -216,7 +216,8 @@ ASKING_LINER = 'curl -fsSL "https://play.modiqo.ai/install?play={0}/comped" | sh
 
 def page(path, title, description, nav_active, toc, body):
     """One page in the site's shell: the shared head, nav and footer around a docs layout."""
-    links = [("./", "Home", ""), ("docs.html", "Docs", "docs"), ("developers.html", "Developers", "developers"),
+    links = [("./", "Home", ""), ("leaderboard.html", "Leaderboard", ""), ("docs.html", "Docs", "docs"),
+             ("developers.html", "Developers", "developers"),
              ("https://github.com/rajkaria/comped", "GitHub", "")]
     nav = "\n".join('      <a href="{0}"{2}>{1}</a>'.format(
         href, label, ' class="on"' if key and key == nav_active else "") for href, label, key in links)
@@ -271,7 +272,7 @@ def page(path, title, description, nav_active, toc, body):
 <footer>
   <div class="wrap row">
     <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
-    <span class="sp"><a href="./">Home</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
 
@@ -287,6 +288,7 @@ def docs_page():
   <a href="#quickstart">Try it on sample data</a>
   <a href="#reading">Reading your card</a>
   <a href="#detection">What it works out</a>
+  <a href="#leaderboard">The leaderboard</a>
   <strong>Going further</strong>
   <a href="#options">Options</a>
   <a href="#outputs">What it writes</a>
@@ -335,6 +337,17 @@ def docs_page():
 <h3>Your tier</h3>
 <p>The score lands you in one of seven tiers, printed on the card and in <code>comped-share.txt</code>: Paying customer (under 1×), Break-even (1–2×), Comped (2–5×), Properly comped (5–12×), All-you-can-eat (12–30×), Hostage situation (30–80×), Please stop (80× and up).</p>
 
+<h2 id="leaderboard">The leaderboard</h2>
+<p>The last step of a run posts your score to <a href="leaderboard.html">{site}/leaderboard.html</a> and prints your rank. The line in <code>comped-share.txt</code> is rewritten with it, so what you post already says where you stand.</p>
+<table><thead><tr><th>Rule</th><th>What it means for you</th></tr></thead><tbody>
+<tr><th>Ranked by comp score</th><td>Full price ÷ your plan. A $20 plan at 60× beats a $200 plan at 13×. Ties break on dollars, then active days.</td></tr>
+<tr><th>Ranks from $20 and 3 days</th><td>Under $20 at full price, or fewer than three active days in the window, you're posted but not ranked; the run says so.</td></tr>
+<tr><th>One row per handle</th><td>A re-run replaces your row. Two machines with the same handle: the latest run wins. Blank handles post as <code>anon-xxxx</code>, one per machine.</td></tr>
+<tr><th>Your row is yours</th><td>A random id in <code>~/comped/comped-device.txt</code> keys it. Nothing anyone else posts can touch it; nothing you post can touch theirs. Keep the file if you want re-runs to replace rather than add.</td></tr>
+<tr><th>Held for a look</th><td>Over 2,000× or $250,000 is stored but not shown until someone looks. The server also recomputes score = dollars ÷ plan and refuses a mismatch.</td></tr>
+<tr><th>Off the board</th><td><code>leaderboard=false</code> posts nothing. To remove a row already there, <a href="https://github.com/rajkaria/comped/issues">open an issue</a> with the handle.</td></tr>
+</tbody></table>
+
 <h2 id="options">Options you might change</h2>
 <p>Add any of these after the command as <code>name=value</code>. Everything has a sensible default.</p>
 {options}
@@ -356,19 +369,23 @@ def docs_page():
 <h3>No PNG</h3>
 <p>The SVG card is always written and uploads to LinkedIn as-is. For a PNG, install <code>rsvg-convert</code>, or use a Mac where it's built in.</p>
 <h3>It asked me to sign in</h3>
-<p>That's rote's registry, so the Play can be fetched and verified. comped itself never signs in to anything and never makes a network call.</p>
+<p>That's rote's registry, so the Play can be fetched and verified. comped itself never signs in to anything; the one thing it sends is your score to the leaderboard, and only if <code>leaderboard</code> is left at <code>true</code>.</p>
+<h3>It says "not posted"</h3>
+<p>The card is done; only the leaderboard post failed, usually because the machine is offline or the post timed out. Run again when you're online, or leave it. The exact reply is in <code>~/comped/comped-rank.json</code>.</p>
+<h3>I'm on the board as anon-xxxx</h3>
+<p>The run had no handle. <code>gotcomped.com/run.sh</code> fills in your rote handle; if you ran the Play some other way, pass <code>handle=yourname</code>. A re-run replaces your row, so the anonymous one goes away when a named one arrives from the same machine.</p>
 
 <h2 id="privacy">Privacy</h2>
 <ul>
 <li><strong>Reads</strong> your AI tools' session logs. Nothing else.</li>
 <li><strong>Never reads</strong> <code>~/.claude.json</code>, <code>~/.codex/auth.json</code> or any credential, keychain or token file. Which AI you use comes from the logs; your plan is never looked up.</li>
-<li><strong>Never sends.</strong> No network calls of any kind. Not telemetry, not "anonymous usage", not a version check.</li>
+<li><strong>Sends one thing.</strong> After the card is written, your score goes to the leaderboard: handle, comp score, tier, full-price total, plan and its price, detected providers and tools, days, sessions, cache share, and a random id that keys your row. No paths, prompts, model names or hostnames. It's saved to <code>~/comped/comped-rank.json</code> before it goes. <code>leaderboard=false</code> makes the run entirely offline: no telemetry, no "anonymous usage", no version check, nothing.</li>
 <li><strong>Writes</strong> only under the folder you choose, and tells you every path.</li>
 <li><strong>Your messages</strong> are cut to 120 characters and hashed. Never the full text, never on a card.</li>
 </ul>
 <p>How to verify each of those rather than believe them is on the <a href="developers.html#privacy">developers page</a>.</p>
 """.format(one=esc(ONE_LINER), asking=esc(ASKING_LINER), site=SITE_URL, handle=HANDLE,
-           options=params_table_for("comped", ("days_back", "plan", "repeat_threshold", "out_dir", "card_theme")),
+           options=params_table_for("comped", ("days_back", "plan", "leaderboard", "handle", "repeat_threshold", "out_dir", "card_theme")),
            outputs=outputs_table("comped"))
     return page("docs.html", "comped — docs",
                 "How to get your comp score in one line, how to read the card, what it works out for you, and what to do when a number looks wrong.",
@@ -388,6 +405,7 @@ def developers_page():
   <a href="#math">The arithmetic</a>
   <a href="#detection">Detection</a>
   <a href="#prices">Prices and plans</a>
+  <a href="#leaderboard">Leaderboard API</a>
   <a href="#privacy">Verifying privacy</a>
   <strong>Reference</strong>
   <a href="#cli">Without rote</a>
@@ -453,9 +471,23 @@ def developers_page():
 {plans}
 <div class="callout warn"><p>The tier is inferred from model ids in the logs, never from an account. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
 
+<h2 id="leaderboard">Leaderboard API</h2>
+<p>Two endpoints on this origin, both JSON, both stdlib Python on Vercel (<code>api/score.py</code>, <code>api/leaderboard.py</code>), both thin: each calls one Postgres function through PostgREST with a publishable key. The SQL functions are the trust boundary. The table is closed to the API role; every bound is enforced in SQL; the device id that keys a row is never returned by either call, so nothing you can read lets you write someone else's row.</p>
+<h3>POST /api/score</h3>
+<pre><code>{{"device": "&lt;uuid&gt;", "handle": "priya", "multiplier": 12.99, "comped_usd": 2560.98, "plan_usd": 197.13,
+ "tier": "All-you-can-eat", "plan": "Claude Max 20x", "plan_id": "claude-max-200", "plan_source": "auto",
+ "providers": ["anthropic"], "harnesses": ["claude-code"], "days_back": 30, "active_days": 22,
+ "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.4"}}</code></pre>
+<p>Reply <code>200</code>: <code>{{"ok": true, "rank": 7, "of": 312, "percentile": 2.2, "eligible": true, "held": false, "reason": null, "handle": "priya", "url": "…/leaderboard.html#priya", "board": "…"}}</code>. <code>400</code> names the first bad field; <code>429</code> is the same device inside 15 seconds; <code>502</code> is storage. The server recomputes <code>multiplier = comped_usd / plan_usd</code> and refuses a mismatch above 2%. Handles are <code>[A-Za-z0-9][A-Za-z0-9_.-]{{0,31}}</code>. Over 2,000× or $250,000 is stored with <code>held: true</code> and not shown.</p>
+<h3>GET /api/leaderboard?sort=multiplier|comped_usd&amp;limit=100</h3>
+<p>One row per handle (the latest run) or per anonymous device, ranked; up to 500. Each row carries what the table above shows plus <code>plan_id</code>, <code>plan_source</code>, <code>runs</code>, <code>first_seen</code> and <code>updated_at</code>, and a <code>rules</code> object restates the thresholds. Cached for 30 seconds at the edge. CORS is open: embed it where you like.</p>
+<h3>Posting without the Play</h3>
+<p><code>python3 leaderboard/post_score.py --out-dir ~/comped --handle you</code> after a <code>card</code> run does exactly what the Play's last step does; <code>--url</code> points it elsewhere and <code>COMPED_LEADERBOARD_URL</code> does the same for the Play. A machine whose python cannot verify TLS certificates (a python.org build on a Mac that never ran <em>Install Certificates</em>) falls back to the system CA bundle, then to <code>curl</code> with a fixed argv.</p>
+
 <h2 id="privacy">Verifying the privacy claims</h2>
 <ul>
-<li><strong>No network.</strong> <code>python3 -m unittest tests.test_no_network</code> fails if the core imports <code>urllib</code>, <code>http</code>, <code>socket</code>, <code>requests</code> or <code>ssl</code>, if anything but the PNG renderer mentions <code>subprocess</code>, or if any source line references a credential path. The site itself is served with <code>connect-src 'none'</code>, so the page making the promise cannot break it either.</li>
+<li><strong>No network in the core.</strong> <code>python3 -m unittest tests.test_no_network</code> fails if <code>comped_core</code> imports <code>urllib</code>, <code>http</code>, <code>socket</code>, <code>requests</code> or <code>ssl</code>, if anything but the PNG renderer mentions <code>subprocess</code>, or if any source line references a credential path. A second test proves the only file in any Play package that can open a socket is <code>post_score.py</code>, the leaderboard poster, and that it is bundled into <code>comped</code> alone. The site is served with <code>connect-src 'self'</code>: the page can ask this origin for the board and nobody else for anything.</li>
+<li><strong>What the poster sends</strong> is one JSON object, built in <a href="https://github.com/rajkaria/comped/blob/main/leaderboard/post_score.py">one function</a> from the priced summary, and written to <code>out_dir/comped-rank.json</code> before it goes. The test suite asserts the field list and that no path, model id or message text can be in it.</li>
 <li><strong>No surprises in what it writes.</strong> Every run lists every path it wrote, in the report and in its JSON output.</li>
 <li><strong>Determinism.</strong> Pin <code>--now</code> and two runs produce byte-identical output. The suite proves it with PATH emptied, which also proves the pipeline needs no external binary.</li>
 <li><strong>Fixtures.</strong> The sample logs and the presentation fixtures captured from real runs are scanned for real paths, names and keys before every build.</li>

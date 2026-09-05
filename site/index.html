@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>comped — how much did AI comp you this month?</title>
-<meta name="description" content="You pay a flat subscription for Claude, ChatGPT or Codex. comped reads the receipts your AI tools already keep and tells you what the month would have cost at full price — your comp score — in one paste, with nothing leaving your computer.">
+<meta name="description" content="You pay a flat subscription for Claude, ChatGPT or Codex. comped reads the receipts your AI tools already keep and tells you what the month would have cost at full price — your comp score — in one paste. Then it puts you on the leaderboard.">
 <link rel="canonical" href="https://gotcomped.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="comped">
 <meta property="og:url" content="https://gotcomped.com/">
 <meta property="og:title" content="comped — how much did AI comp you this month?">
-<meta property="og:description" content="One paste. Your comp score: what your AI coding tools would have cost at full price, versus what you pay. Works out which AI you use by itself. Nothing leaves your computer.">
+<meta property="og:description" content="One paste. Your comp score: what your AI coding tools would have cost at full price, versus what you pay. Works out which AI you use by itself. Your logs stay home; your score goes on the leaderboard.">
 <meta property="og:image" content="https://gotcomped.com/card-wide.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
@@ -21,7 +21,7 @@
 <meta property="og:image:alt" content="The comped card on a square canvas, for surfaces that crop to a thumbnail.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="comped — how much did AI comp you this month?">
-<meta name="twitter:description" content="One paste. Your comp score: what your AI coding tools would have cost at full price, versus what you pay. Works out which AI you use by itself. Nothing leaves your computer.">
+<meta name="twitter:description" content="One paste. Your comp score: what your AI coding tools would have cost at full price, versus what you pay. Works out which AI you use by itself. Your logs stay home; your score goes on the leaderboard.">
 <meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
 <link rel="stylesheet" href="style.css">
@@ -34,9 +34,9 @@
   <div class="wrap">
     <a class="brand" href="./">comped<span>.</span></a>
     <div class="links">
+      <a href="leaderboard.html">Leaderboard</a>
       <a href="#how" class="hide-sm">How it works</a>
       <a href="#privacy" class="hide-sm">Privacy</a>
-      <a href="#faq" class="hide-sm">FAQ</a>
       <a href="docs.html">Docs</a>
       <a href="developers.html" class="hide-sm">Developers</a>
       <a class="cta" href="#get">Get my comp score</a>
@@ -46,19 +46,20 @@
 
 <header class="hero">
   <div class="wrap">
-    <p class="kicker"><span class="dot"></span>Free · about a minute · nothing leaves your computer</p>
+    <p class="kicker"><span class="dot"></span>Free · about a minute · your logs never leave your computer</p>
     <h1>How much did AI <em>comp</em> you this month?</h1>
-    <p class="sub">You pay a flat fee for Claude, ChatGPT or Codex. Behind that fee, your AI coding tools burn through work that would cost real money at full price. <strong>comped reads the receipts your tools already keep</strong> and tells you the number — and how many times over your subscription paid for itself.</p>
+    <p class="sub">You pay a flat fee for Claude, ChatGPT or Codex. Behind that fee, your AI coding tools burn through work that would cost real money at full price. <strong>comped reads the receipts your tools already keep</strong> and tells you the number — how many times over your subscription paid for itself — then puts you on <a href="leaderboard.html">the leaderboard</a>.</p>
 
     <div class="hero-cta">
       <a class="btn-big" href="#get" id="cta-top">Get my comp score <span>→</span></a>
+      <a class="btn" href="leaderboard.html">See the leaderboard</a>
       <span class="cta-note">Mac &amp; Linux · one line to paste · no sign-up</span>
     </div>
 
     <ul class="stats" id="stats">
       <li><b data-count="13.1" data-suffix="×" data-dp="1">13.1×</b><span>one real month on a $200 plan — that's the comp score</span></li>
       <li><b data-count="2584.71" data-prefix="$" data-dp="2">$2,584.71</b><span>what the same month would have cost at full price</span></li>
-      <li><b data-count="0" data-suffix=" bytes" data-dp="0">0 bytes</b><span>sent anywhere. It reads, it adds up, it stops.</span></li>
+      <li><b id="stat-board">live</b><span>people on <a href="leaderboard.html">the leaderboard</a>. One paste puts you there.</span></li>
     </ul>
 
     <figure class="card tilt">
@@ -97,16 +98,32 @@
         <div class="step-n">3</div>
         <div class="step-body">
           <h3>Read your card</h3>
-          <p>Your comp score is the big number — <b>13×</b> means your subscription paid for itself thirteen times over — and under it, your <b>tier</b>. A shareable image lands in <code>~/comped/comped-card.png</code> and a ready-to-post line in <code>comped-share.txt</code>. <a href="#share">Post it.</a></p>
+          <p>Your comp score is the big number — <b>13×</b> means your subscription paid for itself thirteen times over — and under it, your <b>tier</b> and your <b>rank</b> on <a href="leaderboard.html">the leaderboard</a>. A shareable image lands in <code>~/comped/comped-card.png</code> and a ready-to-post line, rank included, in <code>comped-share.txt</code>. <a href="#share">Post it.</a></p>
         </div>
       </li>
     </ol>
 
     <div class="reassure">
       <div><b>Nothing to type in.</b> It works out which AI you use from the logs, and scores every plan you could be on. Told it your plan once? It remembers.</div>
-      <div><b>Nothing leaves your computer.</b> No upload, no account, no tracking. <a href="#privacy">Here's how you can check.</a></div>
+      <div><b>Your logs never leave your computer.</b> The only thing sent is your score, to the leaderboard, and <code>leaderboard=false</code> stops even that. <a href="#privacy">Here's exactly what goes.</a></div>
       <div><b>Nothing changed.</b> It only reads. It writes one folder, <code>~/comped</code>, and tells you what it put there.</div>
     </div>
+  </div>
+</section>
+
+<section id="board">
+  <div class="wrap">
+    <p class="eyebrow">Live</p>
+    <h2>The leaderboard. <em>Everyone thinks theirs is the bad one.</em></h2>
+    <p class="lede" id="board-lead">Every run posts one line: the score, the tier, the dollars, a name. Ranked by comp score, so a $20 plan can beat a $200 one.</p>
+    <div class="board-home">
+      <div id="board-top"><div class="board-empty">Loading the board…</div></div>
+      <div class="board-more">
+        <span id="board-count"></span>
+        <a class="btn" href="leaderboard.html">See the whole board →</a>
+      </div>
+    </div>
+    <p class="hero-note">Ranks from $20 at full price over 3 active days. One row per handle; a re-run replaces it. Don't want to be on it? Run with <code>leaderboard=false</code> and nothing is sent at all.</p>
   </div>
 </section>
 
@@ -205,13 +222,13 @@
 
 <section id="privacy">
   <div class="wrap">
-    <h2>What it does with your data: nothing</h2>
+    <h2>What it does with your data: <em>one line, and you can read it</em></h2>
     <p class="lede">A tool that reads your logs is asking for trust. So here's the whole deal, in plain words, and a way to check it rather than take our word.</p>
     <div class="grid two">
       <div class="tile">
         <div class="ico">🏠</div>
-        <h3>Stays on your computer</h3>
-        <p><b>Never sends.</b> No network calls of any kind — not to us, not to anyone. Not "anonymous stats", not a version check. It reads your logs, adds them up, writes one folder and stops.</p>
+        <h3>Your logs stay on your computer</h3>
+        <p><b>Sends one thing: your score.</b> After the card is written, one short script posts your score, tier, the full-price total, your plan, which AIs it detected, the day counts and your handle to the leaderboard. Not a path, not a prompt, not a model name, not "anonymous stats". The exact payload is saved in <code>~/comped/comped-rank.json</code> so you can read it. <code>leaderboard=false</code> means <b>no network calls of any kind</b>.</p>
       </div>
       <div class="tile">
         <div class="ico">🔒</div>
@@ -226,7 +243,7 @@
       <div class="tile">
         <div class="ico">🔍</div>
         <h3>You can check</h3>
-        <p>The code is open and has no dependencies. The test suite fails the build if anything in it could make a network call or reach a credential path. <a href="https://github.com/rajkaria/comped/blob/main/tests/test_no_network.py">That test is 20 lines</a>; you can read it in a minute.</p>
+        <p>The code is open and has no dependencies. The part that reads your logs is tested to be unable to open a network connection at all — <a href="https://github.com/rajkaria/comped/blob/main/tests/test_no_network.py">that test is 20 lines</a> — and the part that posts your score is <a href="https://github.com/rajkaria/comped/blob/main/leaderboard/post_score.py">one short file</a> you can read in five minutes.</p>
       </div>
     </div>
   </div>
@@ -236,7 +253,7 @@
   <div class="wrap">
     <p class="eyebrow">Which tier are you?</p>
     <h2>Seven tiers. <em>Everyone thinks theirs is the bad one.</em></h2>
-    <p class="lede">Your score lands you in a tier, printed on the card and in the line it writes for you to post. Screenshot it, or paste the line — it already has your number in it.</p>
+    <p class="lede">Your score lands you in a tier, printed on the card and in the line it writes for you to post — with your leaderboard rank once you're on it. Screenshot the card, or paste the line.</p>
     <ol class="tiers">
       <li><b>&lt;1×</b><span>Paying customer</span><em>The API would have been cheaper.</em></li>
       <li><b>1–2×</b><span>Break-even</span><em>Paying roughly what the tokens are worth.</em></li>
@@ -247,10 +264,10 @@
       <li><b>80×+</b><span>Please stop</span><em>There is nothing left to comp.</em></li>
     </ol>
     <div class="share-row">
-      <div class="share-text" id="share-text">My comp score is 13× (All-you-can-eat). Anthropic gave me $2,557 of AI for $197 this month. What's yours? One line, nothing leaves your machine: gotcomped.com #gotcomped</div>
+      <div class="share-text" id="share-text">My comp score is 13× (All-you-can-eat), #1 of 1 on the gotcomped.com leaderboard. Anthropic gave me $2,557 of AI for $197 this month. What's yours? One line: gotcomped.com #gotcomped</div>
       <div class="share-btns">
-        <a class="btn" href="https://x.com/intent/post?text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat).%20Anthropic%20gave%20me%20%242%2C557%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%2C%20nothing%20leaves%20your%20machine%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on X</a>
-        <a class="btn" href="https://www.linkedin.com/feed/?shareActive=true&amp;text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat).%20Anthropic%20gave%20me%20%242%2C557%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%2C%20nothing%20leaves%20your%20machine%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on LinkedIn</a>
+        <a class="btn" href="https://x.com/intent/post?text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat)%2C%20%231%20of%201%20on%20the%20gotcomped.com%20leaderboard.%20Anthropic%20gave%20me%20%242%2C557%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on X</a>
+        <a class="btn" href="https://www.linkedin.com/feed/?shareActive=true&amp;text=My%20comp%20score%20is%2013%C3%97%20(All-you-can-eat)%2C%20%231%20of%201%20on%20the%20gotcomped.com%20leaderboard.%20Anthropic%20gave%20me%20%242%2C557%20of%20AI%20for%20%24197%20this%20month.%20What's%20yours%3F%20One%20line%3A%20gotcomped.com%20%23gotcomped" rel="noopener">Post on LinkedIn</a>
         <button class="copy" data-copy="#share-text">Copy the line</button>
       </div>
       <p class="hero-note">Those are the sample numbers. Yours are in <code>~/comped/comped-share.txt</code> after you run it — paste that instead.</p>
@@ -265,6 +282,14 @@
       <details open>
         <summary>Is the number a bill? Do I owe this?</summary>
         <p>No. You're on a subscription; you paid what you paid. The number is what the same work would have cost at the provider's public API prices — it's there so you can see how much your plan is actually worth to you.</p>
+      </details>
+      <details>
+        <summary>What goes on the leaderboard, exactly?</summary>
+        <p>Your handle (or <code>anon-xxxx</code> if you didn't give one), the comp score, its tier, the full-price total, the plan it was scored against and its price, which AIs and tools were detected, the window in days, active days, session count, cache-read share, and a random id so a re-run replaces your row. That's the whole list. It's written to <code>~/comped/comped-rank.json</code> before it's sent, so you can check.</p>
+      </details>
+      <details>
+        <summary>Can I get the card without going on the board?</summary>
+        <p>Yes. Add <code>leaderboard=false</code> to the line — <code>curl -fsSL https://gotcomped.com/run.sh | sh -s -- leaderboard=false</code> — and the run makes no network calls at all. Already on the board and want off? <a href="https://github.com/rajkaria/comped/issues">Open an issue</a> with your handle and the row goes.</p>
       </details>
       <details>
         <summary>Do I need to know how to code?</summary>
@@ -301,7 +326,7 @@
 <section id="start" class="get final">
   <div class="wrap">
     <h2>Go on. <em>Find out.</em></h2>
-    <p class="lede">One line, about a minute, nothing leaves your machine. Then post your score — everyone thinks theirs is the bad one.</p>
+    <p class="lede">One line, about a minute, your logs stay home. Then see where you land — everyone thinks theirs is the bad one.</p>
     <div class="cmd big" data-label="paste into Terminal">
       <span class="dollar">$</span>
       <code id="cmd-real">curl -fsSL https://gotcomped.com/run.sh | sh</code>
@@ -319,6 +344,7 @@
 </footer>
 
 <script src="app.js" defer></script>
+<script src="board.js" defer></script>
 
 </body>
 </html>

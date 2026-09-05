@@ -8,11 +8,14 @@
 #   3. Signs you in to the rote registry if you are not already (that is rote's login,
 #      on your terminal; comped itself never signs in to anything).
 #   4. Runs the comped Play from the registry with --yes, so the "Ready?" selector is skipped.
-#      rote still prints the Play's parameters and access before it runs, and the Play still
-#      makes no network calls: it reads your agent logs, writes ~/comped, and stops.
+#      rote still prints the Play's parameters and access before it runs. The Play reads your
+#      agent logs, writes ~/comped, and then posts just your score to the gotcomped.com
+#      leaderboard under your rote handle (the one network call it makes; the payload is saved
+#      to ~/comped/comped-rank.json so you can read it).
 #
 # Read it before you run it; it is short. Anything after the URL is passed to the Play, e.g.
 #   curl -fsSL https://gotcomped.com/run.sh | sh -s -- plan=claude-pro-20
+#   ... | sh -s -- leaderboard=false        the card only; then the run makes no network call at all
 #
 set -e
 
@@ -48,13 +51,22 @@ if ! rote whoami --check >/dev/null 2>&1; then
   fi
 fi
 
-say "→ reading your agent logs on this machine. Nothing leaves it."
+# Your rote handle is your name on the leaderboard. Passed only if you did not set handle= yourself.
+HANDLE_ARG=""
+case " $* " in
+  *" handle="*) ;;
+  *) H=$(rote whoami 2>/dev/null | sed -n 's/^handle: *//p' | head -n 1)
+     [ -n "$H" ] && HANDLE_ARG="handle=$H" ;;
+esac
+
+say "→ reading your agent logs on this machine. The logs stay here; only your score is posted."
 if [ -n "$TTY" ]; then
-  rote play run "$PLAY" --yes "$@" <"$TTY"
+  rote play run "$PLAY" --yes $HANDLE_ARG "$@" <"$TTY"
 else
-  rote play run "$PLAY" --yes "$@"
+  rote play run "$PLAY" --yes $HANDLE_ARG "$@"
 fi
 
 say ""
 say "Your card: ~/comped/comped-card.png   Your post: ~/comped/comped-share.txt"
-say "Post it. Everyone thinks theirs is the bad one.   https://gotcomped.com"
+say "Your rank: https://gotcomped.com/leaderboard.html${H:+#$H}"
+say "Post it. Everyone thinks theirs is the bad one."

@@ -6,6 +6,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 PLAYS = ["session-ledger", "comped", "wrong-turns"]
 SRC = [("comped_core", ROOT / "comped_core"), ("prices.json", ROOT / "resources" / "prices.json"),
        ("plans.json", ROOT / "resources" / "plans.json"), ("fixtures", ROOT / "resources" / "fixtures")]
+# Only comped posts to the leaderboard, and the poster lives outside the core so the core stays offline.
+EXTRA = {"comped": [("post_score.py", ROOT / "leaderboard" / "post_score.py")]}
 
 
 def tree_hash(p: pathlib.Path) -> str:
@@ -21,7 +23,7 @@ def main(check=False):
     bad = 0
     for slug in PLAYS:
         dst = ROOT / "plays" / slug / "resources"
-        for name, src in SRC:
+        for name, src in SRC + EXTRA.get(slug, []):
             target = dst / name
             if check:
                 if not target.exists() or tree_hash(target) != tree_hash(src):

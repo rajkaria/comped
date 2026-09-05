@@ -28,6 +28,7 @@
     <a class="brand" href="./">comped<span>.</span></a>
     <div class="links">
       <a href="./">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
       <a href="docs.html">Docs</a>
       <a href="developers.html" class="on">Developers</a>
       <a href="https://github.com/rajkaria/comped">GitHub</a>
@@ -50,6 +51,7 @@
   <a href="#math">The arithmetic</a>
   <a href="#detection">Detection</a>
   <a href="#prices">Prices and plans</a>
+  <a href="#leaderboard">Leaderboard API</a>
   <a href="#privacy">Verifying privacy</a>
   <strong>Reference</strong>
   <a href="#cli">Without rote</a>
@@ -79,8 +81,9 @@
 <tr><td><code>plan</code></td><td>string</td><td><code>auto</code></td><td>Leave it. auto reads the model ids already in your logs, names the providers behind them (Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen and the rest) and prices every tier those providers sell, marking the least flattering one as assumed -- you read your own row instead of typing it. Override with a comma-separated list of ids, or usd:&lt;amount&gt; for a subscription this table does not carry. This Play never opens your OAuth files to find out.</td></tr>
 <tr><td><code>repeat_threshold</code></td><td>integer</td><td><code>3</code></td><td>Minimum asks for a repeat offender; also needs 2 sessions and 2 days.</td></tr>
 <tr><td><code>rates_path</code></td><td>string</td><td><code>(empty)</code></td><td>Path to a prices.json that replaces the bundled table.</td></tr>
-<tr><td><code>handle</code></td><td>string</td><td><code>(empty)</code></td><td>Your rote handle, used only to print the /play settle command.</td></tr>
+<tr><td><code>handle</code></td><td>string</td><td><code>(empty)</code></td><td>Your name on the gotcomped.com leaderboard, and in the /play settle command. Blank posts anonymously (anon-xxxx). gotcomped.com/run.sh fills in your rote handle.</td></tr>
 <tr><td><code>card_theme</code></td><td>string</td><td><code>dark</code></td><td>dark or light.</td></tr>
+<tr><td><code>leaderboard</code></td><td>string</td><td><code>true</code></td><td>true posts your score to gotcomped.com after the card is written and prints your rank: the multiplier, tier, list-price total, plan, detected providers, days, and your handle. Nothing else, ever; the exact payload is saved to out_dir/comped-rank.json. false sends nothing, and the run is then entirely offline.</td></tr>
 </tbody></table>
 <p><strong>What it writes,</strong> all of it under <code>out_dir</code> and nowhere else:</p>
 <table><thead><tr><th>File</th><th>What's in it</th></tr></thead><tbody>
@@ -251,9 +254,23 @@
 </tbody></table>
 <div class="callout warn"><p>The tier is inferred from model ids in the logs, never from an account. The tool will not read <code>~/.claude.json</code> or <code>~/.codex/auth.json</code> to discover it, because a tool that reads your OAuth files to be convenient is a tool you should not run.</p></div>
 
+<h2 id="leaderboard">Leaderboard API</h2>
+<p>Two endpoints on this origin, both JSON, both stdlib Python on Vercel (<code>api/score.py</code>, <code>api/leaderboard.py</code>), both thin: each calls one Postgres function through PostgREST with a publishable key. The SQL functions are the trust boundary. The table is closed to the API role; every bound is enforced in SQL; the device id that keys a row is never returned by either call, so nothing you can read lets you write someone else's row.</p>
+<h3>POST /api/score</h3>
+<pre><code>{"device": "&lt;uuid&gt;", "handle": "priya", "multiplier": 12.99, "comped_usd": 2560.98, "plan_usd": 197.13,
+ "tier": "All-you-can-eat", "plan": "Claude Max 20x", "plan_id": "claude-max-200", "plan_source": "auto",
+ "providers": ["anthropic"], "harnesses": ["claude-code"], "days_back": 30, "active_days": 22,
+ "sessions": 99, "cache_share": 0.98, "client": "comped/0.1.4"}</code></pre>
+<p>Reply <code>200</code>: <code>{"ok": true, "rank": 7, "of": 312, "percentile": 2.2, "eligible": true, "held": false, "reason": null, "handle": "priya", "url": "…/leaderboard.html#priya", "board": "…"}</code>. <code>400</code> names the first bad field; <code>429</code> is the same device inside 15 seconds; <code>502</code> is storage. The server recomputes <code>multiplier = comped_usd / plan_usd</code> and refuses a mismatch above 2%. Handles are <code>[A-Za-z0-9][A-Za-z0-9_.-]{0,31}</code>. Over 2,000× or $250,000 is stored with <code>held: true</code> and not shown.</p>
+<h3>GET /api/leaderboard?sort=multiplier|comped_usd&amp;limit=100</h3>
+<p>One row per handle (the latest run) or per anonymous device, ranked; up to 500. Each row carries what the table above shows plus <code>plan_id</code>, <code>plan_source</code>, <code>runs</code>, <code>first_seen</code> and <code>updated_at</code>, and a <code>rules</code> object restates the thresholds. Cached for 30 seconds at the edge. CORS is open: embed it where you like.</p>
+<h3>Posting without the Play</h3>
+<p><code>python3 leaderboard/post_score.py --out-dir ~/comped --handle you</code> after a <code>card</code> run does exactly what the Play's last step does; <code>--url</code> points it elsewhere and <code>COMPED_LEADERBOARD_URL</code> does the same for the Play. A machine whose python cannot verify TLS certificates (a python.org build on a Mac that never ran <em>Install Certificates</em>) falls back to the system CA bundle, then to <code>curl</code> with a fixed argv.</p>
+
 <h2 id="privacy">Verifying the privacy claims</h2>
 <ul>
-<li><strong>No network.</strong> <code>python3 -m unittest tests.test_no_network</code> fails if the core imports <code>urllib</code>, <code>http</code>, <code>socket</code>, <code>requests</code> or <code>ssl</code>, if anything but the PNG renderer mentions <code>subprocess</code>, or if any source line references a credential path. The site itself is served with <code>connect-src 'none'</code>, so the page making the promise cannot break it either.</li>
+<li><strong>No network in the core.</strong> <code>python3 -m unittest tests.test_no_network</code> fails if <code>comped_core</code> imports <code>urllib</code>, <code>http</code>, <code>socket</code>, <code>requests</code> or <code>ssl</code>, if anything but the PNG renderer mentions <code>subprocess</code>, or if any source line references a credential path. A second test proves the only file in any Play package that can open a socket is <code>post_score.py</code>, the leaderboard poster, and that it is bundled into <code>comped</code> alone. The site is served with <code>connect-src 'self'</code>: the page can ask this origin for the board and nobody else for anything.</li>
+<li><strong>What the poster sends</strong> is one JSON object, built in <a href="https://github.com/rajkaria/comped/blob/main/leaderboard/post_score.py">one function</a> from the priced summary, and written to <code>out_dir/comped-rank.json</code> before it goes. The test suite asserts the field list and that no path, model id or message text can be in it.</li>
 <li><strong>No surprises in what it writes.</strong> Every run lists every path it wrote, in the report and in its JSON output.</li>
 <li><strong>Determinism.</strong> Pin <code>--now</code> and two runs produce byte-identical output. The suite proves it with PATH emptied, which also proves the pipeline needs no external binary.</li>
 <li><strong>Fixtures.</strong> The sample logs and the presentation fixtures captured from real runs are scanned for real paths, names and keys before every build.</li>
@@ -297,7 +314,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <footer>
   <div class="wrap row">
     <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
-    <span class="sp"><a href="./">Home</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
 

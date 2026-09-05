@@ -2,7 +2,7 @@ Rote asks you to keep one wrong turn in every Play as proof a human was steering
 
 - Reads: session logs under the four configured directories. Nothing else.
 - Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file. Which AI you run is inferred from the model ids already in those logs; the plan tier is never read from your account.
-- Never sends: no network calls of any kind. Verifiable: the core imports no `urllib`, `http`, `socket`, `subprocess` (except the PNG renderer, which is invoked with a fixed argv and no shell).
+- Never sends from the core: reading, pricing and rendering make no network calls. Verifiable: `comped_core` imports no `urllib`, `http`, `socket`, `subprocess` (except the PNG renderer, which is invoked with a fixed argv and no shell). The one step that talks to the network is `comped`'s `post_score`, a separate short script that sends your score to the gotcomped.com leaderboard after the card is written and nothing before; `leaderboard=false` skips it, and a failed post never fails the run.
 - Writes: only under `out_dir`. Every written path is listed in the report.
 - Message text: truncated to 120 chars and hashed by default. `redact=false` keeps full text locally, never in the card.
 

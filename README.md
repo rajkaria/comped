@@ -15,7 +15,7 @@ Three rote Plays on one stdlib-only Python core:
 | Play | What it gives you |
 |---|---|
 | [`session-ledger`](docs/plays/session-ledger/DESCRIPTION.md) | One deduplicated ledger of usage records, human messages and tool calls from Claude Code (including subagents), Codex, Pi and OpenCode. The primitive other session Plays should read instead of re-parsing logs. |
-| [`comped`](docs/plays/comped/DESCRIPTION.md) | The card: list-price total, multiplier vs your plan, cache-read share, delta since your last run, repeat offenders with the `/play settle` command to capture each, and the Rote dividend at 98% and 80%. Markdown report, SVG and PNG card, share text. |
+| [`comped`](docs/plays/comped/DESCRIPTION.md) | The card: list-price total, multiplier vs your plan, cache-read share, delta since your last run, repeat offenders with the `/play settle` command to capture each, and the Rote dividend at 98% and 80%. Markdown report, SVG and PNG card, share text, and your rank on the [gotcomped.com leaderboard](https://gotcomped.com/leaderboard.html). |
 | [`wrong-turns`](docs/plays/wrong-turns/DESCRIPTION.md) | Your agent's recurring mistakes — tool errors, your corrections, reverts — with recovery cost, one redacted line of evidence per class, and drafted `CLAUDE.md` / `AGENTS.md` rules it never applies for you. |
 
 ## How it works
@@ -33,11 +33,13 @@ Try it on the bundled synthetic logs first — no configuration, nothing of your
 rote play run https://play.modiqo.ai/rajkaria/comped claude_dir=resources/fixtures/claude codex_dir=resources/fixtures/codex
 ```
 
-Then on your own:
+Then on your own (one paste; posts your score to the leaderboard under your rote handle):
 
 ```bash
-rote play run https://play.modiqo.ai/rajkaria/comped
+curl -fsSL https://gotcomped.com/run.sh | sh
 ```
+
+or, with rote already installed, `rote play run https://play.modiqo.ai/rajkaria/comped handle=you`. Add `leaderboard=false` for the card alone with no network call at all.
 
 The core also runs on its own, with nothing but `python3`:
 
@@ -62,7 +64,7 @@ Token totals for Claude Code are checked against [ccusage](https://github.com/ry
 
 ## Privacy
 
-Reads: session logs under the configured directories. Nothing else. Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file; which AI you run is inferred from the model ids in those logs, never from your account. Never sends: no network calls of any kind. Writes: only under `out_dir`, every path listed in the report. Message text: truncated to 120 characters and hashed by default.
+Reads: session logs under the configured directories. Nothing else. Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file; which AI you run is inferred from the model ids in those logs, never from your account. Never sends from the core: reading, pricing and rendering make no network calls (`tests/test_no_network.py`). The one step that does is `comped`'s `post_score`, which sends the score to the gotcomped.com leaderboard after the card is written; `leaderboard=false` skips it. Writes: only under `out_dir`, every path listed in the report. Message text: truncated to 120 characters and hashed by default.
 
 Enforced by tests, not just promised: the suite fails if `comped_core` imports `urllib`, `http`, `socket`, `requests` or `ssl`, if any module other than the PNG renderer mentions `subprocess`, or if any source line references a credential path.
 
