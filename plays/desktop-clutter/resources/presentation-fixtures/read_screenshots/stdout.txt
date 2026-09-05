@@ -1,0 +1,2 @@
+screenshots: 0 file(s)
+{"complete": true, "files": 0, "ok": true, "root": "screenshots", "scanned_files": 0, "sources": [{"found": true, "items": 0, "name": "screenshots (demo)", "note": "same folder as the Desktop", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpXOw8SE/resources/daily_core/fixtures/clutter/files.json"}]}

@@ -9,6 +9,12 @@ SRC = [("comped_core", ROOT / "comped_core"), ("prices.json", ROOT / "resources"
 # Only comped posts to the leaderboard, and the poster lives outside the core so the core stays offline.
 EXTRA = {"comped": [("post_score.py", ROOT / "leaderboard" / "post_score.py")]}
 
+# The six daily Plays share a second core. Its demo fixtures ship inside the package, so one entry
+# copies both and the byte-identity check below covers the fixtures as well as the code.
+DAILY_PLAYS = ["tab-debt", "birthday-radar", "app-graveyard", "vault-pulse", "desktop-clutter",
+               "receipt-ledger"]
+DAILY_SRC = [("daily_core", ROOT / "daily_core")]
+
 
 def tree_hash(p: pathlib.Path) -> str:
     h = hashlib.sha256()
@@ -21,9 +27,10 @@ def tree_hash(p: pathlib.Path) -> str:
 
 def main(check=False):
     bad = 0
-    for slug in PLAYS:
+    for slug in PLAYS + DAILY_PLAYS:
         dst = ROOT / "plays" / slug / "resources"
-        for name, src in SRC + EXTRA.get(slug, []):
+        sources = (DAILY_SRC if slug in DAILY_PLAYS else SRC + EXTRA.get(slug, []))
+        for name, src in sources:
             target = dst / name
             if check:
                 if not target.exists() or tree_hash(target) != tree_hash(src):

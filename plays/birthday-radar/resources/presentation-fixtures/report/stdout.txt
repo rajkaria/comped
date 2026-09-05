@@ -1,0 +1,27 @@
+┌──────────────────────────────────────────────────────────────┐
+│ BIRTHDAY RADAR                                  next 45 days │
+│                                                              │
+│ A. L. in 1 day — tomorrow                                    │
+│   turning 41                                                 │
+│ 7 contacts · 5 with a birthday · 2 without (29%)             │
+│                                                              │
+├─ COMING UP ──────────────────────────────────────────────────┤
+│ A. L. turns 41                                  Sun tomorrow │
+│ G. H.                                                 Wed 4d │
+│ R. P. turns 75                                       Fri 13d │
+├─ THE BOOK ───────────────────────────────────────────────────┤
+│ birthdays by month  ▁▁▁▁▁▃▁▃█▁▁▁                             │
+│                     J F M A M J J A S O N D                  │
+│ 1 birthday carries no year, so no age is shown for it        │
+│ 1 name appears more than once                                │
+│ G. H.                                               2 copies │
+│ 1 contact has neither an email nor a number                  │
+│ 1 untouched for more than three years                        │
+│                                                              │
+│ Read from your own address book. Names are shown as initials │
+│ unless redact=false, and no email address or number is ever  │
+│ printed.                                                     │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/birthday-radar/birthday-radar.md
+{"contacts": 7, "duplicates": 1, "missing": 2, "next_in_days": 1, "ok": true, "sources": [{"found": true, "items": 0, "name": "addressbook (demo)", "note": "the demo reads one address book", "path": ""}, {"found": true, "items": 0, "name": "csv (demo)", "note": "the demo reads one address book", "path": ""}, {"found": true, "items": 7, "name": "vCard files", "note": "1 file(s)", "path": "demo"}], "today": 0, "upcoming": 3, "with_birthday": 5, "written": ["/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/birthday-radar/birthday-radar.md", "/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/birthday-radar/birthday-radar.json"]}

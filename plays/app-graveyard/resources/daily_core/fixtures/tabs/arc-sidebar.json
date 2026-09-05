@@ -1,0 +1,57 @@
+{
+ "sidebar": {
+  "containers": [
+   {
+    "global": {}
+   },
+   {
+    "items": [
+     "tab-0",
+     {
+      "childrenIds": [],
+      "data": {
+       "tab": {
+        "savedTitle": "ENG-1 ship it",
+        "savedURL": "https://linear.app/team/issue/ENG-1",
+        "timeLastActiveAt": 809784000.0
+       }
+      },
+      "id": "tab-0",
+      "parentID": "space-1",
+      "title": null
+     },
+     "tab-1",
+     {
+      "childrenIds": [],
+      "data": {
+       "tab": {
+        "savedTitle": "Design",
+        "savedURL": "https://figma.com/file/abc/Design",
+        "timeLastActiveAt": 804945600.0
+       }
+      },
+      "id": "tab-1",
+      "parentID": "space-1",
+      "title": null
+     },
+     "tab-2",
+     {
+      "childrenIds": [],
+      "data": {
+       "tab": {
+        "savedTitle": "Inbox (2,015)",
+        "savedURL": "https://mail.google.com/mail/u/0/#inbox",
+        "timeLastActiveAt": 803304000.0
+       }
+      },
+      "id": "tab-2",
+      "parentID": "space-1",
+      "title": null
+     }
+    ],
+    "spaces": []
+   }
+  ]
+ },
+ "version": 3
+}

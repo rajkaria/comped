@@ -1,0 +1,7 @@
+{
+ "read_arc": "resources/presentation-fixtures/read_arc/fixture.yaml",
+ "read_chromium": "resources/presentation-fixtures/read_chromium/fixture.yaml",
+ "read_firefox": "resources/presentation-fixtures/read_firefox/fixture.yaml",
+ "read_safari": "resources/presentation-fixtures/read_safari/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

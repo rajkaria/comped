@@ -1,0 +1,50 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs against a bundled synthetic folder listing with real ages, so the card is the same on every machine."
+ },
+ {
+  "name": "cold_days",
+  "type": "integer",
+  "default": 90,
+  "example": 90,
+  "label": "Cold after",
+  "description": "A file untouched for this many days is counted as cold."
+ },
+ {
+  "name": "hash_duplicates",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Prove duplicates",
+  "description": "true hashes same-size candidates so only identical files are reported. false is faster and says so."
+ },
+ {
+  "name": "desktop_dir",
+  "type": "string",
+  "default": "",
+  "example": "",
+  "label": "Desktop folder",
+  "description": "Override the Desktop location. Empty means ~/Desktop."
+ },
+ {
+  "name": "downloads_dir",
+  "type": "string",
+  "default": "",
+  "example": "",
+  "label": "Downloads folder",
+  "description": "Override the Downloads location. Empty means ~/Downloads."
+ }
+]

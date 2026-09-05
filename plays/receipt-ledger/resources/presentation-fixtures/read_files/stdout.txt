@@ -1,0 +1,2 @@
+files: 5 receipt-shaped document(s)
+{"complete": true, "documents": 5, "ok": true, "scanned_files": 14, "source": "files", "sources": [{"found": true, "items": 5, "name": "files (demo)", "note": "7 candidate file(s), 5 were receipts, 1 had no receipt wording, 1 unreadable", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpI0AQNI/resources/daily_core/fixtures/receipts"}]}

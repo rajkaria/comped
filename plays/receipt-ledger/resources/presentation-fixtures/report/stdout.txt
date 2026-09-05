@@ -1,0 +1,35 @@
+┌──────────────────────────────────────────────────────────────┐
+│ RECEIPT LEDGER                                last 12 months │
+│                                                              │
+│ $113.17 across 3 receipts                                    │
+│ £27.95 across 1 receipt                                      │
+│ €11.99 across 1 receipt                                      │
+│ shown per currency: these are never added together           │
+│ 5 documents read · 5 carried an amount · 0 did not           │
+│                                                              │
+├─ WHO CHARGED YOU ────────────────────────────────────────────┤
+│ Acme Hosting Ltd (1)                                  $72.00 │
+│ Bookshop (1)                                          £27.95 │
+│ Fly (1)                                               $25.68 │
+│ Netflix (1)                                           $15.49 │
+│ Spotify (1)                                           €11.99 │
+├─ BY MONTH ───────────────────────────────────────────────────┤
+│ 2026-06                                               £27.95 │
+│ 2026-07                                               €11.99 │
+│ 2026-08                                               $87.49 │
+│ 2026-09                                               $25.68 │
+├─ HOW SURE ───────────────────────────────────────────────────┤
+│ amount came from a total line                              5 │
+│ amount is the largest figure on the page                   0 │
+│ date came from the file, not the text                      0 │
+│ Counted as receipts because they said so: a total line with  │
+│ an amount (5), payment method (5), subtotal (4), billing     │
+│ period (3).                                                  │
+│                                                              │
+│ Read from files already on this disk. Nothing logged in      │
+│ anywhere, nothing was sent, and this is a reading of your    │
+│ documents, not a statement from anyone.                      │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/receipt-ledger/receipt-ledger.md
+{"currencies": [{"currency": "USD", "receipts": 3, "total": 113.17}, {"currency": "GBP", "receipts": 1, "total": 27.95}, {"currency": "EUR", "receipts": 1, "total": 11.99}], "documents": 5, "duplicates": 0, "in_window": 5, "ok": true, "priced": 5, "recurring": 0, "sources": [{"found": true, "items": 5, "name": "files (demo)", "note": "7 candidate file(s), 5 were receipts, 1 had no receipt wording, 1 unreadable", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpI0AQNI/resources/daily_core/fixtures/receipts"}, {"found": true, "items": 0, "name": "mail (demo)", "note": "the demo reads one folder", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpI0AQNI/resources/daily_core/fixtures/receipts"}], "vendors": 5, "written": ["/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/receipt-ledger/receipt-ledger.md", "/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/receipt-ledger/receipt-ledger.json"]}

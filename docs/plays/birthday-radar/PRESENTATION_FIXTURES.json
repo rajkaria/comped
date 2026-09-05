@@ -1,0 +1,6 @@
+{
+ "read_contacts": "resources/presentation-fixtures/read_contacts/fixture.yaml",
+ "read_csv": "resources/presentation-fixtures/read_csv/fixture.yaml",
+ "read_vcards": "resources/presentation-fixtures/read_vcards/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

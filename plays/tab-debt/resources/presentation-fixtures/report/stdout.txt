@@ -1,0 +1,42 @@
+┌──────────────────────────────────────────────────────────────┐
+│ TAB DEBT                                          4 browsers │
+│                                                              │
+│ 18 open tabs across 4 windows                                │
+│ oldest was last used 7mo ago, on 2026-02-03                  │
+│   Bug 1                                                      │
+│                                                              │
+├─ HOW COLD ───────────────────────────────────────────────────┤
+│ today             0                                          │
+│ this week         4  ▇▇▇▇▇▇▇▇▇▇▇▇▇                           │
+│ this month        6  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇                    │
+│ 3 months          6  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇                    │
+│ older             2  ▇▇▇▇▇▇▇                                 │
+│ 14 untouched 7+ days  (78% of the tabs with a date)          │
+├─ WHERE THEY LIVE ────────────────────────────────────────────┤
+│ google.com                        4   22% ▇▇▇                │
+│ youtube.com                       3   17% ▇▇                 │
+│ mozilla.org                       2   11% ▇                  │
+│ ycombinator.com                   2   11% ▇                  │
+│ apple.com                         1    6% ▇                  │
+│ 1 pinned · 3 in groups                                       │
+├─ OPEN MORE THAN ONCE ────────────────────────────────────────┤
+│ 2× mail.google.com                           across browsers │
+│ 2× news.ycombinator.com                                      │
+│ 2× youtube.com                               across browsers │
+│ 3 tabs would close with no page lost                         │
+├─ READING LIST ───────────────────────────────────────────────┤
+│ 3 saved, 2 never opened, oldest 2025-07-26                   │
+├─ START HERE ─────────────────────────────────────────────────┤
+│ mail.google.com                                      open 2× │
+│ news.ycombinator.com                                 open 2× │
+│ youtube.com                                          open 2× │
+│ bugzilla.mozilla.org                           untouched 7mo │
+│ stackoverflow.com                              untouched 4mo │
+│                                                              │
+│ Read from the session files your browsers already wrote.     │
+│ Nothing was opened for writing, and no query string left     │
+│ this machine.                                                │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/tab-debt/tab-debt.md
+{"browsers": 4, "cold": 14, "duplicates": 3, "ok": true, "oldest_days": 214, "sources": [{"found": true, "items": 3, "name": "Arc (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/arc-sidebar.json"}, {"found": true, "items": 10, "name": "Chrome (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/chrome-session.snss"}, {"found": true, "items": 3, "name": "Firefox (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/firefox-sessionstore.json"}, {"found": true, "items": 2, "name": "Safari (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/safari-lastsession.plist"}, {"found": true, "items": 3, "name": "Safari reading list", "note": "", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/safari-bookmarks.plist"}], "tabs": 18, "verdict": "14 of 18 tabs untouched for a week or more; 3 duplicates", "windows": 4, "written": ["/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/tab-debt/tab-debt.md", "/private/tmp/claude-501/-Users-rajkaria-Projects-comped--claude-worktrees-domain-selection-5edb1d/cbd7e1bc-8d9f-4afd-9a83-e9b9d47654b3/scratchpad/playrun/tab-debt/tab-debt.json"]}

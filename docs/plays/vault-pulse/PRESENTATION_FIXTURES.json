@@ -1,0 +1,4 @@
+{
+ "read_vault": "resources/presentation-fixtures/read_vault/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

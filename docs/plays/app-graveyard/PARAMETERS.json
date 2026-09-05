@@ -1,0 +1,34 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs against a bundled synthetic set of applications and casks."
+ },
+ {
+  "name": "unused_days",
+  "type": "integer",
+  "default": 180,
+  "example": 180,
+  "label": "Unused after",
+  "description": "An application unopened for this many days is counted as unused."
+ },
+ {
+  "name": "app_dirs",
+  "type": "string",
+  "default": "",
+  "example": "",
+  "label": "Application folders",
+  "description": "Comma-separated override. Empty means /Applications, ~/Applications and /Applications/Utilities."
+ }
+]
