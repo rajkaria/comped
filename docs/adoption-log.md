@@ -11,3 +11,5 @@ Downloads are read from the Play's manifest (`https://play.modiqo.ai/<handle>/<p
 | 2026-09-04 | session-ledger + comped | 0.1.1 | 0 | re-push | Version bump so the registry copy carries the https://gotcomped.com link. |
 | 2026-09-04 | comped | 0.1.2 | 0 | re-push | Auto-detection release: the Play works out which AI you run from the model ids and prices every tier those providers sell. Smoke-run from a fresh dir off the public 0.1.2 archive: 8/8 steps. |
 | 2026-09-04 | session-ledger | 0.1.2 | 0 | re-push | Same core, same detection underneath. |
+| 2026-09-05 | comped | 0.1.3 | 0 | re-push | Tiers on the card and in the share text (Paying customer → Please stop), a remembered `plan=`, and the one-paste `gotcomped.com/run.sh` that skips the Ready selector. |
+| 2026-09-05 | session-ledger | 0.1.3 | 0 | re-push | Same core. |

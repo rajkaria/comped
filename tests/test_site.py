@@ -36,7 +36,9 @@ class Site(unittest.TestCase):
         for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             for ref in re.findall(r'(?:src|href)="(https?://[^"]+)"', text):
-                self.assertTrue(re.match(r"https://(gotcomped\.com|github\.com|www\.modiqo\.ai|play\.modiqo\.ai)", ref),
+                # x.com and linkedin.com appear only as share-intent links a person clicks; the page
+                # itself loads nothing from them (and the CSP would refuse if it tried).
+                self.assertTrue(re.match(r"https://(gotcomped\.com|github\.com|www\.modiqo\.ai|play\.modiqo\.ai|x\.com/intent|www\.linkedin\.com/feed)", ref),
                                 "{0} loads or links a third party: {1}".format(page, ref))
             for bad in ("googletagmanager", "google-analytics", "plausible", "fonts.googleapis", "cdn."):
                 self.assertNotIn(bad, text, "{0} references {1}".format(page, bad))
@@ -69,7 +71,18 @@ class Site(unittest.TestCase):
         for slug in ("comped", "session-ledger", "wrong-turns"):
             self.assertIn("https://play.modiqo.ai/rajkaria/{0}".format(slug), text, slug)
         # The landing page leads with the registry's own one-line installer for the flagship.
-        self.assertIn('https://play.modiqo.ai/install?play=rajkaria/comped', (SITE / "index.html").read_text(encoding="utf-8"))
+        text = (SITE / "index.html").read_text(encoding="utf-8")
+        self.assertIn("https://gotcomped.com/run.sh", text)
+        self.assertIn('https://play.modiqo.ai/install?play=rajkaria/comped', text)
+        self.assertTrue((SITE / "run.sh").is_file())
+
+    def test_the_one_line_script_runs_the_published_play_and_nothing_else(self):
+        sh = (SITE / "run.sh").read_text(encoding="utf-8")
+        self.assertIn("https://play.modiqo.ai/rajkaria/comped", sh)
+        self.assertIn("https://getrote.dev/install", sh)
+        for bad in ("sudo", "rm -rf", "eval", "base64"):
+            self.assertNotIn(bad, sh, bad)
+        self.assertEqual(sh.count("curl"), 2, "one curl in the comment, one for the rote installer")
 
     def test_the_landing_page_speaks_to_people_not_parsers(self):
         # Jargon that belongs on the developers page, not the front door.

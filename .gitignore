@@ -9,3 +9,4 @@ out/
 /plays/*/.rote-flow-lint.json
 .vercel
 .env*
+/comped-out/

@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from .render_terminal import render_terminal
+from .tiers import tier, score
 
 PRIVACY = ("Reads: session logs under the configured directories. Nothing else. Never reads: ~/.claude.json, ~/.codex/auth.json, any credential, "
            "keychain or token file; the plan is inferred from the model ids already in those logs, never from your account. "  # PRIVACY text, not paths
@@ -13,11 +14,25 @@ def money(d: Decimal) -> str:
 
 
 def share_text(v: dict) -> str:
-    mult = " {0:.0f}×.".format(v["multiplier"]) if v.get("multiplier") is not None else ""
-    plan = " on a {0} plan".format(money(v["plan_cost"])) if v.get("plan_cost") is not None else ""
-    return ("I got comped {0}{1} in the last {2} days.{3} "
-            "Measured from my own agent logs with the comped Play on @Modiqo's rote. Run it on yours: rote play run {4}".format(
-                money(v["total_usd"]).split(".")[0], plan, v["window_days"], mult, v["play_uri"]))
+    """The post. Leads with the score and the tier, because that is what people compare;
+    the receipt is the second sentence, and the site is the call."""
+    site = (v.get("site") or "https://gotcomped.com").replace("https://", "")
+    total = money(v["total_usd"]).split(".")[0]
+    m = v.get("multiplier")
+    t = v.get("tier") or tier(m)
+    who = _vendor_word(v)
+    if m is None:
+        return ("{0} of AI at full price in the last {1} days, comped by my subscription. What's your comp score? "
+                "One line, nothing leaves your machine: {2} #gotcomped".format(total, v["window_days"], site))
+    return ("My comp score is {0} ({1}). {2} gave me {3} of AI for {4} this month. "
+            "What's yours? One line, nothing leaves your machine: {5} #gotcomped".format(
+                score(m), t["name"], who, total, money(v["plan_cost"]).split(".")[0], site))
+
+
+def _vendor_word(v: dict) -> str:
+    provs = [p for p in (v.get("detected") or {}).get("providers", []) if p.get("records")]
+    names = [p["label"] for p in provs[:2]]
+    return " and ".join(names) if names else "My subscription"
 
 
 def render_report(v: dict) -> str:

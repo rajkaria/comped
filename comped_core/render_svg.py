@@ -59,11 +59,22 @@ def _ladder(v: dict, t: dict) -> str:
 
 
 def _body(v: dict, t: dict) -> str:
+    t_ = t
     e = escape
     total = "${0:,.0f}".format(v["total_usd"])
     mult = _mult(v.get("multiplier")) if v.get("multiplier") is not None else "list price"
     plan = " + ".join(v.get("plan_labels") or []) or "no subscription matched"
-    how = "assumed from your logs" if v.get("plan_source") == "auto" and v.get("plan_labels") else "the plan you gave"
+    how = {"auto": "assumed from your logs", "remembered": "your plan"}.get(v.get("plan_source"), "the plan you gave")
+    if not v.get("plan_labels"):
+        how = "no plan"
+    tr = v.get("tier") or {}
+    badge = ""
+    if tr:
+        label = tr["name"].upper()
+        bw = 36 + int(len(label) * 15)
+        badge = ('<rect x="{x}" y="56" width="{w}" height="46" rx="23" fill="{a}"/>'
+                 '<text x="{tx}" y="87" font-size="21" font-weight="700" letter-spacing="1.5" text-anchor="middle" font-family="{mono}" fill="{bg}">{l}</text>').format(
+                     x=1120 - bw, w=bw, a=t_["accent"], tx=1120 - bw // 2, mono=MONO, bg=t_["bg"], l=escape(label))
     det = v.get("detected") or {}
     where = ", ".join(h["label"] for h in det.get("harnesses", []) if h.get("found")) or "no log directory"
     wide = 560 if (v.get("plan_ladder") and len(v["plan_ladder"]) > 1) else 700
@@ -80,16 +91,18 @@ def _body(v: dict, t: dict) -> str:
     rep = v["repeats"][0]["label"] if v["repeats"] else "no repeat offenders yet"
     return '''<circle cx="1140" cy="70" r="230" fill="{glow}" opacity="0.38"/>
 <text x="80" y="90" font-size="28" letter-spacing="6" font-family="{mono}" fill="{muted}">COMPED · LAST {days} DAYS</text>
-<text x="1120" y="90" font-size="24" text-anchor="end" font-family="{mono}" fill="{muted}">{where}</text>
+{badge}<text x="1120" y="134" font-size="19" text-anchor="end" font-family="{mono}" fill="{muted}">via {where}</text>
 <text x="80" y="230" font-size="120" font-weight="700" fill="{fg}">{total} <tspan fill="{accent}">comped</tspan></text>
 <text x="80" y="300" font-size="48" fill="{fg}">{mult} <tspan fill="{muted}" font-size="32">vs {plan} · {how}</tspan></text>
 {bars}{chips}{ladder}
 <text x="80" y="602" font-size="20" font-family="{mono}" fill="{muted}">cache read {cache}% · active days {active}/{days} · top repeat: {rep}</text>
-<text x="80" y="642" font-size="18" font-family="{mono}" fill="{muted}">list-price equivalent, not a bill · prices as of {as_of} · {uri}</text>'''.format(
+<text x="80" y="642" font-size="18" font-family="{mono}" fill="{muted}">list-price equivalent, not a bill · prices as of {as_of}</text>
+<text x="1120" y="642" font-size="22" text-anchor="end" font-weight="700" fill="{accent}">{site}</text>'''.format(
         muted=t["muted"], fg=t["fg"], accent=t["accent"], glow=t["glow"], mono=MONO, days=v["window_days"],
         total=e(total), mult=e(mult), plan=e(plan), how=e(how), where=e(where[:44]), bars="".join(bars),
-        chips=_chips(v, t), ladder=_ladder(v, t), cache=int(round(float(v["cache_share"]) * 100)),
-        active=v["active_days"], rep=e(rep[:26]), as_of=e(v["price_as_of"]), uri=e(v["play_uri"].replace("https://", "")))
+        chips=_chips(v, t), ladder=_ladder(v, t), cache=int(round(float(v["cache_share"]) * 100)), badge=badge,
+        site=e((v.get("site") or "gotcomped.com").replace("https://", "")),
+        active=v["active_days"], rep=e(rep[:26]), as_of=e(v["price_as_of"]))
 
 
 def _defs(t: dict) -> str:
