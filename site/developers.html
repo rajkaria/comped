@@ -279,7 +279,9 @@
 </ul>
 
 <h2 id="cli">Running it without rote</h2>
-<p>The Plays are a thin wrapper around the package. Clone the repo and use the module directly. One command does the whole card:</p>
+<p>Three ways, no account for any of them. The quickest is the published npm package, which is this same standard-library Python with a launcher in front of it: no node dependencies, no install script, nothing compiled.</p>
+<pre><code>npx comped                                                # or npx comped@0.1.5 to pin it</code></pre>
+<p>The one-line download, <code>curl -fsSL https://gotcomped.com/comped.sh | sh</code>, needs no node either and checks itself against <a href="https://gotcomped.com/comped.tar.gz.sha256">its published checksum</a>. Or clone the repo and use the module directly. One command does the whole card:</p>
 <pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
 python3 -m comped_core run --out-dir ~/comped              # read, price, cluster, render</code></pre>
 <p><code>run</code> is the four steps the Play runs, in one process, calling the same functions in the same order: the numbers are identical. It stays offline, so posting your score to the leaderboard is still a separate script you run yourself:</p>
@@ -310,7 +312,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>You already have an agent with a shell. Paste this at it and it will do the rest:</p>
 <pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
 <p><a href="https://gotcomped.com/llms.txt">llms.txt</a> is the briefing written for the agent rather than for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before posting your score anywhere, the output contract, and how to read the report back to you. It tells the agent not to summarise your logs by eye and not to paste anything out of <code>~/comped</code> into a message or a commit.</p>
-<p>The path it takes needs no account: <code>git clone --depth 1</code>, then <code>python3 comped_core/cli.py run</code>. If you already have rote signed in, it runs the published Play instead, which is the same code with a runner in front of it. Read the file before you paste the line; it is a hundred lines and it is the whole of what your agent is being told.</p>
+<p>It tries the doors in order and stops at the first that opens: the published Play if rote is already signed in, then the account-free <code>comped.sh</code> download, then <code>npx comped</code> where there is node but no Unix shell, and a <code>git clone --depth 1</code> last. Same code every way. Read the file before you paste the line; it is 152 lines and it is the whole of what your agent is being told.</p>
 
 <h2 id="source">Source and spec</h2>
 <ul>

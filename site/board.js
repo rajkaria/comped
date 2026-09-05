@@ -64,6 +64,8 @@
       if (n) n.textContent = d.count === 1 ? "1 person on the board" : d.count.toLocaleString() + " people on the board";
       var stat = document.getElementById("stat-board");
       if (stat) { stat.textContent = d.count.toLocaleString(); stat.removeAttribute("data-count"); }
+      var noun = document.getElementById("stat-board-noun");
+      if (noun) noun.textContent = d.count === 1 ? "person" : "people";
       var lead = document.getElementById("board-lead");
       if (lead && d.rows.length) {
         lead.textContent = "#1 right now: " + mult(d.rows[0].multiplier) + " — " + d.rows[0].handle + " on " + (d.rows[0].plan || "their plan") + ".";
@@ -97,8 +99,9 @@
       ? "Nobody matches that." : "Nobody yet. The first run in the world lands at #1." });
     if (status && state.data) {
       var d = state.data;
-      status.textContent = (d.count === 1 ? "1 person" : d.count.toLocaleString() + " people") + " ranked · " +
-        (d.submissions === 1 ? "1 run posted" : d.submissions.toLocaleString() + " runs posted") + (d.updated ? " · last one " + ago(d.updated) : "") +
+      status.textContent = (d.count === 1 ? "1 person" : d.count.toLocaleString() + " people") + " ranked" +
+        (d.submissions > d.count ? " of " + d.submissions.toLocaleString() + " scores posted" : "") +
+        (d.updated ? " · last one " + ago(d.updated) : "") +
         (rows.length !== d.rows.length ? " · showing " + rows.length : "");
     }
     jumpToHash();

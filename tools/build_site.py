@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 from comped_core import models                      # noqa: E402
 from comped_core.detect import PROVIDERS, HARNESSES  # noqa: E402
 from comped_core.cli import build_parser            # noqa: E402
+from tools import build_dist                        # noqa: E402  (the one place the version lives)
 
 SLUGS = ("comped", "session-ledger", "wrong-turns")
 HANDLE = "rajkaria"
@@ -330,8 +331,13 @@ def docs_page():
 <p>It reads <a href="{site}/llms.txt">llms.txt</a>, a briefing written for agents rather than people, and takes it from there: it asks you first whether to put your score on the leaderboard, runs comped without needing an account, and reads the card back to you. That file also tells it what it must not do, including summarising your logs by eye and copying anything out of <code>~/comped</code> into a message or a commit. It is short. Read it before you paste the line.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
-<p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through either door.</p>
+<p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through every door.</p>
 <pre><code>{one} -s -- \\
+  claude_dir=resources/fixtures/claude \\
+  codex_dir=resources/fixtures/codex \\
+  out_dir=comped-demo leaderboard=false</code></pre>
+<p>Or with node:</p>
+<pre><code>npx comped \\
   claude_dir=resources/fixtures/claude \\
   codex_dir=resources/fixtures/codex \\
   out_dir=comped-demo leaderboard=false</code></pre>
@@ -526,7 +532,9 @@ def developers_page():
 </ul>
 
 <h2 id="cli">Running it without rote</h2>
-<p>The Plays are a thin wrapper around the package. Clone the repo and use the module directly. One command does the whole card:</p>
+<p>Three ways, no account for any of them. The quickest is the published npm package, which is this same standard-library Python with a launcher in front of it: no node dependencies, no install script, nothing compiled.</p>
+<pre><code>npx comped                                                # or npx comped@{version} to pin it</code></pre>
+<p>The one-line download, <code>curl -fsSL https://gotcomped.com/comped.sh | sh</code>, needs no node either and checks itself against <a href="https://gotcomped.com/comped.tar.gz.sha256">its published checksum</a>. Or clone the repo and use the module directly. One command does the whole card:</p>
 <pre><code>git clone https://github.com/rajkaria/comped &amp;&amp; cd comped
 python3 -m comped_core run --out-dir ~/comped              # read, price, cluster, render</code></pre>
 <p><code>run</code> is the four steps the Play runs, in one process, calling the same functions in the same order: the numbers are identical. It stays offline, so posting your score to the leaderboard is still a separate script you run yourself:</p>
@@ -544,7 +552,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>You already have an agent with a shell. Paste this at it and it will do the rest:</p>
 <pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
 <p><a href="https://gotcomped.com/llms.txt">llms.txt</a> is the briefing written for the agent rather than for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before posting your score anywhere, the output contract, and how to read the report back to you. It tells the agent not to summarise your logs by eye and not to paste anything out of <code>~/comped</code> into a message or a commit.</p>
-<p>The path it takes needs no account: <code>git clone --depth 1</code>, then <code>python3 comped_core/cli.py run</code>. If you already have rote signed in, it runs the published Play instead, which is the same code with a runner in front of it. Read the file before you paste the line; it is a hundred lines and it is the whole of what your agent is being told.</p>
+<p>It tries the doors in order and stops at the first that opens: the published Play if rote is already signed in, then the account-free <code>comped.sh</code> download, then <code>npx comped</code> where there is node but no Unix shell, and a <code>git clone --depth 1</code> last. Same code every way. Read the file before you paste the line; it is {llms_lines} lines and it is the whole of what your agent is being told.</p>
 
 <h2 id="source">Source and spec</h2>
 <ul>
@@ -558,7 +566,9 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
            tool_fields=fields_table(models.ToolEvent),
            price_source=esc(price_meta.get("source_url", "")), price_as_of=esc(price_meta.get("as_of", "")),
            model_count=model_count, models=model_links, plans=plans, plans_as_of=esc(plans_as_of),
-           cli=cli_reference(), providers=providers_table(), harnesses=harness_list())
+           cli=cli_reference(), providers=providers_table(), harnesses=harness_list(),
+           llms_lines=len((ROOT / "site" / "llms.txt").read_text().splitlines()),
+           version=build_dist.version())
     return page("developers.html", "comped: developers",
                 "The three Plays, every parameter, the record fields, the arithmetic, how detection works, the price table, and how to verify the privacy claims.",
                 "developers", toc, body)

@@ -84,8 +84,13 @@
 <p>It reads <a href="https://gotcomped.com/llms.txt">llms.txt</a>, a briefing written for agents rather than people, and takes it from there: it asks you first whether to put your score on the leaderboard, runs comped without needing an account, and reads the card back to you. That file also tells it what it must not do, including summarising your logs by eye and copying anything out of <code>~/comped</code> into a message or a commit. It is short. Read it before you paste the line.</p>
 
 <h2 id="quickstart">Try it on sample data first</h2>
-<p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through either door.</p>
+<p>If you'd rather see it work before pointing it at your own logs, sample logs travel with it: real in shape, made-up in content. This works through every door.</p>
 <pre><code>curl -fsSL https://gotcomped.com/comped.sh | sh -s -- \
+  claude_dir=resources/fixtures/claude \
+  codex_dir=resources/fixtures/codex \
+  out_dir=comped-demo leaderboard=false</code></pre>
+<p>Or with node:</p>
+<pre><code>npx comped \
   claude_dir=resources/fixtures/claude \
   codex_dir=resources/fixtures/codex \
   out_dir=comped-demo leaderboard=false</code></pre>
