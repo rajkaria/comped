@@ -1,12 +1,29 @@
 # Comped — project index
 
-Rote Playoffs hackathon entry: three rote Plays (`session-ledger`, `comped`, `wrong-turns`) on one stdlib-only Python core, plus the gotcomped.com leaderboard (`api/` on Vercel, `leaderboard/post_score.py` in the comped Play, Postgres on Supabase). comped has **three front doors on one core**: `site/comped.sh` (no account, downloads `site/comped.tar.gz`, runs, deletes itself), `npx comped` (`npm/`, built by `tools/build_npm.py`, no node dependencies) and `site/run.sh` (the rote Play, consent screen, needs a Modiqo account). `standalone/comped.py` is the entry point all the account-free doors share; all three take the same fourteen parameters, enforced by `tests/test_standalone.py` and `tests/test_npm.py`. Submissions close 7 Sep 2026 20:00 London. Session state lives in `docs/context/`, not here.
+Rote Playoffs hackathon entry: **nine** published rote Plays on **two** stdlib-only Python cores. `comped_core` powers the three agent-cost Plays (`session-ledger`, `comped`, `wrong-turns`); `daily_core` powers six local-machine Plays (`tab-debt`, `birthday-radar`, `app-graveyard`, `vault-pulse`, `desktop-clutter`, `receipt-ledger`). Plus the gotcomped.com leaderboard (`api/` on Vercel, `leaderboard/post_score.py` in the comped Play, Postgres on Supabase). comped has **three front doors on one core**: `site/comped.sh` (no account, downloads `site/comped.tar.gz`, runs, deletes itself), `npx comped` (`npm/`, built by `tools/build_npm.py`, no node dependencies) and `site/run.sh` (the rote Play, consent screen, needs a Modiqo account). `standalone/comped.py` is the entry point all the account-free doors share; all three take the same fourteen parameters, enforced by `tests/test_standalone.py` and `tests/test_npm.py`. Submissions close 7 Sep 2026 20:00 London. Session state lives in `docs/context/`, not here.
 
 ## Context docs
 
 | Doc | Covers |
 |---|---|
 | [docs/context/comped-plays.md](docs/context/comped-plays.md) | Whole project: core, the three ways to run it (comped.sh, npx, the Play), publishing, the landing site, the leaderboard, adoption. Current state, decisions, next steps. |
+
+## The six daily Plays (`daily_core`)
+
+Read-only scans of files the machine already keeps, published 5 Sep 2026 at **0.1.0** under `rajkaria`. One core, one CLI (`daily_core/cli.py`), one card renderer; each Play is a few parallel `*-read` steps plus one `*-report` step. Format readers are written from scratch and stdlib-only: Chrome SNSS command logs, Firefox mozlz4 (an LZ4 block decoder), Safari/Arc stores, vCard, Mach-O architecture headers, and PDF text with ToUnicode CMap decoding and text-matrix line reconstruction.
+
+| Play | Answers | Sources |
+|---|---|---|
+| `tab-debt` | how many tabs are open and how old the oldest is | Chrome-family SNSS, Firefox, Safari, Arc |
+| `birthday-radar` | whose birthday is next, how much of the book has none | Contacts db, vCard, CSV |
+| `app-graveyard` | which apps you stopped opening, and Intel-only ones | /Applications + Spotlight + Homebrew casks |
+| `vault-pulse` | orphan notes, broken links, daily-note streak | any markdown folder, Obsidian auto-detected |
+| `desktop-clutter` | Desktop and Downloads by age and size, graded A-F | filesystem, hashed duplicates |
+| `receipt-ledger` | what your own receipt files total, per currency | PDF, .eml, HTML, text |
+
+Invariants enforced by `tests/test_daily_safety.py`: no network import anywhere, exactly one `subprocess.run` (`/usr/bin/mdls`, fixed argv, no shell), no credential path in any string constant, every write through `common.write_text` under `out_dir`, stdlib only, parses as Python 3.9. Every source degrades to a labelled unknown; every Play runs cold with `demo=true` against bundled fixtures.
+
+Generated, never hand-edited: `daily_core/fixtures/` (`tools/build_daily_fixtures.py`), the six `plays/*/main.ts` + `deps.toml` (`tools/build_daily_plays.py`, reading `docs/plays/_daily-spec.json`), their `resources/daily_core/` (`tools/sync_plays.py`), their `resources/presentation-fixtures/` (`tools/build_fixtures.py`, captured from a real demo run — never a run whose `out_dir` contains a personal path, which `tests/test_fixture_privacy.py` enforces).
 
 ## Read first
 - `docs/SPEC.md` — approved build spec.
@@ -18,4 +35,4 @@ Rote Playoffs hackathon entry: three rote Plays (`session-ledger`, `comped`, `wr
 - Commit per task, conventional messages. Never read credential files; no network calls in `comped_core/` (the only poster is `leaderboard/post_score.py`).
 - Update `docs/adoption-log.md` daily once published.
 - Generated, never hand-edited: `plays/*/main.ts` + `deps.toml` (`tools/build_plays.py`), `plays/*/resources/` incl. comped's `post_score.py` (`tools/sync_plays.py`), `site/docs.html` + `site/developers.html` (`tools/build_site.py`), `site/comped.tar.gz` + `.sha256` (`tools/build_dist.py`), `site/sitemap.xml` (`build_site.py`; `site/llms.txt` is hand-written), `npm/` except `bin/comped.js` (`tools/build_npm.py`); `build_site.py` calls the other two, `resources/prices.json` (`tools/build_prices.py`).
-- Live: https://github.com/rajkaria/comped · https://gotcomped.com (Vercel, project `comped`) · leaderboard `/leaderboard.html`, `/api/score`, `/api/leaderboard` · Supabase project `bpwmpkguhrcpxtcignzo` (functions `comped_submit`, `comped_board`) · `play.modiqo.ai/rajkaria/{comped,session-ledger,wrong-turns}` at **0.1.5**. npm package [`comped`](https://www.npmjs.com/package/comped) published at **0.1.5** (`npx comped`); republish with `python3 tools/build_npm.py && npm publish npm/`, which needs Raj's own login.
+- Live: https://github.com/rajkaria/comped · https://gotcomped.com (Vercel, project `comped`) · leaderboard `/leaderboard.html`, `/api/score`, `/api/leaderboard` · Supabase project `bpwmpkguhrcpxtcignzo` (functions `comped_submit`, `comped_board`) · `play.modiqo.ai/rajkaria/{comped,session-ledger,wrong-turns}` at **0.1.5**; `play.modiqo.ai/rajkaria/{tab-debt,birthday-radar,app-graveyard,vault-pulse,desktop-clutter,receipt-ledger}` at **0.1.0**, all public. npm package [`comped`](https://www.npmjs.com/package/comped) published at **0.1.5** (`npx comped`); republish with `python3 tools/build_npm.py && npm publish npm/`, which needs Raj's own login.
