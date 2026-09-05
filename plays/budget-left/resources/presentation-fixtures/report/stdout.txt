@@ -1,0 +1,6 @@
+── today ───────────────────────────────────────────────────
+  [························] 1%
+  $0.17 of $10.00 across 6 turns since 12:30
+
+$0.17 of $10.00 · burning $0.03/h · not today at this rate
+{"budget": "10.00", "burn_per_hour": "0.0346", "exhausted_at": "", "models": {"claude-opus-5": 1, "claude-sonnet-5": 1, "gpt-5": 4}, "ok": true, "pct": 1, "spent": "0.17", "turns": 6, "verdict": "comfortable"}

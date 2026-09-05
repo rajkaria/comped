@@ -1,0 +1,10 @@
+demo run: a bundled 14-day log, copied to a temporary folder
+── last captured ───────────────────────────────────────────
+  15:35      ring the dentist
+  2026-09-03 ask about the invoice
+  2026-09-02 the parser needs a bound
+  2026-08-31 reply to Priya
+  2026-08-30 look up the cron OR rule
+
+1 today · 6 this week · 6 in the inbox · 1-day streak
+{"captured": 17, "inbox_lines": 6, "longest_streak": 5, "ok": true, "streak": 1, "today": 1, "week": 6}

@@ -1,0 +1,2 @@
+Nothing to record — pass entry='320 lunch'.
+{"ok": true, "recorded": false, "written": null}

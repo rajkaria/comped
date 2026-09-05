@@ -15,6 +15,14 @@ DAILY_PLAYS = ["tab-debt", "birthday-radar", "app-graveyard", "vault-pulse", "de
                "receipt-ledger"]
 DAILY_SRC = [("daily_core", ROOT / "daily_core")]
 
+# The twelve micro Plays share a third core. Three of them price tokens, and rather than grow a
+# second price list that would drift, those three carry comped_core and its table as well.
+MICRO_PLAYS = ["whatis", "fits", "is-it-secret", "cron-when", "punch", "spent", "jot", "streak",
+               "last-turn", "budget-left", "since-last", "safe-to-commit"]
+MICRO_SRC = [("micro_core", ROOT / "micro_core")]
+MICRO_PRICED = {"fits", "last-turn", "budget-left"}
+MICRO_PRICE_SRC = [("comped_core", ROOT / "comped_core"), ("prices.json", ROOT / "resources" / "prices.json")]
+
 
 def tree_hash(p: pathlib.Path) -> str:
     h = hashlib.sha256()
@@ -27,9 +35,14 @@ def tree_hash(p: pathlib.Path) -> str:
 
 def main(check=False):
     bad = 0
-    for slug in PLAYS + DAILY_PLAYS:
+    for slug in PLAYS + DAILY_PLAYS + MICRO_PLAYS:
         dst = ROOT / "plays" / slug / "resources"
-        sources = (DAILY_SRC if slug in DAILY_PLAYS else SRC + EXTRA.get(slug, []))
+        if slug in DAILY_PLAYS:
+            sources = DAILY_SRC
+        elif slug in MICRO_PLAYS:
+            sources = MICRO_SRC + (MICRO_PRICE_SRC if slug in MICRO_PRICED else [])
+        else:
+            sources = SRC + EXTRA.get(slug, [])
         for name, src in sources:
             target = dst / name
             if check:

@@ -1,0 +1,8 @@
+demo run: a bundled 14-day log, copied to a temporary folder
+── last 21 days ────────────────────────────────────────────
+  water          ·······██████████████  14 days
+  reading        ·······█·██·██·██·██·  2 days
+  gym            ········█·█·█·█·█·█·█  1 day
+
+water: 14-day streak · longest 14
+{"best": "water", "habits": [{"current": 14, "days": 14, "grid": "\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588", "longest": 14, "name": "water", "worst_weekday": null}, {"current": 2, "days": 9, "grid": "\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u2588\u00b7\u2588\u2588\u00b7\u2588\u2588\u00b7\u2588\u2588\u00b7\u2588\u2588\u00b7", "longest": 2, "name": "reading", "worst_weekday": null}, {"current": 1, "days": 7, "grid": "\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u00b7\u2588\u00b7\u2588\u00b7\u2588\u00b7\u2588\u00b7\u2588\u00b7\u2588\u00b7\u2588", "longest": 1, "name": "gym", "worst_weekday": null}], "ok": true, "window": 21}

@@ -1,0 +1,66 @@
+[
+ {
+  "name": "root",
+  "type": "string",
+  "default": ".",
+  "example": "~/code/my-project",
+  "label": "The folder to watch",
+  "description": "The tree whose changes you want. Compared against the snapshot from the last time you asked about this same folder."
+ },
+ {
+  "name": "state_dir",
+  "type": "string",
+  "default": "~/.rote-micro",
+  "example": "~/.rote-micro",
+  "label": "Log folder",
+  "description": "The one directory this Play writes to. One append-only JSONL file per stream; nothing is ever deleted or rewritten in place."
+ },
+ {
+  "name": "ignore",
+  "type": "string",
+  "default": "",
+  "example": "coverage,tmp",
+  "label": "Extra folders to skip",
+  "description": "Comma-separated, added to the built-in list (.git, node_modules, __pycache__, .venv, dist, build and friends)."
+ },
+ {
+  "name": "max_files",
+  "type": "integer",
+  "default": "20000",
+  "example": "20000",
+  "label": "File bound",
+  "description": "The walk stops here and says so, so a partial answer is never reported as a complete one."
+ },
+ {
+  "name": "watch_sensitive",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Watch outside the tree",
+  "description": "true also notices whether ~/.ssh, ~/.aws, ~/.config, ~/.gnupg or LaunchAgents changed \u2014 by directory timestamp alone, never by reading what is in them."
+ },
+ {
+  "name": "tz",
+  "type": "string",
+  "default": "",
+  "example": "Asia/Kolkata",
+  "label": "Your time zone",
+  "description": "Empty uses the machine's zone. A day boundary is a place, not a fact: this decides when today starts."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic input, so a first run needs nothing configured and touches nothing of yours."
+ },
+ {
+  "name": "now",
+  "type": "string",
+  "default": "",
+  "example": "2026-09-05T14:22:03Z",
+  "label": "Clock override",
+  "description": "Empty reads the real clock. An ISO-8601 instant makes the run reproducible, which is how the tests and the demo produce the same bytes on every machine."
+ }
+]

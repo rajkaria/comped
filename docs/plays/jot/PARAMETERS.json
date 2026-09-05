@@ -1,0 +1,58 @@
+[
+ {
+  "name": "note",
+  "type": "string",
+  "default": "",
+  "example": "ring the dentist",
+  "label": "The thought",
+  "description": "One line, captured now. Leave it empty to read the inbox back without adding to it."
+ },
+ {
+  "name": "vault_dir",
+  "type": "string",
+  "default": "",
+  "example": "~/Notes",
+  "label": "Notes folder",
+  "description": "Your Obsidian vault or any folder of Markdown. Empty keeps the capture in the log only and writes nothing to your notes."
+ },
+ {
+  "name": "inbox",
+  "type": "string",
+  "default": "Inbox.md",
+  "example": "Inbox.md",
+  "label": "Inbox file",
+  "description": "The one file inside vault_dir this Play appends to. Created with a heading if it does not exist."
+ },
+ {
+  "name": "state_dir",
+  "type": "string",
+  "default": "~/.rote-micro",
+  "example": "~/.rote-micro",
+  "label": "Log folder",
+  "description": "The one directory this Play writes to. One append-only JSONL file per stream; nothing is ever deleted or rewritten in place."
+ },
+ {
+  "name": "tz",
+  "type": "string",
+  "default": "",
+  "example": "Asia/Kolkata",
+  "label": "Your time zone",
+  "description": "Empty uses the machine's zone. A day boundary is a place, not a fact: this decides when today starts."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic input, so a first run needs nothing configured and touches nothing of yours."
+ },
+ {
+  "name": "now",
+  "type": "string",
+  "default": "",
+  "example": "2026-09-05T14:22:03Z",
+  "label": "Clock override",
+  "description": "Empty reads the real clock. An ISO-8601 instant makes the run reproducible, which is how the tests and the demo produce the same bytes on every machine."
+ }
+]
