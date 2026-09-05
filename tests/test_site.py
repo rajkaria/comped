@@ -1,7 +1,7 @@
 import unittest, pathlib, re, subprocess, sys
 
 SITE = pathlib.Path("site")
-PAGES = ("index.html", "docs.html", "developers.html")
+PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html")
 
 
 class Site(unittest.TestCase):
@@ -31,8 +31,8 @@ class Site(unittest.TestCase):
                 self.assertIn(ref, ids, "{0} links to #{1}, which does not exist".format(page, ref))
 
     def test_the_site_makes_no_network_calls_of_its_own(self):
-        # The Play promises no network. A landing page that quietly loads a font or an analytics
-        # script from a third party would make that promise a lie in the one place people read it.
+        # The Play sends one thing, to this origin. A landing page that quietly loads a font or an
+        # analytics script from a third party would make that promise a lie in the one place people read it.
         for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             for ref in re.findall(r'(?:src|href)="(https?://[^"]+)"', text):
@@ -109,14 +109,15 @@ class Site(unittest.TestCase):
                                 "{0} og url {1} is not on {2}".format(page, url, SITE_URL))
 
     def test_the_deployed_headers_forbid_the_network_the_site_promises_not_to_use(self):
-        # The page tells people the tool makes no network calls. The host config should make that
-        # true of the page itself, not just of the tool it describes.
+        # The page tells people their logs never leave and the only call is to this origin. The host
+        # config should make that true of the page itself: it may fetch the board from itself and
+        # nothing from anyone else.
         import json
         conf = json.loads(pathlib.Path("vercel.json").read_text(encoding="utf-8"))
         csp = [h["value"] for rule in conf["headers"] for h in rule["headers"]
                if h["key"] == "Content-Security-Policy"]
         self.assertEqual(len(csp), 1, "expected exactly one CSP")
-        for directive in ("default-src 'none'", "connect-src 'none'", "script-src 'self'",
+        for directive in ("default-src 'none'", "connect-src 'self'", "script-src 'self'",
                           "form-action 'none'", "object-src 'none'"):
             self.assertIn(directive, csp[0], directive)
 
@@ -136,5 +137,29 @@ class Site(unittest.TestCase):
 
     def test_privacy_claims_match_the_spec_wording(self):
         text = (SITE / "index.html").read_text(encoding="utf-8")
-        for claim in ("Never sends", "No network calls of any kind", "Never reads", "credential"):
+        for claim in ("Sends one thing", "no network calls of any kind", "leaderboard=false", "comped-rank.json",
+                      "Never reads", "credential"):
             self.assertIn(claim, text, claim)
+        # The old absolute promise is gone everywhere it used to be made; the honest one replaced it.
+        for page in PAGES:
+            page_text = (SITE / page).read_text(encoding="utf-8")
+            for stale in ("Nothing leaves your computer", "nothing leaves your machine", "0 bytes"):
+                self.assertNotIn(stale, page_text, "{0} still says '{1}'".format(page, stale))
+
+    def test_the_board_is_fetched_from_this_origin_only_and_the_page_degrades_without_it(self):
+        js = (SITE / "board.js").read_text(encoding="utf-8")
+        self.assertEqual(re.findall(r'fetch\(("[^"]*")', js), ['"/api/leaderboard?sort="'])
+        self.assertNotIn("supabase", js.lower())
+        for page in ("index.html", "leaderboard.html"):
+            text = (SITE / page).read_text(encoding="utf-8")
+            self.assertIn('<script src="board.js" defer></script>', text, page)
+            self.assertIn("board-empty", text, page)   # a static placeholder is there before any fetch
+        self.assertIn('id="board-top"', (SITE / "index.html").read_text(encoding="utf-8"))
+        self.assertIn('id="board-full"', (SITE / "leaderboard.html").read_text(encoding="utf-8"))
+
+    def test_the_one_line_script_posts_under_the_rote_handle_and_can_be_told_not_to(self):
+        sh = (SITE / "run.sh").read_text(encoding="utf-8")
+        self.assertIn("rote whoami", sh)
+        self.assertIn("handle=$H", sh)
+        self.assertIn("leaderboard=false", sh)
+        self.assertIn("leaderboard.html", sh)

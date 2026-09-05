@@ -14,19 +14,21 @@ def money(d: Decimal) -> str:
 
 
 def share_text(v: dict) -> str:
-    """The post. Leads with the score and the tier, because that is what people compare;
-    the receipt is the second sentence, and the site is the call."""
+    """The post. Leads with the score and the tier, because that is what people compare; the rank
+    when the score has been posted; the receipt is the second sentence, and the site is the call."""
     site = (v.get("site") or "https://gotcomped.com").replace("https://", "")
     total = money(v["total_usd"]).split(".")[0]
     m = v.get("multiplier")
     t = v.get("tier") or tier(m)
     who = _vendor_word(v)
+    rank, of = v.get("rank"), v.get("rank_of")
+    where = ", #{0} of {1} on the {2} leaderboard".format(rank, of, site) if rank and of else ""
     if m is None:
         return ("{0} of AI at full price in the last {1} days, comped by my subscription. What's your comp score? "
-                "One line, nothing leaves your machine: {2} #gotcomped".format(total, v["window_days"], site))
-    return ("My comp score is {0} ({1}). {2} gave me {3} of AI for {4} this month. "
-            "What's yours? One line, nothing leaves your machine: {5} #gotcomped".format(
-                score(m), t["name"], who, total, money(v["plan_cost"]).split(".")[0], site))
+                "One line: {2} #gotcomped".format(total, v["window_days"], site))
+    return ("My comp score is {0} ({1}){2}. {3} gave me {4} of AI for {5} this month. "
+            "What's yours? One line: {6} #gotcomped".format(
+                score(m), t["name"], where, who, total, money(v["plan_cost"]).split(".")[0], site))
 
 
 def _vendor_word(v: dict) -> str:

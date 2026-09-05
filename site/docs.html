@@ -28,6 +28,7 @@
     <a class="brand" href="./">comped<span>.</span></a>
     <div class="links">
       <a href="./">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
       <a href="docs.html" class="on">Docs</a>
       <a href="developers.html">Developers</a>
       <a href="https://github.com/rajkaria/comped">GitHub</a>
@@ -45,6 +46,7 @@
   <a href="#quickstart">Try it on sample data</a>
   <a href="#reading">Reading your card</a>
   <a href="#detection">What it works out</a>
+  <a href="#leaderboard">The leaderboard</a>
   <strong>Going further</strong>
   <a href="#options">Options</a>
   <a href="#outputs">What it writes</a>
@@ -96,6 +98,17 @@
 <h3>Your tier</h3>
 <p>The score lands you in one of seven tiers, printed on the card and in <code>comped-share.txt</code>: Paying customer (under 1×), Break-even (1–2×), Comped (2–5×), Properly comped (5–12×), All-you-can-eat (12–30×), Hostage situation (30–80×), Please stop (80× and up).</p>
 
+<h2 id="leaderboard">The leaderboard</h2>
+<p>The last step of a run posts your score to <a href="leaderboard.html">https://gotcomped.com/leaderboard.html</a> and prints your rank. The line in <code>comped-share.txt</code> is rewritten with it, so what you post already says where you stand.</p>
+<table><thead><tr><th>Rule</th><th>What it means for you</th></tr></thead><tbody>
+<tr><th>Ranked by comp score</th><td>Full price ÷ your plan. A $20 plan at 60× beats a $200 plan at 13×. Ties break on dollars, then active days.</td></tr>
+<tr><th>Ranks from $20 and 3 days</th><td>Under $20 at full price, or fewer than three active days in the window, you're posted but not ranked; the run says so.</td></tr>
+<tr><th>One row per handle</th><td>A re-run replaces your row. Two machines with the same handle: the latest run wins. Blank handles post as <code>anon-xxxx</code>, one per machine.</td></tr>
+<tr><th>Your row is yours</th><td>A random id in <code>~/comped/comped-device.txt</code> keys it. Nothing anyone else posts can touch it; nothing you post can touch theirs. Keep the file if you want re-runs to replace rather than add.</td></tr>
+<tr><th>Held for a look</th><td>Over 2,000× or $250,000 is stored but not shown until someone looks. The server also recomputes score = dollars ÷ plan and refuses a mismatch.</td></tr>
+<tr><th>Off the board</th><td><code>leaderboard=false</code> posts nothing. To remove a row already there, <a href="https://github.com/rajkaria/comped/issues">open an issue</a> with the handle.</td></tr>
+</tbody></table>
+
 <h2 id="options">Options you might change</h2>
 <p>Add any of these after the command as <code>name=value</code>. Everything has a sensible default.</p>
 <table><thead><tr><th>Option</th><th>Default</th><th>What it does</th></tr></thead><tbody>
@@ -103,7 +116,9 @@
 <tr><td><code>out_dir</code></td><td><code>~/comped</code></td><td>Created if missing. Everything this Play writes goes here and nowhere else.</td></tr>
 <tr><td><code>plan</code></td><td><code>auto</code></td><td>Leave it. auto reads the model ids already in your logs, names the providers behind them (Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen and the rest) and prices every tier those providers sell, marking the least flattering one as assumed -- you read your own row instead of typing it. Override with a comma-separated list of ids, or usd:&lt;amount&gt; for a subscription this table does not carry. This Play never opens your OAuth files to find out.</td></tr>
 <tr><td><code>repeat_threshold</code></td><td><code>3</code></td><td>Minimum asks for a repeat offender; also needs 2 sessions and 2 days.</td></tr>
+<tr><td><code>handle</code></td><td><code>(empty)</code></td><td>Your name on the gotcomped.com leaderboard, and in the /play settle command. Blank posts anonymously (anon-xxxx). gotcomped.com/run.sh fills in your rote handle.</td></tr>
 <tr><td><code>card_theme</code></td><td><code>dark</code></td><td>dark or light.</td></tr>
+<tr><td><code>leaderboard</code></td><td><code>true</code></td><td>true posts your score to gotcomped.com after the card is written and prints your rank: the multiplier, tier, list-price total, plan, detected providers, days, and your handle. Nothing else, ever; the exact payload is saved to out_dir/comped-rank.json. false sends nothing, and the run is then entirely offline.</td></tr>
 </tbody></table>
 <p>The full parameter list, including where each tool's logs are read from, is on the <a href="developers.html#play-comped">developers page</a>.</p>
 
@@ -133,13 +148,17 @@
 <h3>No PNG</h3>
 <p>The SVG card is always written and uploads to LinkedIn as-is. For a PNG, install <code>rsvg-convert</code>, or use a Mac where it's built in.</p>
 <h3>It asked me to sign in</h3>
-<p>That's rote's registry, so the Play can be fetched and verified. comped itself never signs in to anything and never makes a network call.</p>
+<p>That's rote's registry, so the Play can be fetched and verified. comped itself never signs in to anything; the one thing it sends is your score to the leaderboard, and only if <code>leaderboard</code> is left at <code>true</code>.</p>
+<h3>It says "not posted"</h3>
+<p>The card is done; only the leaderboard post failed, usually because the machine is offline or the post timed out. Run again when you're online, or leave it. The exact reply is in <code>~/comped/comped-rank.json</code>.</p>
+<h3>I'm on the board as anon-xxxx</h3>
+<p>The run had no handle. <code>gotcomped.com/run.sh</code> fills in your rote handle; if you ran the Play some other way, pass <code>handle=yourname</code>. A re-run replaces your row, so the anonymous one goes away when a named one arrives from the same machine.</p>
 
 <h2 id="privacy">Privacy</h2>
 <ul>
 <li><strong>Reads</strong> your AI tools' session logs. Nothing else.</li>
 <li><strong>Never reads</strong> <code>~/.claude.json</code>, <code>~/.codex/auth.json</code> or any credential, keychain or token file. Which AI you use comes from the logs; your plan is never looked up.</li>
-<li><strong>Never sends.</strong> No network calls of any kind. Not telemetry, not "anonymous usage", not a version check.</li>
+<li><strong>Sends one thing.</strong> After the card is written, your score goes to the leaderboard: handle, comp score, tier, full-price total, plan and its price, detected providers and tools, days, sessions, cache share, and a random id that keys your row. No paths, prompts, model names or hostnames. It's saved to <code>~/comped/comped-rank.json</code> before it goes. <code>leaderboard=false</code> makes the run entirely offline: no telemetry, no "anonymous usage", no version check, nothing.</li>
 <li><strong>Writes</strong> only under the folder you choose, and tells you every path.</li>
 <li><strong>Your messages</strong> are cut to 120 characters and hashed. Never the full text, never on a card.</li>
 </ul>
@@ -152,7 +171,7 @@
 <footer>
   <div class="wrap row">
     <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
-    <span class="sp"><a href="./">Home</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
 

@@ -1,5 +1,6 @@
 // Everything on this page is arithmetic and animation done in your browser.
-// No dependency, no analytics, no network call of any kind — same promise the Play makes.
+// No dependency, no analytics, no third party. The one fetch this site makes is board.js asking
+// this same origin for the leaderboard.
 (function () {
   "use strict";
 

@@ -10,11 +10,13 @@ import json, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 HANDLE = "rajkaria"
 ROTE_VERSION = "0.79.0"
-VERSION = "0.1.3"
+VERSION = "0.1.4"
 
 # One reading is one step: the read_* steps are parallel roots, everything else depends on the merge.
 # argv addresses the bundled core through @resource{...}, which resolves to <package>/resources/<path>.
 CLI = "@resource{comped_core/cli.py}"
+# The one step that talks to the network lives outside the core, so the core stays verifiably offline.
+POST = "@resource{post_score.py}"
 
 
 def read(only, dir_param, extra=()):
@@ -48,6 +50,8 @@ STEPS = {
                           "--repeat-threshold", "$repeat_threshold", "--handle", "$handle"], ["price_ledger"], 60000),
         ("render_card", ["python3", CLI, "card", "--out-dir", "$out_dir", "--card-theme", "$card_theme"],
          ["find_repeats"], 60000),
+        ("post_score", ["python3", POST, "--out-dir", "$out_dir", "--leaderboard", "$leaderboard", "--handle", "$handle"],
+         ["render_card"], 30000),
     ],
     "wrong-turns": [
         ("read_claude", read("claude-code", "claude_dir", SUBAGENTS + ["--redact", "true"]), [], 120000),
@@ -72,7 +76,7 @@ TAGS = {
 
 OUTPUT_SCHEMA = {
     "session-ledger": ["records", "humans", "tools", "sources"],
-    "comped": ["total_usd", "multiplier", "per_model", "repeats", "written"],
+    "comped": ["total_usd", "multiplier", "per_model", "repeats", "written", "leaderboard"],
     "wrong-turns": ["classes", "written"],
 }
 
@@ -141,7 +145,7 @@ if (ctx.run.status === "failed") {{
 }}
 """
 
-RENDER = {'session-ledger': '  const j = final.json as Record<string, any>;\n  out.human([`LEDGER`, final.human, notes.length ? `\\nNot read: ${notes.join("; ")}` : ""].join("\\n"));\n  out.summary(`${j.records ?? 0} usage records, ${j.human_typed ?? 0} typed messages, ${j.tools ?? 0} tool calls across ${j.sessions ?? 0} sessions`);\n  out.result({ run_id: ctx.run.run_id, ...j, absences: notes });', 'comped': '  const j = final.json as Record<string, any>;\n  out.human([final.human, notes.length ? `Not read: ${notes.join("; ")}` : ""].filter(Boolean).join("\\n"));\n  const mult = j.multiplier === null || j.multiplier === undefined ? "list price only" : `${Number(j.multiplier).toFixed(1)}x vs ${j.plan}${j.plan_source === "auto" ? " (inferred)" : ""}`;\n  out.summary(`$${Number(j.total_usd ?? 0).toFixed(2)} comped over ${ctx.params.days_back} days, ${mult}, ${j.repeats ?? 0} repeat offenders${j.detected ? ` \u00b7 ${j.detected}` : ""}`);\n  out.result({ run_id: ctx.run.run_id, ...j, absences: notes });', 'wrong-turns': '  const j = final.json as Record<string, any>;\n  out.human([final.human, notes.length ? `Not read: ${notes.join("; ")}` : ""].filter(Boolean).join("\\n"));\n  out.summary(`${j.classes ?? 0} recurring mistake classes; drafted rules written, nothing applied`);\n  out.result({ run_id: ctx.run.run_id, ...j, absences: notes });'}
+RENDER = {'session-ledger': '  const j = final.json as Record<string, any>;\n  out.human([`LEDGER`, final.human, notes.length ? `\\nNot read: ${notes.join("; ")}` : ""].join("\\n"));\n  out.summary(`${j.records ?? 0} usage records, ${j.human_typed ?? 0} typed messages, ${j.tools ?? 0} tool calls across ${j.sessions ?? 0} sessions`);\n  out.result({ run_id: ctx.run.run_id, ...j, absences: notes });', 'comped': '  const j = final.json as Record<string, any>;\n  // The poster never fails the run: read whatever it printed, and say nothing if it printed nothing.\n  const post = ctx.step(stepName("post_score")).outcome;\n  const r = ((post.status === "completed" || post.status === "restored") && isProcessExecBody(post.output.body)\n    ? split(post.output.body.stdout?.text ?? "").json : {}) as Record<string, any>;\n  const board = r.posted === true && r.rank ? `Leaderboard: #${r.rank} of ${r.of} \u00b7 ${r.url}`\n    : r.posted === true ? `Leaderboard: posted${r.reason ? ` (${r.reason})` : ""} \u00b7 ${r.url ?? "https://gotcomped.com/leaderboard.html"}`\n    : r.skipped === true ? "Leaderboard: skipped (leaderboard=false)"\n    : typeof r.warning === "string" ? `Leaderboard: not posted (${r.warning})` : "";\n  out.human([final.human, board, notes.length ? `Not read: ${notes.join("; ")}` : ""].filter(Boolean).join("\\n"));\n  const mult = j.multiplier === null || j.multiplier === undefined ? "list price only" : `${Number(j.multiplier).toFixed(1)}x vs ${j.plan}${j.plan_source === "auto" ? " (inferred)" : ""}`;\n  out.summary(`$${Number(j.total_usd ?? 0).toFixed(2)} comped over ${ctx.params.days_back} days, ${mult}, ${j.repeats ?? 0} repeat offenders${j.detected ? ` \u00b7 ${j.detected}` : ""}${r.rank ? ` \u00b7 #${r.rank} of ${r.of} on the leaderboard` : ""}`);\n  out.result({ run_id: ctx.run.run_id, ...j, leaderboard: r, absences: notes });', 'wrong-turns': '  const j = final.json as Record<string, any>;\n  out.human([final.human, notes.length ? `Not read: ${notes.join("; ")}` : ""].filter(Boolean).join("\\n"));\n  out.summary(`${j.classes ?? 0} recurring mistake classes; drafted rules written, nothing applied`);\n  out.result({ run_id: ctx.run.run_id, ...j, absences: notes });'}
 LAST = {'session-ledger': 'summarize', 'comped': 'render_card', 'wrong-turns': 'draft_rules'}
 READS = {'session-ledger': '    { label: "read_claude", step: ctx.step(stepName("read_claude")) },\n    { label: "read_codex", step: ctx.step(stepName("read_codex")) },\n    { label: "read_pi", step: ctx.step(stepName("read_pi")) },\n    { label: "read_opencode", step: ctx.step(stepName("read_opencode")) },', 'comped': '    { label: "read_claude", step: ctx.step(stepName("read_claude")) },\n    { label: "read_codex", step: ctx.step(stepName("read_codex")) },\n    { label: "read_pi", step: ctx.step(stepName("read_pi")) },\n    { label: "read_opencode", step: ctx.step(stepName("read_opencode")) },', 'wrong-turns': '    { label: "read_claude", step: ctx.step(stepName("read_claude")) },\n    { label: "read_codex", step: ctx.step(stepName("read_codex")) },'}
 
@@ -191,7 +195,7 @@ def frontmatter(slug: str, desc: str, params: list) -> str:
     L += ["tags:"] + ["- {0}".format(t) for t in TAGS[slug]]
     L += ["discoverability:", "  tags:"] + ["  - {0}".format(t) for t in TAGS[slug]]
     L += ["output:", "  schema:", "    type: object", "    properties:"]
-    L += ["      {0}:\n        type: object".format(k) if k in ("per_model", "repeats", "written", "classes", "sources")
+    L += ["      {0}:\n        type: object".format(k) if k in ("per_model", "repeats", "written", "classes", "sources", "leaderboard")
           else "      {0}:\n        type: string".format(k) for k in OUTPUT_SCHEMA[slug]]
     fx = ROOT / "docs" / "plays" / slug / "PRESENTATION_FIXTURES.json"
     if fx.is_file():

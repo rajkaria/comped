@@ -2,7 +2,7 @@
 
 ## What we built (hackathon scope)
 
-Three rote Plays that read the agent logs already on a developer's machine and return, with no credentials and no network, a priced card, the repeated asks worth turning into Plays, and drafted rules from the agent's recurring mistakes. One parser, three published entry points.
+Three rote Plays that read the agent logs already on a developer's machine and return, with no credentials and the logs never leaving the machine, a priced card, a rank on the gotcomped.com leaderboard, the repeated asks worth turning into Plays, and drafted rules from the agent's recurring mistakes. One parser, three published entry points.
 
 ## What this becomes
 

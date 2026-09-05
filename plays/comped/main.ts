@@ -3,19 +3,19 @@
  * @rote-frontmatter
  * ---
  * name: comped
- * description: 'Every coding session on this machine wrote down exactly what it consumed, and none of it is readable by hand. This reads all of it: Claude Code including the subagent transcripts in subdirectories, where four in ten usage lines are streaming duplicates that must be collapsed before pricing, Codex, whose counters are cumulative and need differencing, and Pi. You get one card: the API list-price equivalent of the last N days per model, the multiplier against the plan you actually pay for, your cache-read share, and how all of it moved since your last run. Under it, the jobs you have asked your agent for three or more times, each with its repeat cost and the exact play settle command to capture it. Then what those repeats would have cost as Plays, at Modiqo''s stated 98% and at a conservative 80%. Prices come from a bundled table that names its source and as-of date; a model the table does not know is reported as tokens and never priced by guess. You do not tell it what you run: the model ids in your own logs name the providers behind them -- Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen -- and every subscription those providers sell is priced on the card at once, the least flattering one marked as assumed, so you read your row instead of typing it. It refuses to open your OAuth files to find the tier, and the card says plainly that list price is not a bill. Read-only, no credentials, no network. Writes a Markdown report, an SVG card, a PNG when the machine can render one, and a small baseline for next run''s delta, all under the folder you choose. Point claude_dir at resources/fixtures/claude to see a full run on synthetic logs before you run it on your own.
+ * description: 'Every coding session on this machine wrote down exactly what it consumed, and none of it is readable by hand. This reads all of it: Claude Code including the subagent transcripts in subdirectories, where four in ten usage lines are streaming duplicates that must be collapsed before pricing, Codex, whose counters are cumulative and need differencing, and Pi. You get one card: the API list-price equivalent of the last N days per model, the multiplier against the plan you actually pay for, your cache-read share, and how all of it moved since your last run. Under it, the jobs you have asked your agent for three or more times, each with its repeat cost and the exact play settle command to capture it. Then what those repeats would have cost as Plays, at Modiqo''s stated 98% and at a conservative 80%. Prices come from a bundled table that names its source and as-of date; a model the table does not know is reported as tokens and never priced by guess. You do not tell it what you run: the model ids in your own logs name the providers behind them -- Claude, GPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen -- and every subscription those providers sell is priced on the card at once, the least flattering one marked as assumed, so you read your row instead of typing it. It refuses to open your OAuth files to find the tier, and the card says plainly that list price is not a bill. Read-only and no credentials. Writes a Markdown report, an SVG card, a PNG when the machine can render one, and a small baseline for next run''s delta, all under the folder you choose. Then, unless you say leaderboard=false, it posts the score to the gotcomped.com leaderboard and prints your rank: that is the one thing this Play ever sends, and the exact payload is saved next to the card so you can read it. Point claude_dir at resources/fixtures/claude to see a full run on synthetic logs before you run it on your own.
  *
  * - Reads: session logs under the four configured directories. Nothing else.
  * - Never reads: `~/.claude.json`, `~/.codex/auth.json`, any credential, keychain or token file. Which AI you run is inferred from the model ids already in those logs; the plan tier is never read from your account.
- * - Never sends: no network calls of any kind. Verifiable: the core imports no `urllib`, `http`, `socket`, `subprocess` (except the PNG renderer, which is invoked with a fixed argv and no shell).
+ * - Never sends from the core: reading, pricing and rendering make no network calls. Verifiable: `comped_core` imports no `urllib`, `http`, `socket`, `subprocess` (except the PNG renderer, which is invoked with a fixed argv and no shell). The one step that talks to the network is `comped`''s `post_score`, a separate short script that sends your score to the gotcomped.com leaderboard after the card is written and nothing before; `leaderboard=false` skips it, and a failed post never fails the run.
  * - Writes: only under `out_dir`. Every written path is listed in the report.
  * - Message text: truncated to 120 chars and hashed by default. `redact=false` keeps full text locally, never in the card.
  *
  * See also: `session-ledger` (the normalized ledger this reads) and `wrong-turns` (recurring mistakes, with drafted rules). Docs, the full methodology and a worked example: https://gotcomped.com'
- * version: '0.1.3'
+ * version: '0.1.4'
  * source_url: https://play.modiqo.ai/rajkaria/comped
  * metadata:
- *   version: '0.1.3'
+ *   version: '0.1.4'
  *   rote_version: '0.79.0'
  *   status: released
  *   kind: atomic
@@ -63,6 +63,8 @@
  *       repeats:
  *         type: object
  *       written:
+ *         type: object
+ *       leaderboard:
  *         type: object
  * presentation_fixtures:
  *   find_repeats: resources/presentation-fixtures/find_repeats/fixture.yaml
@@ -144,7 +146,7 @@
  *   param_type: string
  *   required: false
  *   default: ''
- *   description: 'Your rote handle, used only to print the /play settle command.'
+ *   description: 'Your name on the gotcomped.com leaderboard, and in the /play settle command. Blank posts anonymously (anon-xxxx). gotcomped.com/run.sh fills in your rote handle.'
  *   example: 'priya'
  * - name: card_theme
  *   param_type: string
@@ -152,6 +154,12 @@
  *   default: 'dark'
  *   description: 'dark or light.'
  *   example: 'dark'
+ * - name: leaderboard
+ *   param_type: string
+ *   required: false
+ *   default: 'true'
+ *   description: 'true posts your score to gotcomped.com after the card is written and prints your rank: the multiplier, tier, list-price total, plan, detected providers, days, and your handle. Nothing else, ever; the exact payload is saved to out_dir/comped-rank.json. false sends nothing, and the run is then entirely offline.'
+ *   example: 'true'
  * steps:
  *   read_claude:
  *     type: process.exec
@@ -282,6 +290,20 @@
  *     - '$out_dir'
  *     - '--card-theme'
  *     - '$card_theme'
+ *   post_score:
+ *     type: process.exec
+ *     timeout_ms: 30000
+ *     depends_on:
+ *     - render_card
+ *     argv:
+ *     - 'python3'
+ *     - '@resource{post_score.py}'
+ *     - '--out-dir'
+ *     - '$out_dir'
+ *     - '--leaderboard'
+ *     - '$leaderboard'
+ *     - '--handle'
+ *     - '$handle'
  * ---
  */
 
@@ -345,8 +367,16 @@ if (ctx.run.status === "failed") {
     { label: "read_opencode", step: ctx.step(stepName("read_opencode")) },
   ]);
   const j = final.json as Record<string, any>;
-  out.human([final.human, notes.length ? `Not read: ${notes.join("; ")}` : ""].filter(Boolean).join("\n"));
+  // The poster never fails the run: read whatever it printed, and say nothing if it printed nothing.
+  const post = ctx.step(stepName("post_score")).outcome;
+  const r = ((post.status === "completed" || post.status === "restored") && isProcessExecBody(post.output.body)
+    ? split(post.output.body.stdout?.text ?? "").json : {}) as Record<string, any>;
+  const board = r.posted === true && r.rank ? `Leaderboard: #${r.rank} of ${r.of} · ${r.url}`
+    : r.posted === true ? `Leaderboard: posted${r.reason ? ` (${r.reason})` : ""} · ${r.url ?? "https://gotcomped.com/leaderboard.html"}`
+    : r.skipped === true ? "Leaderboard: skipped (leaderboard=false)"
+    : typeof r.warning === "string" ? `Leaderboard: not posted (${r.warning})` : "";
+  out.human([final.human, board, notes.length ? `Not read: ${notes.join("; ")}` : ""].filter(Boolean).join("\n"));
   const mult = j.multiplier === null || j.multiplier === undefined ? "list price only" : `${Number(j.multiplier).toFixed(1)}x vs ${j.plan}${j.plan_source === "auto" ? " (inferred)" : ""}`;
-  out.summary(`$${Number(j.total_usd ?? 0).toFixed(2)} comped over ${ctx.params.days_back} days, ${mult}, ${j.repeats ?? 0} repeat offenders${j.detected ? ` · ${j.detected}` : ""}`);
-  out.result({ run_id: ctx.run.run_id, ...j, absences: notes });
+  out.summary(`$${Number(j.total_usd ?? 0).toFixed(2)} comped over ${ctx.params.days_back} days, ${mult}, ${j.repeats ?? 0} repeat offenders${j.detected ? ` · ${j.detected}` : ""}${r.rank ? ` · #${r.rank} of ${r.of} on the leaderboard` : ""}`);
+  out.result({ run_id: ctx.run.run_id, ...j, leaderboard: r, absences: notes });
 }
