@@ -80,7 +80,7 @@
     });
     if (spendOut) spendOut.textContent = money(listed);
     if (verdict) {
-      verdict.innerHTML = "On the safe assumption — <b>Claude Max 20×</b> — your score is <b>" +
+      verdict.innerHTML = "On the safe assumption, <b>Claude Max 20×</b>, your score is <b>" +
         mult(assumed) + "</b>. " + quip(assumed);
     }
   }
@@ -105,8 +105,8 @@
     var post = el.dataset.suffix || "";
     var started = null;
     var dur = 1100;
-    // The finished number goes in first. If frames never come — a throttled tab, a headless
-    // renderer, a browser that dislikes us — the reader sees the real figure, not a zero.
+    // The finished number goes in first. If frames never come (a throttled tab, a headless
+    // renderer, a browser that dislikes us) the reader sees the real figure, not a zero.
     el.textContent = finalText(el);
     setTimeout(function () { el.textContent = finalText(el); }, dur + 400);
     function frame(t) {

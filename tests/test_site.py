@@ -146,6 +146,13 @@ class Site(unittest.TestCase):
             for stale in ("Nothing leaves your computer", "nothing leaves your machine", "0 bytes"):
                 self.assertNotIn(stale, page_text, "{0} still says '{1}'".format(page, stale))
 
+    def test_the_pages_people_read_have_no_em_dashes(self):
+        # House style: sentences, commas and full stops. The dash is how a page ends up sounding
+        # like it was generated rather than written.
+        for page in PAGES:
+            text = (SITE / page).read_text(encoding="utf-8")
+            self.assertNotIn("\u2014", text, "{0} has an em dash".format(page))
+
     def test_the_board_is_fetched_from_this_origin_only_and_the_page_degrades_without_it(self):
         js = (SITE / "board.js").read_text(encoding="utf-8")
         self.assertEqual(re.findall(r'fetch\(("[^"]*")', js), ['"/api/leaderboard?sort="'])

@@ -46,7 +46,7 @@ PLAY_OUTPUTS = {
         ("ledger-summary.json", "Counts per source, including what could not be read and why."),
     ],
     "session-ledger": [
-        ("ledger-<harness>.jsonl", "One partial ledger per harness read — the reads run in parallel and each writes its own."),
+        ("ledger-<harness>.jsonl", "One partial ledger per harness read: the reads run in parallel and each writes its own."),
         ("ledger.jsonl", "The merged, deduplicated, turn-attributed ledger."),
         ("ledger-summary.json", "Record, message and tool counts, sessions, subagent records, and a per-source report."),
     ],
@@ -61,7 +61,7 @@ FIELD_NOTES = {
     "UsageRecord": {
         "harness": "Which tool wrote the line: claude-code, codex, pi, opencode.",
         "session_id": "The harness's own session identifier.",
-        "record_id": "The dedup key. For Claude Code that is (message.id, requestId) — the pair that collapses streaming duplicates.",
+        "record_id": "The dedup key. For Claude Code that is (message.id, requestId): the pair that collapses streaming duplicates.",
         "timestamp": "The record's own timestamp, in UTC. Windowing uses this, never the file's mtime.",
         "model": "As written by the harness, before alias resolution.",
         "input_tokens": "Uncached input tokens.",
@@ -71,7 +71,7 @@ FIELD_NOTES = {
         "reasoning_tokens": "Thinking tokens, reported separately and billed as output.",
         "project": "The working directory the session ran in.",
         "is_subagent": "True for subagent and sidechain traffic, which is easy to forget and expensive to ignore.",
-        "turn_id": "The message that started this turn — how cost gets attributed to what you asked.",
+        "turn_id": "The message that started this turn: how cost gets attributed to what you asked.",
     },
     "HumanMessage": {
         "harness": "Which tool the message came from.",
@@ -88,7 +88,7 @@ FIELD_NOTES = {
         "session_id": "Session.",
         "event_id": "Stable id.",
         "timestamp": "UTC.",
-        "tool_name": "Bash, Edit, exec_command, and so on — resolved from the call that named it.",
+        "tool_name": "Bash, Edit, exec_command, and so on: resolved from the call that named it.",
         "input_summary": "One short line: the command, path or query. Never the full input.",
         "is_error": "Whether the call came back as an error.",
         "error_text": "Up to 300 characters of the error, for errors only.",
@@ -135,7 +135,7 @@ def plans_table():
     doc = json.loads((ROOT / "resources" / "plans.json").read_text(encoding="utf-8"))
     out = ["<table><thead><tr><th>Plan id</th><th>Label</th><th>Monthly</th></tr></thead><tbody>"]
     for pid, p in doc["plans"].items():
-        price = "—" if p["monthly_usd"] is None else "${0}".format(p["monthly_usd"])
+        price = "-" if p["monthly_usd"] is None else "${0}".format(p["monthly_usd"])
         out.append("<tr><td><code>{0}</code></td><td>{1}</td><td>{2}</td></tr>".format(esc(pid), esc(p["label"]), esc(price)))
     out.append("</tbody></table>")
     return "\n".join(out), doc["meta"]["as_of"]
@@ -161,7 +161,7 @@ def cli_reference():
                 continue
             opts.append(flag if a.default in (None, "") else "{0} {1}".format(flag, a.default))
         out.append("<tr><td><code>{0}</code></td><td><code>{1}</code></td></tr>".format(
-            esc(name), esc(" ".join(opts)) or "—"))
+            esc(name), esc(" ".join(opts)) or "-"))
     out.append("</tbody></table>")
     return "\n".join(out)
 
@@ -173,7 +173,7 @@ def providers_table():
     for key, label, talk, pattern, plans in PROVIDERS:
         ids = pattern.replace("^", "").replace("(", "").replace(")", "").replace("|", ", ")
         out.append("<tr><td>{0}</td><td>{1}</td><td><code>{2}…</code></td><td>{3}</td></tr>".format(
-            esc(label), esc(talk), esc(ids), ", ".join("<code>{0}</code>".format(esc(p)) for p in plans) or "—"))
+            esc(label), esc(talk), esc(ids), ", ".join("<code>{0}</code>".format(esc(p)) for p in plans) or "-"))
     out.append("</tbody></table>")
     return "\n".join(out)
 
@@ -271,7 +271,7 @@ def page(path, title, description, nav_active, toc, body):
 
 <footer>
   <div class="wrap row">
-    <span>comped — built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
+    <span>comped: built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
     <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
@@ -300,10 +300,10 @@ def docs_page():
 <h2 id="install">One line</h2>
 <p>You need a Mac or Linux machine, a terminal, and <strong>python3</strong> (3.9 or newer, which every Mac has). Copy this, paste it into Terminal, press Enter:</p>
 <pre><code>{one}</code></pre>
-<p>It fetches <strong>rote</strong> — the free runner from <a href="https://www.modiqo.ai">Modiqo</a> that comped is written for — only if you don't already have it, signs you in to the registry if you aren't, prints what the comped Play reads and writes, and runs it without stopping to ask. About a minute the first time; ten seconds after that. <a href="{site}/run.sh">The script</a> is fifty lines; read it first if you like. Anything after <code>sh -s --</code> goes to the Play: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
+<p>It fetches <strong>rote</strong>: the free runner from <a href="https://www.modiqo.ai">Modiqo</a> that comped is written for: only if you don't already have it, signs you in to the registry if you aren't, prints what the comped Play reads and writes, and runs it without stopping to ask. About a minute the first time; ten seconds after that. <a href="{site}/run.sh">The script</a> is fifty lines; read it first if you like. Anything after <code>sh -s --</code> goes to the Play: <code>… | sh -s -- plan=claude-pro-20</code>.</p>
 <p>Prefer to be asked before anything runs? The registry's own installer does the same steps and waits for a <em>yes</em> at each:</p>
 <pre><code>{asking}</code></pre>
-<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/{handle}/comped --yes</code> — drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
+<div class="callout"><p>Already have rote? Then it's just <code>rote play run https://play.modiqo.ai/{handle}/comped --yes</code>: drop <code>--yes</code> to see the Ready selector. Check you're on 0.78 or newer with <code>rote --version</code>.</p></div>
 
 <h2 id="quickstart">Try it on sample data first</h2>
 <p>If you'd rather see it work before pointing it at your own logs, the Play ships with sample logs: real in shape, made-up in content.</p>
@@ -318,7 +318,7 @@ def docs_page():
 <h2 id="reading">Reading your card</h2>
 <p>Top to bottom:</p>
 <ul>
-<li><strong>The big number.</strong> What the last 30 days would have cost at the provider's public API prices. <em>Not a bill</em> — you're on a subscription and you paid what you paid.</li>
+<li><strong>The big number.</strong> What the last 30 days would have cost at the provider's public API prices. <em>Not a bill</em>: you're on a subscription and you paid what you paid.</li>
 <li><strong>Your comp score, and your tier.</strong> That number divided by what your plan costs for the same window. <strong>13×</strong> means your subscription paid for itself thirteen times over; the tier is the word for that.</li>
 <li><strong>Which AI cost what,</strong> largest first, with a bar.</li>
 <li><strong>Cache-read share.</strong> How much of what the AI read came from cache. High is normal and good.</li>
@@ -331,9 +331,9 @@ def docs_page():
 
 <h2 id="detection">What it works out for you</h2>
 <p>You type nothing. Every request your AI tools log carries the name of the model that answered it, and that name says who made it. From that, comped knows whether you're on Claude, ChatGPT/Codex, Kimi, GLM, DeepSeek, Gemini, Grok, Qwen, MiniMax or Mistral, and which tools you read it through.</p>
-<p>The one thing your logs don't record is which <em>tier</em> you pay for — a Pro session and a Max session look identical. So rather than ask, or peek at your account (it never will), the card prices every plan your provider sells and marks the most expensive one that fits as the safe assumption. Your real score is at least that. If you want the exact row on the headline, say so once:</p>
+<p>The one thing your logs don't record is which <em>tier</em> you pay for: a Pro session and a Max session look identical. So rather than ask, or peek at your account (it never will), the card prices every plan your provider sells and marks the most expensive one that fits as the safe assumption. Your real score is at least that. If you want the exact row on the headline, say so once:</p>
 <pre><code>rote play run https://play.modiqo.ai/{handle}/comped plan=claude-pro-20</code></pre>
-<p>Say it once: a typed plan is remembered in <code>~/comped/comped-plan.txt</code> and every later run uses it. Delete the file to go back to inferring. Paying for something the table doesn't list — a Kimi or GLM coding plan, a team seat? <code>plan=usd:29</code> prices it.</p>
+<p>Say it once: a typed plan is remembered in <code>~/comped/comped-plan.txt</code> and every later run uses it. Delete the file to go back to inferring. Paying for something the table doesn't list: a Kimi or GLM coding plan, a team seat? <code>plan=usd:29</code> prices it.</p>
 <h3>Your tier</h3>
 <p>The score lands you in one of seven tiers, printed on the card and in <code>comped-share.txt</code>: Paying customer (under 1×), Break-even (1–2×), Comped (2–5×), Properly comped (5–12×), All-you-can-eat (12–30×), Hostage situation (30–80×), Please stop (80× and up).</p>
 
@@ -359,9 +359,9 @@ def docs_page():
 
 <h2 id="trouble">When it looks wrong</h2>
 <h3>"no log directory found"</h3>
-<p>Expected if you don't use that tool — it's skipped and the run continues. If you <em>do</em> use it, its logs live somewhere unusual; point the right option at them: <code>claude_dir</code>, <code>codex_dir</code>, <code>pi_dir</code>, <code>opencode_dir</code>.</p>
+<p>Expected if you don't use that tool: it's skipped and the run continues. If you <em>do</em> use it, its logs live somewhere unusual; point the right option at them: <code>claude_dir</code>, <code>codex_dir</code>, <code>pi_dir</code>, <code>opencode_dir</code>.</p>
 <h3>The number looks too low</h3>
-<p>Check <code>days_back</code> (it's 30 by default), then the "unpriced" list at the bottom of the report. A model that isn't in the price list contributes nothing to the total, on purpose — a guessed price would make the number worse, not better.</p>
+<p>Check <code>days_back</code> (it's 30 by default), then the "unpriced" list at the bottom of the report. A model that isn't in the price list contributes nothing to the total, on purpose: a guessed price would make the number worse, not better.</p>
 <h3>The score is lower than I expected</h3>
 <p>The headline assumes the most expensive plan that fits. Look at the <em>If you're on…</em> rows for your actual tier, or pass <code>plan=</code>.</p>
 <h3>No repeat offenders</h3>
@@ -387,7 +387,7 @@ def docs_page():
 """.format(one=esc(ONE_LINER), asking=esc(ASKING_LINER), site=SITE_URL, handle=HANDLE,
            options=params_table_for("comped", ("days_back", "plan", "leaderboard", "handle", "repeat_threshold", "out_dir", "card_theme")),
            outputs=outputs_table("comped"))
-    return page("docs.html", "comped — docs",
+    return page("docs.html", "comped: docs",
                 "How to get your comp score in one line, how to read the card, what it works out for you, and what to do when a number looks wrong.",
                 "docs", toc, body)
 
@@ -420,18 +420,18 @@ def developers_page():
 
 <h2 id="tracking">What it tracks, field by field</h2>
 <p>Three record types come out of the logs. The tables are generated from the dataclasses that define them, so they cannot drift from the code.</p>
-<h3>Usage records — one per API call</h3>
+<h3>Usage records: one per API call</h3>
 {usage_fields}
-<h3>Human messages — one per message in the user role</h3>
+<h3>Human messages: one per message in the user role</h3>
 <p>These exist to attribute cost to <em>what you asked</em>. Without them a month of agent work is an undifferentiated wall of API calls.</p>
 {human_fields}
-<h3>Tool events — one per tool call</h3>
+<h3>Tool events: one per tool call</h3>
 {tool_fields}
 <div class="callout"><p><strong>Never collected:</strong> file contents, tool outputs beyond a 300-character error snippet, prompt text beyond the 120-character truncation, and anything at all from a credential, keychain or token file. There is no identifier for you, no machine id and no run id that leaves your disk, because nothing leaves your disk.</p></div>
 
 <h2 id="math">The arithmetic</h2>
 <h3>Pricing</h3>
-<p>Per record, in exact decimal arithmetic — never floating point, which is how cent-level errors get into totals:</p>
+<p>Per record, in exact decimal arithmetic: never floating point, which is how cent-level errors get into totals:</p>
 <pre><code>usd = uncached_input × in_rate
     + cache_write     × cache_write_rate
     + cache_read      × cache_read_rate
@@ -440,25 +440,25 @@ def developers_page():
 <h3>Deduplication</h3>
 <p>Claude Code writes a line per content block, so the same API call appears several times with the same <code>message.id</code> and <code>requestId</code>. On real logs <strong>about four in ten usage lines are duplicates</strong>. They are collapsed on that pair, and the count of what was dropped appears in the source report. Codex has the opposite shape: cumulative counters, so each record is the difference from the previous snapshot, and a counter that goes backwards starts a new baseline rather than producing a negative. CI checks the per-model Claude Code totals against <a href="https://github.com/ryoppippi/ccusage">ccusage</a>, an independent parser.</p>
 <h3>Windows and the multiplier</h3>
-<p>A record is in the window if <em>its own timestamp</em> is, never the file's modification time. Plan cost is prorated by <code>days_back ÷ 30.4375</code> — the mean month — so a 14-day window is compared against 14 days of subscription, not a whole month of it.</p>
+<p>A record is in the window if <em>its own timestamp</em> is, never the file's modification time. Plan cost is prorated by <code>days_back ÷ 30.4375</code>: the mean month: so a 14-day window is compared against 14 days of subscription, not a whole month of it.</p>
 <h3>Repeat offenders</h3>
-<p>Messages are normalised (lowercased, paths, URLs, numbers and hashes replaced by placeholders, stop-words dropped), turned into 2-word shingles, and clustered when their Jaccard similarity is <strong>0.5 or higher</strong>. A cluster qualifies when it has at least <code>repeat_threshold</code> asks across <strong>two or more sessions on two or more days</strong>. Its repeat cost is the cluster's total minus its cheapest single solve: what you paid to ask again. Harness-generated text — continuation preambles, injected reminders, observer prompts — stays in the ledger, because it costs real money, but is never counted as something you asked for.</p>
+<p>Messages are normalised (lowercased, paths, URLs, numbers and hashes replaced by placeholders, stop-words dropped), turned into 2-word shingles, and clustered when their Jaccard similarity is <strong>0.5 or higher</strong>. A cluster qualifies when it has at least <code>repeat_threshold</code> asks across <strong>two or more sessions on two or more days</strong>. Its repeat cost is the cluster's total minus its cheapest single solve: what you paid to ask again. Harness-generated text: continuation preambles, injected reminders, observer prompts: stays in the ledger, because it costs real money, but is never counted as something you asked for.</p>
 <h3>Wrong turns</h3>
-<p>Three signals with honest confidence labels. <strong>Tool errors</strong> (high): the call returned an error; its first line, stripped of paths and numbers, is the signature. <strong>Corrections</strong> (medium): your next message matched a correction phrase — "no,", "revert", "that's not", "undo". <strong>Reverts</strong> (high): a destructive git command ran. A class is reported when it recurs at least <code>min_recurrence</code> times across two or more sessions. Recovery cost is the signalling turn plus the next one.</p>
+<p>Three signals with honest confidence labels. <strong>Tool errors</strong> (high): the call returned an error; its first line, stripped of paths and numbers, is the signature. <strong>Corrections</strong> (medium): your next message matched a correction phrase: "no,", "revert", "that's not", "undo". <strong>Reverts</strong> (high): a destructive git command ran. A class is reported when it recurs at least <code>min_recurrence</code> times across two or more sessions. Recovery cost is the signalling turn plus the next one.</p>
 
 <h2 id="detection">Detection</h2>
 <p>Nothing on the machine records which subscription you pay for, and the one place it is written is a file this tool refuses to open. So <code>plan</code> defaults to <code>auto</code> and the run infers what it can:</p>
 <ol class="steps">
 <li><b>The harnesses.</b> {harnesses}. A directory that isn't there is a shrug, and the card names the ones it didn't find.</li>
-<li><b>The provider.</b> Read off the model id after gateway and region prefixes are stripped — <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Claude Code pointed at Moonshot or Z.ai gives itself away the same way.</li>
-<li><b>The tier — the one thing no log records.</b> A Pro session and a Max session are the same bytes. So every subscription the detected providers sell is priced against the window at once; the assumed row is deliberately the least flattering — the most expensive plan that fits, i.e. the smallest multiplier you could honestly claim — and the rest are one glance away.</li>
+<li><b>The provider.</b> Read off the model id after gateway and region prefixes are stripped: <code>us.anthropic.claude-opus-5</code>, <code>bedrock/anthropic.claude-sonnet-5</code> and <code>claude-opus-5</code> are one provider, not three. Claude Code pointed at Moonshot or Z.ai gives itself away the same way.</li>
+<li><b>The tier: the one thing no log records.</b> A Pro session and a Max session are the same bytes. So every subscription the detected providers sell is priced against the window at once; the assumed row is deliberately the least flattering: the most expensive plan that fits, i.e. the smallest multiplier you could honestly claim: and the rest are one glance away.</li>
 <li><b>Anything else.</b> A provider with no subscription in the table is named, its spend stays in the total, and the card says nothing in the plan cost covers it. <code>plan=usd:&lt;amount&gt;</code> prices one the table lacks; <code>plan=&lt;id&gt;</code> overrides the inference outright.</li>
 </ol>
 {providers}
 <div class="callout"><p>Detection reads nothing new. It looks at records the ledger already parsed and at which of the four log directories existed. A model id nobody recognises is reported by name as unknown rather than assigned to a provider by guess. The table above is generated from <code>comped_core/detect.py</code>.</p></div>
 
 <h2 id="prices">Prices and plans</h2>
-<p>The price table is a snapshot, bundled with the Play, that carries its own provenance: the source URL, the upstream file's sha256, and the date it was taken. It is never fetched at runtime. Where several upstream keys map to one model — the vendor's own and a reseller's — the vendor's wins.</p>
+<p>The price table is a snapshot, bundled with the Play, that carries its own provenance: the source URL, the upstream file's sha256, and the date it was taken. It is never fetched at runtime. Where several upstream keys map to one model: the vendor's own and a reseller's: the vendor's wins.</p>
 <table><tbody>
 <tr><th>Source</th><td><code>{price_source}</code></td></tr>
 <tr><th>As of</th><td>{price_as_of}</td></tr>
@@ -507,8 +507,8 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 
 <h2 id="source">Source and spec</h2>
 <ul>
-<li><a href="https://github.com/rajkaria/comped">Source</a> — MIT. CI runs the suite on Ubuntu and macOS across Python 3.9 and 3.12, checks the bundled copies of the core haven't drifted, and fails if these pages are stale.</li>
-<li><a href="https://github.com/rajkaria/comped/blob/main/docs/SPEC.md">The spec</a> — the full derivation: record model, pricing, deduplication, windows, repeat clustering, wrong-turn signals, and the trust statements.</li>
+<li><a href="https://github.com/rajkaria/comped">Source</a>: MIT. CI runs the suite on Ubuntu and macOS across Python 3.9 and 3.12, checks the bundled copies of the core haven't drifted, and fails if these pages are stale.</li>
+<li><a href="https://github.com/rajkaria/comped/blob/main/docs/SPEC.md">The spec</a>: the full derivation: record model, pricing, deduplication, windows, repeat clustering, wrong-turn signals, and the trust statements.</li>
 <li>Play sources under <code>docs/plays/&lt;slug&gt;/</code>; the packages under <code>plays/</code> are generated from them by <code>tools/build_plays.py</code>.</li>
 </ul>
 """.format(play_comped=play_section("comped"), play_ledger=play_section("session-ledger"),
@@ -518,7 +518,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
            price_source=esc(price_meta.get("source_url", "")), price_as_of=esc(price_meta.get("as_of", "")),
            model_count=model_count, models=model_links, plans=plans, plans_as_of=esc(plans_as_of),
            cli=cli_reference(), providers=providers_table(), harnesses=harness_list())
-    return page("developers.html", "comped — developers",
+    return page("developers.html", "comped: developers",
                 "The three Plays, every parameter, the record fields, the arithmetic, how detection works, the price table, and how to verify the privacy claims.",
                 "developers", toc, body)
 
