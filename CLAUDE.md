@@ -6,7 +6,7 @@ Rote Playoffs hackathon entry: three rote Plays (`session-ledger`, `comped`, `wr
 
 | Doc | Covers |
 |---|---|
-| [docs/context/comped-plays.md](docs/context/comped-plays.md) | Whole project: core, Play packaging and publishing, the landing site, research, adoption. Current state, decisions, next steps. |
+| [docs/context/comped-plays.md](docs/context/comped-plays.md) | Whole project: core, the three ways to run it (comped.sh, npx, the Play), publishing, the landing site, the leaderboard, adoption. Current state, decisions, next steps. |
 
 ## Read first
 - `docs/SPEC.md` — approved build spec.
