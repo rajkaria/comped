@@ -9,7 +9,7 @@ import argparse
 import calendar
 import re
 import sys
-from datetime import timedelta
+from datetime import timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, decode, secrets, store
+from . import common, cronx, decode, secrets, store
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -437,7 +437,46 @@ def _secret_report(argv):
                         "source": source, "bytes": len(body)})
 
 
+# ---------------------------------------------------------------- cron-when
+
+def _cron_report(argv):
+    a = _parser("cron report", ("expr", ""), ("tz", ""), ("count", "5")).parse_args(argv)
+    expr = str(a.expr or "").strip() or ("30 9 * * 1-5" if common.as_bool(a.demo) else "")
+    if not expr:
+        return common.emit("Nothing to read — pass expr='30 9 * * 1-5'.", common.warn("no expression given"))
+    now, tz = common.now_utc(a.now), common.tz_of(a.tz)
+    try:
+        spec = cronx.parse(expr)
+    except ValueError as e:
+        return common.emit("That is not a cron expression: {0}".format(e),
+                           {"ok": True, "valid": False, "error": str(e), "expr": expr})
+    fires = cronx.next_fires(spec, now, max(1, int(a.count)), tz)
+    english = cronx.describe(spec)
+    warning = cronx.dst_warning(spec, tz, now)
+    zone = getattr(tz, "key", None) or now.astimezone(tz).strftime("%Z") or "local"
+    lines = [common.rule(expr), "  {0}".format(english), ""]
+    for f in fires:
+        lines.append("  {0}   {1} UTC".format(f.strftime("%a %d %b %Y %H:%M"),
+                                              f.astimezone(timezone.utc).strftime("%H:%M")))
+    if not fires:
+        lines.append("  no fire in the next four years")
+    gap = cronx.average_interval_min(fires)
+    if warning:
+        lines += ["", "  ⚠ {0}".format(warning)]
+    tail = "{0} — next {1} {2}".format(english, fires[0].strftime("%a %H:%M") if fires else "never", zone)
+    if fires:
+        tail += " ({0} UTC)".format(fires[0].astimezone(timezone.utc).strftime("%H:%M"))
+    lines += ["", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "valid": True, "expr": expr, "english": english, "zone": str(zone),
+                        "fires": [{"local": f.strftime("%Y-%m-%d %H:%M"),
+                                   "utc": f.astimezone(timezone.utc).strftime("%Y-%m-%d %H:%M")}
+                                  for f in fires],
+                        "average_interval_min": gap, "warning": warning or ""})
+
+
 _DISPATCH = {
+    ("cron", "report"): _cron_report,
     ("secret", "report"): _secret_report,
     ("whatis", "report"): _whatis_report,
     ("punch", "record"): _punch_record, ("punch", "report"): _punch_report,
