@@ -18,10 +18,10 @@
  * - Runs cold: set `demo=true` to compare a bundled tree against a bundled earlier snapshot, in a temporary folder. Your own state is not touched.
  *
  * See also: `safe-to-commit`, which reads what is staged rather than what changed, and `last-turn`, which prices the turn that did the changing. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/since-last
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

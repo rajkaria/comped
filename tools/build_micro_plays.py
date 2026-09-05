@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 
 HANDLE = "rajkaria"
 ROTE_VERSION = "0.80.0"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 CLI = "@resource{micro_core/cli.py}"
 DEMO_NOW = "2026-09-05T12:00:00Z"
 SPEC = json.loads((ROOT / "docs" / "plays" / "_micro-spec.json").read_text(encoding="utf-8"))

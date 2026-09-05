@@ -19,10 +19,10 @@
  * - Runs cold: set `demo=true` to read a bundled synthetic repository — a real index and real loose objects, written byte by byte, with a fake key staged in it.
  *
  * See also: `is-it-secret` for the same detectors over a paste, and `since-last` for what changed whether or not you staged it. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/safe-to-commit
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

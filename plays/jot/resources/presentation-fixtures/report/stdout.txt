@@ -1,4 +1,4 @@
-demo run: reading a bundled 14-day log in /var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/rote-micro-demo-e0f_bagy
+demo run: a bundled 14-day log, copied to a temporary folder
 ── last captured ───────────────────────────────────────────
   15:35      ring the dentist
   2026-09-03 ask about the invoice

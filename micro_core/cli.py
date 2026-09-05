@@ -67,7 +67,9 @@ def _state_dir(a, streams=()):
 
 
 def _demo_note(demo_dir):
-    return "" if not demo_dir else "demo run: reading a bundled 14-day log in {0}\n".format(demo_dir)
+    """No path in the note. It is a temp directory the runner made, it is different every run, and
+    printing it puts a machine-specific string into a card and into the committed fixtures."""
+    return "" if not demo_dir else "demo run: a bundled 14-day log, copied to a temporary folder\n"
 
 
 # ---------------------------------------------------------------- punch
@@ -674,6 +676,10 @@ def _since_last_report(argv):
     written = [snapshot.save(state, key, cur)]
     if common.as_bool(a.watch_sensitive):
         written.append(snapshot.save(state, sens_key, cur_sens))
+    if common.as_bool(a.demo):
+        # A demo run writes into a temp directory the runner just made. Naming it would put an
+        # unrepeatable path in the output and in the committed fixture; saying what it is does not.
+        written = ["a temporary folder (demo run); your own state_dir was not touched"]
     if prev is None:
         return common.emit(
             "First look at {0}: {1} files noted. Run it again after the agent works and this "

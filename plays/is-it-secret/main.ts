@@ -19,10 +19,10 @@
  * - Runs cold: set `demo=true` to scan a bundled synthetic `.env` with nothing configured.
  *
  * See also: `safe-to-commit`, which runs the same detectors over your staged files before the commit, and `whatis`, which peels the thing rather than judging it. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/is-it-secret
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic

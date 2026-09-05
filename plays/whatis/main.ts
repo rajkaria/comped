@@ -17,10 +17,10 @@
  * - Runs cold: set `demo=true` to peel a bundled synthetic token with nothing configured.
  *
  * See also: `is-it-secret`, which reads the same kind of paste and tells you what to redact, and `fits`, which tells you how big it is and what it costs to send. Requires python3 3.9 or newer. No pip install, no node, no network, no credentials.'
- * version: '0.1.0'
+ * version: '0.1.1'
  * source_url: https://play.modiqo.ai/rajkaria/whatis
  * metadata:
- *   version: '0.1.0'
+ *   version: '0.1.1'
  *   rote_version: '0.80.0'
  *   status: released
  *   kind: atomic
