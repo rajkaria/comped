@@ -56,8 +56,8 @@ B. No rote, or rote is not signed in. Signing in needs a terminal you do not hav
      curl -fsSL https://gotcomped.com/comped.sh | sh -s -- handle=HANDLE
 
    Add leaderboard=false if they said no in step 1. This does everything, including the post, so
-   skip step 3. If node is there and curl is not, `npx comped handle=HANDLE` is the same tool and
-   takes the same arguments.
+   skip step 3. On Windows, or anywhere there is node but no Unix shell, `npx comped
+   handle=HANDLE` is the same tool published on npm: same arguments, same card, no curl needed.
 
 C. No network to fetch that, but git and a clone will work. Same code, same numbers, no account:
 

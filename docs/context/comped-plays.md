@@ -24,11 +24,12 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 ## Current state — what's working, deployed, broken
 
 - **Live on prod, verified end to end (05 Sep).** `main` is at `afb7d92`; Vercel has deployed it. The full production path was run and watched: `curl -fsSL https://gotcomped.com/comped.sh | sh -s -- handle=rajkaria` downloaded the archive, matched the published sha256, printed the card and posted. Board reads one row, `rajkaria` 13.31x $2,623.20. The published checksum and the live archive hash agree byte for byte.
-- **Three front doors, one core.** `comped.sh` (no account, ~150 KB temp dir, deletes itself), `npx comped` (npm package built, **not published**), and `run.sh` (the rote Play, consent screen, free Modiqo account). All take the same fourteen parameters, asserted against `docs/plays/comped/PARAMETERS.json`. The core copy in each is byte-identical and CI fails on drift.
+- **Three front doors, one core.** `comped.sh` (no account, ~150 KB temp dir, deletes itself), `npx comped` (**published to npm at 0.1.5**), and `run.sh` (the rote Play, consent screen, free Modiqo account). All take the same fourteen parameters, asserted against `docs/plays/comped/PARAMETERS.json`. The core copy in each is byte-identical and CI fails on drift.
+- **`npx comped` is live on npm (05 Sep).** `comped@0.1.5`, the name was free. The tarball pulled back down from the registry is the one that was built here: 44 files, 156,248 bytes, shasum `0d7f4c8c1a554879f911749fdfe4bb3656ca6a7e`, its `comped_core` identical to the repo's and its `payload/comped.py` sha256-equal to `standalone/comped.py`. Ran the published payload off its own shipped fixtures: card, PNG, SVG, report and share text all written, `leaderboard=false` honoured. `npm whoami` had been 401 the whole time — that was the only blocker, and the dead token in `~/.npmrc` is still worth rotating (next steps).
 - **All three Plays published at 0.1.5.** Push command is `rote registry play push plays/<slug> rajkaria` — the slug argument is the *namespace*, not the play name. Gates 1.00 on validate/lint/score for all three; smoke run off the public 0.1.5 archive from a fresh dir passes.
 - **Windows works and is proven.** The `windows-standalone` CI job unpacks the real archive on windows-latest and runs it with stdout redirected, then installs and runs the npm package. Green on `f2a3008`, so it now **gates** the build. `npx comped` is the Windows answer; the curl line still needs WSL.
 - **Site:** landing page, docs and leaderboard lead with the account-free line; `llms.txt` is the hand-written agent briefing (not generated) and now offers comped.sh and npx before the git clone; `robots.txt` and `sitemap.xml` added. 200 tests green.
-- **Not done:** npm publish (see next steps); launch posts; judge-panel rounds; daily adoption-log rows; a self-serve "remove my row" path (currently: open a GitHub issue).
+- **Not done:** launch posts; judge-panel rounds; daily adoption-log rows; a self-serve "remove my row" path (currently: open a GitHub issue).
 
 ## Recent changes — files touched and why
 
@@ -58,11 +59,10 @@ Rote Playoffs entry (Modiqo). Build window 1–7 Sep 2026; **submissions close 7
 
 ## Next steps — specific, actionable
 
-1. **Publish the npm package.** Blocked on npm auth only: `~/.npmrc` has a token that returns 401, and the package name `comped` is free. From the main checkout: `cd ~/Projects/comped && git pull && python3 tools/build_npm.py && npm login && npm publish npm/`. The earlier failure was running `npm publish npm/` from `~`, where there is no `npm/`. Once published, check `npx comped@0.1.5` from a clean directory.
-2. **Rotate the npm token that was pasted into a chat session on 05 Sep.** Revoke it at npmjs.com under Access Tokens and mint a fresh one. It should be treated as compromised.
-3. **Post the launch** — Discord #sharing, X, LinkedIn, in the plain voice of the landing page. Two pitches now, and they are different: "paste this in Terminal, no account" and "paste this at your coding agent". Lead with the board.
-4. **Daily adoption-log rows** from `playoffs-standings author=rajkaria` (manifest `stats.downloads`) and the board count from `https://gotcomped.com/api/leaderboard?limit=1`.
-5. **Judge loop, twice** (SPEC §15) against gotcomped.com, the three Play pages and a clean run; fix and republish as patch versions until ≥ 9.5.
-6. **Watch the board for junk.** `select handle, multiplier, comped_usd, held from comped_scores order by updated_at desc` via the Supabase MCP; `update … set held = true` hides a row.
-7. **`tests/test_perf.py` is marginal locally.** It reads ~1 GB of real logs against a 10 s budget and takes 9–15 s depending on disk cache. It skips in CI. Raise the budget or scope the fixture; it is not a regression.
-8. **Optional polish:** an OG image per handle (`/api/card/<handle>.svg`); a "this week" window; per-provider boards as real routes; a voice pass on `docs.html` / `developers.html`; purge the rote account address from three early commits (needs Raj).
+1. **Rotate the npm token that was pasted into a chat session on 05 Sep.** Revoke it at npmjs.com under Access Tokens and mint a fresh one. It should be treated as compromised.
+2. **Post the launch** — Discord #sharing, X, LinkedIn, in the plain voice of the landing page. Two pitches now, and they are different: "paste this in Terminal, no account" and "paste this at your coding agent". Lead with the board.
+3. **Daily adoption-log rows** from `playoffs-standings author=rajkaria` (manifest `stats.downloads`) and the board count from `https://gotcomped.com/api/leaderboard?limit=1`.
+4. **Judge loop, twice** (SPEC §15) against gotcomped.com, the three Play pages and a clean run; fix and republish as patch versions until ≥ 9.5.
+5. **Watch the board for junk.** `select handle, multiplier, comped_usd, held from comped_scores order by updated_at desc` via the Supabase MCP; `update … set held = true` hides a row.
+6. **`tests/test_perf.py` is marginal locally.** It reads ~1 GB of real logs against a 10 s budget and takes 9–15 s depending on disk cache. It skips in CI. Raise the budget or scope the fixture; it is not a regression.
+7. **Optional polish:** an OG image per handle (`/api/card/<handle>.svg`); a "this week" window; per-provider boards as real routes; a voice pass on `docs.html` / `developers.html`; purge the rote account address from three early commits (needs Raj).
