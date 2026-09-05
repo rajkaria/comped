@@ -1,2 +1,2 @@
 safari: 2 tab(s) from 1 source(s)
-{"complete": true, "family": "safari", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 2, "name": "Safari (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/safari-lastsession.plist"}], "tabs": 2}
+{"complete": true, "family": "safari", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 2, "name": "Safari (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpxR0vW9/resources/daily_core/fixtures/tabs/safari-lastsession.plist"}], "tabs": 2}

@@ -1,2 +1,2 @@
 downloads: 8 file(s)
-{"complete": true, "files": 8, "ok": true, "root": "downloads", "scanned_files": 0, "sources": [{"found": true, "items": 8, "name": "downloads (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpXOw8SE/resources/daily_core/fixtures/clutter/files.json"}]}
+{"complete": true, "files": 8, "ok": true, "root": "downloads", "scanned_files": 0, "sources": [{"found": true, "items": 8, "name": "downloads (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZfQaSw/resources/daily_core/fixtures/clutter/files.json"}]}

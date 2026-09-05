@@ -4,7 +4,7 @@ status:
   exit:
     kind: code
     code: 0
-  duration_ms: 177
+  duration_ms: 156
   timeout_ms: 60000
 stdout: resources/presentation-fixtures/read_firefox/stdout.txt
 stderr: resources/presentation-fixtures/read_firefox/stderr.txt

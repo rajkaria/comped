@@ -1,2 +1,2 @@
 chromium: 10 tab(s) from 1 source(s)
-{"complete": true, "family": "chromium", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 10, "name": "Chrome (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpZIUe6L/resources/daily_core/fixtures/tabs/chrome-session.snss"}], "tabs": 10}
+{"complete": true, "family": "chromium", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 10, "name": "Chrome (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpxR0vW9/resources/daily_core/fixtures/tabs/chrome-session.snss"}], "tabs": 10}
