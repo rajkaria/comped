@@ -9,7 +9,7 @@ import unittest
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 
-from micro_core import common, decode, secrets, store
+from micro_core import common, cronx, decode, secrets, store
 
 
 class TestEmit(unittest.TestCase):
@@ -314,3 +314,65 @@ class TestSecrets(unittest.TestCase):
         self.assertEqual(secrets.verdict(secrets.scan("k=AKIA1234567890ABCD12")), "do-not-paste")
         self.assertEqual(secrets.verdict(secrets.scan("SESSION_SECRET=8fJ2kL9mQ4xR7vN1pZ3wY6bC0dE5gH")),
                          "redact")
+
+
+class TestCron(unittest.TestCase):
+    def test_weekday_morning(self):
+        spec = cronx.parse("30 9 * * 1-5")
+        fires = cronx.next_fires(spec, common.now_utc("2026-09-05T12:00:00Z"), 3, timezone.utc)
+        self.assertEqual([f.strftime("%a %H:%M") for f in fires], ["Mon 09:30", "Tue 09:30", "Wed 09:30"])
+
+    def test_dom_and_dow_are_ored_not_anded(self):
+        spec = cronx.parse("0 0 13 * 5")
+        fires = cronx.next_fires(spec, common.now_utc("2026-11-01T00:00:00Z"), 5, timezone.utc)
+        got = [f.strftime("%Y-%m-%d") for f in fires]
+        self.assertIn("2026-11-13", got)
+        self.assertIn("2026-11-06", got)
+
+    def test_only_dom_restricted_does_not_or_in_every_day(self):
+        spec = cronx.parse("0 0 1 * *")
+        fires = cronx.next_fires(spec, common.now_utc("2026-09-05T00:00:00Z"), 2, timezone.utc)
+        self.assertEqual([f.day for f in fires], [1, 1])
+
+    def test_macros(self):
+        self.assertEqual(cronx.parse("@daily"), cronx.parse("0 0 * * *"))
+        self.assertEqual(cronx.parse("@hourly")["minute"], {0})
+
+    def test_step_and_names(self):
+        spec = cronx.parse("*/15 * * * MON")
+        self.assertEqual(sorted(spec["minute"]), [0, 15, 30, 45])
+        self.assertEqual(spec["dow"], {1})
+
+    def test_sunday_is_both_zero_and_seven(self):
+        self.assertEqual(cronx.parse("0 0 * * 7")["dow"], cronx.parse("0 0 * * 0")["dow"])
+
+    def test_bad_field_is_a_value_error_with_a_readable_message(self):
+        with self.assertRaises(ValueError) as e:
+            cronx.parse("99 * * * *")
+        self.assertIn("minute", str(e.exception))
+        with self.assertRaises(ValueError):
+            cronx.parse("* * *")
+
+    def test_english(self):
+        self.assertEqual(cronx.describe(cronx.parse("30 9 * * 1-5")), "every weekday at 09:30")
+        self.assertEqual(cronx.describe(cronx.parse("0 0 * * *")), "every day at 00:00")
+        self.assertEqual(cronx.describe(cronx.parse("*/15 * * * *")), "every 15 minutes")
+
+    def test_average_interval(self):
+        fires = cronx.next_fires(cronx.parse("0 * * * *"), common.now_utc("2026-09-05T00:00:00Z"),
+                                 5, timezone.utc)
+        self.assertEqual(cronx.average_interval_min(fires), 60)
+
+    def test_dst_warning_for_an_hour_that_does_not_exist(self):
+        tz = common.tz_of("Europe/London")
+        w = cronx.dst_warning(cronx.parse("30 1 * * *"), tz, common.now_utc("2027-03-01T00:00:00Z"))
+        self.assertIsNotNone(w)
+
+    def test_no_dst_warning_in_utc(self):
+        self.assertIsNone(cronx.dst_warning(cronx.parse("30 1 * * *"), timezone.utc,
+                                            common.now_utc("2027-03-01T00:00:00Z")))
+
+    def test_a_skipped_local_hour_is_not_offered_as_a_fire(self):
+        tz = common.tz_of("Europe/London")
+        fires = cronx.next_fires(cronx.parse("30 1 * * *"), common.now_utc("2027-03-27T12:00:00Z"), 2, tz)
+        self.assertNotIn("2027-03-28", [f.strftime("%Y-%m-%d") for f in fires])

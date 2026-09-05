@@ -222,3 +222,26 @@ class TestSecretStep(unittest.TestCase):
         rc, human, j = run(["secret", "report", "--path", p])
         self.assertEqual(j["verdict"], "do-not-paste")
         self.assertIn("dev.env", j["source"])
+
+
+class TestCronStep(unittest.TestCase):
+    def test_prints_the_next_fires_in_both_zones(self):
+        rc, human, j = run(["cron", "report", "--expr", "30 9 * * 1-5", "--tz", "UTC",
+                            "--count", "3", "--now", "2026-09-05T12:00:00Z"])
+        self.assertEqual(rc, 0)
+        self.assertTrue(j["valid"])
+        self.assertEqual(j["english"], "every weekday at 09:30")
+        self.assertEqual(len(j["fires"]), 3)
+        self.assertIn("09:30", human)
+
+    def test_a_bad_expression_explains_itself_and_exits_zero(self):
+        rc, human, j = run(["cron", "report", "--expr", "99 * * * *"])
+        self.assertEqual(rc, 0)
+        self.assertFalse(j["valid"])
+        self.assertIn("minute", j["error"])
+
+    def test_dst_warning_surfaces_in_the_human_block(self):
+        rc, human, j = run(["cron", "report", "--expr", "30 1 * * *", "--tz", "Europe/London",
+                            "--now", "2027-03-01T00:00:00Z"])
+        self.assertTrue(j["warning"])
+        self.assertIn("clocks go forward", human)
