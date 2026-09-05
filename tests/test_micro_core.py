@@ -9,7 +9,7 @@ import unittest
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
 
-from micro_core import common, cronx, decode, secrets, store
+from micro_core import common, cronx, decode, secrets, size, store
 
 
 class TestEmit(unittest.TestCase):
@@ -376,3 +376,48 @@ class TestCron(unittest.TestCase):
         tz = common.tz_of("Europe/London")
         fires = cronx.next_fires(cronx.parse("30 1 * * *"), common.now_utc("2027-03-27T12:00:00Z"), 2, tz)
         self.assertNotIn("2027-03-28", [f.strftime("%Y-%m-%d") for f in fires])
+
+
+class TestSize(unittest.TestCase):
+    def test_measurements_are_exact(self):
+        m = size.measure("one two\nthree\n")
+        self.assertEqual((m["lines"], m["words"], m["bytes"]), (2, 3, 14))
+
+    def test_token_range_brackets_the_estimate(self):
+        low, mid, high = size.token_range("hello world " * 100)
+        self.assertLess(low, mid)
+        self.assertLess(mid, high)
+
+    def test_more_text_is_never_fewer_tokens(self):
+        self.assertGreater(size.token_range("x" * 2000)[1], size.token_range("x" * 1000)[1])
+
+    def test_cjk_is_denser_than_ascii(self):
+        self.assertGreater(size.token_range("的" * 200)[1], size.token_range("a" * 200)[1])
+
+    def test_code_is_denser_than_prose(self):
+        prose = "the quick brown fox jumps over the lazy dog " * 20
+        code = "if (x[i] != y.z) { return f(a, b); } // n=1\n" * 20
+        self.assertGreater(size.token_range(code)[1] / len(code), size.token_range(prose)[1] / len(prose))
+
+    def test_a_wider_band_when_the_text_is_mostly_non_ascii(self):
+        low, mid, high = size.token_range("的" * 500)
+        self.assertGreaterEqual((high - mid) / float(mid), 0.2)
+
+    def test_window_fit(self):
+        f = size.window_fit(50000, 200000)
+        self.assertTrue(f["fits"])
+        self.assertEqual(f["pct"], 25)
+        self.assertEqual(f["headroom"], 150000)
+        self.assertFalse(size.window_fit(300000, 200000)["fits"])
+
+    def test_costs_scale_with_the_range(self):
+        from comped_core import prices
+        rows = size.costs(1000, 2000, ["claude-opus-5"], prices.load_table())
+        self.assertEqual(rows[0]["resolved"], "claude-opus-5")
+        self.assertLess(float(rows[0]["low_usd"]), float(rows[0]["high_usd"]))
+
+    def test_unknown_model_is_reported_not_priced_at_zero(self):
+        from comped_core import prices
+        rows = size.costs(100, 200, ["not-a-model"], prices.load_table())
+        self.assertIsNone(rows[0]["resolved"])
+        self.assertNotIn("low_usd", rows[0])

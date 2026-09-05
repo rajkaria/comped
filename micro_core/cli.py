@@ -17,7 +17,7 @@ if __name__ == "__main__" and __package__ is None:      # invoked as a file path
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
     __package__ = "micro_core"
 
-from . import common, cronx, decode, secrets, store
+from . import common, cronx, decode, secrets, size, store
 
 PLAYS = ("whatis", "fits", "secret", "cron", "punch", "spent", "jot", "streak",
          "last-turn", "budget", "since-last", "staged")
@@ -475,7 +475,54 @@ def _cron_report(argv):
                         "average_interval_min": gap, "warning": warning or ""})
 
 
+# ---------------------------------------------------------------- fits
+
+DEFAULT_MODELS = "claude-opus-5,claude-sonnet-5,claude-haiku-4-5"
+
+
+def _fits_report(argv):
+    a = _parser("fits report", ("text", ""), ("path", ""), ("window", "200000"),
+                ("models", DEFAULT_MODELS), ("rates_path", "")).parse_args(argv)
+    body, source = _input_text(a, "fits/sample.txt")
+    if not body.strip():
+        return common.emit("Nothing to measure — pass text='...' or path=/some/file.",
+                           common.warn(source or "no text or path given"))
+    from comped_core.prices import load_table
+    table = load_table(common.expand(a.rates_path) if str(a.rates_path or "").strip() else None)
+    m = size.measure(body)
+    low, mid, high = size.token_range(body)
+    fit = size.window_fit(mid, int(a.window))
+    rows = size.costs(low, high, [x for x in str(a.models).split(",") if x.strip()], table)
+    lines = [common.rule(common.trunc(source, 44)),
+             "  {0} bytes · {1} lines · {2} words · {3}".format(
+                 common.human_int(m["bytes"]), common.human_int(m["lines"]),
+                 common.human_int(m["words"]), size.describe_shape(body)),
+             "  {0}–{1} tokens (estimate) · {2}% of a {3} window".format(
+                 common.human_tokens(low), common.human_tokens(high), fit["pct"],
+                 common.human_tokens(fit["window"])), ""]
+    for row in rows:
+        if row["resolved"] is None:
+            lines.append("  {0:<22} {1}".format(common.trunc(row["model"], 22), row["note"]))
+        else:
+            lines.append("  {0:<22} ${1}–${2}   (${3}/Mtok in)".format(
+                common.trunc(row["model"], 22), row["low_usd"], row["high_usd"], row["per_mtok_usd"]))
+    priced = [r for r in rows if r["resolved"]]
+    tail = "{0}–{1} tokens · {2}% of a {3} window".format(
+        common.human_tokens(low), common.human_tokens(high), fit["pct"], common.human_tokens(fit["window"]))
+    if not fit["fits"]:
+        tail = "does not fit: " + tail
+    if priced:
+        tail += " · ${0}–${1} on {2}".format(priced[0]["low_usd"], priced[0]["high_usd"], priced[0]["model"])
+    lines += ["", "  " + size.METHOD, "", tail]
+    return common.emit("\n".join(lines),
+                       {"ok": True, "bytes": m["bytes"], "chars": m["chars"], "lines": m["lines"],
+                        "words": m["words"], "tokens_low": low, "tokens_mid": mid, "tokens_high": high,
+                        "fits": fit["fits"], "pct": fit["pct"], "window": fit["window"],
+                        "costs": rows, "method": size.METHOD, "source": source})
+
+
 _DISPATCH = {
+    ("fits", "report"): _fits_report,
     ("cron", "report"): _cron_report,
     ("secret", "report"): _secret_report,
     ("whatis", "report"): _whatis_report,
