@@ -35,9 +35,10 @@ reason to be run the second time. So the twelve split into two kinds, and the se
 
 ## The contract every micro Play keeps
 
-1. **Two steps.** A root step that reads or records, and a `report` step that prints. This matches the
-   nine published Plays, keeps the presentation template reusable verbatim, and satisfies the
-   "≥ 2 effect-bearing steps" criterion in `docs/research/ROTE-FORMAT.md`.
+1. **One step if pure, two if it remembers.** A `log` Play is `record` → `report`, the two sharing the
+   state file that is the whole point of it. A `fn` Play is a single `report` step: giving it a second
+   step would mean inventing a scratch file for the two halves to talk through, and a Play that claims
+   to write nothing should not write a scratch file to prove it. The presentation template handles both.
 2. **Fast enough to not think about it.** Each step ≤ 400 ms on the bundled fixtures, asserted by
    `tests/test_micro_perf.py`. A future edit that makes a micro Play slow fails the suite.
 3. **No `out_dir`.** The daily Plays write a report file; these print. The only things that touch disk
