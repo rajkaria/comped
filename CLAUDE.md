@@ -1,11 +1,13 @@
 # Comped: repository guide
 
-Twenty-one published rote Plays on **three** stdlib-only Python cores, plus the gotcomped.com site
+Thirty-one published rote Plays on **three** stdlib-only Python cores, plus the gotcomped.com site
 and leaderboard.
 
 - `comped_core` powers the three agent-cost Plays: `session-ledger`, `comped`, `wrong-turns`.
-- `daily_core` powers six read-only local-machine Plays: `tab-debt`, `birthday-radar`,
-  `app-graveyard`, `vault-pulse`, `desktop-clutter`, `receipt-ledger`.
+- `daily_core` powers sixteen read-only Plays over what the machine already keeps: `tab-debt`,
+  `birthday-radar`, `app-graveyard`, `vault-pulse`, `desktop-clutter`, `receipt-ledger`,
+  `bus-factor`, `night-shift`, `kept`, `upstream-pulse`, `extension-reach`, `where-it-went`,
+  `photo-debt`, `what-grew`, `reply-debt`, `standing-cost`.
 - `micro_core` powers twelve micro-interaction Plays: `whatis`, `fits`, `is-it-secret`,
   `cron-when`, `punch`, `spent`, `jot`, `streak`, `last-turn`, `budget-left`, `since-last`,
   `safe-to-commit`.
@@ -23,15 +25,19 @@ fourteen parameters, enforced by `tests/test_standalone.py` and `tests/test_npm.
 - [`README.md`](README.md) — what each Play does and how to run it.
 - [`VISION.md`](VISION.md) — where this goes next.
 
-## The six daily Plays (`daily_core`)
+## The sixteen daily Plays (`daily_core`)
 
-Read-only scans of files the machine already keeps. One core, one CLI (`daily_core/cli.py`), one
+Read-only scans of files the machine already keeps, plus git history through `gitread.py`. One core, one CLI (`daily_core/cli.py`), one
 card renderer; each Play is a few parallel `*-read` steps plus one `*-report` step. Format readers
 are written from scratch and stdlib-only: Chrome SNSS command logs, Firefox mozlz4 (an LZ4 block
 decoder), Safari and Arc stores, vCard, Mach-O architecture headers, and PDF text with ToUnicode
 CMap decoding and text-matrix line reconstruction.
 
-Invariants enforced by `tests/test_daily_safety.py`: no network import anywhere, exactly one
+Three of them (`reply-debt`, `standing-cost`, `upstream-pulse`) have a network half, and it
+lives in `fetch/` outside the core for the same reason `leaderboard/post_score.py` does: the
+core stays verifiably offline and everything that opens a connection sits in one short file.
+
+Invariants enforced by `tests/test_daily_safety.py`: no network import in the core, exactly one
 `subprocess.run` (`/usr/bin/mdls`, fixed argv, no shell), no credential path in any string
 constant, every write through `common.write_text` under `out_dir`, stdlib only, parses as
 Python 3.9. Every source degrades to a labelled unknown; every Play runs cold with `demo=true`
@@ -74,6 +80,6 @@ secret is ever printed. `tests/test_micro_perf.py` fails any step over 400 ms on
 
 - https://github.com/rajkaria/comped · https://gotcomped.com (Vercel)
 - Leaderboard: `/leaderboard.html`, `/api/score`, `/api/leaderboard`
-- All twenty-one Plays: https://gotcomped.com/plays.html and `play.modiqo.ai/rajkaria/<slug>`
+- All thirty-one Plays: https://gotcomped.com/plays.html and `play.modiqo.ai/rajkaria/<slug>`
 - npm: [`comped`](https://www.npmjs.com/package/comped). Republish with
   `python3 tools/build_npm.py && npm publish npm/`.

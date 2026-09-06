@@ -1,0 +1,50 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against five bundled synthetic project trees and a bundled registry answer set, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "root",
+  "type": "string",
+  "default": "~",
+  "example": "~/Projects",
+  "label": "Search root",
+  "description": "Every lockfile under this folder is parsed. Nothing outside it is opened, and no package manager is run."
+ },
+ {
+  "name": "max_packages",
+  "type": "integer",
+  "default": 120,
+  "example": 120,
+  "label": "Lookup bound",
+  "description": "The most packages to ask the registries about, direct dependencies first. Everything else is inventoried and reported as not checked, which is not the same as healthy."
+ },
+ {
+  "name": "cache_hours",
+  "type": "integer",
+  "default": 24,
+  "example": 24,
+  "label": "Answer lifetime",
+  "description": "How long a registry answer under out_dir may be reused before it is asked for again. The card prints how old the answers are."
+ },
+ {
+  "name": "dormant_days",
+  "type": "integer",
+  "default": 730,
+  "example": 730,
+  "label": "Dormant after",
+  "description": "A package with no release in this many days is called dormant. Two years is long enough that a maintained package would have shipped something."
+ }
+]

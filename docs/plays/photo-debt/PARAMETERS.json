@@ -1,0 +1,66 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against a bundled synthetic photo library and image folder, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "library",
+  "type": "string",
+  "default": "~/Pictures/Photos Library.photoslibrary",
+  "example": "~/Pictures/Photos Library.photoslibrary",
+  "label": "Photos library",
+  "description": "The Photos library to read. Its database is copied and opened read-only; the library itself is never modified and no image is opened."
+ },
+ {
+  "name": "root",
+  "type": "string",
+  "default": "~/Pictures",
+  "example": "~/Pictures",
+  "label": "Image folder",
+  "description": "A folder of loose images to read alongside the library. Only file metadata is read."
+ },
+ {
+  "name": "burst_window",
+  "type": "integer",
+  "default": 2,
+  "example": 2,
+  "label": "Burst window",
+  "description": "Seconds. Photos taken within this of each other are treated as one burst, which is what separates nine tries at one picture from nine pictures."
+ },
+ {
+  "name": "screenshot_days",
+  "type": "integer",
+  "default": 90,
+  "example": 90,
+  "label": "Screenshot age",
+  "description": "A screenshot older than this is counted as debt: it was made to be looked at once."
+ },
+ {
+  "name": "top",
+  "type": "integer",
+  "default": 5,
+  "example": 5,
+  "label": "Rows per table",
+  "description": "How many groups to name on the card. The totals are over everything, not just the rows shown."
+ },
+ {
+  "name": "hash_dupes",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Hash duplicates",
+  "description": "true reads candidate files to confirm a duplicate by content. false compares size and date only, which is faster and less certain."
+ }
+]

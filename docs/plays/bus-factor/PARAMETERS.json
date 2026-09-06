@@ -1,0 +1,58 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against three bundled synthetic repositories, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "root",
+  "type": "string",
+  "default": "~",
+  "example": "~/Projects",
+  "label": "Search root",
+  "description": "Every git repository under this folder is read, up to max_repos. Nothing outside it is opened."
+ },
+ {
+  "name": "max_repos",
+  "type": "integer",
+  "default": 40,
+  "example": 40,
+  "label": "Repository bound",
+  "description": "Stop after this many repositories. The card says when the bound was reached, so a partial answer never reads like a complete one."
+ },
+ {
+  "name": "departed_days",
+  "type": "integer",
+  "default": 365,
+  "example": 365,
+  "label": "Departed after",
+  "description": "An author with no commit anywhere in this many days is treated as gone, which is what turns a sole-authored file into an orphaned one."
+ },
+ {
+  "name": "stale_days",
+  "type": "integer",
+  "default": 365,
+  "example": 365,
+  "label": "Stale after",
+  "description": "A sole-authored file untouched for this long is counted as stale: nobody has looked at it recently either."
+ },
+ {
+  "name": "threshold",
+  "type": "string",
+  "default": "0.5",
+  "example": "0.5",
+  "label": "Ownership threshold",
+  "description": "The share of a file's surviving lines one author must hold before the file is called theirs. 0.5 means a simple majority."
+ }
+]

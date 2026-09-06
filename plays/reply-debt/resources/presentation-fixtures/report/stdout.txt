@@ -1,0 +1,43 @@
+┌──────────────────────────────────────────────────────────────┐
+│ REPLY DEBT                                 52 thread(s) seen │
+│                                                              │
+│ 25 threads awaiting your reply. Oldest 203 days. Seven from  │
+│ the same person.                                             │
+│ 14 more carry an implied action; 6 need no reply at all.     │
+│                                                              │
+│ ██████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒                      │
+│ █ direct ask  ▓ FYI with an implied action  ▒ pure FYI       │
+├─ OLDEST FIRST ───────────────────────────────────────────────┤
+│ 6mo   K. W.           #3f81921e  direct ask                  │
+│ 6mo   J. R.           #8bff083b  FYI with an implied action  │
+│ 6mo   I. D.           #619bd7a1  direct ask                  │
+│ 5mo   H. Q.           #43585295  FYI with an implied action  │
+│ 5mo   F. B.           #79397282  direct ask                  │
+│ 4mo   D. O.           #f774707f  FYI with an implied action  │
+│ … and 33 more                                                │
+├─ BY AGE ─────────────────────────────────────────────────────┤
+│ under a week      4  ▇▇▇▇▇▇                                  │
+│ 1-2 weeks         4  ▇▇▇▇▇▇                                  │
+│ 2-4 weeks         7  ▇▇▇▇▇▇▇▇▇▇                              │
+│ 1-3 months       12  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇                      │
+│ older            12  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇                      │
+│ 24 gone cold (30+ days, 62% of the debt)                     │
+├─ ONE PERSON, SEVERAL THREADS ────────────────────────────────┤
+│ I. D.                 7 threads   oldest 6mo                 │
+│ D. O.                 5 threads   oldest 4mo                 │
+│ K. W.                 4 threads   oldest 6mo                 │
+│ H. Q.                 4 threads   oldest 5mo                 │
+├─ THE OTHER SIDE OF THE LEDGER ───────────────────────────────┤
+│ 3 threads where you asked and got nothing back. Oldest 59    │
+│ days.                                                        │
+├─ SINCE LAST RUN ─────────────────────────────────────────────┤
+│ first run: nothing to compare against yet, come back tomorr… │
+│                                                              │
+│ 4 excluded from the denominator (1 mailing list, 1 calendar  │
+│ invite, 1 no-reply sender, 1 automated notification). 0      │
+│ newer than 3 days.                                           │
+│ Read-only: nothing was composed, saved or transmitted.       │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/reply-debt/reply-debt.md
+{"cold": 24, "considered": 48, "debt": 39, "direct": 25, "excluded": 4, "fyi": 6, "implied": 14, "ok": true, "sources": [{"found": true, "items": 52, "name": "mail (demo)", "note": "bundled fixture mailbox; 2 own address(es)", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpJnSIWY/resources/daily_core/fixtures/replydebt/mailbox.json"}], "threads_seen": 52, "written": ["/tmp/daily-demo/reply-debt/reply-debt.md", "/tmp/daily-demo/reply-debt/reply-debt.json"]}

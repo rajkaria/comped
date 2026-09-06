@@ -1,0 +1,66 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against a bundled synthetic folder tree with two retained baselines, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "root",
+  "type": "string",
+  "default": "~",
+  "example": "~",
+  "label": "Measured root",
+  "description": "The tree to measure. Every folder under it is sized; no file it measures is ever opened."
+ },
+ {
+  "name": "depth",
+  "type": "integer",
+  "default": 4,
+  "example": 4,
+  "label": "Roll-up depth",
+  "description": "How deep to name folders. Everything below the depth is still counted, and rolled into its parent."
+ },
+ {
+  "name": "floor_bytes",
+  "type": "integer",
+  "default": 16777216,
+  "example": 16777216,
+  "label": "Smallest folder named",
+  "description": "Folders below this size are counted but not named, so the table is the folders that matter rather than every folder there is."
+ },
+ {
+  "name": "since",
+  "type": "string",
+  "default": "",
+  "example": "last",
+  "label": "Compare against",
+  "description": "Which retained baseline to diff against: last, first, a number of runs back, 7d/2w/3m, or a date. Empty means the most recent one."
+ },
+ {
+  "name": "keep_baselines",
+  "type": "integer",
+  "default": 10,
+  "example": 10,
+  "label": "Baselines kept",
+  "description": "How many past measurements to retain under out_dir. They are what make the second run say what moved."
+ },
+ {
+  "name": "write_baseline",
+  "type": "string",
+  "default": "true",
+  "example": "true",
+  "label": "Record this run",
+  "description": "true records this measurement for the next run to compare against. false reports and records nothing."
+ }
+]

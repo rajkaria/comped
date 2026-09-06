@@ -1,0 +1,2 @@
+firefox: 3513 visit(s) from 1 profile(s)
+{"complete": true, "family": "firefox", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 3513, "name": "firefox (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpUmKuIh/resources/daily_core/fixtures/history/browser-history.json"}], "visits": 3513}

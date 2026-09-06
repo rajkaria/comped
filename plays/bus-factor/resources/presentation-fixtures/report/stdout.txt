@@ -1,0 +1,50 @@
+┌──────────────────────────────────────────────────────────────┐
+│ BUS FACTOR                                    truck factor 4 │
+│                                                              │
+│ 275 files. 104 have exactly one author, ever.                │
+│ 48 untouched in a year.                                      │
+│ Largest cluster: ledger-api/ledger/settlement/ — 31 files,   │
+│ 7,173 lines, one name.                                       │
+│                                                              │
+├─ AUTHORS PER FILE ───────────────────────────────────────────┤
+│ █████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒                 │
+│ █ one author  ▓ two  ▒ three or more                         │
+│ 104 of 274 files (38%) carry one name, 16,733 lines (19%)    │
+│ 48 of those have not been touched in a year                  │
+├─ KNOWLEDGE AT RISK ──────────────────────────────────────────┤
+│ who                        files      lines        risk      │
+│ D. O.·1762b4                  31      7,173      16,556      │
+│ P. R.·6bdb7e                  20      3,174       3,473      │
+│ T. H.·885682                  13      2,087       2,979      │
+│ E. M.·f30916                  14      1,534       2,649      │
+│ Y. T.·449ea6                  13      1,735       1,957      │
+├─ IF THEY LEFT TOMORROW ──────────────────────────────────────┤
+│ 4 departures of 6 authors would orphan 69% of 85,812 lines — │
+│ more than the 50% this asks for.                             │
+│ In order: M. S.·4a899f, E. M.·f30916, T. H.·885682, Y.       │
+│ T.·449ea6.                                                   │
+│ file-weighted, the same test gives 4                         │
+│ greedy, so this is an upper bound on the true minimum        │
+├─ ALREADY GONE ───────────────────────────────────────────────┤
+│ D. O.·1762b4 — sole author of 31 files        last seen 16mo │
+├─ CLUSTERS ───────────────────────────────────────────────────┤
+│ where                    who               files       lines │
+│ ledger-api/ledger/settl… D. O.·1762b4         31       7,173 │
+│ ops-tooling/scripts/     E. M.·f30916         14       1,534 │
+│ pricing-web/src/compone… Y. T.·449ea6         13       1,735 │
+│ pricing-web/src/billing/ P. R.·6bdb7e         10       1,773 │
+├─ ACROSS REPOSITORIES ────────────────────────────────────────┤
+│ P. R.·6bdb7e is sole author in 2 repositories       20 files │
+│ M. S.·4a899f is sole author in 2 repositories       13 files │
+│ T. H.·885682 is sole author in 2 repositories       13 files │
+│                                                              │
+│ 4 departures orphan most of this code                        │
+│ 3 repositories scanned. 9 vendored or generated excluded. 1  │
+│ bot excluded. 1 with no readable history. Shallow history,   │
+│ so every count is a lower bound. Git log was read; nothing   │
+│ was written to any repository.                               │
+│ first run: nothing to compare against yet, come back tomorr… │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/bus-factor/bus-factor.md
+{"authors": 6, "ok": true, "repos": 3, "sole_files": 104, "sources": [{"found": true, "items": 284, "name": "git (demo)", "note": "bundled fixture: 3 repositories", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmp8mBV1p/resources/daily_core/fixtures/busfactor/repos.json"}], "stale_sole_files": 48, "tracked_files": 275, "tracked_lines": 85812, "truck_factor": 4, "verdict": "4 departures orphan most of this code", "written": ["/tmp/daily-demo/bus-factor/bus-factor.md", "/tmp/daily-demo/bus-factor/bus-factor.json"]}

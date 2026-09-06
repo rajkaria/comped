@@ -1,0 +1,2 @@
+git: 9 record(s)
+{"complete": true, "ok": true, "records": 9, "scanned_files": 0, "source": "git", "sources": [{"found": true, "items": 9, "name": "git (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphqrQo4/resources/daily_core/fixtures/kept/kept.json"}]}

@@ -1,0 +1,6 @@
+{
+ "fetch_registry": "resources/presentation-fixtures/fetch_registry/fixture.yaml",
+ "read_lockfiles": "resources/presentation-fixtures/read_lockfiles/fixture.yaml",
+ "read_registry": "resources/presentation-fixtures/read_registry/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

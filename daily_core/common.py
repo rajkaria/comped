@@ -472,3 +472,82 @@ def as_bool(s) -> bool:
 def fixtures_dir() -> Path:
     """Bundled synthetic data, so a stranger's first run works with nothing configured."""
     return Path(__file__).resolve().parent / "fixtures"
+
+
+# ---------------------------------------------------------------- baselines and deltas
+
+BASELINE_SCHEMA = 1
+
+
+def baseline_write(out_dir, name: str, payload: dict, now) -> str:
+    """Record this run so the next one can say what moved. Versioned, so a later shape is not a crash."""
+    return state_write(out_dir, "{0}-baseline".format(name),
+                       {"schema": BASELINE_SCHEMA, "captured": iso(now), "payload": payload})
+
+
+def baseline_read(out_dir, name: str) -> dict:
+    """The previous run's baseline, or {} — a missing, unreadable or older-schema file is a first run.
+
+    Degrading a schema bump to "first run" rather than an error is deliberate: an upgrade should
+    cost the user one delta, never a failed run and a file they have to go and delete themselves.
+    """
+    p = Path(os.path.expanduser(str(out_dir))) / ".{0}-baseline.json".format(name)
+    try:
+        doc = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(doc, dict) or doc.get("schema") != BASELINE_SCHEMA:
+        return {}
+    return doc
+
+
+def delta(current: dict, previous: dict) -> dict:
+    """Compare two {key: number} snapshots. Returns added, removed, grew, shrank and net movement.
+
+    Keys are compared, not positions, so a list that reordered between runs reports nothing moved.
+    """
+    prev = previous if isinstance(previous, dict) else {}
+    added = {k: current[k] for k in current if k not in prev}
+    removed = {k: prev[k] for k in prev if k not in current}
+    grew, shrank = {}, {}
+    for k in current:
+        if k in prev:
+            change = _number(current[k]) - _number(prev[k])
+            if change > 0:
+                grew[k] = change
+            elif change < 0:
+                shrank[k] = change
+    return {"added": added, "removed": removed, "grew": grew, "shrank": shrank,
+            "net": sum(_number(v) for v in current.values()) - sum(_number(v) for v in prev.values()),
+            "first_run": not prev}
+
+
+def _number(v) -> float:
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def since_note(baseline: dict, now) -> str:
+    """`since 29 Aug` for a card, or a plain statement that there is nothing to compare against."""
+    if not baseline:
+        return "first run: nothing to compare against yet, come back tomorrow"
+    captured = parse_date(baseline.get("captured", ""))
+    return "since {0}".format(day(captured)) if captured else "since the last run"
+
+
+def load_table(name: str) -> dict:
+    """A bundled lookup table, shipped next to the code so a reader can check what it claims.
+
+    Returns {} when the table is missing rather than failing: a classification is an enrichment,
+    and a Play that cannot categorise a domain still knows how many times it was opened.
+    """
+    for base in (Path(__file__).resolve().parent / "tables", fixtures_dir()):
+        p = base / "{0}.json".format(name)
+        try:
+            doc = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        return doc if isinstance(doc, dict) else {}
+    return {}

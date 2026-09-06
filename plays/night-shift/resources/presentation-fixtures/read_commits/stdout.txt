@@ -1,0 +1,2 @@
+commits: 382 commit(s), 323 of them yours
+{"commits": 382, "complete": true, "kind": "commits", "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 323, "name": "git (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpoKGHph/resources/daily_core/fixtures/nightshift/commits.json"}]}

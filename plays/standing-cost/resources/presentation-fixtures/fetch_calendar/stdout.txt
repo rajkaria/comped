@@ -1,0 +1,2 @@
+demo run: no environment variable was read and no connection was opened; the report reads the bundled calendar fixture.
+{"available": false, "demo": true, "events": 0, "ok": true, "warning": "demo run: the bundled calendar fixture is used"}

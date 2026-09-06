@@ -1,0 +1,7283 @@
+{
+ "generated": "2026-09-01T12:00:00Z",
+ "note": "invented repositories and invented people; no real history was read",
+ "records": [
+  {
+   "authors": [
+    {
+     "commits": 31,
+     "deleted": 96,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1710504000,
+     "last": 1788004800,
+     "lines": 240,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 31,
+   "last": 1788004800,
+   "path": ".github/workflows/ci.yml",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 80,
+     "email": "mira@example.com",
+     "first": 1735560000,
+     "last": 1786622400,
+     "lines": 165,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 6,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1730462400,
+     "last": 1785931200,
+     "lines": 103,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 16,
+   "last": 1786622400,
+   "path": "__pycache__/settlement.cpython-311.pyc",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 86,
+     "email": "mira@example.com",
+     "first": 1735300800,
+     "last": 1785931200,
+     "lines": 234,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 42,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1736078400,
+     "last": 1787313600,
+     "lines": 206,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 14,
+   "last": 1787313600,
+   "path": "dist/ledger_api.min.js",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 42,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 51,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 4,
+   "last": 1780660800,
+   "path": "docs/architecture.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 43,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 62,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 3,
+   "last": 1780660800,
+   "path": "docs/glossary.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 43,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 173,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 2,
+   "last": 1780660800,
+   "path": "docs/onboarding.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 2,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 93,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 9,
+   "last": 1780660800,
+   "path": "docs/oncall.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 28,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 153,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 2,
+   "last": 1780660800,
+   "path": "docs/release.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 37,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 43,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 2,
+   "last": 1780660800,
+   "path": "docs/runbook.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 18,
+     "email": "mira@example.com",
+     "first": 1739880000,
+     "last": 1780660800,
+     "lines": 67,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 3,
+   "last": 1780660800,
+   "path": "docs/settlement_flow.md",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 60,
+     "email": "mira@example.com",
+     "first": 1740830400,
+     "last": 1784289600,
+     "lines": 407,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 66,
+     "email": "tomas@example.com",
+     "first": 1740830400,
+     "last": 1786622400,
+     "lines": 132,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 14,
+   "last": 1786622400,
+   "path": "ledger/api/accounts.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 88,
+     "email": "mira@example.com",
+     "first": 1748952000,
+     "last": 1782129600,
+     "lines": 120,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 22,
+     "email": "tomas@example.com",
+     "first": 1753185600,
+     "last": 1781956800,
+     "lines": 117,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 5,
+     "deleted": 22,
+     "email": "priya@example.com",
+     "first": 1748088000,
+     "last": 1781697600,
+     "lines": 103,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 14,
+   "last": 1782129600,
+   "path": "ledger/api/audit.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 14,
+     "email": "tomas@example.com",
+     "first": 1738152000,
+     "last": 1787313600,
+     "lines": 179,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 8,
+     "deleted": 12,
+     "email": "priya@example.com",
+     "first": 1741348800,
+     "last": 1785412800,
+     "lines": 133,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 10,
+     "deleted": 29,
+     "email": "mira@example.com",
+     "first": 1735905600,
+     "last": 1786017600,
+     "lines": 113,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 26,
+   "last": 1787313600,
+   "path": "ledger/api/auth.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 87,
+     "email": "mira@example.com",
+     "first": 1739448000,
+     "last": 1786449600,
+     "lines": 280,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 8,
+     "deleted": 56,
+     "email": "tomas@example.com",
+     "first": 1741176000,
+     "last": 1785067200,
+     "lines": 98,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 13,
+   "last": 1786449600,
+   "path": "ledger/api/balances.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 86,
+     "email": "mira@example.com",
+     "first": 1735646400,
+     "last": 1784030400,
+     "lines": 320,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 16,
+     "email": "tomas@example.com",
+     "first": 1735992000,
+     "last": 1784376000,
+     "lines": 153,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 3,
+     "deleted": 10,
+     "email": "priya@example.com",
+     "first": 1735646400,
+     "last": 1786449600,
+     "lines": 106,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 24,
+   "last": 1786449600,
+   "path": "ledger/api/cards.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 60,
+     "email": "mira@example.com",
+     "first": 1738756800,
+     "last": 1786190400,
+     "lines": 216,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 32,
+     "email": "tomas@example.com",
+     "first": 1737460800,
+     "last": 1785844800,
+     "lines": 106,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 15,
+   "last": 1786190400,
+   "path": "ledger/api/customers.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 11,
+     "email": "mira@example.com",
+     "first": 1738411200,
+     "last": 1783598400,
+     "lines": 261,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 26,
+     "email": "tomas@example.com",
+     "first": 1745755200,
+     "last": 1785240000,
+     "lines": 92,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 11,
+     "deleted": 49,
+     "email": "priya@example.com",
+     "first": 1740744000,
+     "last": 1785844800,
+     "lines": 80,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 24,
+   "last": 1785844800,
+   "path": "ledger/api/disputes.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 39,
+     "email": "mira@example.com",
+     "first": 1744977600,
+     "last": 1785672000,
+     "lines": 410,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 57,
+     "email": "tomas@example.com",
+     "first": 1736424000,
+     "last": 1783944000,
+     "lines": 63,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 12,
+   "last": 1785672000,
+   "path": "ledger/api/events.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 60,
+     "email": "mira@example.com",
+     "first": 1743249600,
+     "last": 1783598400,
+     "lines": 275,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 31,
+     "email": "tomas@example.com",
+     "first": 1742904000,
+     "last": 1783512000,
+     "lines": 134,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 4,
+     "email": "priya@example.com",
+     "first": 1739448000,
+     "last": 1786968000,
+     "lines": 74,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 17,
+   "last": 1786968000,
+   "path": "ledger/api/fees.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 62,
+     "email": "tomas@example.com",
+     "first": 1745064000,
+     "last": 1786968000,
+     "lines": 204,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 9,
+     "deleted": 67,
+     "email": "mira@example.com",
+     "first": 1740398400,
+     "last": 1783684800,
+     "lines": 123,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 12,
+   "last": 1786968000,
+   "path": "ledger/api/holds.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 7,
+     "email": "mira@example.com",
+     "first": 1738670400,
+     "last": 1786449600,
+     "lines": 329,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 4,
+     "deleted": 29,
+     "email": "tomas@example.com",
+     "first": 1738756800,
+     "last": 1783339200,
+     "lines": 164,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 6,
+     "deleted": 34,
+     "email": "priya@example.com",
+     "first": 1741262400,
+     "last": 1786017600,
+     "lines": 148,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 21,
+   "last": 1786449600,
+   "path": "ledger/api/idempotency.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 49,
+     "email": "mira@example.com",
+     "first": 1750852800,
+     "last": 1783512000,
+     "lines": 304,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 56,
+     "email": "tomas@example.com",
+     "first": 1748347200,
+     "last": 1784289600,
+     "lines": 212,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1784289600,
+   "path": "ledger/api/kyc.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 84,
+     "email": "mira@example.com",
+     "first": 1740312000,
+     "last": 1785067200,
+     "lines": 389,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 20,
+     "email": "tomas@example.com",
+     "first": 1737633600,
+     "last": 1786622400,
+     "lines": 154,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 21,
+   "last": 1786622400,
+   "path": "ledger/api/limits.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 52,
+     "email": "mira@example.com",
+     "first": 1746187200,
+     "last": 1784980800,
+     "lines": 236,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 61,
+     "email": "tomas@example.com",
+     "first": 1747137600,
+     "last": 1783684800,
+     "lines": 142,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 4,
+     "deleted": 43,
+     "email": "priya@example.com",
+     "first": 1738324800,
+     "last": 1786622400,
+     "lines": 118,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 19,
+   "last": 1786622400,
+   "path": "ledger/api/mandates.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1746964800,
+     "last": 1785672000,
+     "lines": 408,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 15,
+     "email": "tomas@example.com",
+     "first": 1737892800,
+     "last": 1784116800,
+     "lines": 99,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 15,
+   "last": 1785672000,
+   "path": "ledger/api/notifications.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 52,
+     "email": "mira@example.com",
+     "first": 1743249600,
+     "last": 1781870400,
+     "lines": 212,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 11,
+     "deleted": 49,
+     "email": "tomas@example.com",
+     "first": 1742472000,
+     "last": 1781956800,
+     "lines": 173,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 9,
+     "deleted": 15,
+     "email": "priya@example.com",
+     "first": 1744200000,
+     "last": 1783339200,
+     "lines": 85,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 24,
+   "last": 1783339200,
+   "path": "ledger/api/onboarding.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 29,
+     "email": "mira@example.com",
+     "first": 1746360000,
+     "last": 1783684800,
+     "lines": 187,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 44,
+     "email": "priya@example.com",
+     "first": 1739016000,
+     "last": 1783857600,
+     "lines": 128,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 5,
+     "deleted": 49,
+     "email": "tomas@example.com",
+     "first": 1739016000,
+     "last": 1782907200,
+     "lines": 89,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 19,
+   "last": 1783857600,
+   "path": "ledger/api/payees.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 81,
+     "email": "mira@example.com",
+     "first": 1748347200,
+     "last": 1785758400,
+     "lines": 352,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 54,
+     "email": "tomas@example.com",
+     "first": 1739534400,
+     "last": 1784030400,
+     "lines": 115,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 5,
+   "last": 1785758400,
+   "path": "ledger/api/payments.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 58,
+     "email": "mira@example.com",
+     "first": 1746446400,
+     "last": 1785240000,
+     "lines": 404,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 53,
+     "email": "tomas@example.com",
+     "first": 1742385600,
+     "last": 1785412800,
+     "lines": 136,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 10,
+     "deleted": 20,
+     "email": "priya@example.com",
+     "first": 1738584000,
+     "last": 1784462400,
+     "lines": 56,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 23,
+   "last": 1785412800,
+   "path": "ledger/api/quotes.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 79,
+     "email": "mira@example.com",
+     "first": 1739534400,
+     "last": 1782648000,
+     "lines": 183,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 4,
+     "deleted": 39,
+     "email": "tomas@example.com",
+     "first": 1739966400,
+     "last": 1785585600,
+     "lines": 122,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 16,
+   "last": 1785585600,
+   "path": "ledger/api/rates.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 78,
+     "email": "tomas@example.com",
+     "first": 1744632000,
+     "last": 1783684800,
+     "lines": 193,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 62,
+     "email": "mira@example.com",
+     "first": 1742904000,
+     "last": 1786449600,
+     "lines": 138,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 24,
+     "email": "priya@example.com",
+     "first": 1748088000,
+     "last": 1783857600,
+     "lines": 61,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 15,
+   "last": 1786449600,
+   "path": "ledger/api/refunds.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 10,
+     "email": "tomas@example.com",
+     "first": 1747915200,
+     "last": 1784548800,
+     "lines": 161,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 10,
+     "deleted": 69,
+     "email": "mira@example.com",
+     "first": 1743768000,
+     "last": 1784289600,
+     "lines": 152,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 21,
+   "last": 1784548800,
+   "path": "ledger/api/reporting.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 18,
+     "email": "mira@example.com",
+     "first": 1745323200,
+     "last": 1783684800,
+     "lines": 198,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 75,
+     "email": "tomas@example.com",
+     "first": 1740571200,
+     "last": 1783166400,
+     "lines": 82,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 18,
+   "last": 1783684800,
+   "path": "ledger/api/schedules.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 35,
+     "email": "tomas@example.com",
+     "first": 1745323200,
+     "last": 1783598400,
+     "lines": 136,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 5,
+     "deleted": 8,
+     "email": "priya@example.com",
+     "first": 1744977600,
+     "last": 1783944000,
+     "lines": 101,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 10,
+     "deleted": 63,
+     "email": "mira@example.com",
+     "first": 1747828800,
+     "last": 1783339200,
+     "lines": 86,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 26,
+   "last": 1783944000,
+   "path": "ledger/api/search.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 20,
+     "email": "tomas@example.com",
+     "first": 1749038400,
+     "last": 1781611200,
+     "lines": 150,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 11,
+     "deleted": 24,
+     "email": "mira@example.com",
+     "first": 1749902400,
+     "last": 1783857600,
+     "lines": 91,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 21,
+   "last": 1783857600,
+   "path": "ledger/api/sessions.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 63,
+     "email": "tomas@example.com",
+     "first": 1739966400,
+     "last": 1786190400,
+     "lines": 221,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 10,
+     "deleted": 52,
+     "email": "mira@example.com",
+     "first": 1743076800,
+     "last": 1785931200,
+     "lines": 120,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 8,
+     "deleted": 90,
+     "email": "priya@example.com",
+     "first": 1740312000,
+     "last": 1785153600,
+     "lines": 104,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 22,
+   "last": 1786190400,
+   "path": "ledger/api/statements.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 50,
+     "email": "mira@example.com",
+     "first": 1740312000,
+     "last": 1785844800,
+     "lines": 378,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 54,
+     "email": "tomas@example.com",
+     "first": 1747224000,
+     "last": 1786017600,
+     "lines": 178,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 12,
+   "last": 1786017600,
+   "path": "ledger/api/subscriptions.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 37,
+     "email": "tomas@example.com",
+     "first": 1750420800,
+     "last": 1785240000,
+     "lines": 171,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 3,
+     "deleted": 14,
+     "email": "priya@example.com",
+     "first": 1748692800,
+     "last": 1782734400,
+     "lines": 132,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 11,
+     "deleted": 84,
+     "email": "mira@example.com",
+     "first": 1752148800,
+     "last": 1782907200,
+     "lines": 105,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 25,
+   "last": 1785240000,
+   "path": "ledger/api/tokens.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 32,
+     "email": "mira@example.com",
+     "first": 1747051200,
+     "last": 1782820800,
+     "lines": 310,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 10,
+     "deleted": 66,
+     "email": "tomas@example.com",
+     "first": 1745064000,
+     "last": 1783425600,
+     "lines": 179,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 3,
+     "deleted": 41,
+     "email": "priya@example.com",
+     "first": 1743854400,
+     "last": 1784980800,
+     "lines": 98,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 19,
+   "last": 1784980800,
+   "path": "ledger/api/transfers.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 27,
+     "email": "mira@example.com",
+     "first": 1750161600,
+     "last": 1785326400,
+     "lines": 256,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 81,
+     "email": "tomas@example.com",
+     "first": 1746878400,
+     "last": 1783425600,
+     "lines": 154,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1785326400,
+   "path": "ledger/api/usage.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 57,
+     "email": "mira@example.com",
+     "first": 1746619200,
+     "last": 1783252800,
+     "lines": 266,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 1,
+     "deleted": 17,
+     "email": "tomas@example.com",
+     "first": 1743422400,
+     "last": 1781352000,
+     "lines": 142,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 11,
+     "deleted": 29,
+     "email": "priya@example.com",
+     "first": 1744027200,
+     "last": 1781784000,
+     "lines": 87,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 19,
+   "last": 1783252800,
+   "path": "ledger/api/validation.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 68,
+     "email": "mira@example.com",
+     "first": 1743336000,
+     "last": 1782129600,
+     "lines": 187,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 10,
+     "deleted": 57,
+     "email": "priya@example.com",
+     "first": 1741003200,
+     "last": 1784116800,
+     "lines": 119,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 12,
+     "deleted": 28,
+     "email": "tomas@example.com",
+     "first": 1750852800,
+     "last": 1782129600,
+     "lines": 104,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 33,
+   "last": 1784116800,
+   "path": "ledger/api/wallets.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 70,
+     "email": "mira@example.com",
+     "first": 1748606400,
+     "last": 1783598400,
+     "lines": 402,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 11,
+     "deleted": 56,
+     "email": "tomas@example.com",
+     "first": 1745323200,
+     "last": 1784980800,
+     "lines": 107,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 20,
+   "last": 1784980800,
+   "path": "ledger/api/webhooks.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 13,
+     "email": "mira@example.com",
+     "first": 1745150400,
+     "last": 1784980800,
+     "lines": 246,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 1,
+     "email": "tomas@example.com",
+     "first": 1752494400,
+     "last": 1782907200,
+     "lines": 124,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1784980800,
+   "path": "ledger/api/webhooks_retry.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 67,
+     "email": "mira@example.com",
+     "first": 1737288000,
+     "last": 1783857600,
+     "lines": 324,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 1,
+     "deleted": 60,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1730635200,
+     "last": 1784721600,
+     "lines": 147,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 12,
+   "last": 1784721600,
+   "path": "ledger/generated/schema_pb2.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 9,
+     "email": "tomas@example.com",
+     "first": 1727784000,
+     "last": 1770120000,
+     "lines": 243,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1770120000,
+   "path": "ledger/ingest/batch_reader.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 41,
+     "email": "tomas@example.com",
+     "first": 1738152000,
+     "last": 1782734400,
+     "lines": 328,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 10,
+     "deleted": 31,
+     "email": "mira@example.com",
+     "first": 1739534400,
+     "last": 1781611200,
+     "lines": 104,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 16,
+   "last": 1782734400,
+   "path": "ledger/ingest/csv_feed.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 5,
+     "email": "mira@example.com",
+     "first": 1735732800,
+     "last": 1782648000,
+     "lines": 144,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 26,
+     "email": "tomas@example.com",
+     "first": 1738324800,
+     "last": 1784462400,
+     "lines": 130,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 6,
+   "last": 1784462400,
+   "path": "ledger/ingest/dedupe.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 60,
+     "email": "tomas@example.com",
+     "first": 1729080000,
+     "last": 1768564800,
+     "lines": 130,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 9,
+   "last": 1768564800,
+   "path": "ledger/ingest/drift.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 29,
+     "email": "tomas@example.com",
+     "first": 1738584000,
+     "last": 1782475200,
+     "lines": 347,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 5,
+     "deleted": 41,
+     "email": "mira@example.com",
+     "first": 1742385600,
+     "last": 1784548800,
+     "lines": 156,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 11,
+   "last": 1784548800,
+   "path": "ledger/ingest/envelope.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 2,
+     "email": "tomas@example.com",
+     "first": 1737892800,
+     "last": 1783080000,
+     "lines": 199,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 6,
+     "deleted": 34,
+     "email": "mira@example.com",
+     "first": 1739793600,
+     "last": 1783252800,
+     "lines": 102,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 17,
+   "last": 1783252800,
+   "path": "ledger/ingest/kafka_bridge.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 14,
+     "email": "tomas@example.com",
+     "first": 1730376000,
+     "last": 1767009600,
+     "lines": 182,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 5,
+   "last": 1767009600,
+   "path": "ledger/ingest/landing.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 77,
+     "email": "tomas@example.com",
+     "first": 1737720000,
+     "last": 1781265600,
+     "lines": 393,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 11,
+     "deleted": 34,
+     "email": "mira@example.com",
+     "first": 1746014400,
+     "last": 1783857600,
+     "lines": 134,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 15,
+   "last": 1783857600,
+   "path": "ledger/ingest/normalise.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 8,
+     "email": "tomas@example.com",
+     "first": 1740225600,
+     "last": 1782043200,
+     "lines": 172,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 71,
+     "email": "mira@example.com",
+     "first": 1738670400,
+     "last": 1781352000,
+     "lines": 71,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 8,
+   "last": 1782043200,
+   "path": "ledger/ingest/partition.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 22,
+     "email": "tomas@example.com",
+     "first": 1731672000,
+     "last": 1765454400,
+     "lines": 238,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 2,
+   "last": 1765454400,
+   "path": "ledger/ingest/replay.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 10,
+     "email": "tomas@example.com",
+     "first": 1746273600,
+     "last": 1779278400,
+     "lines": 385,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 7,
+     "deleted": 86,
+     "email": "mira@example.com",
+     "first": 1746187200,
+     "last": 1782302400,
+     "lines": 212,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 16,
+   "last": 1782302400,
+   "path": "ledger/ingest/schema_guard.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 86,
+     "email": "tomas@example.com",
+     "first": 1745496000,
+     "last": 1780142400,
+     "lines": 387,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 4,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1743854400,
+     "last": 1782302400,
+     "lines": 193,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 12,
+   "last": 1782302400,
+   "path": "ledger/ingest/sftp_poll.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 20,
+     "email": "tomas@example.com",
+     "first": 1732968000,
+     "last": 1763899200,
+     "lines": 126,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 8,
+   "last": 1763899200,
+   "path": "ledger/ingest/sink.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 71,
+     "email": "tomas@example.com",
+     "first": 1740052800,
+     "last": 1782043200,
+     "lines": 291,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 9,
+     "deleted": 51,
+     "email": "mira@example.com",
+     "first": 1745150400,
+     "last": 1780488000,
+     "lines": 114,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 16,
+   "last": 1782043200,
+   "path": "ledger/ingest/stage.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 0,
+     "email": "tomas@example.com",
+     "first": 1740398400,
+     "last": 1778932800,
+     "lines": 128,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 10,
+     "deleted": 16,
+     "email": "mira@example.com",
+     "first": 1742299200,
+     "last": 1778328000,
+     "lines": 62,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 21,
+   "last": 1778932800,
+   "path": "ledger/ingest/throttle.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 69,
+     "email": "tomas@example.com",
+     "first": 1734264000,
+     "last": 1762344000,
+     "lines": 149,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 9,
+   "last": 1762344000,
+   "path": "ledger/ingest/trailer.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 27,
+     "email": "tomas@example.com",
+     "first": 1747742400,
+     "last": 1779883200,
+     "lines": 249,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 1,
+     "deleted": 38,
+     "email": "mira@example.com",
+     "first": 1747051200,
+     "last": 1779710400,
+     "lines": 165,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 13,
+   "last": 1779883200,
+   "path": "ledger/ingest/watermark.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 62,
+     "email": "tomas@example.com",
+     "first": 1743422400,
+     "last": 1780056000,
+     "lines": 142,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 9,
+     "deleted": 17,
+     "email": "mira@example.com",
+     "first": 1742040000,
+     "last": 1778760000,
+     "lines": 72,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 10,
+   "last": 1780056000,
+   "path": "ledger/ingest/xml_feed.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 49,
+     "email": "priya@example.com",
+     "first": 1762344000,
+     "last": 1787486400,
+     "lines": 140,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 2,
+   "last": 1787486400,
+   "path": "ledger/pricing/bands.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 12,
+     "email": "priya@example.com",
+     "first": 1762516800,
+     "last": 1787400000,
+     "lines": 85,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 6,
+   "last": 1787400000,
+   "path": "ledger/pricing/bundles.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 69,
+     "email": "priya@example.com",
+     "first": 1754222400,
+     "last": 1786276800,
+     "lines": 162,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 8,
+     "deleted": 1,
+     "email": "mira@example.com",
+     "first": 1756728000,
+     "last": 1785844800,
+     "lines": 116,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 19,
+   "last": 1786276800,
+   "path": "ledger/pricing/catalogue.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 55,
+     "email": "priya@example.com",
+     "first": 1748347200,
+     "last": 1784116800,
+     "lines": 364,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 5,
+     "deleted": 1,
+     "email": "mira@example.com",
+     "first": 1757592000,
+     "last": 1784894400,
+     "lines": 115,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 13,
+   "last": 1784894400,
+   "path": "ledger/pricing/coupons.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 71,
+     "email": "priya@example.com",
+     "first": 1755432000,
+     "last": 1784376000,
+     "lines": 228,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 11,
+     "deleted": 60,
+     "email": "mira@example.com",
+     "first": 1749124800,
+     "last": 1785844800,
+     "lines": 108,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 19,
+   "last": 1785844800,
+   "path": "ledger/pricing/currency.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 26,
+     "email": "priya@example.com",
+     "first": 1763208000,
+     "last": 1787054400,
+     "lines": 74,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 6,
+   "last": 1787054400,
+   "path": "ledger/pricing/discounts.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 6,
+     "email": "priya@example.com",
+     "first": 1763380800,
+     "last": 1786968000,
+     "lines": 105,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 6,
+   "last": 1786968000,
+   "path": "ledger/pricing/grid.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 68,
+     "email": "priya@example.com",
+     "first": 1758369600,
+     "last": 1784635200,
+     "lines": 237,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 5,
+     "deleted": 4,
+     "email": "mira@example.com",
+     "first": 1750939200,
+     "last": 1784635200,
+     "lines": 217,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 8,
+   "last": 1784635200,
+   "path": "ledger/pricing/margins.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 23,
+     "email": "priya@example.com",
+     "first": 1759838400,
+     "last": 1784289600,
+     "lines": 411,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 11,
+     "deleted": 79,
+     "email": "mira@example.com",
+     "first": 1750593600,
+     "last": 1786363200,
+     "lines": 65,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 20,
+   "last": 1786363200,
+   "path": "ledger/pricing/markup.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 84,
+     "email": "priya@example.com",
+     "first": 1752667200,
+     "last": 1784635200,
+     "lines": 318,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 9,
+     "deleted": 67,
+     "email": "mira@example.com",
+     "first": 1756900800,
+     "last": 1782648000,
+     "lines": 177,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 20,
+   "last": 1784635200,
+   "path": "ledger/pricing/matrix.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 52,
+     "email": "priya@example.com",
+     "first": 1764072000,
+     "last": 1786622400,
+     "lines": 75,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 2,
+   "last": 1786622400,
+   "path": "ledger/pricing/overrides.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 69,
+     "email": "priya@example.com",
+     "first": 1764244800,
+     "last": 1786536000,
+     "lines": 234,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 2,
+   "last": 1786536000,
+   "path": "ledger/pricing/plans.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 11,
+     "email": "priya@example.com",
+     "first": 1756814400,
+     "last": 1783684800,
+     "lines": 397,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 2,
+     "deleted": 11,
+     "email": "mira@example.com",
+     "first": 1761048000,
+     "last": 1782302400,
+     "lines": 79,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 6,
+   "last": 1783684800,
+   "path": "ledger/pricing/promo.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 60,
+     "email": "priya@example.com",
+     "first": 1760616000,
+     "last": 1782648000,
+     "lines": 321,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 2,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1753185600,
+     "last": 1783598400,
+     "lines": 63,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 10,
+   "last": 1783598400,
+   "path": "ledger/pricing/rounding.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 65,
+     "email": "priya@example.com",
+     "first": 1754568000,
+     "last": 1785844800,
+     "lines": 206,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 7,
+     "deleted": 79,
+     "email": "mira@example.com",
+     "first": 1752494400,
+     "last": 1784808000,
+     "lines": 87,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 9,
+   "last": 1785844800,
+   "path": "ledger/pricing/rules.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 40,
+     "email": "priya@example.com",
+     "first": 1764936000,
+     "last": 1786190400,
+     "lines": 113,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 3,
+   "last": 1786190400,
+   "path": "ledger/pricing/spread.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 36,
+     "email": "priya@example.com",
+     "first": 1765108800,
+     "last": 1786104000,
+     "lines": 251,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 8,
+   "last": 1786104000,
+   "path": "ledger/pricing/surcharge.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 43,
+     "email": "mira@example.com",
+     "first": 1757851200,
+     "last": 1783771200,
+     "lines": 211,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 3,
+     "deleted": 29,
+     "email": "priya@example.com",
+     "first": 1761652800,
+     "last": 1781870400,
+     "lines": 160,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 6,
+   "last": 1783771200,
+   "path": "ledger/pricing/tax.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 20,
+     "email": "priya@example.com",
+     "first": 1755259200,
+     "last": 1782820800,
+     "lines": 217,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 10,
+     "deleted": 45,
+     "email": "mira@example.com",
+     "first": 1753185600,
+     "last": 1783684800,
+     "lines": 94,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 19,
+   "last": 1783684800,
+   "path": "ledger/pricing/tiers.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 27,
+     "email": "priya@example.com",
+     "first": 1761912000,
+     "last": 1782302400,
+     "lines": 202,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 10,
+     "deleted": 42,
+     "email": "mira@example.com",
+     "first": 1760961600,
+     "last": 1785153600,
+     "lines": 162,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 16,
+   "last": 1785153600,
+   "path": "ledger/pricing/trials.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 33,
+     "email": "priya@example.com",
+     "first": 1765800000,
+     "last": 1785758400,
+     "lines": 86,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 9,
+   "last": 1785758400,
+   "path": "ledger/pricing/uplift.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 50,
+     "email": "priya@example.com",
+     "first": 1765972800,
+     "last": 1785672000,
+     "lines": 238,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 6,
+   "last": 1785672000,
+   "path": "ledger/pricing/volume.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 48,
+     "email": "daniel@example.com",
+     "first": 1700481600,
+     "last": 1744632000,
+     "lines": 337,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 2,
+   "last": 1744632000,
+   "path": "ledger/settlement/bank_file.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 36,
+     "email": "daniel@example.com",
+     "first": 1693915200,
+     "last": 1744027200,
+     "lines": 208,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 5,
+   "last": 1744027200,
+   "path": "ledger/settlement/buy_in.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 10,
+     "email": "daniel@example.com",
+     "first": 1694952000,
+     "last": 1740398400,
+     "lines": 174,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 5,
+   "last": 1740398400,
+   "path": "ledger/settlement/cash_leg.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 48,
+     "email": "daniel@example.com",
+     "first": 1701518400,
+     "last": 1741003200,
+     "lines": 203,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 5,
+   "last": 1741003200,
+   "path": "ledger/settlement/chargeback.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 58,
+     "email": "daniel@example.com",
+     "first": 1703592000,
+     "last": 1744632000,
+     "lines": 315,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 2,
+   "last": 1744632000,
+   "path": "ledger/settlement/clearing.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 43,
+     "email": "daniel@example.com",
+     "first": 1695297600,
+     "last": 1741003200,
+     "lines": 185,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 9,
+   "last": 1741003200,
+   "path": "ledger/settlement/collateral.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 55,
+     "email": "daniel@example.com",
+     "first": 1697025600,
+     "last": 1744027200,
+     "lines": 177,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 8,
+   "last": 1744027200,
+   "path": "ledger/settlement/confirmation.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 50,
+     "email": "daniel@example.com",
+     "first": 1702555200,
+     "last": 1742817600,
+     "lines": 324,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 7,
+   "last": 1742817600,
+   "path": "ledger/settlement/cutover.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 7,
+     "email": "daniel@example.com",
+     "first": 1694260800,
+     "last": 1744632000,
+     "lines": 318,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 7,
+   "last": 1744632000,
+   "path": "ledger/settlement/fail_report.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 58,
+     "email": "daniel@example.com",
+     "first": 1697716800,
+     "last": 1739793600,
+     "lines": 212,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 3,
+   "last": 1739793600,
+   "path": "ledger/settlement/float_window.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 40,
+     "email": "daniel@example.com",
+     "first": 1702900800,
+     "last": 1743422400,
+     "lines": 184,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 4,
+   "last": 1743422400,
+   "path": "ledger/settlement/fx_rates.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 58,
+     "email": "daniel@example.com",
+     "first": 1695643200,
+     "last": 1741608000,
+     "lines": 241,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 6,
+   "last": 1741608000,
+   "path": "ledger/settlement/haircut.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 44,
+     "email": "daniel@example.com",
+     "first": 1699099200,
+     "last": 1742212800,
+     "lines": 339,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 6,
+   "last": 1742212800,
+   "path": "ledger/settlement/holiday_calendar.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 53,
+     "email": "daniel@example.com",
+     "first": 1697371200,
+     "last": 1744632000,
+     "lines": 115,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 4,
+   "last": 1744632000,
+   "path": "ledger/settlement/instruction.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 69,
+     "email": "daniel@example.com",
+     "first": 1699790400,
+     "last": 1743422400,
+     "lines": 264,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 3,
+   "last": 1743422400,
+   "path": "ledger/settlement/iso20022.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 33,
+     "email": "daniel@example.com",
+     "first": 1693224000,
+     "last": 1742817600,
+     "lines": 208,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 4,
+   "last": 1742817600,
+   "path": "ledger/settlement/late_matching.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 60,
+     "email": "daniel@example.com",
+     "first": 1701172800,
+     "last": 1740398400,
+     "lines": 135,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 2,
+   "last": 1740398400,
+   "path": "ledger/settlement/ledger_post.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 26,
+     "email": "daniel@example.com",
+     "first": 1695988800,
+     "last": 1742212800,
+     "lines": 251,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 6,
+   "last": 1742212800,
+   "path": "ledger/settlement/margin_call.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 57,
+     "email": "daniel@example.com",
+     "first": 1700136000,
+     "last": 1744027200,
+     "lines": 129,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 2,
+   "last": 1744027200,
+   "path": "ledger/settlement/mt940.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 64,
+     "email": "daniel@example.com",
+     "first": 1703246400,
+     "last": 1744027200,
+     "lines": 323,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 6,
+   "last": 1744027200,
+   "path": "ledger/settlement/netting.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 33,
+     "email": "daniel@example.com",
+     "first": 1698753600,
+     "last": 1741608000,
+     "lines": 313,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 8,
+   "last": 1741608000,
+   "path": "ledger/settlement/nostro.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 48,
+     "email": "daniel@example.com",
+     "first": 1696334400,
+     "last": 1742817600,
+     "lines": 334,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 5,
+   "last": 1742817600,
+   "path": "ledger/settlement/novation.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 32,
+     "email": "daniel@example.com",
+     "first": 1701864000,
+     "last": 1741608000,
+     "lines": 197,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 8,
+   "last": 1741608000,
+   "path": "ledger/settlement/payout_batch.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 20,
+     "email": "daniel@example.com",
+     "first": 1693569600,
+     "last": 1743422400,
+     "lines": 260,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 6,
+   "last": 1743422400,
+   "path": "ledger/settlement/penalty.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 12,
+     "email": "daniel@example.com",
+     "first": 1702209600,
+     "last": 1742212800,
+     "lines": 180,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 7,
+   "last": 1742212800,
+   "path": "ledger/settlement/reconcile.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 36,
+     "email": "daniel@example.com",
+     "first": 1694606400,
+     "last": 1739793600,
+     "lines": 186,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 9,
+   "last": 1739793600,
+   "path": "ledger/settlement/security_leg.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 9,
+     "email": "daniel@example.com",
+     "first": 1700827200,
+     "last": 1739793600,
+     "lines": 302,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 8,
+   "last": 1739793600,
+   "path": "ledger/settlement/settlement_run.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 17,
+     "email": "daniel@example.com",
+     "first": 1698062400,
+     "last": 1740398400,
+     "lines": 182,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 3,
+   "last": 1740398400,
+   "path": "ledger/settlement/sweep.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 33,
+     "email": "daniel@example.com",
+     "first": 1696680000,
+     "last": 1743422400,
+     "lines": 175,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 4,
+   "last": 1743422400,
+   "path": "ledger/settlement/unwind.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 49,
+     "email": "daniel@example.com",
+     "first": 1699444800,
+     "last": 1742817600,
+     "lines": 239,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 9,
+   "last": 1742817600,
+   "path": "ledger/settlement/value_date.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 37,
+     "email": "daniel@example.com",
+     "first": 1698408000,
+     "last": 1741003200,
+     "lines": 163,
+     "name": "Daniel Okafor"
+    }
+   ],
+   "commits": 3,
+   "last": 1741003200,
+   "path": "ledger/settlement/vostro.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 9,
+     "email": "mira@example.com",
+     "first": 1736683200,
+     "last": 1786968000,
+     "lines": 413,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 49,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1733745600,
+     "last": 1784548800,
+     "lines": 183,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 8,
+   "last": 1786968000,
+   "path": "node_modules/left-pad/index.js",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 2,
+     "email": "mira@example.com",
+     "first": 1732622400,
+     "last": 1786190400,
+     "lines": 387,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 33,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1733572800,
+     "last": 1784808000,
+     "lines": 148,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 8,
+   "last": 1786190400,
+   "path": "node_modules/ms/index.js",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 64,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1728302400,
+     "last": 1787140800,
+     "lines": 211,
+     "name": "dependabot[bot]"
+    },
+    {
+     "commits": 5,
+     "deleted": 38,
+     "email": "mira@example.com",
+     "first": 1733486400,
+     "last": 1786622400,
+     "lines": 148,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 12,
+   "last": 1787140800,
+   "path": "poetry.lock",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 54,
+     "email": "priya@example.com",
+     "first": 1760356800,
+     "last": 1786017600,
+     "lines": 172,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 5,
+     "deleted": 30,
+     "email": "mira@example.com",
+     "first": 1752321600,
+     "last": 1785931200,
+     "lines": 92,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 9,
+   "last": 1786017600,
+   "path": "tests/api/test_accounts.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 33,
+     "email": "mira@example.com",
+     "first": 1752667200,
+     "last": 1786276800,
+     "lines": 150,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 3,
+     "deleted": 11,
+     "email": "priya@example.com",
+     "first": 1761912000,
+     "last": 1785931200,
+     "lines": 120,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 15,
+   "last": 1786276800,
+   "path": "tests/api/test_auth.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 70,
+     "email": "priya@example.com",
+     "first": 1756987200,
+     "last": 1784462400,
+     "lines": 378,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 6,
+     "deleted": 76,
+     "email": "mira@example.com",
+     "first": 1757592000,
+     "last": 1783080000,
+     "lines": 185,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 11,
+   "last": 1784462400,
+   "path": "tests/api/test_balances.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 62,
+     "email": "priya@example.com",
+     "first": 1759320000,
+     "last": 1784808000,
+     "lines": 253,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 1,
+     "deleted": 31,
+     "email": "mira@example.com",
+     "first": 1759147200,
+     "last": 1783339200,
+     "lines": 67,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 6,
+   "last": 1784808000,
+   "path": "tests/api/test_cards.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 34,
+     "email": "priya@example.com",
+     "first": 1764158400,
+     "last": 1782993600,
+     "lines": 377,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 8,
+     "deleted": 55,
+     "email": "mira@example.com",
+     "first": 1765108800,
+     "last": 1784808000,
+     "lines": 136,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 16,
+   "last": 1784808000,
+   "path": "tests/api/test_customers.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 51,
+     "email": "priya@example.com",
+     "first": 1760184000,
+     "last": 1782993600,
+     "lines": 269,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 7,
+     "deleted": 29,
+     "email": "mira@example.com",
+     "first": 1762171200,
+     "last": 1784894400,
+     "lines": 153,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 13,
+   "last": 1784894400,
+   "path": "tests/api/test_disputes.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 8,
+     "email": "priya@example.com",
+     "first": 1761998400,
+     "last": 1782734400,
+     "lines": 117,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 10,
+     "deleted": 18,
+     "email": "mira@example.com",
+     "first": 1765627200,
+     "last": 1786449600,
+     "lines": 116,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 17,
+   "last": 1786449600,
+   "path": "tests/api/test_events.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 18,
+     "email": "mira@example.com",
+     "first": 1762257600,
+     "last": 1784808000,
+     "lines": 213,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 8,
+     "deleted": 60,
+     "email": "priya@example.com",
+     "first": 1758024000,
+     "last": 1785585600,
+     "lines": 174,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 19,
+   "last": 1785585600,
+   "path": "tests/api/test_fees.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 43,
+     "email": "priya@example.com",
+     "first": 1761048000,
+     "last": 1784030400,
+     "lines": 140,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 7,
+     "deleted": 31,
+     "email": "mira@example.com",
+     "first": 1766318400,
+     "last": 1784030400,
+     "lines": 89,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 10,
+   "last": 1784030400,
+   "path": "tests/api/test_holds.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 43,
+     "email": "priya@example.com",
+     "first": 1766404800,
+     "last": 1785153600,
+     "lines": 233,
+     "name": "Priya Raghavan"
+    },
+    {
+     "commits": 10,
+     "deleted": 4,
+     "email": "mira@example.com",
+     "first": 1761912000,
+     "last": 1783944000,
+     "lines": 62,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 20,
+   "last": 1785153600,
+   "path": "tests/api/test_idempotency.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 78,
+     "email": "mira@example.com",
+     "first": 1751112000,
+     "last": 1782734400,
+     "lines": 407,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 47,
+     "email": "tomas@example.com",
+     "first": 1751976000,
+     "last": 1783857600,
+     "lines": 83,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 15,
+   "last": 1783857600,
+   "path": "tests/test_bank_file.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 20,
+     "email": "mira@example.com",
+     "first": 1756468800,
+     "last": 1783857600,
+     "lines": 148,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 10,
+     "deleted": 58,
+     "email": "tomas@example.com",
+     "first": 1752494400,
+     "last": 1782734400,
+     "lines": 93,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 21,
+   "last": 1783857600,
+   "path": "tests/test_chargeback.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 88,
+     "email": "mira@example.com",
+     "first": 1748174400,
+     "last": 1784635200,
+     "lines": 320,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 29,
+     "email": "tomas@example.com",
+     "first": 1745928000,
+     "last": 1786449600,
+     "lines": 200,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 14,
+   "last": 1786449600,
+   "path": "tests/test_clearing.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 71,
+     "email": "tomas@example.com",
+     "first": 1750766400,
+     "last": 1783339200,
+     "lines": 204,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 86,
+     "email": "mira@example.com",
+     "first": 1754568000,
+     "last": 1783166400,
+     "lines": 171,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 13,
+   "last": 1783339200,
+   "path": "tests/test_cutover.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 89,
+     "email": "mira@example.com",
+     "first": 1757851200,
+     "last": 1784203200,
+     "lines": 323,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 11,
+     "deleted": 24,
+     "email": "tomas@example.com",
+     "first": 1762257600,
+     "last": 1783857600,
+     "lines": 189,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 20,
+   "last": 1784203200,
+   "path": "tests/test_float_window.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 45,
+     "email": "mira@example.com",
+     "first": 1751630400,
+     "last": 1784894400,
+     "lines": 173,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 3,
+     "deleted": 14,
+     "email": "tomas@example.com",
+     "first": 1746705600,
+     "last": 1786276800,
+     "lines": 62,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 4,
+   "last": 1786276800,
+   "path": "tests/test_fx_rates.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 63,
+     "email": "tomas@example.com",
+     "first": 1756728000,
+     "last": 1782216000,
+     "lines": 197,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 8,
+     "deleted": 42,
+     "email": "mira@example.com",
+     "first": 1758801600,
+     "last": 1782734400,
+     "lines": 103,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 16,
+   "last": 1782734400,
+   "path": "tests/test_holiday_calendar.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 13,
+     "email": "mira@example.com",
+     "first": 1756036800,
+     "last": 1783771200,
+     "lines": 298,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 69,
+     "email": "tomas@example.com",
+     "first": 1757678400,
+     "last": 1783339200,
+     "lines": 108,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 13,
+   "last": 1783771200,
+   "path": "tests/test_iso20022.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 32,
+     "email": "mira@example.com",
+     "first": 1750593600,
+     "last": 1783512000,
+     "lines": 147,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 14,
+     "email": "tomas@example.com",
+     "first": 1754568000,
+     "last": 1783080000,
+     "lines": 58,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 8,
+   "last": 1783512000,
+   "path": "tests/test_ledger_post.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 55,
+     "email": "mira@example.com",
+     "first": 1751025600,
+     "last": 1785585600,
+     "lines": 200,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 42,
+     "email": "tomas@example.com",
+     "first": 1751025600,
+     "last": 1783598400,
+     "lines": 95,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 14,
+   "last": 1785585600,
+   "path": "tests/test_mt940.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 72,
+     "email": "mira@example.com",
+     "first": 1748865600,
+     "last": 1786104000,
+     "lines": 385,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 75,
+     "email": "tomas@example.com",
+     "first": 1745841600,
+     "last": 1786104000,
+     "lines": 195,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 18,
+   "last": 1786104000,
+   "path": "tests/test_netting.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 15,
+     "email": "mira@example.com",
+     "first": 1759492800,
+     "last": 1784721600,
+     "lines": 352,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 23,
+     "email": "tomas@example.com",
+     "first": 1762689600,
+     "last": 1782734400,
+     "lines": 213,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 10,
+   "last": 1784721600,
+   "path": "tests/test_nostro.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 4,
+     "email": "mira@example.com",
+     "first": 1756468800,
+     "last": 1786104000,
+     "lines": 373,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 4,
+     "deleted": 83,
+     "email": "tomas@example.com",
+     "first": 1750507200,
+     "last": 1785153600,
+     "lines": 74,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1786104000,
+   "path": "tests/test_payout_batch.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 42,
+     "email": "mira@example.com",
+     "first": 1756900800,
+     "last": 1784808000,
+     "lines": 417,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 43,
+     "email": "tomas@example.com",
+     "first": 1751198400,
+     "last": 1783512000,
+     "lines": 100,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 15,
+   "last": 1784808000,
+   "path": "tests/test_reconcile.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 89,
+     "email": "mira@example.com",
+     "first": 1755518400,
+     "last": 1783339200,
+     "lines": 107,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 86,
+     "email": "tomas@example.com",
+     "first": 1754827200,
+     "last": 1785672000,
+     "lines": 65,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 10,
+   "last": 1785672000,
+   "path": "tests/test_settlement_run.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 24,
+     "email": "mira@example.com",
+     "first": 1760270400,
+     "last": 1784721600,
+     "lines": 330,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 51,
+     "email": "tomas@example.com",
+     "first": 1756123200,
+     "last": 1782302400,
+     "lines": 140,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 12,
+   "last": 1784721600,
+   "path": "tests/test_sweep.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1753185600,
+     "last": 1784980800,
+     "lines": 273,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 16,
+     "email": "tomas@example.com",
+     "first": 1760356800,
+     "last": 1784289600,
+     "lines": 175,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1784980800,
+   "path": "tests/test_value_date.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 38,
+     "email": "mira@example.com",
+     "first": 1763208000,
+     "last": 1784980800,
+     "lines": 98,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 4,
+     "deleted": 22,
+     "email": "tomas@example.com",
+     "first": 1756296000,
+     "last": 1784030400,
+     "lines": 93,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1784980800,
+   "path": "tests/test_vostro.py",
+   "repo": "ledger-api",
+   "repo_path": "/work/ledger-api",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1717416000,
+     "last": 1762344000,
+     "lines": 91,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 7,
+   "last": 1762344000,
+   "path": "README.md",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 66,
+     "email": "mira@example.com",
+     "first": 1717416000,
+     "last": 1762344000,
+     "lines": 42,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 7,
+   "last": 1762344000,
+   "path": "docs/access.md",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 56,
+     "email": "mira@example.com",
+     "first": 1717416000,
+     "last": 1762344000,
+     "lines": 43,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 2,
+   "last": 1762344000,
+   "path": "docs/dr-plan.md",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 42,
+     "email": "mira@example.com",
+     "first": 1717416000,
+     "last": 1762344000,
+     "lines": 40,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 4,
+   "last": 1762344000,
+   "path": "docs/inventory.md",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 51,
+     "email": "mira@example.com",
+     "first": 1717416000,
+     "last": 1762344000,
+     "lines": 103,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 4,
+   "last": 1762344000,
+   "path": "docs/oncall.md",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 8,
+     "email": "mira@example.com",
+     "first": 1717416000,
+     "last": 1762344000,
+     "lines": 69,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 2,
+   "last": 1762344000,
+   "path": "docs/runbook.md",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 4,
+     "email": "elena@example.com",
+     "first": 1710504000,
+     "last": 1754136000,
+     "lines": 73,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 4,
+   "last": 1754136000,
+   "path": "scripts/backfill_ledger.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 6,
+     "email": "elena@example.com",
+     "first": 1711108800,
+     "last": 1753099200,
+     "lines": 92,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 6,
+   "last": 1753099200,
+   "path": "scripts/bootstrap_env.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 0,
+     "email": "elena@example.com",
+     "first": 1711713600,
+     "last": 1752062400,
+     "lines": 104,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 5,
+   "last": 1752062400,
+   "path": "scripts/cut_release.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 58,
+     "email": "mira@example.com",
+     "first": 1720353600,
+     "last": 1774958400,
+     "lines": 216,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 10,
+     "deleted": 3,
+     "email": "elena@example.com",
+     "first": 1721131200,
+     "last": 1776600000,
+     "lines": 113,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 12,
+   "last": 1776600000,
+   "path": "scripts/db_restore.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 30,
+     "email": "elena@example.com",
+     "first": 1718107200,
+     "last": 1775217600,
+     "lines": 253,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 9,
+     "deleted": 21,
+     "email": "mira@example.com",
+     "first": 1719316800,
+     "last": 1774440000,
+     "lines": 64,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 11,
+   "last": 1775217600,
+   "path": "scripts/drain_node.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 62,
+     "email": "elena@example.com",
+     "first": 1713528000,
+     "last": 1748952000,
+     "lines": 103,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 2,
+   "last": 1748952000,
+   "path": "scripts/dump_metrics.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 57,
+     "email": "elena@example.com",
+     "first": 1714132800,
+     "last": 1747915200,
+     "lines": 113,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 7,
+   "last": 1747915200,
+   "path": "scripts/expire_tokens.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 9,
+     "email": "elena@example.com",
+     "first": 1714737600,
+     "last": 1746878400,
+     "lines": 81,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 3,
+   "last": 1746878400,
+   "path": "scripts/failover_drill.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 67,
+     "email": "elena@example.com",
+     "first": 1728561600,
+     "last": 1772884800,
+     "lines": 320,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 11,
+     "deleted": 60,
+     "email": "mira@example.com",
+     "first": 1727092800,
+     "last": 1771156800,
+     "lines": 162,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 15,
+   "last": 1772884800,
+   "path": "scripts/gc_artifacts.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 48,
+     "email": "elena@example.com",
+     "first": 1728734400,
+     "last": 1772884800,
+     "lines": 260,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 3,
+     "deleted": 61,
+     "email": "mira@example.com",
+     "first": 1726660800,
+     "last": 1773489600,
+     "lines": 128,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 8,
+   "last": 1773489600,
+   "path": "scripts/grant_access.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 34,
+     "email": "elena@example.com",
+     "first": 1716552000,
+     "last": 1743768000,
+     "lines": 111,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 3,
+   "last": 1743768000,
+   "path": "scripts/load_test.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 13,
+     "email": "elena@example.com",
+     "first": 1717156800,
+     "last": 1742731200,
+     "lines": 80,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 8,
+   "last": 1742731200,
+   "path": "scripts/migrate_schema.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 42,
+     "email": "elena@example.com",
+     "first": 1717761600,
+     "last": 1741694400,
+     "lines": 147,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 2,
+   "last": 1741694400,
+   "path": "scripts/prune_images.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 13,
+     "email": "elena@example.com",
+     "first": 1732017600,
+     "last": 1771848000,
+     "lines": 278,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 1,
+     "deleted": 46,
+     "email": "mira@example.com",
+     "first": 1722859200,
+     "last": 1769083200,
+     "lines": 84,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 9,
+   "last": 1771848000,
+   "path": "scripts/reap_sandboxes.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1726920000,
+     "last": 1770811200,
+     "lines": 178,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 4,
+     "deleted": 20,
+     "email": "elena@example.com",
+     "first": 1727265600,
+     "last": 1769947200,
+     "lines": 86,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 13,
+   "last": 1770811200,
+   "path": "scripts/reindex_search.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 14,
+     "email": "elena@example.com",
+     "first": 1719576000,
+     "last": 1738584000,
+     "lines": 138,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 9,
+   "last": 1738584000,
+   "path": "scripts/rotate_keys.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 60,
+     "email": "elena@example.com",
+     "first": 1720180800,
+     "last": 1737547200,
+     "lines": 122,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 8,
+   "last": 1737547200,
+   "path": "scripts/seed_demo.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 18,
+     "email": "elena@example.com",
+     "first": 1720785600,
+     "last": 1736510400,
+     "lines": 163,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 5,
+   "last": 1736510400,
+   "path": "scripts/snapshot_vols.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 38,
+     "email": "elena@example.com",
+     "first": 1733745600,
+     "last": 1767009600,
+     "lines": 421,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 9,
+     "deleted": 15,
+     "email": "mira@example.com",
+     "first": 1734523200,
+     "last": 1769947200,
+     "lines": 83,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 18,
+   "last": 1769947200,
+   "path": "scripts/sync_dns.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 81,
+     "email": "elena@example.com",
+     "first": 1730894400,
+     "last": 1769515200,
+     "lines": 147,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 2,
+     "deleted": 25,
+     "email": "mira@example.com",
+     "first": 1733659200,
+     "last": 1769428800,
+     "lines": 127,
+     "name": "Mira Solberg"
+    }
+   ],
+   "commits": 11,
+   "last": 1769515200,
+   "path": "scripts/tail_audit.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 19,
+     "email": "elena@example.com",
+     "first": 1722600000,
+     "last": 1733400000,
+     "lines": 146,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 9,
+   "last": 1733400000,
+   "path": "scripts/verify_backups.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 63,
+     "email": "elena@example.com",
+     "first": 1723204800,
+     "last": 1732363200,
+     "lines": 61,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 7,
+   "last": 1732363200,
+   "path": "scripts/warm_cache.sh",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 71,
+     "email": "mira@example.com",
+     "first": 1730721600,
+     "last": 1781006400,
+     "lines": 375,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 80,
+     "email": "elena@example.com",
+     "first": 1731585600,
+     "last": 1779019200,
+     "lines": 203,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 12,
+   "last": 1781006400,
+   "path": "terraform/dns.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 90,
+     "email": "mira@example.com",
+     "first": 1731758400,
+     "last": 1779883200,
+     "lines": 142,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 75,
+     "email": "elena@example.com",
+     "first": 1724155200,
+     "last": 1781265600,
+     "lines": 119,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 4,
+   "last": 1781265600,
+   "path": "terraform/iam.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 68,
+     "email": "mira@example.com",
+     "first": 1724760000,
+     "last": 1778846400,
+     "lines": 298,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 5,
+     "deleted": 55,
+     "email": "elena@example.com",
+     "first": 1734609600,
+     "last": 1780660800,
+     "lines": 180,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 7,
+   "last": 1780660800,
+   "path": "terraform/network.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 81,
+     "email": "mira@example.com",
+     "first": 1732968000,
+     "last": 1778932800,
+     "lines": 252,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 6,
+     "deleted": 77,
+     "email": "elena@example.com",
+     "first": 1730116800,
+     "last": 1779105600,
+     "lines": 70,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 15,
+   "last": 1779105600,
+   "path": "terraform/observability.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 1,
+     "email": "mira@example.com",
+     "first": 1733227200,
+     "last": 1780315200,
+     "lines": 419,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 8,
+     "deleted": 76,
+     "email": "elena@example.com",
+     "first": 1732104000,
+     "last": 1779451200,
+     "lines": 161,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 16,
+   "last": 1780315200,
+   "path": "terraform/queues.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 42,
+     "email": "mira@example.com",
+     "first": 1730548800,
+     "last": 1777636800,
+     "lines": 246,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 9,
+     "deleted": 87,
+     "email": "elena@example.com",
+     "first": 1730980800,
+     "last": 1780056000,
+     "lines": 71,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 19,
+   "last": 1780056000,
+   "path": "terraform/rds.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 23,
+     "email": "mira@example.com",
+     "first": 1728561600,
+     "last": 1778155200,
+     "lines": 257,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 2,
+     "deleted": 57,
+     "email": "elena@example.com",
+     "first": 1728302400,
+     "last": 1777896000,
+     "lines": 103,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 12,
+   "last": 1778155200,
+   "path": "terraform/redis.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 83,
+     "email": "mira@example.com",
+     "first": 1732795200,
+     "last": 1777636800,
+     "lines": 289,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 11,
+     "deleted": 60,
+     "email": "elena@example.com",
+     "first": 1730462400,
+     "last": 1775995200,
+     "lines": 146,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 21,
+   "last": 1777636800,
+   "path": "terraform/s3.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 52,
+     "email": "mira@example.com",
+     "first": 1731153600,
+     "last": 1777291200,
+     "lines": 209,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 7,
+     "deleted": 57,
+     "email": "elena@example.com",
+     "first": 1736856000,
+     "last": 1775390400,
+     "lines": 114,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 17,
+   "last": 1777291200,
+   "path": "terraform/secrets.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 1,
+     "email": "mira@example.com",
+     "first": 1740657600,
+     "last": 1777982400,
+     "lines": 369,
+     "name": "Mira Solberg"
+    },
+    {
+     "commits": 4,
+     "deleted": 64,
+     "email": "elena@example.com",
+     "first": 1733227200,
+     "last": 1775995200,
+     "lines": 72,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 12,
+   "last": 1777982400,
+   "path": "terraform/vpc.tf",
+   "repo": "ops-tooling",
+   "repo_path": "/work/ops-tooling",
+   "shallow": true
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 28,
+     "email": "elena@example.com",
+     "first": 1740484800,
+     "last": 1784548800,
+     "lines": 234,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 4,
+     "deleted": 33,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1741694400,
+     "last": 1786363200,
+     "lines": 69,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 10,
+   "last": 1786363200,
+   "path": "dist/app.min.js",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 7,
+     "email": "elena@example.com",
+     "first": 1739102400,
+     "last": 1785153600,
+     "lines": 344,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 5,
+     "deleted": 7,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1740744000,
+     "last": 1785067200,
+     "lines": 84,
+     "name": "dependabot[bot]"
+    }
+   ],
+   "commits": 7,
+   "last": 1785153600,
+   "path": "package-lock.json",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 68,
+     "email": "priya@example.com",
+     "first": 1762689600,
+     "last": 1775649600,
+     "lines": 299,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 8,
+   "last": 1775649600,
+   "path": "src/billing/credit_note.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 64,
+     "email": "priya@example.com",
+     "first": 1758024000,
+     "last": 1784203200,
+     "lines": 251,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 2,
+   "last": 1784203200,
+   "path": "src/billing/dunning.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 49,
+     "email": "priya@example.com",
+     "first": 1758542400,
+     "last": 1783252800,
+     "lines": 114,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 4,
+   "last": 1783252800,
+   "path": "src/billing/invoice_pdf.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 63,
+     "email": "priya@example.com",
+     "first": 1759060800,
+     "last": 1782302400,
+     "lines": 123,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 4,
+   "last": 1782302400,
+   "path": "src/billing/proration.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 55,
+     "email": "priya@example.com",
+     "first": 1759579200,
+     "last": 1781352000,
+     "lines": 140,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 5,
+   "last": 1781352000,
+   "path": "src/billing/seat_sync.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 0,
+     "email": "priya@example.com",
+     "first": 1760097600,
+     "last": 1780401600,
+     "lines": 221,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 2,
+   "last": 1780401600,
+   "path": "src/billing/tax_lookup.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 19,
+     "email": "priya@example.com",
+     "first": 1760616000,
+     "last": 1779451200,
+     "lines": 102,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 5,
+   "last": 1779451200,
+   "path": "src/billing/trial_end.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 52,
+     "email": "priya@example.com",
+     "first": 1761134400,
+     "last": 1778500800,
+     "lines": 168,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 9,
+   "last": 1778500800,
+   "path": "src/billing/usage_roll.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 12,
+     "email": "priya@example.com",
+     "first": 1761652800,
+     "last": 1777550400,
+     "lines": 256,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 8,
+   "last": 1777550400,
+   "path": "src/billing/webhook_in.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 28,
+     "email": "priya@example.com",
+     "first": 1762171200,
+     "last": 1776600000,
+     "lines": 99,
+     "name": "Priya Raghavan"
+    }
+   ],
+   "commits": 6,
+   "last": 1776600000,
+   "path": "src/billing/webhook_out.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 44,
+     "email": "yuki@example.com",
+     "first": 1751976000,
+     "last": 1785326400,
+     "lines": 127,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 8,
+   "last": 1785326400,
+   "path": "src/components/AmountInput.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 35,
+     "email": "yuki@example.com",
+     "first": 1747569600,
+     "last": 1786190400,
+     "lines": 308,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 1,
+     "deleted": 55,
+     "email": "elena@example.com",
+     "first": 1749988800,
+     "last": 1784721600,
+     "lines": 198,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 10,
+   "last": 1786190400,
+   "path": "src/components/Badge.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 8,
+     "email": "yuki@example.com",
+     "first": 1753963200,
+     "last": 1785931200,
+     "lines": 420,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 4,
+     "deleted": 41,
+     "email": "elena@example.com",
+     "first": 1751803200,
+     "last": 1785585600,
+     "lines": 170,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 13,
+   "last": 1785931200,
+   "path": "src/components/BillingCard.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 45,
+     "email": "yuki@example.com",
+     "first": 1752753600,
+     "last": 1784548800,
+     "lines": 119,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 3,
+   "last": 1784548800,
+   "path": "src/components/Breadcrumb.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 12,
+     "email": "yuki@example.com",
+     "first": 1749902400,
+     "last": 1785412800,
+     "lines": 213,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 5,
+     "deleted": 72,
+     "email": "elena@example.com",
+     "first": 1748692800,
+     "last": 1783944000,
+     "lines": 58,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 12,
+   "last": 1785412800,
+   "path": "src/components/Callout.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 12,
+     "email": "yuki@example.com",
+     "first": 1754049600,
+     "last": 1784116800,
+     "lines": 376,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 10,
+     "deleted": 64,
+     "email": "elena@example.com",
+     "first": 1749816000,
+     "last": 1782734400,
+     "lines": 101,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 17,
+   "last": 1784116800,
+   "path": "src/components/Chart.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 5,
+     "email": "yuki@example.com",
+     "first": 1753531200,
+     "last": 1783771200,
+     "lines": 182,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 5,
+   "last": 1783771200,
+   "path": "src/components/Checkbox.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 54,
+     "email": "yuki@example.com",
+     "first": 1754740800,
+     "last": 1785067200,
+     "lines": 186,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 1,
+     "deleted": 23,
+     "email": "elena@example.com",
+     "first": 1756123200,
+     "last": 1783771200,
+     "lines": 75,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 6,
+   "last": 1785067200,
+   "path": "src/components/CurrencyPicker.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 43,
+     "email": "elena@example.com",
+     "first": 1748174400,
+     "last": 1783166400,
+     "lines": 200,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 12,
+     "deleted": 43,
+     "email": "yuki@example.com",
+     "first": 1756728000,
+     "last": 1784635200,
+     "lines": 99,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 14,
+   "last": 1784635200,
+   "path": "src/components/DataGrid.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 43,
+     "email": "yuki@example.com",
+     "first": 1754308800,
+     "last": 1782993600,
+     "lines": 129,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 8,
+   "last": 1782993600,
+   "path": "src/components/DatePicker.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 22,
+     "email": "yuki@example.com",
+     "first": 1753704000,
+     "last": 1783512000,
+     "lines": 280,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 8,
+     "deleted": 70,
+     "email": "elena@example.com",
+     "first": 1754913600,
+     "last": 1783512000,
+     "lines": 182,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 9,
+   "last": 1783512000,
+   "path": "src/components/Dialog.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 36,
+     "email": "yuki@example.com",
+     "first": 1756555200,
+     "last": 1782561600,
+     "lines": 288,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 3,
+     "deleted": 3,
+     "email": "elena@example.com",
+     "first": 1755086400,
+     "last": 1782216000,
+     "lines": 171,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 11,
+   "last": 1782561600,
+   "path": "src/components/Drawer.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 7,
+     "email": "yuki@example.com",
+     "first": 1755086400,
+     "last": 1782216000,
+     "lines": 61,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 4,
+   "last": 1782216000,
+   "path": "src/components/EmptyState.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 68,
+     "email": "yuki@example.com",
+     "first": 1752321600,
+     "last": 1784548800,
+     "lines": 321,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 1,
+     "deleted": 76,
+     "email": "elena@example.com",
+     "first": 1750161600,
+     "last": 1783339200,
+     "lines": 115,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 7,
+   "last": 1784548800,
+   "path": "src/components/FieldSet.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 71,
+     "email": "elena@example.com",
+     "first": 1756468800,
+     "last": 1781611200,
+     "lines": 220,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 7,
+     "deleted": 61,
+     "email": "yuki@example.com",
+     "first": 1753358400,
+     "last": 1784548800,
+     "lines": 172,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 19,
+   "last": 1784548800,
+   "path": "src/components/Filters.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 8,
+     "email": "yuki@example.com",
+     "first": 1755864000,
+     "last": 1781438400,
+     "lines": 112,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 2,
+   "last": 1781438400,
+   "path": "src/components/Footer.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 68,
+     "email": "yuki@example.com",
+     "first": 1758110400,
+     "last": 1782561600,
+     "lines": 272,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 9,
+     "deleted": 59,
+     "email": "elena@example.com",
+     "first": 1758283200,
+     "last": 1782648000,
+     "lines": 201,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 16,
+   "last": 1782648000,
+   "path": "src/components/Header.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 31,
+     "email": "yuki@example.com",
+     "first": 1758369600,
+     "last": 1782302400,
+     "lines": 155,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 8,
+     "deleted": 44,
+     "email": "elena@example.com",
+     "first": 1760702400,
+     "last": 1781006400,
+     "lines": 107,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 20,
+   "last": 1782302400,
+   "path": "src/components/InvoiceRow.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 64,
+     "email": "yuki@example.com",
+     "first": 1756641600,
+     "last": 1780660800,
+     "lines": 207,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 3,
+   "last": 1780660800,
+   "path": "src/components/LineItem.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 21,
+     "email": "yuki@example.com",
+     "first": 1760961600,
+     "last": 1780747200,
+     "lines": 317,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 9,
+     "deleted": 81,
+     "email": "elena@example.com",
+     "first": 1758283200,
+     "last": 1781524800,
+     "lines": 218,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 18,
+   "last": 1781524800,
+   "path": "src/components/Menu.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 85,
+     "email": "yuki@example.com",
+     "first": 1753272000,
+     "last": 1782129600,
+     "lines": 226,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 8,
+     "deleted": 37,
+     "email": "elena@example.com",
+     "first": 1756900800,
+     "last": 1780228800,
+     "lines": 105,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 20,
+   "last": 1782129600,
+   "path": "src/components/Modal.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 60,
+     "email": "yuki@example.com",
+     "first": 1757419200,
+     "last": 1779883200,
+     "lines": 78,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 4,
+   "last": 1779883200,
+   "path": "src/components/Nav.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 85,
+     "email": "yuki@example.com",
+     "first": 1753963200,
+     "last": 1783080000,
+     "lines": 251,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 8,
+     "deleted": 17,
+     "email": "elena@example.com",
+     "first": 1760356800,
+     "last": 1782302400,
+     "lines": 119,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 16,
+   "last": 1783080000,
+   "path": "src/components/Pagination.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 22,
+     "email": "yuki@example.com",
+     "first": 1761825600,
+     "last": 1781006400,
+     "lines": 372,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 10,
+     "deleted": 34,
+     "email": "elena@example.com",
+     "first": 1753790400,
+     "last": 1782907200,
+     "lines": 95,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 21,
+   "last": 1782907200,
+   "path": "src/components/PlanTile.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 7,
+     "email": "yuki@example.com",
+     "first": 1758196800,
+     "last": 1779105600,
+     "lines": 161,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 8,
+   "last": 1779105600,
+   "path": "src/components/PriceTag.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 39,
+     "email": "yuki@example.com",
+     "first": 1754222400,
+     "last": 1781265600,
+     "lines": 334,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 6,
+     "deleted": 18,
+     "email": "elena@example.com",
+     "first": 1759233600,
+     "last": 1781870400,
+     "lines": 214,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 16,
+   "last": 1781870400,
+   "path": "src/components/Progress.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 71,
+     "email": "yuki@example.com",
+     "first": 1756382400,
+     "last": 1779969600,
+     "lines": 370,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 8,
+     "deleted": 31,
+     "email": "elena@example.com",
+     "first": 1764417600,
+     "last": 1779710400,
+     "lines": 120,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 14,
+   "last": 1779969600,
+   "path": "src/components/RadioGroup.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 17,
+     "email": "yuki@example.com",
+     "first": 1758974400,
+     "last": 1778328000,
+     "lines": 84,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 6,
+   "last": 1778328000,
+   "path": "src/components/SearchBox.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 56,
+     "email": "yuki@example.com",
+     "first": 1755691200,
+     "last": 1782043200,
+     "lines": 238,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 4,
+     "deleted": 73,
+     "email": "elena@example.com",
+     "first": 1756468800,
+     "last": 1782388800,
+     "lines": 170,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 8,
+   "last": 1782388800,
+   "path": "src/components/Select.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 72,
+     "email": "yuki@example.com",
+     "first": 1761220800,
+     "last": 1778500800,
+     "lines": 410,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 5,
+     "deleted": 24,
+     "email": "elena@example.com",
+     "first": 1758283200,
+     "last": 1779537600,
+     "lines": 84,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 10,
+   "last": 1779537600,
+   "path": "src/components/Sidebar.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 64,
+     "email": "yuki@example.com",
+     "first": 1759752000,
+     "last": 1777550400,
+     "lines": 198,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 6,
+   "last": 1777550400,
+   "path": "src/components/Skeleton.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 16,
+     "email": "yuki@example.com",
+     "first": 1757073600,
+     "last": 1780488000,
+     "lines": 360,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 6,
+     "deleted": 23,
+     "email": "elena@example.com",
+     "first": 1761048000,
+     "last": 1781265600,
+     "lines": 169,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 13,
+   "last": 1781265600,
+   "path": "src/components/Spinner.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 67,
+     "email": "yuki@example.com",
+     "first": 1763208000,
+     "last": 1781265600,
+     "lines": 169,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 6,
+     "deleted": 56,
+     "email": "elena@example.com",
+     "first": 1757160000,
+     "last": 1781611200,
+     "lines": 59,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 8,
+   "last": 1781611200,
+   "path": "src/components/Stepper.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 8,
+     "email": "yuki@example.com",
+     "first": 1760529600,
+     "last": 1776772800,
+     "lines": 156,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 8,
+   "last": 1776772800,
+   "path": "src/components/Table.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 55,
+     "email": "yuki@example.com",
+     "first": 1758715200,
+     "last": 1779883200,
+     "lines": 399,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 10,
+     "deleted": 63,
+     "email": "elena@example.com",
+     "first": 1763812800,
+     "last": 1778932800,
+     "lines": 173,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 15,
+   "last": 1779883200,
+   "path": "src/components/Tabs.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 54,
+     "email": "yuki@example.com",
+     "first": 1761998400,
+     "last": 1779019200,
+     "lines": 380,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 3,
+     "deleted": 41,
+     "email": "elena@example.com",
+     "first": 1758110400,
+     "last": 1779537600,
+     "lines": 176,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 4,
+   "last": 1779537600,
+   "path": "src/components/Toast.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 27,
+     "email": "yuki@example.com",
+     "first": 1761307200,
+     "last": 1775995200,
+     "lines": 121,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 2,
+   "last": 1775995200,
+   "path": "src/components/Toggle.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 37,
+     "email": "yuki@example.com",
+     "first": 1762948800,
+     "last": 1780056000,
+     "lines": 137,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 2,
+     "deleted": 50,
+     "email": "elena@example.com",
+     "first": 1758110400,
+     "last": 1778673600,
+     "lines": 135,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 10,
+   "last": 1780056000,
+   "path": "src/components/Tooltip.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 28,
+     "email": "tomas@example.com",
+     "first": 1747483200,
+     "last": 1783425600,
+     "lines": 353,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 3,
+     "deleted": 29,
+     "email": "yuki@example.com",
+     "first": 1747396800,
+     "last": 1784116800,
+     "lines": 156,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 6,
+     "deleted": 70,
+     "email": "elena@example.com",
+     "first": 1743336000,
+     "last": 1783598400,
+     "lines": 137,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 11,
+   "last": 1784116800,
+   "path": "src/lib/analytics.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 7,
+     "email": "tomas@example.com",
+     "first": 1736078400,
+     "last": 1765022400,
+     "lines": 74,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 7,
+   "last": 1765022400,
+   "path": "src/lib/api-client.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 46,
+     "email": "tomas@example.com",
+     "first": 1740571200,
+     "last": 1785326400,
+     "lines": 373,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 7,
+     "deleted": 32,
+     "email": "yuki@example.com",
+     "first": 1740052800,
+     "last": 1782216000,
+     "lines": 108,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 2,
+     "deleted": 18,
+     "email": "elena@example.com",
+     "first": 1746792000,
+     "last": 1784980800,
+     "lines": 101,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 17,
+   "last": 1785326400,
+   "path": "src/lib/cache.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 32,
+     "email": "elena@example.com",
+     "first": 1741608000,
+     "last": 1781870400,
+     "lines": 199,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 4,
+     "deleted": 65,
+     "email": "tomas@example.com",
+     "first": 1747396800,
+     "last": 1784462400,
+     "lines": 171,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 6,
+     "deleted": 25,
+     "email": "yuki@example.com",
+     "first": 1739966400,
+     "last": 1782043200,
+     "lines": 72,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 19,
+   "last": 1784462400,
+   "path": "src/lib/currency.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 16,
+     "email": "tomas@example.com",
+     "first": 1737633600,
+     "last": 1762689600,
+     "lines": 70,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 9,
+   "last": 1762689600,
+   "path": "src/lib/dates.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 11,
+     "email": "tomas@example.com",
+     "first": 1744113600,
+     "last": 1784116800,
+     "lines": 228,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 75,
+     "email": "yuki@example.com",
+     "first": 1747483200,
+     "last": 1784376000,
+     "lines": 96,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 3,
+     "deleted": 26,
+     "email": "elena@example.com",
+     "first": 1745323200,
+     "last": 1784808000,
+     "lines": 89,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 8,
+   "last": 1784808000,
+   "path": "src/lib/errors.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 68,
+     "email": "elena@example.com",
+     "first": 1742299200,
+     "last": 1784289600,
+     "lines": 198,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 10,
+     "deleted": 88,
+     "email": "yuki@example.com",
+     "first": 1746360000,
+     "last": 1781524800,
+     "lines": 130,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 7,
+     "deleted": 8,
+     "email": "tomas@example.com",
+     "first": 1746360000,
+     "last": 1784116800,
+     "lines": 114,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 23,
+   "last": 1784289600,
+   "path": "src/lib/feature-flags.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 52,
+     "email": "tomas@example.com",
+     "first": 1739188800,
+     "last": 1760356800,
+     "lines": 92,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 2,
+   "last": 1760356800,
+   "path": "src/lib/fetcher.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 0,
+     "email": "tomas@example.com",
+     "first": 1751198400,
+     "last": 1782388800,
+     "lines": 232,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 3,
+     "deleted": 88,
+     "email": "yuki@example.com",
+     "first": 1743595200,
+     "last": 1783944000,
+     "lines": 136,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 6,
+     "deleted": 5,
+     "email": "elena@example.com",
+     "first": 1747742400,
+     "last": 1780574400,
+     "lines": 77,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 17,
+   "last": 1783944000,
+   "path": "src/lib/format.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 52,
+     "email": "tomas@example.com",
+     "first": 1743508800,
+     "last": 1780660800,
+     "lines": 157,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 9,
+     "deleted": 58,
+     "email": "elena@example.com",
+     "first": 1747396800,
+     "last": 1780747200,
+     "lines": 60,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 9,
+     "deleted": 19,
+     "email": "yuki@example.com",
+     "first": 1747224000,
+     "last": 1782820800,
+     "lines": 48,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 27,
+   "last": 1782820800,
+   "path": "src/lib/i18n.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 10,
+     "email": "tomas@example.com",
+     "first": 1740744000,
+     "last": 1758024000,
+     "lines": 237,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 6,
+   "last": 1758024000,
+   "path": "src/lib/logger.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 74,
+     "email": "tomas@example.com",
+     "first": 1751803200,
+     "last": 1781870400,
+     "lines": 399,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 57,
+     "email": "yuki@example.com",
+     "first": 1744459200,
+     "last": 1782820800,
+     "lines": 147,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 1,
+     "deleted": 47,
+     "email": "elena@example.com",
+     "first": 1749902400,
+     "last": 1782820800,
+     "lines": 90,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 4,
+   "last": 1782820800,
+   "path": "src/lib/money.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 62,
+     "email": "tomas@example.com",
+     "first": 1750161600,
+     "last": 1781611200,
+     "lines": 167,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 2,
+     "deleted": 88,
+     "email": "elena@example.com",
+     "first": 1746964800,
+     "last": 1781179200,
+     "lines": 109,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 8,
+     "deleted": 87,
+     "email": "yuki@example.com",
+     "first": 1744545600,
+     "last": 1781697600,
+     "lines": 92,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 14,
+   "last": 1781697600,
+   "path": "src/lib/paths.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 68,
+     "email": "tomas@example.com",
+     "first": 1742299200,
+     "last": 1755691200,
+     "lines": 211,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 3,
+   "last": 1755691200,
+   "path": "src/lib/query.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 35,
+     "email": "tomas@example.com",
+     "first": 1752840000,
+     "last": 1779710400,
+     "lines": 332,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 6,
+     "deleted": 49,
+     "email": "elena@example.com",
+     "first": 1750507200,
+     "last": 1780747200,
+     "lines": 207,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 4,
+     "deleted": 9,
+     "email": "yuki@example.com",
+     "first": 1749729600,
+     "last": 1779537600,
+     "lines": 93,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 22,
+   "last": 1780747200,
+   "path": "src/lib/retry.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 12,
+     "deleted": 1,
+     "email": "tomas@example.com",
+     "first": 1748520000,
+     "last": 1778846400,
+     "lines": 262,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 6,
+     "deleted": 56,
+     "email": "elena@example.com",
+     "first": 1746964800,
+     "last": 1778068800,
+     "lines": 155,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 3,
+     "deleted": 33,
+     "email": "yuki@example.com",
+     "first": 1747915200,
+     "last": 1779451200,
+     "lines": 132,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 21,
+   "last": 1779451200,
+   "path": "src/lib/router.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 24,
+     "email": "tomas@example.com",
+     "first": 1743854400,
+     "last": 1753358400,
+     "lines": 119,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 6,
+   "last": 1753358400,
+   "path": "src/lib/storage.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 52,
+     "email": "elena@example.com",
+     "first": 1754481600,
+     "last": 1779364800,
+     "lines": 99,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 4,
+     "deleted": 76,
+     "email": "tomas@example.com",
+     "first": 1751198400,
+     "last": 1777723200,
+     "lines": 95,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 6,
+     "deleted": 5,
+     "email": "yuki@example.com",
+     "first": 1757332800,
+     "last": 1777896000,
+     "lines": 76,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 18,
+   "last": 1779364800,
+   "path": "src/lib/telemetry.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 40,
+     "email": "tomas@example.com",
+     "first": 1756382400,
+     "last": 1780228800,
+     "lines": 213,
+     "name": "Tomas Halvorsen"
+    },
+    {
+     "commits": 3,
+     "deleted": 3,
+     "email": "elena@example.com",
+     "first": 1758456000,
+     "last": 1780488000,
+     "lines": 210,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 5,
+     "deleted": 58,
+     "email": "yuki@example.com",
+     "first": 1749902400,
+     "last": 1778760000,
+     "lines": 93,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 14,
+   "last": 1780488000,
+   "path": "src/lib/url.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 45,
+     "email": "tomas@example.com",
+     "first": 1745409600,
+     "last": 1751025600,
+     "lines": 216,
+     "name": "Tomas Halvorsen"
+    }
+   ],
+   "commits": 4,
+   "last": 1751025600,
+   "path": "src/lib/validate.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 45,
+     "email": "elena@example.com",
+     "first": 1753358400,
+     "last": 1782561600,
+     "lines": 183,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 1,
+     "deleted": 41,
+     "email": "yuki@example.com",
+     "first": 1751371200,
+     "last": 1782648000,
+     "lines": 67,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 6,
+   "last": 1782648000,
+   "path": "src/pages/account.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 59,
+     "email": "elena@example.com",
+     "first": 1747483200,
+     "last": 1785499200,
+     "lines": 165,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 4,
+     "deleted": 33,
+     "email": "yuki@example.com",
+     "first": 1748001600,
+     "last": 1783339200,
+     "lines": 142,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 5,
+   "last": 1785499200,
+   "path": "src/pages/billing.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 21,
+     "email": "elena@example.com",
+     "first": 1755777600,
+     "last": 1783166400,
+     "lines": 264,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 2,
+     "deleted": 23,
+     "email": "yuki@example.com",
+     "first": 1749124800,
+     "last": 1782216000,
+     "lines": 75,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 5,
+   "last": 1783166400,
+   "path": "src/pages/checkout.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 7,
+     "deleted": 38,
+     "email": "elena@example.com",
+     "first": 1754481600,
+     "last": 1784635200,
+     "lines": 251,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 12,
+     "deleted": 71,
+     "email": "yuki@example.com",
+     "first": 1749729600,
+     "last": 1782734400,
+     "lines": 224,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 19,
+   "last": 1784635200,
+   "path": "src/pages/compare.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 37,
+     "email": "elena@example.com",
+     "first": 1756641600,
+     "last": 1783684800,
+     "lines": 210,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 9,
+     "deleted": 28,
+     "email": "yuki@example.com",
+     "first": 1750680000,
+     "last": 1783684800,
+     "lines": 112,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 15,
+   "last": 1783684800,
+   "path": "src/pages/contact.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 41,
+     "email": "yuki@example.com",
+     "first": 1751457600,
+     "last": 1781352000,
+     "lines": 181,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 10,
+     "deleted": 37,
+     "email": "elena@example.com",
+     "first": 1757073600,
+     "last": 1782993600,
+     "lines": 131,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 11,
+   "last": 1782993600,
+   "path": "src/pages/dashboard.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 14,
+     "email": "elena@example.com",
+     "first": 1760356800,
+     "last": 1782907200,
+     "lines": 233,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 10,
+     "deleted": 46,
+     "email": "yuki@example.com",
+     "first": 1751284800,
+     "last": 1784635200,
+     "lines": 217,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 13,
+   "last": 1784635200,
+   "path": "src/pages/invoices.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 9,
+     "email": "elena@example.com",
+     "first": 1752408000,
+     "last": 1782734400,
+     "lines": 187,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 9,
+     "deleted": 6,
+     "email": "yuki@example.com",
+     "first": 1761912000,
+     "last": 1781179200,
+     "lines": 167,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 17,
+   "last": 1782734400,
+   "path": "src/pages/login.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 83,
+     "email": "elena@example.com",
+     "first": 1760356800,
+     "last": 1781956800,
+     "lines": 317,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 11,
+     "deleted": 27,
+     "email": "yuki@example.com",
+     "first": 1753444800,
+     "last": 1781524800,
+     "lines": 194,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 21,
+   "last": 1781956800,
+   "path": "src/pages/plans.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 74,
+     "email": "elena@example.com",
+     "first": 1756814400,
+     "last": 1780488000,
+     "lines": 245,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 3,
+     "deleted": 22,
+     "email": "yuki@example.com",
+     "first": 1763121600,
+     "last": 1780315200,
+     "lines": 130,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 4,
+   "last": 1780488000,
+   "path": "src/pages/pricing.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 11,
+     "deleted": 15,
+     "email": "elena@example.com",
+     "first": 1761480000,
+     "last": 1783771200,
+     "lines": 312,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 8,
+     "deleted": 86,
+     "email": "yuki@example.com",
+     "first": 1759579200,
+     "last": 1782993600,
+     "lines": 121,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 19,
+   "last": 1783771200,
+   "path": "src/pages/profile.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 18,
+     "email": "elena@example.com",
+     "first": 1755864000,
+     "last": 1781092800,
+     "lines": 201,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 4,
+     "deleted": 54,
+     "email": "yuki@example.com",
+     "first": 1755604800,
+     "last": 1783425600,
+     "lines": 198,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 7,
+   "last": 1783425600,
+   "path": "src/pages/quote.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 79,
+     "email": "elena@example.com",
+     "first": 1762603200,
+     "last": 1780315200,
+     "lines": 360,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 5,
+     "deleted": 37,
+     "email": "yuki@example.com",
+     "first": 1761825600,
+     "last": 1780747200,
+     "lines": 189,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 6,
+   "last": 1780747200,
+   "path": "src/pages/receipts.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 6,
+     "deleted": 84,
+     "email": "elena@example.com",
+     "first": 1761912000,
+     "last": 1781611200,
+     "lines": 172,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 9,
+     "deleted": 3,
+     "email": "yuki@example.com",
+     "first": 1758715200,
+     "last": 1781784000,
+     "lines": 119,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 15,
+   "last": 1781784000,
+   "path": "src/pages/settings.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 17,
+     "email": "elena@example.com",
+     "first": 1756555200,
+     "last": 1779710400,
+     "lines": 189,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 6,
+     "deleted": 0,
+     "email": "yuki@example.com",
+     "first": 1765972800,
+     "last": 1779364800,
+     "lines": 141,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 7,
+   "last": 1779710400,
+   "path": "src/pages/signup.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 70,
+     "email": "elena@example.com",
+     "first": 1760702400,
+     "last": 1782475200,
+     "lines": 184,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 11,
+     "deleted": 74,
+     "email": "yuki@example.com",
+     "first": 1758196800,
+     "last": 1778932800,
+     "lines": 60,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 14,
+   "last": 1782475200,
+   "path": "src/pages/usage.tsx",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 10,
+     "deleted": 41,
+     "email": "elena@example.com",
+     "first": 1754395200,
+     "last": 1784116800,
+     "lines": 179,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 12,
+     "deleted": 40,
+     "email": "yuki@example.com",
+     "first": 1759406400,
+     "last": 1783598400,
+     "lines": 128,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 22,
+   "last": 1784116800,
+   "path": "tests/account.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 9,
+     "deleted": 81,
+     "email": "elena@example.com",
+     "first": 1755345600,
+     "last": 1782043200,
+     "lines": 336,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 1,
+     "deleted": 56,
+     "email": "yuki@example.com",
+     "first": 1756728000,
+     "last": 1785067200,
+     "lines": 118,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 10,
+   "last": 1785067200,
+   "path": "tests/billing.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 12,
+     "email": "elena@example.com",
+     "first": 1756382400,
+     "last": 1782561600,
+     "lines": 397,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 12,
+     "deleted": 7,
+     "email": "yuki@example.com",
+     "first": 1760184000,
+     "last": 1783857600,
+     "lines": 164,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 16,
+   "last": 1783857600,
+   "path": "tests/checkout.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 36,
+     "email": "elena@example.com",
+     "first": 1762516800,
+     "last": 1782907200,
+     "lines": 188,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 1,
+     "deleted": 48,
+     "email": "yuki@example.com",
+     "first": 1758283200,
+     "last": 1784376000,
+     "lines": 61,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 9,
+   "last": 1784376000,
+   "path": "tests/compare.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 2,
+     "deleted": 46,
+     "email": "elena@example.com",
+     "first": 1763121600,
+     "last": 1785240000,
+     "lines": 255,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 12,
+     "deleted": 12,
+     "email": "yuki@example.com",
+     "first": 1759147200,
+     "last": 1782302400,
+     "lines": 69,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 14,
+   "last": 1785240000,
+   "path": "tests/contact.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 46,
+     "email": "yuki@example.com",
+     "first": 1761220800,
+     "last": 1784030400,
+     "lines": 215,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 10,
+     "deleted": 82,
+     "email": "elena@example.com",
+     "first": 1767096000,
+     "last": 1784203200,
+     "lines": 132,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 15,
+   "last": 1784203200,
+   "path": "tests/dashboard.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 4,
+     "deleted": 54,
+     "email": "elena@example.com",
+     "first": 1765195200,
+     "last": 1784721600,
+     "lines": 410,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 10,
+     "deleted": 79,
+     "email": "yuki@example.com",
+     "first": 1760702400,
+     "last": 1783339200,
+     "lines": 182,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 14,
+   "last": 1784721600,
+   "path": "tests/invoices.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 39,
+     "email": "yuki@example.com",
+     "first": 1761566400,
+     "last": 1783857600,
+     "lines": 115,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 10,
+     "deleted": 30,
+     "email": "elena@example.com",
+     "first": 1765281600,
+     "last": 1781524800,
+     "lines": 97,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 15,
+   "last": 1783857600,
+   "path": "tests/login.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 56,
+     "email": "yuki@example.com",
+     "first": 1767960000,
+     "last": 1781524800,
+     "lines": 160,
+     "name": "Yuki Tanabe"
+    },
+    {
+     "commits": 1,
+     "deleted": 61,
+     "email": "elena@example.com",
+     "first": 1764158400,
+     "last": 1782043200,
+     "lines": 127,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 9,
+   "last": 1782043200,
+   "path": "tests/plans.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 8,
+     "deleted": 68,
+     "email": "elena@example.com",
+     "first": 1764590400,
+     "last": 1783339200,
+     "lines": 201,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 7,
+     "deleted": 32,
+     "email": "yuki@example.com",
+     "first": 1766232000,
+     "last": 1783857600,
+     "lines": 168,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 15,
+   "last": 1783857600,
+   "path": "tests/pricing.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 3,
+     "deleted": 68,
+     "email": "elena@example.com",
+     "first": 1765713600,
+     "last": 1783944000,
+     "lines": 183,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 5,
+     "deleted": 13,
+     "email": "yuki@example.com",
+     "first": 1762603200,
+     "last": 1783512000,
+     "lines": 182,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 8,
+   "last": 1783944000,
+   "path": "tests/profile.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 1,
+     "deleted": 35,
+     "email": "elena@example.com",
+     "first": 1766232000,
+     "last": 1781179200,
+     "lines": 163,
+     "name": "Elena Marchetti"
+    },
+    {
+     "commits": 6,
+     "deleted": 23,
+     "email": "yuki@example.com",
+     "first": 1772625600,
+     "last": 1784116800,
+     "lines": 154,
+     "name": "Yuki Tanabe"
+    }
+   ],
+   "commits": 7,
+   "last": 1784116800,
+   "path": "tests/quote.spec.ts",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  },
+  {
+   "authors": [
+    {
+     "commits": 5,
+     "deleted": 28,
+     "email": "49699333+dependabot[bot]@users.noreply.github.com",
+     "first": 1742990400,
+     "last": 1785153600,
+     "lines": 105,
+     "name": "dependabot[bot]"
+    },
+    {
+     "commits": 10,
+     "deleted": 42,
+     "email": "elena@example.com",
+     "first": 1739880000,
+     "last": 1786968000,
+     "lines": 100,
+     "name": "Elena Marchetti"
+    }
+   ],
+   "commits": 15,
+   "last": 1786968000,
+   "path": "vendor/polyfill.js",
+   "repo": "pricing-web",
+   "repo_path": "/work/pricing-web",
+   "shallow": false
+  }
+ ]
+}

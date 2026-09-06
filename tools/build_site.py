@@ -719,6 +719,85 @@ PLAYS_INDEX = [
        "leftover debugging, and files large enough to regret for the life of the repository.",
        "repo=.", ""),
      ]),
+    ("repos", "What your git history knows", "daily_core",
+     "Four Plays over the repositories already on this machine. Git records more than anyone reads "
+     "back: who wrote each surviving line, the committer's own UTC offset, and whether the code an "
+     "agent wrote is still there.",
+     [
+      ("bus-factor",
+       "Which files have exactly one author left, and has that person gone?",
+       "Every team knows some of its code has one author and nobody knows which files. Blame gives "
+       "the surviving lines, the log gives the last time each author committed anything, and the "
+       "join is the answer. Sole ownership is only a risk when the owner has stopped showing up, so "
+       "the two facts are reported together rather than collapsed into one score.",
+       "demo=true", "root=~/Projects"),
+      ("night-shift",
+       "When were you actually working, in your own zone rather than this laptop's?",
+       "Every editor shows commit times in whatever zone the machine is set to today, which quietly "
+       "rewrites your history each time you travel. Git stores the committer's own UTC offset "
+       "inside the timestamp, so a commit made at 04:12 in Tokyo stays a 04:12 commit. This reads "
+       "that offset instead of the local clock.",
+       "demo=true", "root=~/Projects days=90"),
+      ("kept",
+       "Of everything the agent wrote for you, how much is still in the file?",
+       "Every other number about a coding agent is what it cost. This one is what it was worth. It "
+       "joins the session transcripts your agents already keep against git blame to ask how much "
+       "agent-written code survived. Git knows the answer and nobody asks it.",
+       "demo=true", "root=~/Projects"),
+      ("upstream-pulse",
+       "Which of your dependencies has nobody left maintaining it?",
+       "A vulnerability scanner tells you about the bugs somebody already found and wrote down. "
+       "This tells you about the packages where nobody is looking any more: last release years ago, "
+       "exactly one human who can publish, repository archived. It reads the lockfiles you have.",
+       "demo=true", "root=~/Projects"),
+     ]),
+    ("world", "What your browser, disk and calendar hold", "daily_core",
+     "Six more read-only scans. Three of them, reply-debt, standing-cost and upstream-pulse, have a "
+     "network half, and it lives in a separate fetch script outside the core for the same reason the "
+     "leaderboard poster does: the core stays verifiably offline, and everything that opens a "
+     "connection sits in one short file you can read.",
+     [
+      ("extension-reach",
+       "What can your browser extensions see, and is anyone still shipping updates?",
+       "An extension shows its permissions once, in a dialog nobody re-reads, and then never again. "
+       "The browser keeps the answer on disk for ever. This reads it and answers what the browser "
+       "stops asking after install day: what can see your bank tab, and which of them was last "
+       "updated years ago.",
+       "demo=true", ""),
+      ("where-it-went",
+       "Where did the quarter actually go?",
+       "A browser shows the last nine things you opened. It will not tell you that one domain took "
+       "a fifth of your quarter, that you opened the same question thirty-one times, or that your "
+       "longest unbroken run at one site was four hours on a Tuesday afternoon.",
+       "demo=true", "days=90"),
+      ("photo-debt",
+       "What is your photo library actually made of?",
+       "A photo library only grows. The shutter fires ten times to get one usable frame, every "
+       "screenshot lands next to the family album, and the same image arrives again from a message, "
+       "an AirDrop and a download. The Photos app is organised by date and by face, so none of that "
+       "is visible in it.",
+       "demo=true", ""),
+      ("what-grew",
+       "Something ate 40 GB. What moved?",
+       "Every disk tool answers the wrong question: they show what is big, and what is big is mostly "
+       "what was always big. The useful question is what changed, and nothing can answer that "
+       "without having looked before. So the first run writes a baseline and says so, rather than "
+       "reporting your whole home directory as new.",
+       "demo=true", "root=~"),
+      ("reply-debt",
+       "Who asked you something and is still waiting?",
+       "An unread badge counts messages. It does not know the difference between a newsletter and "
+       "somebody who asked you a direct question eleven days ago. That difference is what this "
+       "counts: threads where the last word is not yours, somebody asked for something, and nothing "
+       "went back.",
+       "demo=true", ""),
+      ("standing-cost",
+       "What does that recurring meeting cost, per year?",
+       "Nobody schedules a meeting by its price. A 30-minute standup with nine people is four and a "
+       "half person-hours every time it fires, and over a year that is a number no calendar will "
+       "ever show you. Every fact needed to compute it is already in the calendar.",
+       "demo=true", ""),
+     ]),
 ]
 
 PLAY_URI = "https://play.modiqo.ai/" + HANDLE + "/{0}"
@@ -735,14 +814,15 @@ def cmd_block(cid, text, label):
 
 
 def plays_page():
-    """One page for all twenty-one published Plays, with a paste-ready line under each.
+    """One page for all thirty-one published Plays, with a paste-ready line under each.
 
     The registry lists them one at a time behind a search box. A person who liked one of these has
-    no way to find the other twenty, and a link to twenty-one registry pages is not a link. This is.
+    no way to find the other thirty, and a link to thirty-one registry pages is not a link.
+    This is.
     """
-    toc = ['  <strong>Twenty-one Plays</strong>', '  <a href="#run">How to run one</a>']
+    toc = ['  <strong>Thirty-one Plays</strong>', '  <a href="#run">How to run one</a>']
     body = ['<h1>Every Play</h1>',
-            '<p class="lede">Twenty-one published rote Plays on three stdlib-only Python cores. '
+            '<p class="lede">Thirty-one published rote Plays on three stdlib-only Python cores. '
             'No pip install, no node, no keys, and no network in any core. Each one is a public '
             'archive you can read before you run it.</p>',
             '<h2 id="run">How to run one</h2>',
@@ -779,10 +859,10 @@ def plays_page():
             body.append('<p class="src"><a href="{0}">Read the archive</a> before you run it, or '
                         '<a href="https://github.com/rajkaria/comped/blob/main/docs/plays/{1}/DESCRIPTION.md">'
                         'the full description</a>.</p>'.format(uri, slug))
-    return page("plays.html", "Every Play: twenty-one rote Plays that read what your machine already wrote",
-                "Twenty-one published rote Plays on three stdlib-only Python cores. What your agents "
-                "cost, what your machine has been hoarding, and twelve you run many times a day. "
-                "Paste-ready run line under each.",
+    return page("plays.html", "Every Play: thirty-one rote Plays that read what your machine already wrote",
+                "Thirty-one published rote Plays on three stdlib-only Python cores. What your agents "
+                "cost, what your machine and your git history have been hoarding, and twelve you "
+                "run many times a day. Paste-ready run line under each.",
                 "plays", "\n".join(toc), "\n".join(body),
                 scripts='<script src="app.js" defer></script>')
 

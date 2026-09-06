@@ -1,0 +1,65 @@
+┌──────────────────────────────────────────────────────────────┐
+│ EXTENSION REACH              20 extensions across 5 browsers │
+│                                                              │
+│ 20 extensions. 12 read every page including your bank. 6 not │
+│ updated in a year. 6 unused for 90 days and still reading.   │
+│                                                              │
+├─ WHAT THEY CAN REACH ────────────────────────────────────────┤
+│ ███████████████████████████▓▓▓▓▓▓▓▒▒░░··                     │
+│ █ every page you visit ▓ a wildcard slice of the web ▒ named │
+│ sites only ░ only the tab you click on · no page access      │
+│ every page you visit               12   67% ▇▇▇▇▇▇▇▇         │
+│ a wildcard slice of the w…          3   17% ▇▇               │
+│ named sites only                    1    6% ▇                │
+│ only the tab you click on           1    6% ▇                │
+│ no page access                      1    6% ▇                │
+│ 2 more could not be tiered: Reader Plus, Tab Saver. Unknown, │
+│ not zero.                                                    │
+├─ BLANKET ACCESS PLUS SOMETHING ELSE ─────────────────────────┤
+│ cookies: read the cookies that keep you signed in, on …    1 │
+│ webRequest: watch every network request the browser ma…    3 │
+│ webRequestBlocking: block or rewrite requests before t…    2 │
+│ declarativeNetRequest: block or rewrite requests by st…    1 │
+│ debugger: attach the developer debugger to any page        1 │
+│ 12 of 20 extensions are in at least one of those classes     │
+├─ STILL MAINTAINED? ──────────────────────────────────────────┤
+│ 6 of 20 not updated in 365+ days (30%)                       │
+│ 2 carried no date at all and are left out of that share      │
+│ 7 idle 90+ days, 6 of those still holding blanket access     │
+│ 3 on Manifest V2, which Chrome no longer supports            │
+│ 3 sideloaded · 1 installed by policy · 1 unpacked (yours)    │
+├─ WORST FIRST ────────────────────────────────────────────────┤
+│ Page Translator                                     [Chrome] │
+│   can read and change everything you do on every site,       │
+│   including your bank; it can also start downloads and read  │
+│   what you have downloaded                                   │
+│ Corp Policy Agent                  [Chrome] [Microsoft Edge] │
+│   can read and change everything you do on every site,       │
+│   including your bank; it can also talk to a program         │
+│   installed outside the browser                              │
+│ Coupon Finder                      [Chrome] [Microsoft Edge] │
+│   can read and change everything you do on every site,       │
+│   including your bank; it can also read the cookies that     │
+│   keep you signed in, on every site                          │
+│ Old Ad Blocker                                      [Chrome] │
+│   can read and change everything you do on every site,       │
+│   including your bank; it can also watch every network       │
+│   request the browser makes; built on the extension platform │
+│   Chrome no longer supports                                  │
+│ Screenshot Studio                                   [Chrome] │
+│   can read and change everything you do on every site,       │
+│   including your bank; it can also start downloads and read  │
+│   what you have downloaded                                   │
+├─ SAME EXTENSION, MORE THAN ONE BROWSER ──────────────────────┤
+│ Dark Reader                        Arc Chrome Microsoft Edge │
+│ Corp Policy Agent                      Chrome Microsoft Edge │
+│ Coupon Finder                          Chrome Microsoft Edge │
+│ JSON Formatter                                    Arc Chrome │
+│                                                              │
+│ first run: nothing to compare against yet, come back tomorr… │
+│ Read from the manifests and settings your browsers already   │
+│ wrote. No extension storage was opened.                      │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/extension-reach/extension-reach.md
+{"all_urls": 12, "blanket": 15, "browsers": 5, "extensions": 20, "installs": 25, "ok": true, "sources": [{"found": true, "items": 20, "name": "chromium (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpkAEOkq/resources/daily_core/fixtures/extensions/installs.json"}, {"found": true, "items": 3, "name": "firefox (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpkAEOkq/resources/daily_core/fixtures/extensions/installs.json"}, {"found": true, "items": 2, "name": "safari (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpkAEOkq/resources/daily_core/fixtures/extensions/installs.json"}], "stale": 6, "verdict": "12 of 20 extensions pair blanket page access with a second power", "written": ["/tmp/daily-demo/extension-reach/extension-reach.md", "/tmp/daily-demo/extension-reach/extension-reach.json"]}

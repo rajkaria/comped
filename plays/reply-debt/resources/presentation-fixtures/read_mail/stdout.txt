@@ -1,0 +1,2 @@
+mail: 52 thread(s)
+{"complete": true, "ok": true, "scanned_files": 1, "source": "mail", "sources": [{"found": true, "items": 52, "name": "mail (demo)", "note": "bundled fixture mailbox; 2 own address(es)", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpJnSIWY/resources/daily_core/fixtures/replydebt/mailbox.json"}], "threads": 52}

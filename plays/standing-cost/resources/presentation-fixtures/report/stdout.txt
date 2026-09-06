@@ -1,0 +1,54 @@
+┌──────────────────────────────────────────────────────────────┐
+│ STANDING COST                                       365 days │
+│                                                              │
+│ Engineering Standup: 10 attendees x 25 min x 142 occurrences │
+│ = 436 person-hours.                                          │
+│ Hourly rate unset, so no money is claimed: person-hours onl… │
+│ 2 attendees have never accepted or never turned up.          │
+│                                                              │
+├─ WHERE THE HOURS WENT ───────────────────────────────────────┤
+│ Engineering Standup              436h   25% ▇▇▇              │
+│ Weekly Product Review            401h   23% ▇▇               │
+│ Architecture Sync                208h   12% ▇                │
+│ Design Critique                  199h   12% ▇                │
+│ Pricing Working Group            134h    8% ▇                │
+│ plus 34 one-off meetings outside any series: 155 person-hou… │
+│ 1,725 person-hours billed · 144 declined · 43 never answered │
+│ ████████████████████████████████████▓▓▓▒                     │
+│ █ billed  ▓ declined  ▒ no answer                            │
+├─ WHAT WAS NOT BILLED ────────────────────────────────────────┤
+│ 40 of 432 occurrences cancelled (9%)                         │
+│ credited back: 182 person-hours                              │
+├─ COULD HAVE BEEN AN EMAIL ───────────────────────────────────┤
+│ R. A. — Design Critique                              0 of 42 │
+│   accepted every time, never present                         │
+│ C. N. — Weekly Product Review                        0 of 43 │
+│   never accepted                                             │
+├─ SERIES THAT GREW ───────────────────────────────────────────┤
+│ Engineering Standup   15.4 min → 25.0 min; 7.4 → 10.1 people │
+├─ FOCUS TIME DESTROYED ───────────────────────────────────────┤
+│ 350 min (5.8h) in gaps under 90 min, across 6 days           │
+│ worst day 2025-12-09: 75 min lost between 3 meetings         │
+│ counted separately from the 275 hours of meeting itself      │
+├─ WHO PAID FOR IT ────────────────────────────────────────────┤
+│ M. S.                        256h   15% ▇                    │
+│ E. M.                        207h   12% ▇                    │
+│ N. H.                        177h   10% ▇                    │
+│ P. R.                        176h   10% ▇                    │
+│ T. H.                        164h   10% ▇                    │
+├─ PROJECTION ─────────────────────────────────────────────────┤
+│ 1,734 person-hours a year at this cadence                    │
+│ projection, not a measurement: the last 363 days repeated f… │
+│                                                              │
+│ Rate: hourly rate unset, so no money is claimed              │
+│ person-hours only. A rate invented here would be a guess     │
+│ wearing the clothes of a fact, so set hourly_rate to see     │
+│ money.                                                       │
+│ first run: nothing to compare against yet, come back tomorr… │
+│ Read from the calendar file the fetch step wrote. This step  │
+│ opened no network connection and no address is printed in    │
+│ full.                                                        │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/standing-cost/standing-cost.md
+{"cancelled": 40, "events_read": 439, "occurrences": 392, "ok": true, "people": 12, "person_hours": 1724.83, "rate_set": false, "recurring_person_hours": 1569.83, "series": 8, "silent_person_hours": 42.0, "sources": [{"found": true, "items": 439, "name": "calendar (demo)", "note": "bundled fixture; account work; google-calendar (bundled demo); an invented calendar; nothing was fetched and no real meeting is described", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpUzclKx/resources/daily_core/fixtures/standingcost/calendar.json"}], "written": ["/tmp/daily-demo/standing-cost/standing-cost.md", "/tmp/daily-demo/standing-cost/standing-cost.json"]}

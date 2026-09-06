@@ -1,0 +1,2 @@
+home: 41 folder(s), 1284902 file(s)
+{"complete": true, "files": 1284902, "folders": 41, "ok": true, "root": "home", "scanned_files": 0, "sources": [{"found": true, "items": 1284902, "name": "home (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmplGOqLp/resources/daily_core/fixtures/grew/sizes.json"}]}

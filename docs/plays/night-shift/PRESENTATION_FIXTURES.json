@@ -1,0 +1,4 @@
+{
+ "read_commits": "resources/presentation-fixtures/read_commits/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

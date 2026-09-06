@@ -1,0 +1,52 @@
+┌──────────────────────────────────────────────────────────────┐
+│ NIGHT SHIFT                                          90 days │
+│                                                              │
+│ 33% of commits after 11pm (100 of 304)                       │
+│ 18% on weekends (56 of 304) · 3 repos · 74 days with a comm… │
+│                                                              │
+├─ WHEN, ON THE CLOCK EACH COMMIT RECORDED ────────────────────┤
+│     0     6     12    18                                     │
+│ Mon ░▒░░▒ ░  ░ ▓▒ ▒░▓ ░ ░░                                53 │
+│ Tue  ░░▒       ░    ▓░  ░░ ░                              31 │
+│ Wed ▓ ░ ░     ▓█▒ ░ ▓   ░▒ ▒                              53 │
+│ Thu ░ ▓▒░     ░▓░ █░█ ▒ ░░ ░                              62 │
+│ Fri ░░▓ ░     ▒▓▒  ░ ▒   ░ ▒                              49 │
+│ Sat  ░░      ░▒▒  ░ ▒░░    ░                              31 │
+│ Sun ░░  ▒    ░     ░ ░   ▒                                25 │
+│ busiest hour 11:00 (35 commits)                              │
+│ latest 04:36 Sunday 2026-08-30 (UTC+01:00) in ledger-api     │
+│ — nothing followed it within 12h                             │
+├─ LATE (11pm to 5am) AGAINST THE REST ────────────────────────┤
+│             commits    reverted     fix-ups    subject       │
+│ late            100    13 (13%)    21 (21%)    41.1 ch       │
+│ the rest        204      4 (2%)      6 (3%)    39.4 ch       │
+│ a fix-up is a follow-up by you within 60 minutes             │
+├─ TREND ──────────────────────────────────────────────────────┤
+│ late share by third: 34% → 36% → 29%  ██▇                    │
+│ across the window: down 5 points                             │
+├─ RUNS ───────────────────────────────────────────────────────┤
+│ longest run of days with a commit: 14 days (09 Aug → 22 Aug) │
+│ longest break between two of them: 2 days (18 Jul → 19 Jul)  │
+├─ WHERE THE LATE COMMITS ARE ─────────────────────────────────┤
+│ pricing-web                              36 late of 97 (37%) │
+│ ledger-api                              34 late of 118 (29%) │
+│ ops-tooling                              30 late of 89 (34%) │
+├─ READ THIS FIRST ────────────────────────────────────────────┤
+│ 2 UTC offsets appear in this window — UTC+01:00 from         │
+│ 2026-06-08 to 2026-08-31 (258 commits), UTC+09:00 from       │
+│ 2026-07-20 to 2026-07-31 (46 commits). Hours recorded under  │
+│ a different offset are a different zone, not a different     │
+│ routine; a daylight-saving change looks the same here.       │
+│ 11 of 304 commits carry an author date later than their      │
+│ committer date, so this history was rebased or amended and   │
+│ the timeline is approximate                                  │
+│ 57 commits in the window were by other authors and are       │
+│ counted only when they revert or follow one of yours         │
+│                                                              │
+│ first run: nothing to compare against yet, come back         │
+│ tomorrow                                                     │
+│ Counts of commits. Nothing else is claimed.                  │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/night-shift/night-shift.md
+{"commits": 304, "days": 90, "late": 100, "longest_streak": 14, "ok": true, "repos": 3, "sources": [{"found": true, "items": 323, "name": "git (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpoKGHph/resources/daily_core/fixtures/nightshift/commits.json"}], "weekend": 56, "written": ["/tmp/daily-demo/night-shift/night-shift.md", "/tmp/daily-demo/night-shift/night-shift.json"]}

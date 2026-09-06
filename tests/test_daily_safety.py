@@ -1,16 +1,23 @@
-"""What the six daily Plays promise about the machine they run on, asserted statically.
+"""What the sixteen daily Plays promise about the machine they run on, asserted statically.
 
 The claims in every DESCRIPTION.md are that nothing reaches the network, nothing runs but two
 fixed read-only commands, no credential file is opened, and nothing is written outside out_dir.
 Each of those is checkable without running anything, so each is checked here on every commit.
 """
 import ast
+import json
 import pathlib
 import re
 import unittest
 
 SRC = pathlib.Path("daily_core")
 PY_FILES = sorted(p for p in SRC.rglob("*.py") if "__pycache__" not in p.parts)
+# Every Play built on this core, read from the spec so a new one cannot be added to the registry
+# without also being held to the promises below. The three network-backed Plays ship one file
+# each that opens a connection; it lives outside this package on purpose, and what it may and may
+# not do is asserted separately, in tests/test_fetch_steps.py.
+DAILY_PLAYS = tuple(json.loads(
+    pathlib.Path("docs/plays/_daily-spec.json").read_text(encoding="utf-8")))
 
 
 class TestOffline(unittest.TestCase):
@@ -29,15 +36,21 @@ class TestOffline(unittest.TestCase):
 
 
 class TestSubprocess(unittest.TestCase):
-    """Exactly one module may start a process, and only the one binary it names."""
+    """Two modules may start a process, each only the one binary it names, each read-only.
 
-    def test_only_the_application_scanner_imports_subprocess(self):
+    The claim is deliberately an exact shape rather than a count: what protects a reader is not
+    "few subprocess calls" but "no call whose program or subcommand a caller could influence".
+    """
+
+    PROCESS_MODULES = {"apps.py": "MDLS", "gitread.py": "git"}
+
+    def test_no_other_module_imports_subprocess(self):
         for path in PY_FILES:
-            if path.name == "apps.py":
+            if path.name in self.PROCESS_MODULES:
                 continue
             self.assertNotIn("subprocess", path.read_text(encoding="utf-8"), path)
 
-    def test_that_call_is_one_fixed_argv_with_no_shell(self):
+    def test_the_spotlight_call_is_one_fixed_argv_with_no_shell(self):
         text = (SRC / "scan" / "apps.py").read_text(encoding="utf-8")
         tree = ast.parse(text)
         calls = [n for n in ast.walk(tree) if isinstance(n, ast.Call)
@@ -50,6 +63,33 @@ class TestSubprocess(unittest.TestCase):
         first = argv.left.elts[0]
         self.assertEqual(first.id if isinstance(first, ast.Name) else None, "MDLS")
         self.assertIn('MDLS = "/usr/bin/mdls"', text)
+
+    def test_the_git_call_is_one_fixed_argv_with_no_shell(self):
+        text = (SRC / "gitread.py").read_text(encoding="utf-8")
+        tree = ast.parse(text)
+        calls = [n for n in ast.walk(tree) if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Attribute) and n.func.attr == "run"
+                 and isinstance(n.func.value, ast.Name) and n.func.value.id == "subprocess"]
+        self.assertEqual(len(calls), 1, "exactly one subprocess.run is expected")
+        call = calls[0]
+        self.assertFalse([k for k in call.keywords if k.arg == "shell"], "shell= must never be set")
+        self.assertIsInstance(call.args[0], ast.Name, "argv must be a name bound to a built list")
+
+    def test_every_git_binary_it_will_run_is_an_absolute_path_it_names_itself(self):
+        from daily_core.gitread import GIT_CANDIDATES
+        for candidate in GIT_CANDIDATES:
+            self.assertTrue(candidate.startswith("/"), candidate)
+        text = (SRC / "gitread.py").read_text(encoding="utf-8")
+        for searcher in ("shutil.which", "os.environ", 'get("PATH"', "PATH]"):
+            self.assertNotIn(searcher, text, "the PATH must never be searched for a binary")
+
+    def test_the_git_allowlist_admits_nothing_that_can_change_a_repository(self):
+        from daily_core.gitread import ALLOWED
+        for banned in ("commit", "push", "add", "checkout", "switch", "reset", "restore", "gc",
+                       "fetch", "pull", "clone", "merge", "rebase", "cherry-pick", "revert",
+                       "filter-branch", "update-ref", "update-index", "am", "apply", "stash",
+                       "tag", "branch", "remote", "submodule", "clean", "prune", "repack"):
+            self.assertNotIn(banned, ALLOWED, "{0} would let this package write".format(banned))
 
 
 class TestNoCredentials(unittest.TestCase):
@@ -73,13 +113,15 @@ class TestNoCredentials(unittest.TestCase):
                         path, node.value[:80]))
 
     def test_the_documented_promise_is_in_every_description(self):
+        seen = 0
         for doc in sorted(pathlib.Path("docs/plays").glob("*/DESCRIPTION.md")):
-            if doc.parent.name not in ("tab-debt", "birthday-radar", "app-graveyard", "vault-pulse",
-                                       "desktop-clutter", "receipt-ledger"):
+            if doc.parent.name not in DAILY_PLAYS:
                 continue
+            seen += 1
             text = doc.read_text(encoding="utf-8")
             self.assertIn("Never reads", text, doc)
             self.assertIn("Never sends", text, doc)
+        self.assertEqual(seen, len(DAILY_PLAYS), "a Play in the spec has no registry copy")
 
 
 class TestWritesAreConfined(unittest.TestCase):

@@ -9,11 +9,28 @@ SRC = [("comped_core", ROOT / "comped_core"), ("prices.json", ROOT / "resources"
 # Only comped posts to the leaderboard, and the poster lives outside the core so the core stays offline.
 EXTRA = {"comped": [("post_score.py", ROOT / "leaderboard" / "post_score.py")]}
 
-# The six daily Plays share a second core. Its demo fixtures ship inside the package, so one entry
-# copies both and the byte-identity check below covers the fixtures as well as the code.
+# The sixteen daily Plays share a second core. One entry copies the whole package tree, so the
+# byte-identity check below covers everything that ships beside the code: `fixtures/` (the demo
+# data) and `tables/` (the bundled lookup tables `common.load_table` reads -- without them
+# `load_table` returns {} inside a published Play and where-it-went's category rollup empties
+# silently, so a missing table is a correctness bug, not a cosmetic one).
 DAILY_PLAYS = ["tab-debt", "birthday-radar", "app-graveyard", "vault-pulse", "desktop-clutter",
-               "receipt-ledger"]
+               "receipt-ledger", "bus-factor", "night-shift", "kept", "extension-reach",
+               "where-it-went", "photo-debt", "what-grew", "standing-cost", "reply-debt",
+               "upstream-pulse"]
 DAILY_SRC = [("daily_core", ROOT / "daily_core")]
+# Everything under `daily_core` must reach a package; naming the subdirectories here is what makes
+# a new one a test failure rather than a silent omission.
+DAILY_SUBDIRS = ["fixtures", "parsers", "scan", "tables"]
+
+# The three Plays with a network half. The fetcher lives outside the core for the same reason
+# `leaderboard/post_score.py` lives outside comped_core: the core stays verifiably offline, and
+# everything that opens a connection sits in one short file a reader can check.
+DAILY_EXTRA = {
+    "standing-cost": [("fetch/calendar_partial.py", ROOT / "fetch" / "calendar_partial.py")],
+    "reply-debt": [("fetch/mail_partial.py", ROOT / "fetch" / "mail_partial.py")],
+    "upstream-pulse": [("fetch/registry_partial.py", ROOT / "fetch" / "registry_partial.py")],
+}
 
 # The twelve micro Plays share a third core. Three of them price tokens, and rather than grow a
 # second price list that would drift, those three carry comped_core and its table as well.
@@ -38,7 +55,7 @@ def main(check=False):
     for slug in PLAYS + DAILY_PLAYS + MICRO_PLAYS:
         dst = ROOT / "plays" / slug / "resources"
         if slug in DAILY_PLAYS:
-            sources = DAILY_SRC
+            sources = DAILY_SRC + DAILY_EXTRA.get(slug, [])
         elif slug in MICRO_PLAYS:
             sources = MICRO_SRC + (MICRO_PRICE_SRC if slug in MICRO_PRICED else [])
         else:
