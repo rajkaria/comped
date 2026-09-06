@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Every Play: twenty-one rote Plays that read what your machine already wrote</title>
+<meta name="description" content="Twenty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine has been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
+<link rel="canonical" href="https://gotcomped.com/plays.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="comped">
+<meta property="og:url" content="https://gotcomped.com/plays.html">
+<meta property="og:title" content="Every Play: twenty-one rote Plays that read what your machine already wrote">
+<meta property="og:description" content="Twenty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine has been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
+<meta property="og:image" content="https://gotcomped.com/card-wide.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Every Play: twenty-one rote Plays that read what your machine already wrote">
+<meta name="twitter:description" content="Twenty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine has been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
+<meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./">comped<span>.</span></a>
+    <div class="links">
+      <a href="./" class="hide-xs">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="docs.html">Docs</a>
+      <a href="plays.html" class="on hide-xs">Plays</a>
+      <a href="developers.html" class="hide-sm">Developers</a>
+      <a href="https://github.com/rajkaria/comped" class="hide-sm">GitHub</a>
+      <a class="cta" href="./#get">Get my <span class="hide-xs">comp </span>score</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" style="padding-top:48px;padding-bottom:72px">
+<div class="doc-layout">
+
+<aside class="toc">
+  <strong>Twenty-one Plays</strong>
+  <a href="#run">How to run one</a>
+  <strong>What your agents cost</strong>
+  <a href="#comped">comped</a>
+  <a href="#session-ledger">session-ledger</a>
+  <a href="#wrong-turns">wrong-turns</a>
+  <strong>What your machine has been hoarding</strong>
+  <a href="#tab-debt">tab-debt</a>
+  <a href="#birthday-radar">birthday-radar</a>
+  <a href="#app-graveyard">app-graveyard</a>
+  <a href="#vault-pulse">vault-pulse</a>
+  <a href="#desktop-clutter">desktop-clutter</a>
+  <a href="#receipt-ledger">receipt-ledger</a>
+  <strong>Ten seconds, many times a day</strong>
+  <a href="#whatis">whatis</a>
+  <a href="#fits">fits</a>
+  <a href="#is-it-secret">is-it-secret</a>
+  <a href="#cron-when">cron-when</a>
+  <a href="#punch">punch</a>
+  <a href="#spent">spent</a>
+  <a href="#jot">jot</a>
+  <a href="#streak">streak</a>
+  <a href="#last-turn">last-turn</a>
+  <a href="#budget-left">budget-left</a>
+  <a href="#since-last">since-last</a>
+  <a href="#safe-to-commit">safe-to-commit</a>
+</aside>
+
+<main class="doc">
+<h1>Every Play</h1>
+<p class="lede">Twenty-one published rote Plays on three stdlib-only Python cores. No pip install, no node, no keys, and no network in any core. Each one is a public archive you can read before you run it.</p>
+<h2 id="run">How to run one</h2>
+<p>Every line on this page is complete. Paste it, and rote fetches the published archive, shows you a consent screen listing every file the Play touches, and runs it. It needs rote, the free runner from <a href="https://www.modiqo.ai">Modiqo</a>, and a free account. If you have neither, the registry installs both and the Play in one go. Swap the name at the end for any Play on this page:</p>
+<div class="cmd pinned" data-label="no rote yet">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-install">curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh</code></span>
+  <button class="copy" data-copy="#cmd-install">Copy</button>
+</div>
+<p><b>No account, no install, nothing kept.</b> <code>comped</code> also has a door that needs neither. It downloads about 40 KB of stdlib Python to a temporary directory, runs it, and deletes itself:</p>
+<div class="cmd pinned" data-label="no account">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-noaccount">curl -fsSL https://gotcomped.com/comped.sh | sh</code></span>
+  <button class="copy" data-copy="#cmd-noaccount">Copy</button>
+</div>
+<p>Prefer node? <code>npx comped</code> runs the same code. The full walkthrough is in <a href="docs.html">the docs</a>.</p>
+<h2 id="agents">What your agents cost</h2>
+<p>Three Plays that read the transcripts your coding agents already write. Nothing is sent, nothing is guessed, and every number has a line showing the arithmetic behind it. Built on <code>comped_core</code>.</p>
+<h3 id="comped">comped</h3>
+<p><strong>What would this month have cost at list price, and how far ahead of your plan are you?</strong></p>
+<p>The card. List-price total for the window, the multiplier against the plan you actually pay for, your cache share, the delta since last time, the asks you keep repeating, and your rank on the board. It works out which AI you run from the model ids in the logs, so you type nothing.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-comped">rote play run https://play.modiqo.ai/rajkaria/comped</code></span>
+  <button class="copy" data-copy="#cmd-comped">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-comped-real">rote play run https://play.modiqo.ai/rajkaria/comped handle=yourname</code></span>
+  <button class="copy" data-copy="#cmd-comped-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/comped">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/comped/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="session-ledger">session-ledger</h3>
+<p><strong>One ledger, four harnesses, no double counting.</strong></p>
+<p>The primitive the other two are built on. Claude Code writes one line per content block, so roughly four in ten usage lines are streaming duplicates of the same API call. Codex writes cumulative counters. This collapses both into one deduplicated ledger, subagents included, and judges nothing.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-session-ledger">rote play run https://play.modiqo.ai/rajkaria/session-ledger</code></span>
+  <button class="copy" data-copy="#cmd-session-ledger">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/session-ledger">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/session-ledger/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="wrong-turns">wrong-turns</h3>
+<p><strong>What does your agent keep getting wrong, and what did recovering cost?</strong></p>
+<p>Tool calls that errored, the messages where you corrected it, and reverts. Grouped into recurring classes, counted across sessions and days, priced in tokens, one redacted line of evidence each, and a drafted CLAUDE.md rule for every class that recurred three times. It never edits your rules file.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-wrong-turns">rote play run https://play.modiqo.ai/rajkaria/wrong-turns</code></span>
+  <button class="copy" data-copy="#cmd-wrong-turns">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/wrong-turns">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/wrong-turns/DESCRIPTION.md">the full description</a>.</p>
+<h2 id="machine">What your machine has been hoarding</h2>
+<p>Six read-only scans of files your machine already keeps. No network, no credentials, and every one runs cold on bundled fixtures first so you can watch it work before you point it at anything of yours. Built on <code>daily_core</code>.</p>
+<h3 id="tab-debt">tab-debt</h3>
+<p><strong>How many tabs are open, and how long since the oldest one was looked at?</strong></p>
+<p>The tab strip shows neither a number nor a date, but the session files your browser writes hold both. Chrome and its family, Firefox, Safari and Arc, read directly: Chrome session files are a binary command log and Firefox stores its session in a compressed container, so both readers were written from the format up.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-tab-debt">rote play run https://play.modiqo.ai/rajkaria/tab-debt demo=true</code></span>
+  <button class="copy" data-copy="#cmd-tab-debt">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/tab-debt">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/tab-debt/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="birthday-radar">birthday-radar</h3>
+<p><strong>Whose birthday is next, and how much of your address book has no date at all?</strong></p>
+<p>Your address book mentions a birthday on the morning of, which is the one moment the information is useless. This sorts by how soon, so the next one is a number of days. Contacts database, vCard exports and CSV, any one of which is enough.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-birthday-radar">rote play run https://play.modiqo.ai/rajkaria/birthday-radar demo=true</code></span>
+  <button class="copy" data-copy="#cmd-birthday-radar">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-birthday-radar-real">rote play run https://play.modiqo.ai/rajkaria/birthday-radar vcard_dir=~/Documents</code></span>
+  <button class="copy" data-copy="#cmd-birthday-radar-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/birthday-radar">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/birthday-radar/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="app-graveyard">app-graveyard</h3>
+<p><strong>Which applications did you stop opening, and which are still Intel only?</strong></p>
+<p>macOS records the last time you opened every application and never shows you the list. This asks Spotlight, measures each bundle, and reads sixteen bytes into every executable to say which ones your Apple silicon Mac is still emulating.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-app-graveyard">rote play run https://play.modiqo.ai/rajkaria/app-graveyard demo=true</code></span>
+  <button class="copy" data-copy="#cmd-app-graveyard">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-app-graveyard-real">rote play run https://play.modiqo.ai/rajkaria/app-graveyard unused_days=180</code></span>
+  <button class="copy" data-copy="#cmd-app-graveyard-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/app-graveyard">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/app-graveyard/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="vault-pulse">vault-pulse</h3>
+<p><strong>Which notes are load-bearing, which were written once, and is the daily habit alive?</strong></p>
+<p>A notes folder only grows, and nothing in the editor says which notes matter. The links give the graph and the timestamps give the habit. Orphans, broken links, and the daily-note streak. Obsidian is found automatically; any markdown folder works.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-vault-pulse">rote play run https://play.modiqo.ai/rajkaria/vault-pulse demo=true</code></span>
+  <button class="copy" data-copy="#cmd-vault-pulse">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-vault-pulse-real">rote play run https://play.modiqo.ai/rajkaria/vault-pulse vault=~/Notes</code></span>
+  <button class="copy" data-copy="#cmd-vault-pulse-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/vault-pulse">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/vault-pulse/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="desktop-clutter">desktop-clutter</h3>
+<p><strong>What is actually on the Desktop and in Downloads, by age and by size?</strong></p>
+<p>Both folders are append-only in practice, and the Finder sorts by name so the oldest file is invisible. Counted, aged, sized, duplicates found by hash, and graded A to F. On the machine this was built on it came back F with 164 duplicate groups.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-desktop-clutter">rote play run https://play.modiqo.ai/rajkaria/desktop-clutter demo=true</code></span>
+  <button class="copy" data-copy="#cmd-desktop-clutter">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/desktop-clutter">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/desktop-clutter/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="receipt-ledger">receipt-ledger</h3>
+<p><strong>What do the receipt files you already have add up to?</strong></p>
+<p>PDF invoices, saved confirmation pages, exported messages and plain text, four formats in one folder that nobody opens one at a time. The PDF reader decodes ToUnicode maps and rebuilds lines from the text matrix. Currencies are totalled separately and never summed across each other, and a document has to prove it is a receipt before it counts.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-receipt-ledger">rote play run https://play.modiqo.ai/rajkaria/receipt-ledger demo=true</code></span>
+  <button class="copy" data-copy="#cmd-receipt-ledger">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-receipt-ledger-real">rote play run https://play.modiqo.ai/rajkaria/receipt-ledger receipts_dir=~/Downloads</code></span>
+  <button class="copy" data-copy="#cmd-receipt-ledger-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/receipt-ledger">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/receipt-ledger/DESCRIPTION.md">the full description</a>.</p>
+<h2 id="micro">Ten seconds, many times a day</h2>
+<p>Twelve Plays small enough to run on reflex. Five of them remember what you told them in one append-only file under your home directory. None of them touch the network, and none of them take an out_dir, because these print. Built on <code>micro_core</code>.</p>
+<h3 id="whatis">whatis</h3>
+<p><strong>What is that opaque string?</strong></p>
+<p>Paste it and it peels it. A base64 blob holding gzip holding JSON holding a JWT is one input and four layers, and you get all four. JWTs, base64, gzip, epochs, UUIDs, IPs, cron expressions and magic bytes.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-whatis">rote play run https://play.modiqo.ai/rajkaria/whatis text=aHR0cHM6Ly9nb3Rjb21wZWQuY29t</code></span>
+  <button class="copy" data-copy="#cmd-whatis">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/whatis">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/whatis/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="fits">fits</h3>
+<p><strong>Will this fit the window, and what will it cost?</strong></p>
+<p>Point it at text or a file. Bytes, lines and words are facts and it states them. The token figure is an estimate, so it prints a range and the method that produced it rather than asserting a number the stdlib cannot know.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-fits">rote play run https://play.modiqo.ai/rajkaria/fits path=README.md</code></span>
+  <button class="copy" data-copy="#cmd-fits">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/fits">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/fits/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="is-it-secret">is-it-secret</h3>
+<p><strong>What should you redact before pasting that?</strong></p>
+<p>Run it on anything about to leave your machine. It knows the literal shapes: AWS key ids, GitHub tokens including fine-grained ones, private key headers, connection strings. It hands back the same text with those parts replaced, and it never prints what it found.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-is-it-secret">rote play run https://play.modiqo.ai/rajkaria/is-it-secret path=README.md</code></span>
+  <button class="copy" data-copy="#cmd-is-it-secret">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/is-it-secret">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/is-it-secret/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="cron-when">cron-when</h3>
+<p><strong>When does that cron expression actually fire?</strong></p>
+<p>The English, the next five fires in your zone and in UTC side by side, and the daylight saving trap. When both day fields are restricted, cron takes the union rather than the intersection, which is the thing most readers get wrong.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-cron-when">rote play run https://play.modiqo.ai/rajkaria/cron-when expr='0 3 * * 1' tz=Europe/London</code></span>
+  <button class="copy" data-copy="#cmd-cron-when">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/cron-when">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/cron-when/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="punch">punch</h3>
+<p><strong>How many times was the day broken, and what was the longest block you got?</strong></p>
+<p>One line saying what you are doing, which takes two seconds. Do it a few times a day and it answers what a calendar cannot: not where the time went, but how often it was cut.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-punch">rote play run https://play.modiqo.ai/rajkaria/punch note='writing the launch post'</code></span>
+  <button class="copy" data-copy="#cmd-punch">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/punch">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/punch/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="spent">spent</h3>
+<p><strong>What went out today, and where does the month land?</strong></p>
+<p>One line in, a spend log that owes nothing to a bank, an app or an export. Amount, label, optional tag. Decimal arithmetic end to end, never a float.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-spent">rote play run https://play.modiqo.ai/rajkaria/spent entry='320 lunch #food'</code></span>
+  <button class="copy" data-copy="#cmd-spent">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/spent">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/spent/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="jot">jot</h3>
+<p><strong>The thought, into the vault, in two seconds.</strong></p>
+<p>A thought arrives while you are doing something else. One line and it is appended to a markdown file in your vault, timestamped, and you are back to what you were doing. No app to open, no place to decide on.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-jot">rote play run https://play.modiqo.ai/rajkaria/jot note='ring the dentist'</code></span>
+  <button class="copy" data-copy="#cmd-jot">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-jot-real">rote play run https://play.modiqo.ai/rajkaria/jot vault_dir=~/Notes</code></span>
+  <button class="copy" data-copy="#cmd-jot-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/jot">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/jot/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="streak">streak</h3>
+<p><strong>How long is the run, and which weekday do you keep dropping?</strong></p>
+<p>One word, and it keeps the only part of habit tracking that changes behaviour: the current run, the record, a grid of the last twenty-one days, and the day of the week you keep losing.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-streak">rote play run https://play.modiqo.ai/rajkaria/streak did=water</code></span>
+  <button class="copy" data-copy="#cmd-streak">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/streak">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/streak/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="last-turn">last-turn</h3>
+<p><strong>What did the turn that just finished cost?</strong></p>
+<p>Not this month and not this project. That one turn, ninety seconds ago. Model, tokens in and out, cache share, dollars, and today's running total. It reads a 256 KB tail rather than your history, which is why it can run twenty times a day.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-last-turn">rote play run https://play.modiqo.ai/rajkaria/last-turn</code></span>
+  <button class="copy" data-copy="#cmd-last-turn">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/last-turn">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/last-turn/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="budget-left">budget-left</h3>
+<p><strong>How much of today's budget is gone, and how fast is it going?</strong></p>
+<p>You set a number you are willing to spend on agents today. This says how much is left, the burn rate, and whether you hit the cap before the day ends.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-budget-left">rote play run https://play.modiqo.ai/rajkaria/budget-left daily_budget=10</code></span>
+  <button class="copy" data-copy="#cmd-budget-left">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/budget-left">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/budget-left/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="since-last">since-last</h3>
+<p><strong>What did the agent actually touch?</strong></p>
+<p>Not what it said it did. What moved on disk since you last asked. Created, changed, deleted, and whether anything outside the repository moved. It watches the mtimes of the sensitive directories and can tell you something under one of them changed. It never opens them.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-since-last">rote play run https://play.modiqo.ai/rajkaria/since-last root=.</code></span>
+  <button class="copy" data-copy="#cmd-since-last">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/since-last">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/since-last/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="safe-to-commit">safe-to-commit</h3>
+<p><strong>What is staged that should not enter history?</strong></p>
+<p>The last thing between a live credential and permanent git history is you, at the moment you type commit. It parses .git/index directly, with no subprocess: credentials, a tracked .env, leftover debugging, and files large enough to regret for the life of the repository.</p>
+<div class="cmd pinned" data-label="run it">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-safe-to-commit">rote play run https://play.modiqo.ai/rajkaria/safe-to-commit repo=.</code></span>
+  <button class="copy" data-copy="#cmd-safe-to-commit">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/safe-to-commit">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/safe-to-commit/DESCRIPTION.md">the full description</a>.</p>
+</main>
+</div>
+</div>
+
+<footer>
+  <div class="wrap row">
+    <span>comped: built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="plays.html">Plays</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

@@ -220,10 +220,11 @@ PLAY_LINER = "curl -fsSL {0}/run.sh | sh".format(SITE_URL)
 ASKING_LINER = 'curl -fsSL "https://play.modiqo.ai/install?play={0}/comped" | sh'.format(HANDLE)
 
 
-def page(path, title, description, nav_active, toc, body):
+def page(path, title, description, nav_active, toc, body, scripts=""):
     """One page in the site's shell: the shared head, nav and footer around a docs layout."""
     # (href, label, nav key, class that hides it on small screens)
     links = [("./", "Home", "", "hide-xs"), ("leaderboard.html", "Leaderboard", "", ""), ("docs.html", "Docs", "docs", ""),
+             ("plays.html", "Plays", "plays", "hide-xs"),
              ("developers.html", "Developers", "developers", "hide-sm"),
              ("https://github.com/rajkaria/comped", "GitHub", "", "hide-sm")]
     nav = "\n".join('      <a href="{0}"{2}>{1}</a>'.format(
@@ -280,13 +281,13 @@ def page(path, title, description, nav_active, toc, body):
 <footer>
   <div class="wrap row">
     <span>comped: built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
-    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="plays.html">Plays</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
-
+{scripts}
 </body>
 </html>
-""".format(title=esc(title), description=esc(description), site=SITE_URL, path=path, nav=nav, toc=toc, body=body)
+""".format(title=esc(title), description=esc(description), site=SITE_URL, path=path, nav=nav, toc=toc, body=body, scripts=scripts)
 
 
 def docs_page():
@@ -574,13 +575,226 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
                 "developers", toc, body)
 
 
+PLAYS_INDEX = [
+    ("agents", "What your agents cost", "comped_core",
+     "Three Plays that read the transcripts your coding agents already write. Nothing is sent, "
+     "nothing is guessed, and every number has a line showing the arithmetic behind it.",
+     [
+      ("comped",
+       "What would this month have cost at list price, and how far ahead of your plan are you?",
+       "The card. List-price total for the window, the multiplier against the plan you actually pay "
+       "for, your cache share, the delta since last time, the asks you keep repeating, and your rank "
+       "on the board. It works out which AI you run from the model ids in the logs, so you type nothing.",
+       "", "handle=yourname"),
+      ("session-ledger",
+       "One ledger, four harnesses, no double counting.",
+       "The primitive the other two are built on. Claude Code writes one line per content block, so "
+       "roughly four in ten usage lines are streaming duplicates of the same API call. Codex writes "
+       "cumulative counters. This collapses both into one deduplicated ledger, subagents included, "
+       "and judges nothing.",
+       "", ""),
+      ("wrong-turns",
+       "What does your agent keep getting wrong, and what did recovering cost?",
+       "Tool calls that errored, the messages where you corrected it, and reverts. Grouped into "
+       "recurring classes, counted across sessions and days, priced in tokens, one redacted line of "
+       "evidence each, and a drafted CLAUDE.md rule for every class that recurred three times. It "
+       "never edits your rules file.",
+       "", ""),
+     ]),
+    ("machine", "What your machine has been hoarding", "daily_core",
+     "Six read-only scans of files your machine already keeps. No network, no credentials, and every "
+     "one runs cold on bundled fixtures first so you can watch it work before you point it at anything "
+     "of yours.",
+     [
+      ("tab-debt",
+       "How many tabs are open, and how long since the oldest one was looked at?",
+       "The tab strip shows neither a number nor a date, but the session files your browser writes "
+       "hold both. Chrome and its family, Firefox, Safari and Arc, read directly: Chrome session files "
+       "are a binary command log and Firefox stores its session in a compressed container, so both "
+       "readers were written from the format up.",
+       "demo=true", ""),
+      ("birthday-radar",
+       "Whose birthday is next, and how much of your address book has no date at all?",
+       "Your address book mentions a birthday on the morning of, which is the one moment the "
+       "information is useless. This sorts by how soon, so the next one is a number of days. Contacts "
+       "database, vCard exports and CSV, any one of which is enough.",
+       "demo=true", "vcard_dir=~/Documents"),
+      ("app-graveyard",
+       "Which applications did you stop opening, and which are still Intel only?",
+       "macOS records the last time you opened every application and never shows you the list. This "
+       "asks Spotlight, measures each bundle, and reads sixteen bytes into every executable to say "
+       "which ones your Apple silicon Mac is still emulating.",
+       "demo=true", "unused_days=180"),
+      ("vault-pulse",
+       "Which notes are load-bearing, which were written once, and is the daily habit alive?",
+       "A notes folder only grows, and nothing in the editor says which notes matter. The links give "
+       "the graph and the timestamps give the habit. Orphans, broken links, and the daily-note streak. "
+       "Obsidian is found automatically; any markdown folder works.",
+       "demo=true", "vault=~/Notes"),
+      ("desktop-clutter",
+       "What is actually on the Desktop and in Downloads, by age and by size?",
+       "Both folders are append-only in practice, and the Finder sorts by name so the oldest file is "
+       "invisible. Counted, aged, sized, duplicates found by hash, and graded A to F. On the machine "
+       "this was built on it came back F with 164 duplicate groups.",
+       "demo=true", ""),
+      ("receipt-ledger",
+       "What do the receipt files you already have add up to?",
+       "PDF invoices, saved confirmation pages, exported messages and plain text, four formats in one "
+       "folder that nobody opens one at a time. The PDF reader decodes ToUnicode maps and rebuilds "
+       "lines from the text matrix. Currencies are totalled separately and never summed across each "
+       "other, and a document has to prove it is a receipt before it counts.",
+       "demo=true", "receipts_dir=~/Downloads"),
+     ]),
+    ("micro", "Ten seconds, many times a day", "micro_core",
+     "Twelve Plays small enough to run on reflex. Five of them remember what you told them in one "
+     "append-only file under your home directory. None of them touch the network, and none of them "
+     "take an out_dir, because these print.",
+     [
+      ("whatis",
+       "What is that opaque string?",
+       "Paste it and it peels it. A base64 blob holding gzip holding JSON holding a JWT is one input "
+       "and four layers, and you get all four. JWTs, base64, gzip, epochs, UUIDs, IPs, cron "
+       "expressions and magic bytes.",
+       "text=aHR0cHM6Ly9nb3Rjb21wZWQuY29t", ""),
+      ("fits",
+       "Will this fit the window, and what will it cost?",
+       "Point it at text or a file. Bytes, lines and words are facts and it states them. The token "
+       "figure is an estimate, so it prints a range and the method that produced it rather than "
+       "asserting a number the stdlib cannot know.",
+       "path=README.md", ""),
+      ("is-it-secret",
+       "What should you redact before pasting that?",
+       "Run it on anything about to leave your machine. It knows the literal shapes: AWS key ids, "
+       "GitHub tokens including fine-grained ones, private key headers, connection strings. It hands "
+       "back the same text with those parts replaced, and it never prints what it found.",
+       "path=README.md", ""),
+      ("cron-when",
+       "When does that cron expression actually fire?",
+       "The English, the next five fires in your zone and in UTC side by side, and the daylight saving "
+       "trap. When both day fields are restricted, cron takes the union rather than the intersection, "
+       "which is the thing most readers get wrong.",
+       "expr='0 3 * * 1' tz=Europe/London", ""),
+      ("punch",
+       "How many times was the day broken, and what was the longest block you got?",
+       "One line saying what you are doing, which takes two seconds. Do it a few times a day and it "
+       "answers what a calendar cannot: not where the time went, but how often it was cut.",
+       "note='writing the launch post'", ""),
+      ("spent",
+       "What went out today, and where does the month land?",
+       "One line in, a spend log that owes nothing to a bank, an app or an export. Amount, label, "
+       "optional tag. Decimal arithmetic end to end, never a float.",
+       "entry='320 lunch #food'", ""),
+      ("jot",
+       "The thought, into the vault, in two seconds.",
+       "A thought arrives while you are doing something else. One line and it is appended to a "
+       "markdown file in your vault, timestamped, and you are back to what you were doing. No app to "
+       "open, no place to decide on.",
+       "note='ring the dentist'", "vault_dir=~/Notes"),
+      ("streak",
+       "How long is the run, and which weekday do you keep dropping?",
+       "One word, and it keeps the only part of habit tracking that changes behaviour: the current "
+       "run, the record, a grid of the last twenty-one days, and the day of the week you keep losing.",
+       "did=water", ""),
+      ("last-turn",
+       "What did the turn that just finished cost?",
+       "Not this month and not this project. That one turn, ninety seconds ago. Model, tokens in and "
+       "out, cache share, dollars, and today's running total. It reads a 256 KB tail rather than your "
+       "history, which is why it can run twenty times a day.",
+       "", ""),
+      ("budget-left",
+       "How much of today's budget is gone, and how fast is it going?",
+       "You set a number you are willing to spend on agents today. This says how much is left, the "
+       "burn rate, and whether you hit the cap before the day ends.",
+       "daily_budget=10", ""),
+      ("since-last",
+       "What did the agent actually touch?",
+       "Not what it said it did. What moved on disk since you last asked. Created, changed, deleted, "
+       "and whether anything outside the repository moved. It watches the mtimes of the sensitive "
+       "directories and can tell you something under one of them changed. It never opens them.",
+       "root=.", ""),
+      ("safe-to-commit",
+       "What is staged that should not enter history?",
+       "The last thing between a live credential and permanent git history is you, at the moment you "
+       "type commit. It parses .git/index directly, with no subprocess: credentials, a tracked .env, "
+       "leftover debugging, and files large enough to regret for the life of the repository.",
+       "repo=.", ""),
+     ]),
+]
+
+PLAY_URI = "https://play.modiqo.ai/" + HANDLE + "/{0}"
+
+
+def cmd_block(cid, text, label):
+    # The button lives outside the scrolling span. Inside it, a long command scrolls the Copy
+    # button off the right edge, which is the one control the block exists for.
+    return ('<div class="cmd pinned" data-label="{2}">\n'
+            '  <span class="cmd-scroll"><span class="dollar">$</span>'
+            '<code id="{0}">{1}</code></span>\n'
+            '  <button class="copy" data-copy="#{0}">Copy</button>\n'
+            '</div>').format(cid, esc(text), esc(label))
+
+
+def plays_page():
+    """One page for all twenty-one published Plays, with a paste-ready line under each.
+
+    The registry lists them one at a time behind a search box. A person who liked one of these has
+    no way to find the other twenty, and a link to twenty-one registry pages is not a link. This is.
+    """
+    toc = ['  <strong>Twenty-one Plays</strong>', '  <a href="#run">How to run one</a>']
+    body = ['<h1>Every Play</h1>',
+            '<p class="lede">Twenty-one published rote Plays on three stdlib-only Python cores. '
+            'No pip install, no node, no keys, and no network in any core. Each one is a public '
+            'archive you can read before you run it.</p>',
+            '<h2 id="run">How to run one</h2>',
+            '<p>Every line on this page is complete. Paste it, and rote fetches the published '
+            'archive, shows you a consent screen listing every file the Play touches, and runs it. '
+            'It needs rote, the free runner from <a href="https://www.modiqo.ai">Modiqo</a>, and a '
+            'free account. If you have neither, the registry installs both and the Play in one go. '
+            'Swap the name at the end for any Play on this page:</p>',
+            cmd_block("cmd-install",
+                      'curl -fsSL "https://play.modiqo.ai/install?play=rajkaria/comped" | sh',
+                      "no rote yet"),
+            '<p><b>No account, no install, nothing kept.</b> <code>comped</code> also has a door that '
+            'needs neither. It downloads about 40 KB of stdlib Python to a temporary directory, runs '
+            'it, and deletes itself:</p>',
+            cmd_block("cmd-noaccount", "curl -fsSL https://gotcomped.com/comped.sh | sh", "no account"),
+            '<p>Prefer node? <code>npx comped</code> runs the same code. The full walkthrough is in '
+            '<a href="docs.html">the docs</a>.</p>']
+    for anchor, heading, core, intro, plays in PLAYS_INDEX:
+        toc.append('  <strong>{0}</strong>'.format(esc(heading)))
+        body.append('<h2 id="{0}">{1}</h2>'.format(anchor, esc(heading)))
+        body.append('<p>{0} Built on <code>{1}</code>.</p>'.format(esc(intro), core))
+        for slug, question, blurb, try_args, real_args in plays:
+            toc.append('  <a href="#{0}">{0}</a>'.format(slug))
+            body.append('<h3 id="{0}">{0}</h3>'.format(slug))
+            body.append('<p><strong>{0}</strong></p>'.format(esc(question)))
+            body.append('<p>{0}</p>'.format(esc(blurb)))
+            uri = PLAY_URI.format(slug)
+            first = "rote play run {0}{1}".format(uri, (" " + try_args) if try_args else "")
+            label = "try it cold" if try_args.startswith("demo=") else "run it"
+            body.append(cmd_block("cmd-{0}".format(slug), first, label))
+            if real_args:
+                body.append(cmd_block("cmd-{0}-real".format(slug),
+                                      "rote play run {0} {1}".format(uri, real_args), "on your own"))
+            body.append('<p class="src"><a href="{0}">Read the archive</a> before you run it, or '
+                        '<a href="https://github.com/rajkaria/comped/blob/main/docs/plays/{1}/DESCRIPTION.md">'
+                        'the full description</a>.</p>'.format(uri, slug))
+    return page("plays.html", "Every Play: twenty-one rote Plays that read what your machine already wrote",
+                "Twenty-one published rote Plays on three stdlib-only Python cores. What your agents "
+                "cost, what your machine has been hoarding, and twelve you run many times a day. "
+                "Paste-ready run line under each.",
+                "plays", "\n".join(toc), "\n".join(body),
+                scripts='<script src="app.js" defer></script>')
+
+
 def main():
-    for name, html_text in (("docs.html", docs_page()), ("developers.html", developers_page())):
+    for name, html_text in (("docs.html", docs_page()), ("developers.html", developers_page()),
+                            ("plays.html", plays_page())):
         out = ROOT / "site" / name
         out.write_text(html_text, encoding="utf-8")
         print("wrote {0} ({1} bytes)".format(out, len(html_text)))
     sm = ROOT / "site" / "sitemap.xml"
-    pages = ["", "docs.html", "developers.html", "leaderboard.html", "card.html"]
+    pages = ["", "docs.html", "plays.html", "developers.html", "leaderboard.html", "card.html"]
     sm.write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

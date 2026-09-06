@@ -30,6 +30,7 @@
       <a href="./" class="hide-xs">Home</a>
       <a href="leaderboard.html">Leaderboard</a>
       <a href="docs.html">Docs</a>
+      <a href="plays.html" class="hide-xs">Plays</a>
       <a href="developers.html" class="on hide-sm">Developers</a>
       <a href="https://github.com/rajkaria/comped" class="hide-sm">GitHub</a>
       <a class="cta" href="./#get">Get my <span class="hide-xs">comp </span>score</a>
@@ -312,7 +313,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <p>You already have an agent with a shell. Paste this at it and it will do the rest:</p>
 <pre><code>Run comped on this machine: fetch https://gotcomped.com/llms.txt and follow it.</code></pre>
 <p><a href="https://gotcomped.com/llms.txt">llms.txt</a> is the briefing written for the agent rather than for you: what comped reads and refuses to read, the three ways to run it in the order to try them, the rule that it must ask you before posting your score anywhere, the output contract, and how to read the report back to you. It tells the agent not to summarise your logs by eye and not to paste anything out of <code>~/comped</code> into a message or a commit.</p>
-<p>It tries the doors in order and stops at the first that opens: the published Play if rote is already signed in, then the account-free <code>comped.sh</code> download, then <code>npx comped</code> where there is node but no Unix shell, and a <code>git clone --depth 1</code> last. Same code every way. Read the file before you paste the line; it is 158 lines and it is the whole of what your agent is being told.</p>
+<p>It tries the doors in order and stops at the first that opens: the published Play if rote is already signed in, then the account-free <code>comped.sh</code> download, then <code>npx comped</code> where there is node but no Unix shell, and a <code>git clone --depth 1</code> last. Same code every way. Read the file before you paste the line; it is 167 lines and it is the whole of what your agent is being told.</p>
 
 <h2 id="source">Source and spec</h2>
 <ul>
@@ -328,7 +329,7 @@ python3 -m comped_core card    --out-dir ~/comped</code></pre>
 <footer>
   <div class="wrap row">
     <span>comped: built on <a href="https://www.modiqo.ai">Modiqo's rote</a>. Free, open, MIT licensed.</span>
-    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
+    <span class="sp"><a href="./">Home</a> · <a href="leaderboard.html">Leaderboard</a> · <a href="docs.html">Docs</a> · <a href="plays.html">Plays</a> · <a href="developers.html">Developers</a> · <a href="https://github.com/rajkaria/comped">Source</a></span>
   </div>
 </footer>
 

@@ -158,6 +158,14 @@ h3 { font-size: 20px; letter-spacing: -0.01em; margin: 0 0 8px; font-weight: 800
 .cmd button.copy { background: var(--accent); color: #fff; border-color: var(--accent); }
 .cmd button.copy:hover { background: #ff7f63; border-color: #ff7f63; }
 .cmd button.copy.done { background: var(--mint); border-color: var(--mint); }
+/* A command long enough to scroll must not take its own Copy button with it. */
+.cmd.pinned { overflow-x: visible; gap: 14px; }
+.cmd.pinned .cmd-scroll { display: flex; align-items: center; gap: 12px; flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
+.cmd.pinned button.copy { flex: 0 0 auto; }
+.doc .cmd { margin: 16px 0 6px; }
+.doc .cmd + .cmd { margin-top: 10px; }
+.doc h3 { font-family: var(--mono); font-size: 20px; }
+.doc p.src { font-size: 13.5px; margin-top: 6px; }
 
 ol.howto { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
 ol.howto li { display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; min-width: 0; }
@@ -267,6 +275,8 @@ td code, p code, li code { font-family: var(--mono); font-size: 13.5px; color: v
 pre { background: var(--fg); color: var(--bg); border-radius: 16px; padding: 16px 18px; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.55; }
 pre code { color: var(--bg); }
 .doc-layout { display: grid; grid-template-columns: 232px 1fr; gap: 48px; align-items: start; }
+/* A grid track defaults to min-width:auto, so one wide command block widens the whole page. */
+main.doc { min-width: 0; }
 aside.toc { position: sticky; top: 90px; font-size: 14.5px; }
 aside.toc strong { display: block; color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin: 22px 0 10px; }
 aside.toc a { display: block; color: var(--muted); padding: 3px 0; font-weight: 600; }
@@ -374,9 +384,17 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
 @media (max-width: 520px) {
   .hide-xs { display: none !important; }
   nav .links { gap: 12px; }
+  /* The brand, the links and the call to action have to fit a 375px phone without the page
+     scrolling sideways. Below 420 they no longer do at the larger sizes. */
+  nav .wrap { gap: 12px; }
   nav .wrap { padding: 0 16px; }
   .brand { font-size: 20px; }
   .wrap { padding: 0 18px; }
+}
+
+@media (max-width: 420px) {
+  nav .links { gap: 10px; font-size: 14.5px; }
+  nav .wrap { gap: 8px; }
 }
 
 /* Motion is decoration. Anyone who asked for less gets the page without it. */
