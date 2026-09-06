@@ -1,7 +1,7 @@
 import unittest, pathlib, re, subprocess, sys, json
 
 SITE = pathlib.Path("site")
-PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html", "card.html")
+PAGES = ("index.html", "leaderboard.html", "docs.html", "developers.html", "card.html", "plays.html")
 
 
 def setUpModule():
@@ -11,7 +11,7 @@ def setUpModule():
 
 class Site(unittest.TestCase):
     def test_docs_are_regenerated_from_the_repo(self):
-        before = {p: (SITE / p).read_text(encoding="utf-8") for p in ("docs.html", "developers.html")}
+        before = {p: (SITE / p).read_text(encoding="utf-8") for p in ("docs.html", "developers.html", "plays.html")}
         subprocess.run([sys.executable, "tools/build_site.py"], check=True, capture_output=True)
         for p, text in before.items():
             self.assertEqual(text, (SITE / p).read_text(encoding="utf-8"),
@@ -183,6 +183,28 @@ class Site(unittest.TestCase):
         for page in PAGES:
             text = (SITE / page).read_text(encoding="utf-8")
             self.assertNotIn("\u2014", text, "{0} has an em dash".format(page))
+
+
+    def test_the_plays_page_lists_every_published_play_with_a_runnable_line(self):
+        # The registry shows one Play at a time behind a search box, so a person who liked one has
+        # no way to reach the other twenty. This page is the only link that carries all of them, and
+        # a slug that is on the registry but not here is a Play nobody will find.
+        from tools.build_site import PLAYS_INDEX, HANDLE
+        listed = [slug for _a, _h, _c, _i, plays in PLAYS_INDEX for slug, *_ in plays]
+        on_disk = sorted(d.name for d in pathlib.Path("plays").iterdir() if d.is_dir())
+        self.assertEqual(sorted(listed), on_disk, "plays.html and plays/ disagree")
+        self.assertEqual(len(listed), len(set(listed)), "a slug is listed twice")
+        text = (SITE / "plays.html").read_text(encoding="utf-8")
+        for slug in listed:
+            uri = "https://play.modiqo.ai/{0}/{1}".format(HANDLE, slug)
+            self.assertIn("rote play run " + uri, text, slug + " has no run line")
+            self.assertIn('id="{0}"'.format(slug), text, slug + " has no anchor")
+
+    def test_the_landing_page_reaches_the_other_plays(self):
+        # comped is the page that gets the traffic. If it does not point at the other twenty, they
+        # stay invisible however good they are.
+        index = (SITE / "index.html").read_text(encoding="utf-8")
+        self.assertIn('href="plays.html"', index)
 
     def test_the_board_is_fetched_from_this_origin_only_and_the_page_degrades_without_it(self):
         js = (SITE / "board.js").read_text(encoding="utf-8")

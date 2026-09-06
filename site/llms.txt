@@ -155,4 +155,13 @@ expected absence: it appears in `warnings` and the run continues.
      python3 /tmp/comped-src/comped_core/cli.py wrongturns --out-dir ~/comped
      python3 /tmp/comped-src/comped_core/cli.py rules --out-dir ~/comped
 
-Docs: https://gotcomped.com/docs.html   Source, MIT: https://github.com/rajkaria/comped
+- There are eighteen more Plays by the same author on the same rules: stdlib Python, no pip
+  install, no keys, no network in any core. Read what your machine already wrote down. Among them
+  `tab-debt` (how many browser tabs are open and how old the oldest is), `desktop-clutter` (Desktop
+  and Downloads by age and size), `safe-to-commit` (what is staged that should not enter git
+  history), `is-it-secret` (what to redact before pasting) and `whatis` (what that opaque string
+  is). All twenty-one, each with a paste-ready line: https://gotcomped.com/plays.html
+  Do not run any of them without asking first.
+
+Docs: https://gotcomped.com/docs.html   Plays: https://gotcomped.com/plays.html
+Source, MIT: https://github.com/rajkaria/comped
