@@ -276,7 +276,14 @@ pre { background: var(--fg); color: var(--bg); border-radius: 16px; padding: 16p
 pre code { color: var(--bg); }
 .doc-layout { display: grid; grid-template-columns: 232px 1fr; gap: 48px; align-items: start; }
 /* A grid track defaults to min-width:auto, so one wide command block widens the whole page. */
-main.doc { min-width: 0; }
+/* A grid item's automatic minimum is its content's minimum, so one long unbreakable token in
+   the prose widened the whole column past a phone screen. Let every column shrink; the things
+   that cannot wrap (pre, table, the command blocks) already scroll inside themselves. */
+.doc-layout > * { min-width: 0; }
+/* API paths and identifiers turn up in these headings and paragraphs; a token too long for a
+   phone column breaks rather than setting the column's width. pre keeps scrolling instead:
+   overflow-wrap does not apply where white-space is pre. */
+.doc { overflow-wrap: break-word; }
 aside.toc { position: sticky; top: 90px; font-size: 14.5px; }
 aside.toc strong { display: block; color: var(--muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin: 22px 0 10px; }
 aside.toc a { display: block; color: var(--muted); padding: 3px 0; font-weight: 600; }
@@ -379,6 +386,19 @@ table.board tr.t-hostage-situation .sc b, table.board tr.t-please-stop .sc b { c
   #board-search { margin-left: 0; width: 100%; }
   table.board { font-size: 14px; }
   table.board td, table.board th { padding: 11px 12px; }
+}
+
+/* A highlighted phrase is held on one line so the marker sits under it in one stroke. On a
+   phone the longest of them ("Everyone thinks theirs is the bad one.") wants 507px in a 339px
+   column, so nowrap pushed the page 160px wider than the screen and cut the words off. Below
+   640px the phrase wraps and the marker is drawn per line instead. */
+@media (max-width: 640px) {
+  h1 em, h2 em {
+    white-space: normal;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    background: linear-gradient(var(--yellow-soft), var(--yellow-soft)) no-repeat left bottom .06em / 100% .28em;
+  }
+  h1 em::after, h2 em::after { content: none; }
 }
 
 @media (max-width: 520px) {
