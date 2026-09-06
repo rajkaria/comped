@@ -22,3 +22,10 @@ out/
 /npm/.npmignore
 /npm/*.tgz
 /site/sitemap.xml
+
+# Internal working docs: never in the public repo.
+docs/context/
+docs/research/
+docs/superpowers/
+docs/launch/
+docs/adoption-log.md
