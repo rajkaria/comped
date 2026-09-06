@@ -206,6 +206,16 @@ class Site(unittest.TestCase):
         index = (SITE / "index.html").read_text(encoding="utf-8")
         self.assertIn('href="plays.html"', index)
 
+    def test_no_page_is_wider_than_a_phone(self):
+        # The landing page shipped 535px wide on a 375px screen: h1 em / h2 em were nowrap, and a
+        # grid track's automatic minimum is its content's minimum, so one long token set the column
+        # width. Both are CSS-only and only a browser can measure them, so this asserts the rules
+        # themselves are present rather than re-measuring the layout.
+        css = (SITE / "style.css").read_text(encoding="utf-8")
+        self.assertIn(".doc-layout > * { min-width: 0; }", css)
+        self.assertIn(".doc { overflow-wrap: break-word; }", css)
+        self.assertRegex(css, r"@media \(max-width: 640px\) \{\s*\n\s*h1 em, h2 em \{\s*\n\s*white-space: normal;")
+
     def test_the_board_is_fetched_from_this_origin_only_and_the_page_degrades_without_it(self):
         js = (SITE / "board.js").read_text(encoding="utf-8")
         self.assertEqual(re.findall(r'fetch\(("[^"]*")', js), ['"/api/leaderboard?sort="'])
