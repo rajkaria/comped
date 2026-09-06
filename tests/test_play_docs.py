@@ -1,7 +1,9 @@
 import unittest, json, pathlib, re
 
 SPEC = pathlib.Path("docs/SPEC.md").read_text(encoding="utf-8")
-PRIVACY = SPEC.split("## 9. Privacy and trust statements (verbatim in every description and report)\n")[1].split("\n## 10.")[0].strip()
+# Found by heading text, not by number, so renumbering the spec cannot silently empty this.
+PRIVACY = SPEC.split("Privacy and trust statements (verbatim in every description and report)\n")[1].split("\n## ")[0].strip()
+assert PRIVACY, "the privacy section moved or was renamed; this test reads it by heading"
 SLUGS = ("session-ledger", "comped", "wrong-turns")
 # Registry copy is public and permanent; the hackathon is not part of what these Plays do.
 # "judged" appears in session-ledger's copy as an ordinary verb ("nothing is judged"), so it is

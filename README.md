@@ -87,7 +87,7 @@ python3 leaderboard/post_score.py --out-dir ~/comped --handle you   # optional, 
 
 ## Methodology
 
-The full derivation — record model, per-record pricing, deduplication, windows and plan proration, the price table, repeat clustering and wrong-turn signals — is [SPEC §7](docs/SPEC.md#7-the-core-math). Two claims worth stating here:
+The full derivation — record model, per-record pricing, deduplication, windows and plan proration, the price table, repeat clustering and wrong-turn signals — is in [the spec](docs/SPEC.md#3-the-core-math). Two claims worth stating here:
 
 - **List price is not a bill.** It is what the same tokens would have cost on the API at the table's published rates. Your plan is a subscription; the multiplier is the ratio, nothing more.
 - **Nothing is typed.** Which AI you run comes out of the model ids in the logs; every tier those providers sell is priced at once and the assumed row is the least flattering one. The tool refuses to read your OAuth files to discover your account.
@@ -110,16 +110,15 @@ Enforced by tests, not just promised: the suite fails if `comped_core` imports `
 ## Development
 
 ```bash
-python3 -m unittest discover -s tests -v   # 165 tests
+python3 -m unittest discover -s tests -v
 python3 tools/sync_plays.py --check        # Plays bundle a byte-identical core
 ```
 
 ## Links
 
-- [`docs/SPEC.md`](docs/SPEC.md) — the build spec, including the math and the output design.
-- [`VISION.md`](VISION.md) — where this goes after the week it was built in.
-- [`docs/research/LANDSCAPE.md`](docs/research/LANDSCAPE.md) — what already exists, measured rather than assumed.
-- Plays: `play.modiqo.ai/rajkaria/session-ledger`, `/comped`, `/wrong-turns`.
+- [`docs/SPEC.md`](docs/SPEC.md) — the design and methodology: record model, pricing, deduplication, output contracts, testing standard.
+- [`VISION.md`](VISION.md) — where this goes next.
+- [All twenty-one Plays](https://gotcomped.com/plays.html), with a paste-ready line under each.
 
 ## License
 
