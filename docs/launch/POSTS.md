@@ -281,3 +281,85 @@ before it ships. The curl line needs WSL.
    the first two hours after it goes up.
 7. Add a row to `docs/adoption-log.md` tonight with the download counts and what you posted, so
    tomorrow you know which channel did anything.
+
+---
+
+## Direct messages
+
+### Read this before sending any
+
+Mass DMing a server is the one move here that can cost more than it earns. Three reasons, in
+order of how much they matter:
+
+1. **The Playoffs list "bot activity" as a disqualifier**, alongside purchased engagement
+   (`docs/research/LANDSCAPE.md`). Twenty identical DMs sent in ten minutes reads as exactly that,
+   whether or not a script sent them. The submission is the thing at risk, not just the goodwill.
+2. **Discord's own rules treat unsolicited bulk DMs as spam.** Accounts get disabled for it, and
+   the account is how you reach the audience that converts best. There is also no supported way to
+   do it: DMing every member needs a bot with the members intent, and a bot doing that is reported
+   and removed quickly.
+3. **It converts worse than the thing it replaces.** A DM from a stranger with five links gets
+   closed. A channel post with a real number gets read by everyone at once, and the people who
+   reply are the ones actually worth DMing afterwards.
+
+So: the channel post is the scale move, and it is already written above. DMs are the follow-up,
+and they work when there are few of them and each one has a reason to exist.
+
+### How to actually make it happen
+
+- **Cap it at ten to fifteen**, sent by hand, over a couple of hours. Not fifty, not automated.
+- **Only message people you have a reason to message**: someone whose Play you ran today, someone
+  who replied to your channel post, someone who asked a question you answered, someone building in
+  the same territory (`sidships`, `adnandev`, `lgoyal6`, `gautamtalksdev` are all in the
+  agent-cost space).
+- **Change the first line every time.** It is the only line that decides whether the rest is read,
+  and it has to be about them.
+- **Never send a second one.** If they do not reply, that was the answer.
+- **Run their Play first.** It takes two minutes, it gives you the first line, and it is the whole
+  reason the message is welcome instead of spam.
+
+### The five to lead with
+
+`comped` (the card and the board), `safe-to-commit`, `whatis`, `is-it-secret`, `tab-debt`. One
+link for all of them: https://gotcomped.com/plays.html
+
+### Draft A: you ran their Play. Use this one most.
+
+> Hey [name], just ran your [play] and it turned up [the actual thing it found on your machine].
+> [One honest sentence about what you liked.]
+>
+> I put out 21 Plays this week. Closest to yours is `comped`: it prices what your agent sessions
+> would have cost at API list price against what you actually pay. Mine came back 13x.
+>
+> `rote play run https://play.modiqo.ai/rajkaria/comped`
+>
+> The other twenty are here if any look useful: https://gotcomped.com/plays.html
+> No worries either way.
+
+### Draft B: they replied to your post or asked something.
+
+> Thanks for [the question about X] earlier, that was a good one.
+>
+> If you liked that bit: four more of mine in the same spirit, each one paste and each about ten
+> seconds. `safe-to-commit` (what is staged that should not enter git history, reads .git/index
+> directly), `whatis` (peels an opaque string, base64 to gzip to JSON to JWT), `is-it-secret`
+> (hands back the redacted copy), `tab-debt` (my oldest open tab was 21 months old).
+>
+> All of them with a paste line each: https://gotcomped.com/plays.html
+> Would genuinely like to know if any of them are wrong on your machine.
+
+### Draft C: cold, and only if there is some real reason. Keep it this short.
+
+> Hey! Published 21 Plays this week, all stdlib Python, nothing to install, no keys, nothing sent.
+> The five I would start with: `comped`, `safe-to-commit`, `whatis`, `is-it-secret`, `tab-debt`.
+>
+> https://gotcomped.com/plays.html
+>
+> Happy to be told it is not your thing.
+
+### What not to put in a DM
+
+No pasted wall of twenty-one links. No "please download". No mention of the leaderboard or the
+competition, because the moment it reads as asking for a vote it stops being about the tool. Ask
+them to tell you when something is wrong on their machine instead; that is a real request, and
+people answer it.
