@@ -31,7 +31,7 @@ None inside the Plays, ever. The hosted board, team views and private team board
 
 - The parser: dedup on real logs (41% duplicate lines measured), Codex counter differencing, subagent attribution.
 - The pricing: a bundled, provenance-carrying price table with honest unknowns.
-- The hypothesis still open: whether the card spreads on its own. The adoption log answers it by the end of the week.
+- The hypothesis still open: whether the card spreads on its own.
 
 ## The ask
 
