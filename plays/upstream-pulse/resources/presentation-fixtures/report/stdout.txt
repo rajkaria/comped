@@ -1,0 +1,39 @@
+┌──────────────────────────────────────────────────────────────┐
+│ UPSTREAM PULSE                                      122 pkgs │
+│                                                              │
+│ 72 direct dependencies. 7 no release in 2.0 years.           │
+│ 12 single-publisher. 4 both, and 4 are in your production    │
+│ request path.                                                │
+│                                                              │
+├─ DORMANCY GRADE ─────────────────────────────────────────────┤
+│ ██▓▓▒▒▒▒▒▒▒▒░░░░░░······················                     │
+│ █ F  ▓ D  ▒ C  ░ B  · A                                      │
+│ 64 of 122 checked · 58 not checked                           │
+├─ WHY DATE-FMT-LITE IS F ─────────────────────────────────────┤
+│ last release      4/4   4.5y ago (2022-03-06)                │
+│ release cadence   2/2   no release in two years              │
+│ publishers        2/2   1 account                            │
+│ deprecation       0/3   not deprecated                       │
+│ repository        2/2   archived                             │
+│ licence           0/1   MIT, unchanged                       │
+│ version drift     1/1   pinned 3.22.2, latest 3.23.0         │
+│ total            11/15  grade F                              │
+│ blast radius: production — you asked for it directly, in the │
+│ production path                                              │
+├─ DORMANT · SINGLE-PUBLISHER · PRODUCTION ────────────────────┤
+│ aria-live 2.15.20                   2023-12-26 · 1 publisher │
+│ date-fmt-lite 3.22.2                2022-03-06 · 1 publisher │
+│ objpath 3.10.20                     2023-06-09 · 1 publisher │
+│ xmlsec-lite 9.2.29                  2020-11-21 · 1 publisher │
+├─ THE REGISTRY NAMES A SUCCESSOR ─────────────────────────────┤
+│ ms-parse                                    → duration-parse │
+│ (only where the registry says so; never inferred)            │
+│                                                              │
+│ first run: nothing to compare against yet, come back tomorr… │
+│ these registry answers are 110.4h old, past the 24h cache    │
+│ window                                                       │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/upstream-pulse/upstream-pulse.md
+not read: legacy-batch/package-lock.json (no dependencies recorded)
+{"checked": 64, "deprecated": 2, "direct": 72, "dormant": 7, "headline": 4, "lockfiles": 4, "note": "not read: legacy-batch/package-lock.json", "offline": false, "ok": true, "packages": 122, "single_maintainer": 12, "sources": [{"found": true, "items": 122, "name": "lockfiles (demo)", "note": "122 package rows across 5 lockfiles", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream"}, {"found": true, "items": 30, "name": "billing-service/poetry.lock", "note": "poetry.lock (lock-version 2.1); direct from the pyproject.toml next to it; read pyproject.toml beside it", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/billing-service/poetry.lock"}, {"found": true, "items": 8, "name": "data-jobs/requirements-dev.txt", "note": "requirements-dev.txt (dev/test requirements); direct from every line of a requirements file is a requirement someone wrote (counted as development because of the file name)", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/data-jobs/requirements-dev.txt"}, {"found": true, "items": 16, "name": "edge-router/Cargo.lock", "note": "Cargo.lock (version 4); direct from the Cargo.toml next to it; read Cargo.toml beside it", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/edge-router/Cargo.lock"}, {"found": false, "items": 0, "name": "legacy-batch/package-lock.json", "note": "no dependencies recorded", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/legacy-batch/package-lock.json"}, {"found": true, "items": 68, "name": "web-console/package-lock.json", "note": "package-lock.json (lockfileVersion 3); direct from the package.json next to it; read package.json beside it", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/web-console/package-lock.json"}, {"found": true, "items": 64, "name": "registry (demo)", "note": "70 packages looked up, 6 failed; fetched 2026-09-01T06:00:00Z", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/registry.json"}], "unchecked": 58, "written": ["/tmp/daily-demo/upstream-pulse/upstream-pulse.md", "/tmp/daily-demo/upstream-pulse/upstream-pulse.json"]}

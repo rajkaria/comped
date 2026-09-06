@@ -118,7 +118,7 @@ python3 tools/sync_plays.py --check        # Plays bundle a byte-identical core
 
 - [`docs/SPEC.md`](docs/SPEC.md) — the design and methodology: record model, pricing, deduplication, output contracts, testing standard.
 - [`VISION.md`](VISION.md) — where this goes next.
-- [All twenty-one Plays](https://gotcomped.com/plays.html), with a paste-ready line under each.
+- [All thirty-one Plays](https://gotcomped.com/plays.html), with a paste-ready line under each.
 
 ## License
 

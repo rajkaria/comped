@@ -1,0 +1,2 @@
+demo run: nothing was fetched and no connection was opened; the report reads the bundled registry fixture.
+{"available": false, "checked": 0, "demo": true, "ok": true, "requested": 0, "warning": "demo run: the bundled registry fixture is used"}

@@ -1,0 +1,40 @@
+┌──────────────────────────────────────────────────────────────┐
+│ WHAT GREW                                   since 2026-08-24 │
+│                                                              │
+│ +146 GB since 2026-08-24                                     │
+│ 1.6 TB used of 1.8 TB · 200 GB free (11%)                    │
+│ +11.8 GB/day over 12.35 day(s), from two measurements        │
+│                                                              │
+├─ GREW IN PLACE ──────────────────────────────────────────────┤
+│ Library/Developer/CoreSimulator        +59.3 GB  think first │
+│ Library/Developer/Xcode/DerivedData    +43.1 GB  regenerable │
+│ Library/Containers/com.docker.dock…    +29.3 GB  think first │
+│ Projects/ledger-api/node_modules        +1.6 GB  regenerable │
+├─ NEWLY APPEARED ─────────────────────────────────────────────┤
+│ Library/Developer/Xcode/iOS Device… +38.4 GB  safe to delete │
+├─ SHRANK ─────────────────────────────────────────────────────┤
+│ Downloads                                           -22.1 GB │
+├─ DELETED ────────────────────────────────────────────────────┤
+│ Projects/atlas-www                                   -4.5 GB │
+├─ WHAT YOU CAN GET BACK ──────────────────────────────────────┤
+│ 136 GB regenerable                                           │
+│ 73.6 GB cache, safe to delete · 171 GB needs a decision      │
+│ 489 GB is data nothing can rebuild — not in the number above │
+│ Simulator runtimes Library/Developer/CoreSimulat…    89.9 GB │
+│ Xcode DerivedData Library/Developer/Xcode/Derive…    73.0 GB │
+│ Docker data Library/Containers/com.docker.docker     59.9 GB │
+│ iOS device support Library/Developer/Xcode/iOS D…    38.4 GB │
+├─ IF NOTHING CHANGES ─────────────────────────────────────────┤
+│ Full in 16 day(s), around 2026-09-22.                        │
+│ Straight-line extrapolation from one interval, not a         │
+│ forecast.                                                    │
+├─ READ THIS BEFORE ACTING ────────────────────────────────────┤
+│ 3 folders could not be opened; counted, size unknown.        │
+│ not counted: /Volumes, anything on another or network        │
+│ volume, the filesystem's own metadata folders, and iCloud    │
+│ files that were never pulled down.                           │
+│ Nothing was deleted, moved or opened.                        │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/what-grew/what-grew.md
+{"baselines_held": 2, "dirs_named": 41, "files": 1284902, "first_run": false, "free_bytes": 214800000000, "net_bytes": 156328000001, "ok": true, "reclaim_bytes": 225290000000, "sources": [{"found": true, "items": 1284902, "name": "home (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmplGOqLp/resources/daily_core/fixtures/grew/sizes.json"}], "total_bytes": 934530000000, "written": ["/tmp/daily-demo/what-grew/what-grew.md", "/tmp/daily-demo/what-grew/what-grew.json"]}

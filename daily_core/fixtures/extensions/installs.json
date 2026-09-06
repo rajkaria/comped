@@ -1,0 +1,762 @@
+{
+ "generated": "2026-09-01T12:00:00Z",
+ "installs": [
+  {
+   "browser": "Arc",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "bcjindcccaagfpapjjmafapmmgkkhgoa",
+   "install_source": "store",
+   "installed": "2022-10-12T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "JSON Formatter",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "Profile 1",
+   "settings_seen": true,
+   "state_touched": "2025-10-30T12:00:00Z",
+   "updated": "2024-08-20T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "0.7.4"
+  },
+  {
+   "browser": "Arc",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "eimadpbcbfnmbkopoojfekhnkhdbieeh",
+   "install_source": "store",
+   "installed": "2023-06-09T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Dark Reader",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "Profile 1",
+   "settings_seen": true,
+   "state_touched": "2026-08-26T12:00:00Z",
+   "updated": "2026-06-19T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "4.9.98"
+  },
+  {
+   "browser": "Arc",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>",
+    "http://localhost/*"
+   ],
+   "hosts_withheld": false,
+   "id": "padekgcemlokbadohgkifijomclgjgif",
+   "install_source": "unpacked",
+   "installed": "2026-05-28T12:00:00Z",
+   "location_label": "loaded unpacked from a folder",
+   "manifest_version": 3,
+   "name": "Local Dev Helper",
+   "optional_host_permissions": [],
+   "permissions": [
+    "debugger",
+    "storage"
+   ],
+   "profile": "Profile 1",
+   "settings_seen": true,
+   "state_touched": "2026-08-31T12:00:00Z",
+   "updated": "2026-08-28T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "0.0.1"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [],
+   "host_permissions": [],
+   "hosts_withheld": false,
+   "id": "aapbdbdomjkkjkaonfhkkikfgjllcleb",
+   "install_source": "store",
+   "installed": "2025-04-14T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Colour Picker",
+   "optional_host_permissions": [],
+   "permissions": [
+    "activeTab",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-07-19T12:00:00Z",
+   "updated": "2026-02-23T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "2.0.1"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "bcjindcccaagfpapjjmafapmmgkkhgoa",
+   "install_source": "store",
+   "installed": "2022-10-12T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "JSON Formatter",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2025-10-30T12:00:00Z",
+   "updated": "2024-08-20T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "0.7.4"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [
+    "https://app.example.com/*"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "https://app.example.com/*"
+   ],
+   "host_permissions": [
+    "https://admin.example.com/*",
+    "https://app.example.com/*"
+   ],
+   "hosts_withheld": false,
+   "id": "cfhdojbkjhnklbpkdaibdccddilifddb",
+   "install_source": "store",
+   "installed": "2026-02-03T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Ledger Helper",
+   "optional_host_permissions": [],
+   "permissions": [
+    "activeTab",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-27T12:00:00Z",
+   "updated": "2026-08-15T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "1.4.0"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "dbepggeogbaibhgnhhndojpepiihcmeb",
+   "install_source": "policy",
+   "installed": "2025-11-05T12:00:00Z",
+   "location_label": "installed by administrator policy",
+   "manifest_version": 3,
+   "name": "Corp Policy Agent",
+   "optional_host_permissions": [],
+   "permissions": [
+    "management",
+    "nativeMessaging"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-30T12:00:00Z",
+   "updated": "2026-08-20T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "3.1.0"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": false,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "dhdgffkkebhmkfjojejmpbldmpobfkfo",
+   "install_source": "sideloaded",
+   "installed": "2021-11-16T12:00:00Z",
+   "location_label": "installed by another program on this machine",
+   "manifest_version": 2,
+   "name": "Script Runner",
+   "optional_host_permissions": [],
+   "permissions": [
+    "clipboardRead",
+    "storage",
+    "tabs"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2024-03-12T12:00:00Z",
+   "updated": "2024-03-12T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "4.19.0"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "eimadpbcbfnmbkopoojfekhnkhdbieeh",
+   "install_source": "store",
+   "installed": "2023-06-09T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Dark Reader",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-26T12:00:00Z",
+   "updated": "2026-06-19T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "4.9.98"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "fmkadmapgofadopljbjfkapdkoienihi",
+   "install_source": "store",
+   "installed": "2023-12-16T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Frontend Devtools",
+   "optional_host_permissions": [],
+   "permissions": [
+    "scripting",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-06-05T12:00:00Z",
+   "updated": "2026-04-21T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "5.3.0"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "*://*.com/*"
+   ],
+   "host_permissions": [
+    "*://*.co.uk/*",
+    "*://*.com/*"
+   ],
+   "hosts_withheld": false,
+   "id": "gighmmpiobklfepjocnamgkkbiglidom",
+   "install_source": "store",
+   "installed": "2025-07-18T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Shop Compare",
+   "optional_host_permissions": [],
+   "permissions": [
+    "declarativeNetRequest",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-23T12:00:00Z",
+   "updated": "2026-08-10T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "6.0.3"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "hkgfoiooedgoejojocmhlaklaeopbecg",
+   "install_source": "store",
+   "installed": "2024-11-30T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Coupon Finder",
+   "optional_host_permissions": [],
+   "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "webRequest"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-29T12:00:00Z",
+   "updated": "2026-07-22T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "4.2.1"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "https://*/*"
+   ],
+   "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+   ],
+   "hosts_withheld": false,
+   "id": "kbfnbcaeplbcioakkpcpgfkobkghlhen",
+   "install_source": "sideloaded",
+   "installed": "2022-04-05T12:00:00Z",
+   "location_label": "installed by another program on this machine",
+   "manifest_version": 2,
+   "name": "Old Ad Blocker",
+   "optional_host_permissions": [],
+   "permissions": [
+    "tabs",
+    "webRequest",
+    "webRequestBlocking"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2025-04-07T12:00:00Z",
+   "updated": "2024-05-23T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "1.14.2"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": false,
+   "family": "chromium",
+   "granted_hosts": [],
+   "host_permissions": [],
+   "hosts_withheld": false,
+   "id": "ldgfbffkinooeloadekpmfoklnobpien",
+   "install_source": "store",
+   "installed": "2024-10-01T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Tab Counter",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2025-07-26T12:00:00Z",
+   "updated": "2025-07-26T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "1.1.0"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "mdnleldcmiljblolnjhpnblkcekpdkpa",
+   "install_source": "store",
+   "installed": "2024-04-04T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Page Translator",
+   "optional_host_permissions": [],
+   "permissions": [
+    "downloads",
+    "history",
+    "scripting",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-07-02T12:00:00Z",
+   "updated": "2026-05-28T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "2.9.0"
+  },
+  {
+   "browser": "Chrome",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "https://docs.example.com/*"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": true,
+   "id": "nngceckbapebfimnlniiiahkandclblb",
+   "install_source": "store",
+   "installed": "2025-08-17T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Screenshot Studio",
+   "optional_host_permissions": [],
+   "permissions": [
+    "downloads",
+    "scripting",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-11T12:00:00Z",
+   "updated": "2026-07-05T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "5.5.2"
+  },
+  {
+   "browser": "Microsoft Edge",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "dbepggeogbaibhgnhhndojpepiihcmeb",
+   "install_source": "policy",
+   "installed": "2025-11-05T12:00:00Z",
+   "location_label": "installed by administrator policy",
+   "manifest_version": 3,
+   "name": "Corp Policy Agent",
+   "optional_host_permissions": [],
+   "permissions": [
+    "management",
+    "nativeMessaging"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-30T12:00:00Z",
+   "updated": "2026-08-20T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "3.1.0"
+  },
+  {
+   "browser": "Microsoft Edge",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "eimadpbcbfnmbkopoojfekhnkhdbieeh",
+   "install_source": "store",
+   "installed": "2023-06-09T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Dark Reader",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-26T12:00:00Z",
+   "updated": "2026-06-19T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "4.9.98"
+  },
+  {
+   "browser": "Microsoft Edge",
+   "content_matches": [],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "ghmbeldphafepmbegfdlkpapadhbakde",
+   "install_source": "store",
+   "installed": "2024-06-03T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Proxy Switcher",
+   "optional_host_permissions": [],
+   "permissions": [
+    "proxy",
+    "storage"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2025-12-15T12:00:00Z",
+   "updated": "2025-05-19T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "1.9.4"
+  },
+  {
+   "browser": "Microsoft Edge",
+   "content_matches": [
+    "<all_urls>"
+   ],
+   "enabled": true,
+   "family": "chromium",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "hkgfoiooedgoejojocmhlaklaeopbecg",
+   "install_source": "store",
+   "installed": "2024-11-30T12:00:00Z",
+   "location_label": "from the Chrome Web Store",
+   "manifest_version": 3,
+   "name": "Coupon Finder",
+   "optional_host_permissions": [],
+   "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "webRequest"
+   ],
+   "profile": "Default",
+   "settings_seen": true,
+   "state_touched": "2026-08-29T12:00:00Z",
+   "updated": "2026-07-22T12:00:00Z",
+   "updated_is_proxy": true,
+   "version": "4.2.1"
+  },
+  {
+   "browser": "Firefox",
+   "content_matches": [],
+   "enabled": true,
+   "family": "firefox",
+   "granted_hosts": [
+    "*://*.org/*"
+   ],
+   "host_permissions": [
+    "*://*.org/*"
+   ],
+   "hosts_withheld": false,
+   "id": "reader@example.org",
+   "install_source": "sideloaded",
+   "installed": "2022-07-24T12:00:00Z",
+   "location_label": "winreg-app-user",
+   "manifest_version": 2,
+   "name": "Reading Mode",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage"
+   ],
+   "profile": "default-release",
+   "settings_seen": true,
+   "state_touched": "2024-06-13T12:00:00Z",
+   "updated": "2024-06-13T12:00:00Z",
+   "updated_is_proxy": false,
+   "version": "0.4.2"
+  },
+  {
+   "browser": "Firefox",
+   "content_matches": [],
+   "enabled": true,
+   "family": "firefox",
+   "granted_hosts": [
+    "<all_urls>"
+   ],
+   "host_permissions": [
+    "<all_urls>"
+   ],
+   "hosts_withheld": false,
+   "id": "uBlock0@raymondhill.net",
+   "install_source": "store",
+   "installed": "2023-02-19T12:00:00Z",
+   "location_label": "app-profile",
+   "manifest_version": 3,
+   "name": "uBlock Origin",
+   "optional_host_permissions": [],
+   "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking"
+   ],
+   "profile": "default-release",
+   "settings_seen": true,
+   "state_touched": "2026-07-30T12:00:00Z",
+   "updated": "2026-07-30T12:00:00Z",
+   "updated_is_proxy": false,
+   "version": "1.60.0"
+  },
+  {
+   "browser": "Firefox",
+   "content_matches": [],
+   "enabled": true,
+   "family": "firefox",
+   "granted_hosts": [
+    "https://*/*"
+   ],
+   "host_permissions": [
+    "https://*/*"
+   ],
+   "hosts_withheld": false,
+   "id": "{446900e4-71c2-419f-a6a7-df9c091e268b}",
+   "install_source": "store",
+   "installed": "2024-02-04T12:00:00Z",
+   "location_label": "app-profile",
+   "manifest_version": 3,
+   "name": "Password Vault",
+   "optional_host_permissions": [],
+   "permissions": [
+    "clipboardRead",
+    "storage",
+    "tabs"
+   ],
+   "profile": "default-release",
+   "settings_seen": true,
+   "state_touched": "2026-07-02T12:00:00Z",
+   "updated": "2026-07-02T12:00:00Z",
+   "updated_is_proxy": false,
+   "version": "3.9.11"
+  },
+  {
+   "browser": "Safari",
+   "content_matches": [],
+   "enabled": true,
+   "family": "safari",
+   "granted_hosts": [],
+   "host_permissions": [],
+   "hosts_withheld": false,
+   "id": "com.example.readerplus",
+   "install_source": "unknown",
+   "installed": "",
+   "location_label": "Safari container",
+   "manifest_version": null,
+   "name": "Reader Plus",
+   "optional_host_permissions": [],
+   "permissions": [],
+   "profile": "Default",
+   "reach_published": false,
+   "settings_seen": false,
+   "state_touched": "",
+   "updated": "",
+   "updated_is_proxy": true,
+   "version": "1.8"
+  },
+  {
+   "browser": "Safari",
+   "content_matches": [],
+   "enabled": true,
+   "family": "safari",
+   "granted_hosts": [],
+   "host_permissions": [],
+   "hosts_withheld": false,
+   "id": "com.example.tabsaver",
+   "install_source": "unknown",
+   "installed": "",
+   "location_label": "Safari container",
+   "manifest_version": null,
+   "name": "Tab Saver",
+   "optional_host_permissions": [],
+   "permissions": [],
+   "profile": "Default",
+   "reach_published": false,
+   "settings_seen": false,
+   "state_touched": "",
+   "updated": "",
+   "updated_is_proxy": true,
+   "version": "2.1"
+  }
+ ],
+ "note": "invented extensions on invented profiles; no browser on this machine was read"
+}

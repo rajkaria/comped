@@ -1,0 +1,45 @@
+┌──────────────────────────────────────────────────────────────┐
+│ KEPT                                    23,828 lines written │
+│                                                              │
+│ Claude wrote 23,828 lines across 21 sessions.                │
+│ 40% no longer exist. More than half is still standing.       │
+│ Your own hand-written lines: 79% still there.                │
+├─ AGENT VS YOU, SAME FILES ───────────────────────────────────┤
+│ the agent        14,279/23,828   60% ▇▇▇▇▇▇▇                 │
+│ your own hand-w… 8,073/10,269   79% ▇▇▇▇▇▇▇▇▇                │
+│ gap: 19 points worse for the agent                           │
+├─ WHERE IT WENT ──────────────────────────────────────────────┤
+│ ██████████████████████████████████▓▓▓▓▒░░░░░░░░░░░░░░░░░     │
+│ █ still there ▓ undone by a revert ▒ deleted with the file ░ │
+│ rewritten in place                                           │
+├─ HALF-LIFE ──────────────────────────────────────────────────┤
+│ agent ▁██▇    newest → oldest                                │
+│ you   ▁███    same buckets, same scale                       │
+│ same day    unrated      0 lines   you unrated               │
+│ 1 week          61%  4,534 lines   you 78%                   │
+│ 1 month         63%  6,378 lines   you 80%                   │
+│ older           58% 12,916 lines   you 75%                   │
+│ more than half of everything written is still standing, so … │
+├─ BY REPOSITORY ──────────────────────────────────────────────┤
+│ ledger-api (15 sessions)                          60% vs 77% │
+│ pricing-web (6 sessions)                          60% vs 74% │
+├─ WORST DIRECTORY ────────────────────────────────────────────┤
+│ ledger-api/ledger/ingest — 55% of 2,667 lines survive        │
+├─ BY LANGUAGE ────────────────────────────────────────────────┤
+│ .py              8,566/14,386   60% ▇▇▇▇▇▇▇                  │
+│ .ts              2,512/4,159   60% ▇▇▇▇▇▇▇                   │
+│ .tsx             1,763/3,014   58% ▇▇▇▇▇▇▇                   │
+│ .md               947/1,503   63% ▇▇▇▇▇▇▇▇                   │
+├─ WRITTEN AND IMMEDIATELY UNDONE ─────────────────────────────┤
+│ 2 agent commits reverted, 1,839 line(s); 2 within a day      │
+│ 5c8b8fab extend across src/billing                 926 lines │
+│ 3a9478d7 extend across ledger/ingest               913 lines │
+│                                                              │
+│ first run: nothing to compare against yet, come back         │
+│ tomorrow                                                     │
+│ Attribution is a time window, not a fact. The report prints  │
+│ the rule in full.                                            │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/kept/kept.md
+{"agent_alive": 14279, "agent_ever": 23828, "human_alive": 11457, "human_ever": 15032, "ok": true, "repos": 2, "sessions": 21, "sources": [{"found": true, "items": 209, "name": "agent (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphqrQo4/resources/daily_core/fixtures/kept/kept.json"}, {"found": true, "items": 9, "name": "git (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphqrQo4/resources/daily_core/fixtures/kept/kept.json"}], "survival": 60, "written": ["/tmp/daily-demo/kept/kept.md", "/tmp/daily-demo/kept/kept.json"]}

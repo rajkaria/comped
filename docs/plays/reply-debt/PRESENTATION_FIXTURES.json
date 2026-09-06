@@ -1,0 +1,5 @@
+{
+ "fetch_mail": "resources/presentation-fixtures/fetch_mail/fixture.yaml",
+ "read_mail": "resources/presentation-fixtures/read_mail/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

@@ -1,0 +1,2 @@
+registry: 71 record(s)
+{"complete": true, "kind": "registry", "ok": true, "records": 71, "scanned_files": 0, "sources": [{"found": true, "items": 64, "name": "registry (demo)", "note": "70 packages looked up, 6 failed; fetched 2026-09-01T06:00:00Z", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmphSboA3/resources/daily_core/fixtures/upstream/registry.json"}]}

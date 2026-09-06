@@ -1,0 +1,2 @@
+safari: 2 install(s) from 1 source(s)
+{"complete": true, "family": "safari", "installs": 2, "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 2, "name": "safari (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpkAEOkq/resources/daily_core/fixtures/extensions/installs.json"}]}

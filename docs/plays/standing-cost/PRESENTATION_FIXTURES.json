@@ -1,0 +1,5 @@
+{
+ "fetch_calendar": "resources/presentation-fixtures/fetch_calendar/fixture.yaml",
+ "read_calendar": "resources/presentation-fixtures/read_calendar/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

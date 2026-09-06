@@ -1,0 +1,82 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against a bundled synthetic calendar of 439 events, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "partial",
+  "type": "string",
+  "default": ".standing-cost-calendar.json",
+  "example": ".standing-cost-calendar.json",
+  "label": "Calendar file",
+  "description": "Where the calendar step writes the normalised events and the report reads them. A relative name resolves inside out_dir."
+ },
+ {
+  "name": "calendar_id",
+  "type": "string",
+  "default": "primary",
+  "example": "primary",
+  "label": "Calendar",
+  "description": "Which calendar to read. primary is the account's own. Only events.list is called; nothing is written back."
+ },
+ {
+  "name": "days",
+  "type": "integer",
+  "default": 365,
+  "example": 365,
+  "label": "Window",
+  "description": "How many days back to fetch and price. A recurring meeting is worth judging over a year, not over a week."
+ },
+ {
+  "name": "token_env",
+  "type": "string",
+  "default": "GOOGLE_OAUTH_TOKEN",
+  "example": "GOOGLE_OAUTH_TOKEN",
+  "label": "Token variable",
+  "description": "The environment variable holding a Google OAuth access token with the calendar.readonly scope. No file is read for it, and if the variable is unset the Play says so and still runs."
+ },
+ {
+  "name": "focus_block_minutes",
+  "type": "integer",
+  "default": 90,
+  "example": 90,
+  "label": "Focus block",
+  "description": "How long an uninterrupted stretch has to be before it counts as one. It is what turns meeting times into the number of focus blocks they cut in half."
+ },
+ {
+  "name": "currency",
+  "type": "string",
+  "default": "£",
+  "example": "£",
+  "label": "Currency symbol",
+  "description": "Printed in front of every money figure. It changes the symbol, never the arithmetic."
+ },
+ {
+  "name": "hourly_rate",
+  "type": "string",
+  "default": "",
+  "example": "75",
+  "label": "Hourly rate",
+  "description": "Leave empty and the Play reports person-hours and claims no money at all. Set it and every money figure is labelled assumed, because it is."
+ },
+ {
+  "name": "owner_address",
+  "type": "string",
+  "default": "",
+  "example": "you@example.com",
+  "label": "Your address",
+  "description": "Your own address, for the case where the feed does not mark which attendee is you. Used to tell your time from everybody else's; never printed in full."
+ }
+]

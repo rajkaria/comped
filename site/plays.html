@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Every Play: twenty-one rote Plays that read what your machine already wrote</title>
-<meta name="description" content="Twenty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine has been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
+<title>Every Play: thirty-one rote Plays that read what your machine already wrote</title>
+<meta name="description" content="Thirty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine and your git history have been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
 <link rel="canonical" href="https://gotcomped.com/plays.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="comped">
 <meta property="og:url" content="https://gotcomped.com/plays.html">
-<meta property="og:title" content="Every Play: twenty-one rote Plays that read what your machine already wrote">
-<meta property="og:description" content="Twenty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine has been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
+<meta property="og:title" content="Every Play: thirty-one rote Plays that read what your machine already wrote">
+<meta property="og:description" content="Thirty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine and your git history have been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
 <meta property="og:image" content="https://gotcomped.com/card-wide.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Every Play: twenty-one rote Plays that read what your machine already wrote">
-<meta name="twitter:description" content="Twenty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine has been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
+<meta name="twitter:title" content="Every Play: thirty-one rote Plays that read what your machine already wrote">
+<meta name="twitter:description" content="Thirty-one published rote Plays on three stdlib-only Python cores. What your agents cost, what your machine and your git history have been hoarding, and twelve you run many times a day. Paste-ready run line under each.">
 <meta name="twitter:image" content="https://gotcomped.com/card-wide.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
 <link rel="stylesheet" href="style.css">
@@ -42,7 +42,7 @@
 <div class="doc-layout">
 
 <aside class="toc">
-  <strong>Twenty-one Plays</strong>
+  <strong>Thirty-one Plays</strong>
   <a href="#run">How to run one</a>
   <strong>What your agents cost</strong>
   <a href="#comped">comped</a>
@@ -68,11 +68,23 @@
   <a href="#budget-left">budget-left</a>
   <a href="#since-last">since-last</a>
   <a href="#safe-to-commit">safe-to-commit</a>
+  <strong>What your git history knows</strong>
+  <a href="#bus-factor">bus-factor</a>
+  <a href="#night-shift">night-shift</a>
+  <a href="#kept">kept</a>
+  <a href="#upstream-pulse">upstream-pulse</a>
+  <strong>What your browser, disk and calendar hold</strong>
+  <a href="#extension-reach">extension-reach</a>
+  <a href="#where-it-went">where-it-went</a>
+  <a href="#photo-debt">photo-debt</a>
+  <a href="#what-grew">what-grew</a>
+  <a href="#reply-debt">reply-debt</a>
+  <a href="#standing-cost">standing-cost</a>
 </aside>
 
 <main class="doc">
 <h1>Every Play</h1>
-<p class="lede">Twenty-one published rote Plays on three stdlib-only Python cores. No pip install, no node, no keys, and no network in any core. Each one is a public archive you can read before you run it.</p>
+<p class="lede">Thirty-one published rote Plays on three stdlib-only Python cores. No pip install, no node, no keys, and no network in any core. Each one is a public archive you can read before you run it.</p>
 <h2 id="run">How to run one</h2>
 <p>Every line on this page is complete. Paste it, and rote fetches the published archive, shows you a consent screen listing every file the Play touches, and runs it. It needs rote, the free runner from <a href="https://www.modiqo.ai">Modiqo</a>, and a free account. If you have neither, the registry installs both and the Play in one go. Swap the name at the end for any Play on this page:</p>
 <div class="cmd pinned" data-label="no rote yet">
@@ -283,6 +295,114 @@
   <button class="copy" data-copy="#cmd-safe-to-commit">Copy</button>
 </div>
 <p class="src"><a href="https://play.modiqo.ai/rajkaria/safe-to-commit">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/safe-to-commit/DESCRIPTION.md">the full description</a>.</p>
+<h2 id="repos">What your git history knows</h2>
+<p>Four Plays over the repositories already on this machine. Git records more than anyone reads back: who wrote each surviving line, the committer's own UTC offset, and whether the code an agent wrote is still there. Built on <code>daily_core</code>.</p>
+<h3 id="bus-factor">bus-factor</h3>
+<p><strong>Which files have exactly one author left, and has that person gone?</strong></p>
+<p>Every team knows some of its code has one author and nobody knows which files. Blame gives the surviving lines, the log gives the last time each author committed anything, and the join is the answer. Sole ownership is only a risk when the owner has stopped showing up, so the two facts are reported together rather than collapsed into one score.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-bus-factor">rote play run https://play.modiqo.ai/rajkaria/bus-factor demo=true</code></span>
+  <button class="copy" data-copy="#cmd-bus-factor">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-bus-factor-real">rote play run https://play.modiqo.ai/rajkaria/bus-factor root=~/Projects</code></span>
+  <button class="copy" data-copy="#cmd-bus-factor-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/bus-factor">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/bus-factor/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="night-shift">night-shift</h3>
+<p><strong>When were you actually working, in your own zone rather than this laptop's?</strong></p>
+<p>Every editor shows commit times in whatever zone the machine is set to today, which quietly rewrites your history each time you travel. Git stores the committer's own UTC offset inside the timestamp, so a commit made at 04:12 in Tokyo stays a 04:12 commit. This reads that offset instead of the local clock.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-night-shift">rote play run https://play.modiqo.ai/rajkaria/night-shift demo=true</code></span>
+  <button class="copy" data-copy="#cmd-night-shift">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-night-shift-real">rote play run https://play.modiqo.ai/rajkaria/night-shift root=~/Projects days=90</code></span>
+  <button class="copy" data-copy="#cmd-night-shift-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/night-shift">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/night-shift/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="kept">kept</h3>
+<p><strong>Of everything the agent wrote for you, how much is still in the file?</strong></p>
+<p>Every other number about a coding agent is what it cost. This one is what it was worth. It joins the session transcripts your agents already keep against git blame to ask how much agent-written code survived. Git knows the answer and nobody asks it.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-kept">rote play run https://play.modiqo.ai/rajkaria/kept demo=true</code></span>
+  <button class="copy" data-copy="#cmd-kept">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-kept-real">rote play run https://play.modiqo.ai/rajkaria/kept root=~/Projects</code></span>
+  <button class="copy" data-copy="#cmd-kept-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/kept">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/kept/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="upstream-pulse">upstream-pulse</h3>
+<p><strong>Which of your dependencies has nobody left maintaining it?</strong></p>
+<p>A vulnerability scanner tells you about the bugs somebody already found and wrote down. This tells you about the packages where nobody is looking any more: last release years ago, exactly one human who can publish, repository archived. It reads the lockfiles you have.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-upstream-pulse">rote play run https://play.modiqo.ai/rajkaria/upstream-pulse demo=true</code></span>
+  <button class="copy" data-copy="#cmd-upstream-pulse">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-upstream-pulse-real">rote play run https://play.modiqo.ai/rajkaria/upstream-pulse root=~/Projects</code></span>
+  <button class="copy" data-copy="#cmd-upstream-pulse-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/upstream-pulse">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/upstream-pulse/DESCRIPTION.md">the full description</a>.</p>
+<h2 id="world">What your browser, disk and calendar hold</h2>
+<p>Six more read-only scans. Three of them, reply-debt, standing-cost and upstream-pulse, have a network half, and it lives in a separate fetch script outside the core for the same reason the leaderboard poster does: the core stays verifiably offline, and everything that opens a connection sits in one short file you can read. Built on <code>daily_core</code>.</p>
+<h3 id="extension-reach">extension-reach</h3>
+<p><strong>What can your browser extensions see, and is anyone still shipping updates?</strong></p>
+<p>An extension shows its permissions once, in a dialog nobody re-reads, and then never again. The browser keeps the answer on disk for ever. This reads it and answers what the browser stops asking after install day: what can see your bank tab, and which of them was last updated years ago.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-extension-reach">rote play run https://play.modiqo.ai/rajkaria/extension-reach demo=true</code></span>
+  <button class="copy" data-copy="#cmd-extension-reach">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/extension-reach">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/extension-reach/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="where-it-went">where-it-went</h3>
+<p><strong>Where did the quarter actually go?</strong></p>
+<p>A browser shows the last nine things you opened. It will not tell you that one domain took a fifth of your quarter, that you opened the same question thirty-one times, or that your longest unbroken run at one site was four hours on a Tuesday afternoon.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-where-it-went">rote play run https://play.modiqo.ai/rajkaria/where-it-went demo=true</code></span>
+  <button class="copy" data-copy="#cmd-where-it-went">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-where-it-went-real">rote play run https://play.modiqo.ai/rajkaria/where-it-went days=90</code></span>
+  <button class="copy" data-copy="#cmd-where-it-went-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/where-it-went">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/where-it-went/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="photo-debt">photo-debt</h3>
+<p><strong>What is your photo library actually made of?</strong></p>
+<p>A photo library only grows. The shutter fires ten times to get one usable frame, every screenshot lands next to the family album, and the same image arrives again from a message, an AirDrop and a download. The Photos app is organised by date and by face, so none of that is visible in it.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-photo-debt">rote play run https://play.modiqo.ai/rajkaria/photo-debt demo=true</code></span>
+  <button class="copy" data-copy="#cmd-photo-debt">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/photo-debt">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/photo-debt/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="what-grew">what-grew</h3>
+<p><strong>Something ate 40 GB. What moved?</strong></p>
+<p>Every disk tool answers the wrong question: they show what is big, and what is big is mostly what was always big. The useful question is what changed, and nothing can answer that without having looked before. So the first run writes a baseline and says so, rather than reporting your whole home directory as new.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-what-grew">rote play run https://play.modiqo.ai/rajkaria/what-grew demo=true</code></span>
+  <button class="copy" data-copy="#cmd-what-grew">Copy</button>
+</div>
+<div class="cmd pinned" data-label="on your own">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-what-grew-real">rote play run https://play.modiqo.ai/rajkaria/what-grew root=~</code></span>
+  <button class="copy" data-copy="#cmd-what-grew-real">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/what-grew">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/what-grew/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="reply-debt">reply-debt</h3>
+<p><strong>Who asked you something and is still waiting?</strong></p>
+<p>An unread badge counts messages. It does not know the difference between a newsletter and somebody who asked you a direct question eleven days ago. That difference is what this counts: threads where the last word is not yours, somebody asked for something, and nothing went back.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-reply-debt">rote play run https://play.modiqo.ai/rajkaria/reply-debt demo=true</code></span>
+  <button class="copy" data-copy="#cmd-reply-debt">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/reply-debt">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/reply-debt/DESCRIPTION.md">the full description</a>.</p>
+<h3 id="standing-cost">standing-cost</h3>
+<p><strong>What does that recurring meeting cost, per year?</strong></p>
+<p>Nobody schedules a meeting by its price. A 30-minute standup with nine people is four and a half person-hours every time it fires, and over a year that is a number no calendar will ever show you. Every fact needed to compute it is already in the calendar.</p>
+<div class="cmd pinned" data-label="try it cold">
+  <span class="cmd-scroll"><span class="dollar">$</span><code id="cmd-standing-cost">rote play run https://play.modiqo.ai/rajkaria/standing-cost demo=true</code></span>
+  <button class="copy" data-copy="#cmd-standing-cost">Copy</button>
+</div>
+<p class="src"><a href="https://play.modiqo.ai/rajkaria/standing-cost">Read the archive</a> before you run it, or <a href="https://github.com/rajkaria/comped/blob/main/docs/plays/standing-cost/DESCRIPTION.md">the full description</a>.</p>
 </main>
 </div>
 </div>

@@ -1,0 +1,8 @@
+pytest-benchmark-lite==6.10.14
+nbconvert-shim==9.14.25
+papermill-lite==3.17.8
+great-tables-lite==2.0.2
+pandera-lite==1.2.0
+duckdb-shim==6.2.8
+polars-shim==3.10.13
+ipykernel-lite==6.2.30

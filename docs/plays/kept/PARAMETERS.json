@@ -1,0 +1,82 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against a bundled synthetic transcript set and two synthetic repositories, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "root",
+  "type": "string",
+  "default": "~",
+  "example": "~/Projects",
+  "label": "Search root",
+  "description": "Every git repository under this folder is blamed for the lines the transcripts say an agent wrote. Nothing outside it is opened."
+ },
+ {
+  "name": "claude_dir",
+  "type": "string",
+  "default": "~/.claude/projects",
+  "example": "~/.claude/projects",
+  "label": "Claude Code sessions",
+  "description": "Where Claude Code keeps its session transcripts. Only the file-write records in them are read."
+ },
+ {
+  "name": "codex_dir",
+  "type": "string",
+  "default": "~/.codex/sessions",
+  "example": "~/.codex/sessions",
+  "label": "Codex sessions",
+  "description": "Where Codex keeps its session transcripts. Missing is an expected absence, not an error."
+ },
+ {
+  "name": "pi_dir",
+  "type": "string",
+  "default": "~/.pi/sessions",
+  "example": "~/.pi/sessions",
+  "label": "Pi sessions",
+  "description": "Where Pi keeps its session transcripts. Missing is an expected absence, not an error."
+ },
+ {
+  "name": "max_repos",
+  "type": "integer",
+  "default": 200,
+  "example": 200,
+  "label": "Repository bound",
+  "description": "Stop after this many repositories. The card says when the bound was reached."
+ },
+ {
+  "name": "grace_minutes",
+  "type": "integer",
+  "default": 30,
+  "example": 30,
+  "label": "Attribution window",
+  "description": "How long after an agent wrote a file a commit may still be credited to that write. Beyond this the lines are treated as yours."
+ },
+ {
+  "name": "min_lines",
+  "type": "integer",
+  "default": 20,
+  "example": 20,
+  "label": "Smallest edit counted",
+  "description": "Writes smaller than this are left out of the survival rate: a two-line edit tells you nothing and moves the percentage a lot."
+ },
+ {
+  "name": "max_blame_files",
+  "type": "integer",
+  "default": 300,
+  "example": 300,
+  "label": "Blame bound",
+  "description": "The most files to run blame over. Blame is the slow half of this Play, so this is the knob that decides how long it takes."
+ }
+]

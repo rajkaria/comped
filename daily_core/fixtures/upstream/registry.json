@@ -1,0 +1,1070 @@
+{
+ "cached_at": "2026-09-01T06:00:00Z",
+ "packages": [
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-08-14T12:00:00Z",
+   "latest_version": "2.12.15",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 1,
+   "name": "axum-lite",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "2.12.15",
+   "release_dates": [
+    "2024-12-02T12:00:00Z",
+    "2025-12-07T12:00:00Z",
+    "2026-08-14T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-08-14T12:00:00Z",
+   "latest_version": "4.4.9",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 6,
+   "name": "clap-tiny",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "4.4.9",
+   "release_dates": [
+    "2024-12-02T12:00:00Z",
+    "2025-12-07T12:00:00Z",
+    "2026-08-14T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-07-08T12:00:00Z",
+   "latest_version": "4.19.15",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 3,
+   "name": "hyperish",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "4.19.15",
+   "release_dates": [
+    "2024-10-26T12:00:00Z",
+    "2025-10-31T12:00:00Z",
+    "2026-07-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-07-08T12:00:00Z",
+   "latest_version": "4.22.9",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 1,
+   "name": "reqwest-shim",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "4.22.9",
+   "release_dates": [
+    "2024-10-26T12:00:00Z",
+    "2025-10-31T12:00:00Z",
+    "2026-07-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-04-24T12:00:00Z",
+   "latest_version": "5.12.18",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 3,
+   "name": "rustls-mini",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "5.12.18",
+   "release_dates": [
+    "2024-08-12T12:00:00Z",
+    "2025-08-17T12:00:00Z",
+    "2026-04-24T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-04-24T12:00:00Z",
+   "latest_version": "9.6.22",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 6,
+   "name": "serde-mini",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "9.6.22",
+   "release_dates": [
+    "2024-08-12T12:00:00Z",
+    "2025-08-17T12:00:00Z",
+    "2026-04-24T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2026-01-04T12:00:00Z",
+   "latest_version": "8.16.27",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 1,
+   "name": "tokio-slim",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "8.16.27",
+   "release_dates": [
+    "2024-04-24T12:00:00Z",
+    "2025-04-29T12:00:00Z",
+    "2026-01-04T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "crates",
+   "error": "",
+   "last_release_date": "2024-03-15T12:00:00Z",
+   "latest_version": "2.19.0",
+   "license": "MIT OR Apache-2.0",
+   "maintainer_count": 3,
+   "name": "tracing-lite",
+   "pinned_license": "MIT OR Apache-2.0",
+   "pinned_version": "2.19.0",
+   "release_dates": [
+    "2022-07-04T12:00:00Z",
+    "2023-07-09T12:00:00Z",
+    "2024-03-15T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2023-12-26T12:00:00Z",
+   "latest_version": "2.15.20",
+   "license": "MIT",
+   "maintainer_count": 1,
+   "name": "aria-live",
+   "pinned_license": "MIT",
+   "pinned_version": "2.15.20",
+   "release_dates": [
+    "2022-01-05T12:00:00Z",
+    "2023-01-30T12:00:00Z",
+    "2023-12-26T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "registry timed out",
+   "name": "bundle-size-check"
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-08-08T12:00:00Z",
+   "latest_version": "8.4.18",
+   "license": "MIT",
+   "maintainer_count": 8,
+   "name": "changeset-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "8.4.18",
+   "release_dates": [
+    "2024-05-30T12:00:00Z",
+    "2025-07-24T12:00:00Z",
+    "2026-08-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "registry timed out",
+   "name": "colour-contrast"
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-08-08T12:00:00Z",
+   "latest_version": "7.18.9",
+   "license": "MIT",
+   "maintainer_count": 5,
+   "name": "cookie-jarred",
+   "pinned_license": "MIT",
+   "pinned_version": "7.18.9",
+   "release_dates": [
+    "2024-05-30T12:00:00Z",
+    "2025-07-24T12:00:00Z",
+    "2026-08-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2025-10-16T12:00:00Z",
+   "latest_version": "7.8.30",
+   "license": "MIT",
+   "maintainer_count": 2,
+   "name": "coverage-report",
+   "pinned_license": "MIT",
+   "pinned_version": "7.8.30",
+   "release_dates": [
+    "2023-08-08T12:00:00Z",
+    "2024-10-01T12:00:00Z",
+    "2025-10-16T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-05-06T12:00:00Z",
+   "latest_version": "5.8.27",
+   "license": "MIT",
+   "maintainer_count": 14,
+   "name": "csv-stringify-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "5.8.27",
+   "release_dates": [
+    "2024-02-26T12:00:00Z",
+    "2025-04-21T12:00:00Z",
+    "2026-05-06T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-07-02T12:00:00Z",
+   "latest_version": "1.7.19",
+   "license": "MIT",
+   "maintainer_count": 3,
+   "name": "currency-x",
+   "pinned_license": "MIT",
+   "pinned_version": "1.7.19",
+   "release_dates": [
+    "2024-04-23T12:00:00Z",
+    "2025-06-17T12:00:00Z",
+    "2026-07-02T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2022-03-06T12:00:00Z",
+   "latest_version": "3.23.0",
+   "license": "MIT",
+   "maintainer_count": 1,
+   "name": "date-fmt-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "3.22.2",
+   "release_dates": [
+    "2020-05-15T12:00:00Z",
+    "2021-03-01T12:00:00Z",
+    "2022-03-06T12:00:00Z"
+   ],
+   "repository_archived": true
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2025-10-16T12:00:00Z",
+   "latest_version": "5.6.2",
+   "license": "MIT",
+   "maintainer_count": 14,
+   "name": "deep-freeze2",
+   "pinned_license": "MIT",
+   "pinned_version": "5.6.2",
+   "release_dates": [
+    "2023-08-08T12:00:00Z",
+    "2024-10-01T12:00:00Z",
+    "2025-10-16T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-07-02T12:00:00Z",
+   "latest_version": "0.1.14",
+   "license": "MIT",
+   "maintainer_count": 14,
+   "name": "depcheck-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "0.1.14",
+   "release_dates": [
+    "2024-04-23T12:00:00Z",
+    "2025-06-17T12:00:00Z",
+    "2026-07-02T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "registry timed out",
+   "name": "eslint-config-house"
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2025-10-16T12:00:00Z",
+   "latest_version": "5.5.9",
+   "license": "MIT",
+   "maintainer_count": 3,
+   "name": "focus-trap-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "5.5.9",
+   "release_dates": [
+    "2023-08-08T12:00:00Z",
+    "2024-10-01T12:00:00Z",
+    "2025-10-16T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-08-08T12:00:00Z",
+   "latest_version": "4.17.29",
+   "license": "MIT",
+   "maintainer_count": 14,
+   "name": "idb-keyvalue",
+   "pinned_license": "MIT",
+   "pinned_version": "4.17.29",
+   "release_dates": [
+    "2024-05-30T12:00:00Z",
+    "2025-07-24T12:00:00Z",
+    "2026-08-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-05-06T12:00:00Z",
+   "latest_version": "3.8.25",
+   "license": "MIT",
+   "maintainer_count": 3,
+   "name": "jwt-decode-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "3.8.25",
+   "release_dates": [
+    "2024-02-26T12:00:00Z",
+    "2025-04-21T12:00:00Z",
+    "2026-05-06T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-02-03T12:00:00Z",
+   "latest_version": "2.22.0",
+   "license": "BUSL-1.1",
+   "maintainer_count": 4,
+   "name": "keepalive-agent2",
+   "pinned_license": "MIT",
+   "pinned_version": "2.21.25",
+   "release_dates": [
+    "2024-10-01T12:00:00Z",
+    "2025-06-28T12:00:00Z",
+    "2026-02-03T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2024-11-30T12:00:00Z",
+   "latest_version": "0.14.19",
+   "license": "MIT",
+   "maintainer_count": 8,
+   "name": "money-fmt",
+   "pinned_license": "MIT",
+   "pinned_version": "0.14.19",
+   "release_dates": [
+    "2022-09-22T12:00:00Z",
+    "2023-11-16T12:00:00Z",
+    "2024-11-30T12:00:00Z"
+   ]
+  },
+  {
+   "deprecated": true,
+   "deprecation_message": "no longer maintained; use duration-parse instead",
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2022-08-03T12:00:00Z",
+   "latest_version": "1.19.4",
+   "license": "MIT",
+   "maintainer_count": 2,
+   "name": "ms-parse",
+   "pinned_license": "MIT",
+   "pinned_version": "1.19.4",
+   "release_dates": [
+    "2020-12-01T12:00:00Z",
+    "2021-10-17T12:00:00Z",
+    "2022-08-03T12:00:00Z"
+   ],
+   "successor": "duration-parse"
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-05-06T12:00:00Z",
+   "latest_version": "4.3.1",
+   "license": "MIT",
+   "maintainer_count": 8,
+   "name": "msw-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "4.3.1",
+   "release_dates": [
+    "2024-02-26T12:00:00Z",
+    "2025-04-21T12:00:00Z",
+    "2026-05-06T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-05-06T12:00:00Z",
+   "latest_version": "8.12.21",
+   "license": "MIT",
+   "maintainer_count": 5,
+   "name": "numeral-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "8.12.21",
+   "release_dates": [
+    "2024-02-26T12:00:00Z",
+    "2025-04-21T12:00:00Z",
+    "2026-05-06T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2023-06-09T12:00:00Z",
+   "latest_version": "3.10.20",
+   "license": "ISC",
+   "maintainer_count": 1,
+   "name": "objpath",
+   "pinned_license": "ISC",
+   "pinned_version": "3.10.20",
+   "release_dates": [
+    "2021-06-19T12:00:00Z",
+    "2022-07-04T12:00:00Z",
+    "2023-06-09T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-02-03T12:00:00Z",
+   "latest_version": "7.22.17",
+   "license": "MIT",
+   "maintainer_count": 14,
+   "name": "playwright-shim",
+   "pinned_license": "MIT",
+   "pinned_version": "7.22.17",
+   "release_dates": [
+    "2023-11-26T12:00:00Z",
+    "2025-01-19T12:00:00Z",
+    "2026-02-03T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2024-11-30T12:00:00Z",
+   "latest_version": "0.2.18",
+   "license": "MIT",
+   "maintainer_count": 2,
+   "name": "prettier-house",
+   "pinned_license": "MIT",
+   "pinned_version": "0.2.18",
+   "release_dates": [
+    "2022-09-22T12:00:00Z",
+    "2023-11-16T12:00:00Z",
+    "2024-11-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-08-08T12:00:00Z",
+   "latest_version": "4.5.25",
+   "license": "MIT",
+   "maintainer_count": 2,
+   "name": "qs-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "4.5.25",
+   "release_dates": [
+    "2024-05-30T12:00:00Z",
+    "2025-07-24T12:00:00Z",
+    "2026-08-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-05-28T12:00:00Z",
+   "latest_version": "3.22.15",
+   "license": "MIT",
+   "maintainer_count": 6,
+   "name": "sanitise-html-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "3.22.15",
+   "release_dates": [
+    "2024-11-30T12:00:00Z",
+    "2025-08-17T12:00:00Z",
+    "2026-05-28T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2024-11-30T12:00:00Z",
+   "latest_version": "9.4.20",
+   "license": "MIT",
+   "maintainer_count": 3,
+   "name": "slugify-tiny",
+   "pinned_license": "MIT",
+   "pinned_version": "9.4.20",
+   "release_dates": [
+    "2022-09-22T12:00:00Z",
+    "2023-11-16T12:00:00Z",
+    "2024-11-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2024-11-30T12:00:00Z",
+   "latest_version": "0.7.12",
+   "license": "MIT",
+   "maintainer_count": 5,
+   "name": "stylelint-house",
+   "pinned_license": "MIT",
+   "pinned_version": "0.7.12",
+   "release_dates": [
+    "2022-09-22T12:00:00Z",
+    "2023-11-16T12:00:00Z",
+    "2024-11-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-02-03T12:00:00Z",
+   "latest_version": "9.13.16",
+   "license": "MIT",
+   "maintainer_count": 2,
+   "name": "svg-sprite-min",
+   "pinned_license": "MIT",
+   "pinned_version": "9.13.16",
+   "release_dates": [
+    "2023-11-26T12:00:00Z",
+    "2025-01-19T12:00:00Z",
+    "2026-02-03T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-02-03T12:00:00Z",
+   "latest_version": "3.2.18",
+   "license": "MIT",
+   "maintainer_count": 8,
+   "name": "tiny-emitter-x",
+   "pinned_license": "MIT",
+   "pinned_version": "3.2.18",
+   "release_dates": [
+    "2023-11-26T12:00:00Z",
+    "2025-01-19T12:00:00Z",
+    "2026-02-03T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-08-08T12:00:00Z",
+   "latest_version": "5.22.27",
+   "license": "MIT",
+   "maintainer_count": 3,
+   "name": "tsx-runner",
+   "pinned_license": "MIT",
+   "pinned_version": "5.22.27",
+   "release_dates": [
+    "2024-05-30T12:00:00Z",
+    "2025-07-24T12:00:00Z",
+    "2026-08-08T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-07-02T12:00:00Z",
+   "latest_version": "5.13.6",
+   "license": "MIT",
+   "maintainer_count": 5,
+   "name": "type-fest-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "5.13.6",
+   "release_dates": [
+    "2024-04-23T12:00:00Z",
+    "2025-06-17T12:00:00Z",
+    "2026-07-02T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "registry timed out",
+   "name": "unwrap-args"
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2026-07-02T12:00:00Z",
+   "latest_version": "2.10.28",
+   "license": "MIT",
+   "maintainer_count": 2,
+   "name": "url-template-x",
+   "pinned_license": "MIT",
+   "pinned_version": "2.10.28",
+   "release_dates": [
+    "2024-04-23T12:00:00Z",
+    "2025-06-17T12:00:00Z",
+    "2026-07-02T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "npm",
+   "error": "",
+   "last_release_date": "2025-10-16T12:00:00Z",
+   "latest_version": "7.16.16",
+   "license": "MIT",
+   "maintainer_count": 8,
+   "name": "vitest-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "7.16.16",
+   "release_dates": [
+    "2023-08-08T12:00:00Z",
+    "2024-10-01T12:00:00Z",
+    "2025-10-16T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-12-15T12:00:00Z",
+   "latest_version": "7.12.19",
+   "license": "Apache-2.0",
+   "maintainer_count": 9,
+   "name": "alembic-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "7.12.19",
+   "release_dates": [
+    "2024-01-15T12:00:00Z",
+    "2025-02-18T12:00:00Z",
+    "2025-12-15T12:00:00Z"
+   ]
+  },
+  {
+   "deprecated": true,
+   "deprecation_message": "this project has been retired",
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2024-04-24T12:00:00Z",
+   "latest_version": "2.8.7",
+   "license": "Apache-2.0",
+   "maintainer_count": 3,
+   "name": "boto-shim",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "2.8.7",
+   "release_dates": [
+    "2022-07-24T12:00:00Z",
+    "2023-07-09T12:00:00Z",
+    "2024-04-24T12:00:00Z"
+   ],
+   "successor": ""
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-08-17T12:00:00Z",
+   "latest_version": "4.0.4",
+   "license": "Apache-2.0",
+   "maintainer_count": 4,
+   "name": "cachetools-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "4.0.4",
+   "release_dates": [
+    "2023-09-17T12:00:00Z",
+    "2024-10-21T12:00:00Z",
+    "2025-08-17T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "404 from the index",
+   "name": "coverage-lite"
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-04-14T12:00:00Z",
+   "latest_version": "7.4.7",
+   "license": "Apache-2.0",
+   "maintainer_count": 1,
+   "name": "dateutil-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "7.4.7",
+   "release_dates": [
+    "2024-05-14T12:00:00Z",
+    "2025-06-18T12:00:00Z",
+    "2026-04-14T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-03-30T12:00:00Z",
+   "latest_version": "5.16.23",
+   "license": "Apache-2.0",
+   "maintainer_count": 9,
+   "name": "dnspython-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "5.16.23",
+   "release_dates": [
+    "2023-04-30T12:00:00Z",
+    "2024-06-03T12:00:00Z",
+    "2025-03-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-11-05T12:00:00Z",
+   "latest_version": "6.2.8",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 11,
+   "name": "duckdb-shim",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "6.2.8",
+   "release_dates": [
+    "2024-06-23T12:00:00Z",
+    "2025-04-19T12:00:00Z",
+    "2025-11-05T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-03-30T12:00:00Z",
+   "latest_version": "7.17.14",
+   "license": "Apache-2.0",
+   "maintainer_count": 2,
+   "name": "faker-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "7.17.14",
+   "release_dates": [
+    "2023-04-30T12:00:00Z",
+    "2024-06-03T12:00:00Z",
+    "2025-03-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-07-18T12:00:00Z",
+   "latest_version": "2.0.2",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 2,
+   "name": "great-tables-lite",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "2.0.2",
+   "release_dates": [
+    "2025-03-05T12:00:00Z",
+    "2025-12-30T12:00:00Z",
+    "2026-07-18T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-07-30T12:00:00Z",
+   "latest_version": "6.0.22",
+   "license": "Apache-2.0",
+   "maintainer_count": 1,
+   "name": "httpx-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "6.0.22",
+   "release_dates": [
+    "2024-08-29T12:00:00Z",
+    "2025-10-03T12:00:00Z",
+    "2026-07-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-08-17T12:00:00Z",
+   "latest_version": "3.12.15",
+   "license": "Apache-2.0",
+   "maintainer_count": 1,
+   "name": "hypothesis-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "3.12.15",
+   "release_dates": [
+    "2023-09-17T12:00:00Z",
+    "2024-10-21T12:00:00Z",
+    "2025-08-17T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-05-04T12:00:00Z",
+   "latest_version": "6.2.30",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 5,
+   "name": "ipykernel-lite",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "6.2.30",
+   "release_dates": [
+    "2024-12-20T12:00:00Z",
+    "2025-10-16T12:00:00Z",
+    "2026-05-04T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-06-19T12:00:00Z",
+   "latest_version": "0.4.20",
+   "license": "Apache-2.0",
+   "maintainer_count": 2,
+   "name": "mypy-shim",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "0.4.20",
+   "release_dates": [
+    "2024-07-19T12:00:00Z",
+    "2025-08-23T12:00:00Z",
+    "2026-06-19T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-05-04T12:00:00Z",
+   "latest_version": "9.14.25",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 5,
+   "name": "nbconvert-shim",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "9.14.25",
+   "release_dates": [
+    "2024-12-20T12:00:00Z",
+    "2025-10-16T12:00:00Z",
+    "2026-05-04T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-03-30T12:00:00Z",
+   "latest_version": "3.12.11",
+   "license": "Apache-2.0",
+   "maintainer_count": 2,
+   "name": "orjson-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "3.12.11",
+   "release_dates": [
+    "2023-04-30T12:00:00Z",
+    "2024-06-03T12:00:00Z",
+    "2025-03-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-05-04T12:00:00Z",
+   "latest_version": "1.2.0",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 5,
+   "name": "pandera-lite",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "1.2.0",
+   "release_dates": [
+    "2024-12-20T12:00:00Z",
+    "2025-10-16T12:00:00Z",
+    "2026-05-04T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-11-05T12:00:00Z",
+   "latest_version": "3.17.8",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 11,
+   "name": "papermill-lite",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "3.17.8",
+   "release_dates": [
+    "2024-06-23T12:00:00Z",
+    "2025-04-19T12:00:00Z",
+    "2025-11-05T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-07-18T12:00:00Z",
+   "latest_version": "3.10.13",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 2,
+   "name": "polars-shim",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "3.10.13",
+   "release_dates": [
+    "2025-03-05T12:00:00Z",
+    "2025-12-30T12:00:00Z",
+    "2026-07-18T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-06-19T12:00:00Z",
+   "latest_version": "8.20.29",
+   "license": "Apache-2.0",
+   "maintainer_count": 2,
+   "name": "pydantic-slim",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "8.20.29",
+   "release_dates": [
+    "2024-07-19T12:00:00Z",
+    "2025-08-23T12:00:00Z",
+    "2026-06-19T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-12-15T12:00:00Z",
+   "latest_version": "9.20.8",
+   "license": "Apache-2.0",
+   "maintainer_count": 2,
+   "name": "pyjwt-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "9.20.8",
+   "release_dates": [
+    "2024-01-15T12:00:00Z",
+    "2025-02-18T12:00:00Z",
+    "2025-12-15T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-07-18T12:00:00Z",
+   "latest_version": "6.10.14",
+   "license": "BSD-3-Clause",
+   "maintainer_count": 2,
+   "name": "pytest-benchmark-lite",
+   "pinned_license": "BSD-3-Clause",
+   "pinned_version": "6.10.14",
+   "release_dates": [
+    "2025-03-05T12:00:00Z",
+    "2025-12-30T12:00:00Z",
+    "2026-07-18T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-07-30T12:00:00Z",
+   "latest_version": "8.20.15",
+   "license": "Apache-2.0",
+   "maintainer_count": 1,
+   "name": "pytest-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "8.20.15",
+   "release_dates": [
+    "2024-08-29T12:00:00Z",
+    "2025-10-03T12:00:00Z",
+    "2026-07-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-04-14T12:00:00Z",
+   "latest_version": "6.17.19",
+   "license": "Apache-2.0",
+   "maintainer_count": 4,
+   "name": "ruff-house",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "6.17.19",
+   "release_dates": [
+    "2024-05-14T12:00:00Z",
+    "2025-06-18T12:00:00Z",
+    "2026-04-14T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-04-14T12:00:00Z",
+   "latest_version": "7.19.19",
+   "license": "Apache-2.0",
+   "maintainer_count": 4,
+   "name": "sqlalchemy-mini",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "7.19.19",
+   "release_dates": [
+    "2024-05-14T12:00:00Z",
+    "2025-06-18T12:00:00Z",
+    "2026-04-14T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2026-07-30T12:00:00Z",
+   "latest_version": "5.17.5",
+   "license": "Apache-2.0",
+   "maintainer_count": 4,
+   "name": "structlog-lite",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "5.17.5",
+   "release_dates": [
+    "2024-08-29T12:00:00Z",
+    "2025-10-03T12:00:00Z",
+    "2026-07-30T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "404 from the index",
+   "name": "tenacity-lite"
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2025-08-17T12:00:00Z",
+   "latest_version": "7.0.9",
+   "license": "Apache-2.0",
+   "maintainer_count": 1,
+   "name": "uvicorn-tiny",
+   "pinned_license": "Apache-2.0",
+   "pinned_version": "7.0.9",
+   "release_dates": [
+    "2023-09-17T12:00:00Z",
+    "2024-10-21T12:00:00Z",
+    "2025-08-17T12:00:00Z"
+   ]
+  },
+  {
+   "ecosystem": "pypi",
+   "error": "",
+   "last_release_date": "2020-11-21T12:00:00Z",
+   "latest_version": "9.3.0",
+   "license": "MIT",
+   "maintainer_count": 1,
+   "name": "xmlsec-lite",
+   "pinned_license": "MIT",
+   "pinned_version": "9.2.29",
+   "release_dates": [
+    "2019-01-01T12:00:00Z",
+    "2019-12-27T12:00:00Z",
+    "2020-11-21T12:00:00Z"
+   ],
+   "repository_archived": true
+  }
+ ],
+ "requested": 79,
+ "schema": 1,
+ "source": "registry.npmjs.org, pypi.org, crates.io (bundled demo answers)"
+}

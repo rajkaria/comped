@@ -1,0 +1,14 @@
+[package]
+name = "edge-router"
+version = "0.6.2"
+edition = "2021"
+
+[dependencies]
+axum-lite = "2.12.15"
+hyperish = "4.19.15"
+serde-mini = "9.6.22"
+tokio-slim = "8.16.27"
+tracing-lite = "2.19.0"
+clap-tiny = "4.4.9"
+reqwest-shim = "4.22.9"
+rustls-mini = "5.12.18"

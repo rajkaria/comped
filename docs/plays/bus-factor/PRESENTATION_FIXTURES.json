@@ -1,0 +1,4 @@
+{
+ "read_git": "resources/presentation-fixtures/read_git/fixture.yaml",
+ "report": "resources/presentation-fixtures/report/fixture.yaml"
+}

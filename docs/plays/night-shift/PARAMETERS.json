@@ -1,0 +1,66 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against a bundled synthetic commit history, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "root",
+  "type": "string",
+  "default": "~",
+  "example": "~/Projects",
+  "label": "Search root",
+  "description": "Every git repository under this folder has its commit log read. Nothing outside it is opened."
+ },
+ {
+  "name": "days",
+  "type": "integer",
+  "default": 90,
+  "example": 90,
+  "label": "Window",
+  "description": "How many days back to read. The same value is passed to the read and the report, so the denominator on the card is the window you asked for."
+ },
+ {
+  "name": "emails",
+  "type": "string",
+  "default": "",
+  "example": "you@work.example,you@home.example",
+  "label": "Your other addresses",
+  "description": "Comma separated. Commits are matched to you by the addresses git already knows; add any others here so a second identity is not counted as somebody else."
+ },
+ {
+  "name": "late_hour",
+  "type": "integer",
+  "default": 23,
+  "example": 23,
+  "label": "Late from",
+  "description": "Local hour after which a commit counts as late. 23 means from 11pm."
+ },
+ {
+  "name": "dawn_hour",
+  "type": "integer",
+  "default": 5,
+  "example": 5,
+  "label": "Late until",
+  "description": "Local hour the late window closes. 5 means the window runs 11pm to 5am."
+ },
+ {
+  "name": "fixup_minutes",
+  "type": "integer",
+  "default": 60,
+  "example": 60,
+  "label": "Fixup window",
+  "description": "A commit that amends or fixes another within this many minutes is counted as a fixup, which is how the card compares late work with the rest."
+ }
+]

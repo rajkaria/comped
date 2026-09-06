@@ -1,0 +1,2 @@
+calendar: 439 event(s) in the partial
+{"complete": true, "events": 439, "ok": true, "scanned_files": 440, "source": "calendar", "sources": [{"found": true, "items": 439, "name": "calendar (demo)", "note": "bundled fixture; account work; google-calendar (bundled demo); an invented calendar; nothing was fetched and no real meeting is described", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpUzclKx/resources/daily_core/fixtures/standingcost/calendar.json"}]}

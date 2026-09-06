@@ -1,0 +1,50 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic extension stores for five browsers, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "roots",
+  "type": "string",
+  "default": "",
+  "example": "~/Library/Application Support/Google/Chrome",
+  "label": "Profile folders",
+  "description": "Comma separated. Leave empty to use the standard locations for every Chromium-family and Firefox-family browser this machine has."
+ },
+ {
+  "name": "safari_roots",
+  "type": "string",
+  "default": "",
+  "example": "~/Library/Containers",
+  "label": "Safari store prefixes",
+  "description": "Comma separated path prefixes for Safari's extension stores. Leave empty for the standard locations."
+ },
+ {
+  "name": "stale_days",
+  "type": "integer",
+  "default": 365,
+  "example": 365,
+  "label": "Stale after",
+  "description": "An extension whose files have not changed in this many days is reported as stale: nobody has shipped it a fix, and it can still read every page you open."
+ },
+ {
+  "name": "idle_days",
+  "type": "integer",
+  "default": 90,
+  "example": 90,
+  "label": "Idle after",
+  "description": "An installed extension you have not used in this many days is reported as idle, which is the cheapest permission to take back."
+ }
+]

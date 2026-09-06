@@ -1,0 +1,2 @@
+chromium: 20 install(s) from 1 source(s)
+{"complete": true, "family": "chromium", "installs": 20, "ok": true, "scanned_files": 0, "sources": [{"found": true, "items": 20, "name": "chromium (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpkAEOkq/resources/daily_core/fixtures/extensions/installs.json"}]}

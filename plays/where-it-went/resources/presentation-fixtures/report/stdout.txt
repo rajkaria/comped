@@ -1,0 +1,61 @@
+┌──────────────────────────────────────────────────────────────┐
+│ WHERE IT WENT                                        90 days │
+│                                                              │
+│ 11,621 pages in 90 days                                      │
+│ 6,833 distinct pages across 25 sites · 129.1 a day           │
+│ Chrome 6,241 · Arc 2,264 · Firefox 1,872                     │
+│                                                              │
+├─ WHERE ──────────────────────────────────────────────────────┤
+│ github.com · code               2,137   18% ▇▇               │
+│ example.com · ?                 1,353   12% ▇                │
+│ gmail.com · mail                1,240   11% ▇                │
+│ google.com · ?                    696    6% ▇                │
+│ claude.ai · ai                    619    5% ▇                │
+│ youtube.com · vid                 575    5%                  │
+│ 25 sites; the top 10 are 74% of 11,621 pages                 │
+├─ WHAT KIND ──────────────────────────────────────────────────┤
+│ ████████████▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒░░░░░····················      │
+│ █ code  ▓ uncategorised  ▒ mail  ░ news  · everything else   │
+│ 2,574 pages (22%) are on sites the table does not name       │
+├─ WHEN ───────────────────────────────────────────────────────┤
+│     0  3  6  9  N  3  6  9                                   │
+│ Mon ░░░░░        ░▓▓█▓▒▓██▓▒                                 │
+│ Tue ▒▒▒▒▒░       ░██▓▓▒▓▓█▓▒                                 │
+│ Wed ▒▒▒▒▒░       ░▒█▓▓▒▒█▓▓▒                                 │
+│ Thu ▒▒▒▒░░       ░▒█▓▒▒▓▓▓▓▒                                 │
+│ Fri ▒▒▒▒▒░       ░▓▓█▓▒▓█▓▓▒                                 │
+│ Sat ▒▒▒▒▒░        ░▒░░░▒▒▒░░                                 │
+│ Sun ░░░░░         ░░▒░░░▒▒░░                                 │
+│ busiest hour: Monday 20:00 (198 pages) · times are local     │
+├─ SITTINGS ───────────────────────────────────────────────────┤
+│ 373 sittings (30m gap) · mean 3h03m · 4.14 a day             │
+│ longest single-domain run: 1h24m on youtube.com, Friday nig… │
+│ longest sitting: 15h57m, 145 pages, Thursday afternoon       │
+├─ OPENED AGAIN AND AGAIN ─────────────────────────────────────┤
+│ gmail.com/mail/u/0/                                    1240× │
+│ localhost/pricing                                       494× │
+│ x.com/home                                              334× │
+│ github.com/acme-robotics/ledger-api/actions             204× │
+│ each is a bookmark, an alias or a script away from free      │
+├─ HOW YOU GOT THERE ──────────────────────────────────────────┤
+│ typed 18% · link 56% · reload 17%   of 10,377 judged         │
+│ 1,244 visits carry no transition record (Safari); they are   │
+│ in every total above and in none of the three shares.        │
+├─ MOVEMENT ───────────────────────────────────────────────────┤
+│ ▆▇▆▇▇▇▇▇█▇▇▇▃  11,621 this window vs 10,019 the 90 days bef… │
+│ ▇▆▆▇█▇▇▇█▆▇▇▃ code                                      +278 │
+│ ▆▇▆▆▇▆▇██▆▆▇▃ uncategorised                             +379 │
+│ ▇▇▇▇▆▇▇▆█▇▇▆▃ mail                                      +415 │
+│                                                              │
+│ History rows only. This Play never opens, names or queries   │
+│ the cookie, password, autofill, form_data, downloads or      │
+│ login stores your browser keeps in the same folder; those    │
+│ six words appear exactly once in this module, in the list    │
+│ this sentence is built from, and never as a table, a path or │
+│ a query.                                                     │
+│ 696 of those pages were your own searches. The words are in  │
+│ neither this card nor, unless you ask, the report.           │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/where-it-went/where-it-went.md
+{"categories": 11, "days": 90, "domains": 25, "ok": true, "sources": [{"found": true, "items": 15751, "name": "chromium (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpUmKuIh/resources/daily_core/fixtures/history/browser-history.json"}, {"found": true, "items": 3513, "name": "firefox (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpUmKuIh/resources/daily_core/fixtures/history/browser-history.json"}, {"found": true, "items": 2376, "name": "safari (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpUmKuIh/resources/daily_core/fixtures/history/browser-history.json"}], "unique_urls": 6833, "verdict": "11,621 pages in 90 days; github.com took 18%; longest single-domain run 1h24m", "visits": 11621, "written": ["/tmp/daily-demo/where-it-went/where-it-went.md", "/tmp/daily-demo/where-it-went/where-it-went.json"]}

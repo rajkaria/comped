@@ -1,0 +1,74 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against a bundled synthetic mailbox of 52 threads, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "days",
+  "type": "integer",
+  "default": 120,
+  "example": 120,
+  "label": "Window",
+  "description": "How many days of threads to fetch. A thread older than this is not read at all."
+ },
+ {
+  "name": "max_threads",
+  "type": "integer",
+  "default": 400,
+  "example": 400,
+  "label": "Thread bound",
+  "description": "The most threads to read. The card says when the bound was reached, so a partial answer never reads like a complete one."
+ },
+ {
+  "name": "query",
+  "type": "string",
+  "default": "-in:chats",
+  "example": "-in:chats",
+  "label": "Extra search terms",
+  "description": "Added to the mailbox search alongside the window. The default leaves chat messages out."
+ },
+ {
+  "name": "token_env",
+  "type": "string",
+  "default": "GMAIL_OAUTH_TOKEN",
+  "example": "GMAIL_OAUTH_TOKEN",
+  "label": "Token variable",
+  "description": "The environment variable holding a Gmail OAuth access token with the gmail.metadata scope. No file is read for it, and if the variable is unset the Play says so and still runs."
+ },
+ {
+  "name": "min_age_days",
+  "type": "integer",
+  "default": 3,
+  "example": 3,
+  "label": "Old enough to count",
+  "description": "A thread younger than this is not debt yet. Three days is the difference between a backlog and an inbox."
+ },
+ {
+  "name": "cold_days",
+  "type": "integer",
+  "default": 30,
+  "example": 30,
+  "label": "Cold after",
+  "description": "A thread waiting longer than this is reported as cold, because the honest answer there is usually to say so rather than to reply."
+ },
+ {
+  "name": "me",
+  "type": "string",
+  "default": "",
+  "example": "you@example.com,you@work.example",
+  "label": "Your addresses",
+  "description": "Comma separated. The mailbox already names one; add the others so a message you sent from a second address is not read as somebody writing to you."
+ }
+]

@@ -1,0 +1,50 @@
+[
+ {
+  "name": "out_dir",
+  "type": "string",
+  "default": "~/daily",
+  "example": "~/daily",
+  "label": "Output folder",
+  "description": "Created if missing. Everything this Play writes goes here and nowhere else."
+ },
+ {
+  "name": "demo",
+  "type": "string",
+  "default": "false",
+  "example": "false",
+  "label": "Demo run",
+  "description": "true runs the whole Play against bundled synthetic history databases for three browsers, so a first run needs nothing installed and no account."
+ },
+ {
+  "name": "days",
+  "type": "integer",
+  "default": 90,
+  "example": 90,
+  "label": "Window",
+  "description": "How many days of history to read. The same value is passed to the read and the report, so the denominator on the card is the window you asked for."
+ },
+ {
+  "name": "gap_minutes",
+  "type": "integer",
+  "default": 30,
+  "example": 30,
+  "label": "Session gap",
+  "description": "A gap this long between two visits starts a new session. It is what turns a list of visits into a run of time you can recognise."
+ },
+ {
+  "name": "top",
+  "type": "integer",
+  "default": 10,
+  "example": 10,
+  "label": "Rows per table",
+  "description": "How many domains and categories to name on the card. The totals are over everything, not just the rows shown."
+ },
+ {
+  "name": "tz",
+  "type": "string",
+  "default": "local",
+  "example": "local",
+  "label": "Time zone",
+  "description": "local reads this machine's zone; utc reads everything in UTC. The hour-of-day histogram is the only thing that changes."
+ }
+]

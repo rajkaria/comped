@@ -113,3 +113,54 @@ def bucket_bars(counts, labels, width: int = 20) -> list:
     top = max(counts) if counts and max(counts) else 1
     return ["{0} {1:>6}  {2}".format(pad(l, 12), c, "▇" * max(0 if not c else 1, int(round(c / top * width))))
             for l, c in zip(labels, counts)]
+
+
+def heatmap(grid, row_labels, col_labels=(), width_per_col: int = 1) -> list:
+    """A day-by-hour (or any two-dimensional) count grid, shaded by share of the busiest cell.
+
+    One scale across the whole grid, not per row: the point of a heatmap is that Tuesday 3am is
+    comparable to Wednesday 3pm, and a per-row scale quietly destroys exactly that.
+    """
+    glyphs = " ░▒▓█"
+    flat = [c for row in grid for c in row]
+    top = max(flat) if flat and max(flat) else 0
+    out = []
+    if col_labels:
+        out.append(" " * 4 + "".join(str(c)[:width_per_col].ljust(width_per_col) for c in col_labels))
+    for label, row in zip(row_labels, grid):
+        cells = "".join(
+            (glyphs[min(len(glyphs) - 1, int(round((c / top) * (len(glyphs) - 1))))] if top else " ")
+            * width_per_col for c in row)
+        out.append("{0} {1}".format(pad(str(label)[:3], 3), cells))
+    return out
+
+
+def tier_bar(tiers, width: int = 40) -> str:
+    """One row that spends its width proportionally between named tiers, worst-first.
+
+    Used wherever a total is only meaningful once it is split — reach levels, confidence tiers,
+    survival classes. Every tier with a non-zero count gets at least one column, so a small but
+    real number never disappears into a rounding error.
+    """
+    counts = [max(0, int(c)) for _, c in tiers]
+    total = sum(counts)
+    if not total:
+        return ""
+    glyphs = "█▓▒░·"
+    widths, spent = [], 0
+    for i, c in enumerate(counts):
+        w = 0 if not c else max(1, int(round(c / total * width)))
+        widths.append(w)
+        spent += w
+    while spent > width:                                # give back from the widest first
+        widest = widths.index(max(widths))
+        widths[widest] -= 1
+        spent -= 1
+    return "".join(glyphs[min(i, len(glyphs) - 1)] * w for i, w in enumerate(widths))
+
+
+def legend(tiers) -> str:
+    """The key for a tier_bar, in the same order, so the glyphs mean something."""
+    glyphs = "█▓▒░·"
+    return "  ".join("{0} {1}".format(glyphs[min(i, len(glyphs) - 1)], name)
+                     for i, (name, count) in enumerate(tiers) if count)

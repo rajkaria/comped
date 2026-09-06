@@ -1,9 +1,10 @@
-"""The six published packages: frontmatter, parameter parity, and that the argv actually runs.
+"""The sixteen packages: frontmatter, parameter parity, and that the argv actually runs.
 
 A Play is a contract between a YAML block and a command line. The failure that matters is the one
 where the two drift apart, because it only shows up on a stranger's machine, so the argv in every
 step is parsed here by the real parser with the real defaults.
 """
+import importlib.util
 import json
 import pathlib
 import re
@@ -12,7 +13,16 @@ import sys
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SLUGS = ["tab-debt", "birthday-radar", "app-graveyard", "vault-pulse", "desktop-clutter", "receipt-ledger"]
+# Every Play in the spec, so adding one to the spec and forgetting to package it is a failure here
+# rather than a discovery someone makes in the registry.
+SLUGS = list(json.loads((ROOT / "docs" / "plays" / "_daily-spec.json").read_text(encoding="utf-8")))
+# The three with a network half. Their fetch step runs a packaged script instead of the shared CLI,
+# so the argv check below hands it that script's own parser.
+FETCHERS = {"standing-cost": "fetch/calendar_partial.py", "reply-debt": "fetch/mail_partial.py",
+            "upstream-pulse": "fetch/registry_partial.py"}
+# `$name` anywhere in an argv element, at an identifier boundary -- `$out_dir/.x.json` and
+# `--query=$query` are both real forms in the spec, and neither is a bare `$name` token.
+PARAM_REF = re.compile(r"\$([a-z_][a-z0-9_]*)")
 
 
 def setUpModule():
@@ -70,6 +80,15 @@ def steps_of(slug: str) -> dict:
         if m and not in_argv:
             out[current]["depends_on"].append(m.group(1))
     return out
+
+
+def fetch_module(relpath: str):
+    """One packaged fetch script, imported from the repository copy the sync ships."""
+    path = ROOT / relpath
+    spec = importlib.util.spec_from_file_location("fetch_" + path.stem, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def params_of(slug: str) -> list:
@@ -134,9 +153,20 @@ class TestParameterParity(unittest.TestCase):
             names = {p["name"] for p in params_of(slug)}
             for step, spec in steps_of(slug).items():
                 for token in spec["argv"]:
-                    if token.startswith("$"):
+                    for ref in PARAM_REF.findall(token):
                         with self.subTest(play=slug, step=step, token=token):
-                            self.assertIn(token[1:], names)
+                            self.assertIn(ref, names)
+
+    def test_every_declared_parameter_is_used_by_a_step(self):
+        """A parameter nothing reads is a promise the Play cannot keep."""
+        for slug in SLUGS:
+            used = set()
+            for spec in steps_of(slug).values():
+                for token in spec["argv"]:
+                    used.update(PARAM_REF.findall(token))
+            for p in params_of(slug):
+                with self.subTest(play=slug, param=p["name"]):
+                    self.assertIn(p["name"], used)
 
     def test_every_play_offers_out_dir_and_demo(self):
         for slug in SLUGS:
@@ -158,18 +188,48 @@ class TestArgvActuallyRuns(unittest.TestCase):
                 with self.subTest(play=slug, step=step):
                     argv = spec["argv"]
                     self.assertEqual(argv[0], "python3")
-                    self.assertEqual(argv[1], "@resource{daily_core/cli.py}")
-                    resolved = [defaults.get(a[1:], "") if a.startswith("$") else a for a in argv[2:]]
-                    args = parser.parse_args(resolved)
-                    self.assertTrue(callable(args.fn))
+                    resolved = [PARAM_REF.sub(lambda m: defaults.get(m.group(1), ""), a)
+                                for a in argv[2:]]
+                    if argv[1] == "@resource{daily_core/cli.py}":
+                        args = parser.parse_args(resolved)
+                        self.assertTrue(callable(args.fn))
+                        continue
+                    # The fetch step of a network-backed Play: same contract, its own parser.
+                    self.assertEqual(argv[1], "@resource{%s}" % FETCHERS[slug])
+                    fetch_module(FETCHERS[slug]).build_parser().parse_args(resolved)
 
-    def test_the_report_step_depends_on_every_read_step(self):
+    def test_the_only_script_a_step_runs_is_one_the_package_ships(self):
+        for slug in SLUGS:
+            for step, spec in steps_of(slug).items():
+                with self.subTest(play=slug, step=step):
+                    m = re.match(r"^@resource\{(.+)\}$", spec["argv"][1])
+                    self.assertIsNotNone(m, spec["argv"][1])
+                    self.assertTrue((ROOT / "plays" / slug / "resources" / m.group(1)).is_file())
+
+    def test_the_report_is_the_one_sink_and_every_step_reaches_it(self):
+        """`report` runs last and nothing runs after it, however the graph in between is shaped.
+
+        The six older Plays are a fan-in and the newer ones chain a fetch into a read, so the
+        property worth asserting is reachability rather than a literal dependency list: a step
+        whose output no report waits for would run and be thrown away.
+        """
         for slug in SLUGS:
             with self.subTest(play=slug):
                 steps = steps_of(slug)
-                reads = [n for n, s in steps.items() if not s["depends_on"]]
-                self.assertTrue(reads)
-                self.assertEqual(sorted(steps["report"]["depends_on"]), sorted(reads))
+                self.assertIn("report", steps)
+                depended_on = set()
+                for spec in steps.values():
+                    depended_on.update(spec["depends_on"])
+                self.assertNotIn("report", depended_on, "nothing may depend on the report")
+                reachable, frontier = set(), list(steps["report"]["depends_on"])
+                self.assertTrue(frontier, "the report depends on nothing")
+                while frontier:
+                    name = frontier.pop()
+                    if name in reachable:
+                        continue
+                    reachable.add(name)
+                    frontier += steps[name]["depends_on"]
+                self.assertEqual(reachable, set(steps) - {"report"})
 
     def test_every_step_declares_a_timeout(self):
         for slug in SLUGS:

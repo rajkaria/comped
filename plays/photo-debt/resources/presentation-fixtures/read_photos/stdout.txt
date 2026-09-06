@@ -1,0 +1,2 @@
+photos: 13201 asset(s)
+{"assets": 13201, "complete": true, "ok": true, "scanned_files": 0, "source": "photos", "sources": [{"found": true, "items": 13201, "name": "photos (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSDUpiH/resources/daily_core/fixtures/photos/assets.json"}]}

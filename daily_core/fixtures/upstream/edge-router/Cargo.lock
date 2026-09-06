@@ -1,0 +1,126 @@
+version = 4
+
+[[package]]
+name = "edge-router"
+version = "0.6.2"
+dependencies = [
+  "axum-lite",
+  "hyperish",
+  "serde-mini",
+  "tokio-slim",
+  "tracing-lite",
+  "clap-tiny",
+  "reqwest-shim",
+  "rustls-mini"
+]
+
+[[package]]
+name = "axum-lite"
+version = "2.12.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "bytes-x",
+  "futures-core-x"
+]
+
+[[package]]
+name = "hyperish"
+version = "4.19.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "futures-core-x",
+  "http-body-x"
+]
+
+[[package]]
+name = "serde-mini"
+version = "9.6.22"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "http-body-x",
+  "mio-lite"
+]
+
+[[package]]
+name = "tokio-slim"
+version = "8.16.27"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "mio-lite",
+  "pin-project-x"
+]
+
+[[package]]
+name = "tracing-lite"
+version = "2.19.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "pin-project-x",
+  "slab-x"
+]
+
+[[package]]
+name = "clap-tiny"
+version = "4.4.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "slab-x",
+  "smallvec-x"
+]
+
+[[package]]
+name = "reqwest-shim"
+version = "4.22.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "smallvec-x",
+  "tower-lite"
+]
+
+[[package]]
+name = "rustls-mini"
+version = "5.12.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+  "tower-lite"
+]
+
+[[package]]
+name = "bytes-x"
+version = "9.17.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "futures-core-x"
+version = "5.2.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "http-body-x"
+version = "2.17.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "mio-lite"
+version = "7.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "pin-project-x"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "slab-x"
+version = "4.18.20"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "smallvec-x"
+version = "2.15.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "tower-lite"
+version = "9.8.27"
+source = "registry+https://github.com/rust-lang/crates.io-index"

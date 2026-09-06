@@ -1,0 +1,2 @@
+git: 284 tracked file(s) from 1 readable repositor(y/ies)
+{"complete": true, "ok": true, "records": 284, "scanned_files": 0, "source": "git", "sources": [{"found": true, "items": 284, "name": "git (demo)", "note": "bundled fixture: 3 repositories", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmp8mBV1p/resources/daily_core/fixtures/busfactor/repos.json"}]}

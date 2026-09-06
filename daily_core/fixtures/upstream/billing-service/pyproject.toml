@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "billing-service"
+version = "1.9.0"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0"
+httpx-lite = "^6.0.22"
+pydantic-slim = "^8.20.29"
+sqlalchemy-mini = "^7.19.19"
+alembic-lite = "^7.12.19"
+uvicorn-tiny = "^7.0.9"
+orjson-lite = "^3.12.11"
+structlog-lite = "^5.17.5"
+tenacity-lite = "^0.6.19"
+xmlsec-lite = "^9.2.29"
+dateutil-lite = "^7.4.7"
+pyjwt-lite = "^9.20.8"
+cachetools-lite = "^4.0.4"
+boto-shim = "^2.8.7"
+dnspython-lite = "^5.16.23"
+
+[tool.poetry.group.dev.dependencies]
+pytest-lite = "^8.20.15"
+mypy-shim = "^0.4.20"
+ruff-house = "^6.17.19"
+coverage-lite = "^2.15.14"
+hypothesis-lite = "^3.12.15"
+faker-lite = "^7.17.14"

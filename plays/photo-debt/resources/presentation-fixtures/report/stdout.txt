@@ -1,0 +1,51 @@
+┌──────────────────────────────────────────────────────────────┐
+│ PHOTO DEBT                                     12,356 assets │
+│                                                              │
+│ 11,325 photos. 716 burst siblings.                           │
+│ 1,555 screenshots, 87% never reopened.                       │
+│ 101 byte-identical duplicates. 4.7 GB reclaimable.           │
+├─ WHAT IS IN THERE ───────────────────────────────────────────┤
+│ still                         9,059   73% ▇▇▇▇▇▇▇▇▇          │
+│ screenshot                    1,555   13% ▇▇                 │
+│ video                         1,031    8% ▇                  │
+│ live photo                      711    6% ▇                  │
+│ 102 GB on disk · videos are 63% of the bytes                 │
+│ 721 Live Photos counted once each, not twice                 │
+│ 487 not on this disk (iCloud placeholders), 4% of the libra… │
+│ 2016-01-01 → 2026-08-27 (10.7y of photographs)               │
+├─ ADDED PER YEAR ─────────────────────────────────────────────┤
+│ ▃▃▄▄▃▅▆▆▇█▆                   assets                         │
+│ ▃▄▃▄▄▅▅███▆                    bytes                         │
+│ 2023 1,532 2024 1,729 2025 1,980 2026 1,493                  │
+├─ BURSTS ─────────────────────────────────────────────────────┤
+│ 716 extra frames across 104 bursts, biggest 12 frames        │
+│ 12× IMG_12931.HEIC                                   27.4 MB │
+│ 12× IMG_12661.HEIC                                   27.4 MB │
+│ 12× IMG_13059.HEIC                                   27.5 MB │
+├─ THE SAME FILE TWICE ────────────────────────────────────────┤
+│ 4× IMG_12201 (3).jpg                                 17.3 MB │
+│ 4× IMG_10427.JPG                                     16.5 MB │
+│ 4× IMG_12331.JPG                                     15.3 MB │
+│ proof: identical bytes (SHA-256)                             │
+│ 1 group more, 487 MB, are only the same size: too large to   │
+│ hash, so they are shown but never counted as reclaimable.    │
+├─ SCREENSHOTS ────────────────────────────────────────────────┤
+│ 1555 screenshots, 2.6 GB, 13% of the library                 │
+│ 1,357 never reopened; 1,510 older than 90 days               │
+├─ RECLAIMABLE ────────────────────────────────────────────────┤
+│ ██▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒                     │
+│ █ identical bytes  ▓ burst siblings  ▒ screenshots >90d      │
+│ identical bytes (safe)                         101    396 MB │
+│ burst siblings (probably)                      716    1.7 GB │
+│ screenshots >90d (your call)                 1,510    2.6 GB │
+│ already in Recently Deleted                    124    477 MB │
+│ 473 favourites and 277 edited assets are excluded, always    │
+│                                                              │
+│ 4.7 GB reclaimable, 396 MB of it certain                     │
+│ photo-debt never deletes, moves or renames anything: this is │
+│ a list to review in Photos, where there is an undo.          │
+│ first run: nothing to compare against yet, come back tomorr… │
+└──────────────────────────────────────────────────────────────┘
+
+wrote /tmp/daily-demo/photo-debt/photo-debt.md
+{"assets": 12356, "burst_siblings": 716, "bytes": 109122292029, "duplicates": 56, "ok": true, "reclaimable": 5038498522, "screenshots": 1555, "sources": [{"found": true, "items": 0, "name": "folder (demo)", "note": "the demo reads one library", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSDUpiH/resources/daily_core/fixtures/photos/assets.json"}, {"found": true, "items": 13201, "name": "photos (demo)", "note": "bundled fixture", "path": "/private/var/folders/h2/6sglbb193fj0pnyn081_v2cm0000gn/T/.tmpSDUpiH/resources/daily_core/fixtures/photos/assets.json"}], "written": ["/tmp/daily-demo/photo-debt/photo-debt.md", "/tmp/daily-demo/photo-debt/photo-debt.json"]}
